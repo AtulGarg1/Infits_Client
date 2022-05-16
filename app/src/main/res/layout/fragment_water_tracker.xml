@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/waterblue"
+    tools:context=".WaterTrackerFragment">
+
+    <ImageButton
+        android:id="@+id/imgback"
+        android:layout_width="60dp"
+        android:layout_height="55dp"
+        android:backgroundTint="@color/waterblue"
+        app:tint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.071"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.041"
+        app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/wgoal3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nats_regular"
+            android:text="Goal Reached"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.543" />
+
+
+        <TextView
+            android:id="@+id/wgoalperc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nats_regular"
+            android:text="50%"
+            android:textColor="@color/white"
+            android:textSize="60dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.489" />
+
+        <TextView
+            android:id="@+id/textviewsleep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nats_regular"
+            android:text="WATER TRACKER"
+            android:textColor="@color/white"
+            android:textSize="38dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="249dp"
+            android:layout_height="252dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.16"
+            app:srcCompat="@drawable/waterpic" />
+
+
+
+        <ImageButton
+            android:id="@+id/addliq"
+            android:layout_width="26dp"
+            android:layout_height="25dp"
+            android:background="@drawable/btn_background"
+            app:tint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.524"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.177"
+            app:srcCompat="@drawable/ic_baseline_add_24" />
+
+        <ImageView
+            android:id="@+id/imageView15"
+            android:layout_width="180dp"
+            android:layout_height="90dp"
+            android:src="@drawable/waterrect"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.513" />
+
+        <ImageView
+            android:id="@+id/waterGoal"
+            android:layout_width="24dp"
+            android:layout_height="23dp"
+            android:scaleType="fitXY"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.321"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.21"
+            app:srcCompat="@drawable/watergoalpic" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/bottom_sheet1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_behavior="@string/bottom_sheet_behavior"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="300dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:layout_behavior="@string/bottom_sheet_behavior"
+            app:behavior_hideable="true"
+            app:behavior_peekHeight="300dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PAST ACTIVITY"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:layout_margin="10dp"
+                android:textSize="25sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/waterblue"
+                android:paddingLeft="20sp"
+                android:text="8 Glasses"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                tools:ignore="TextContrastCheck" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="8 Glasses"
+                android:textColor="@color/white"
+                android:background="@color/waterblue"
+                android:paddingLeft="20sp"
+                android:layout_margin="10dp"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="8 Glasses"
+                android:textColor="@color/white"
+                android:background="@color/waterblue"
+                android:paddingLeft="20sp"
+                android:layout_margin="10dp"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="8 Glasses"
+                android:textColor="@color/white"
+                android:background="@color/waterblue"
+                android:paddingLeft="20sp"
+                android:layout_margin="10dp"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="8 Glasses"
+                android:textColor="@color/white"
+                android:background="@color/waterblue"
+                android:paddingLeft="20sp"
+                android:layout_margin="10dp"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="8 Glasses"
+                android:textColor="@color/white"
+                android:background="@color/waterblue"
+                android:paddingLeft="20sp"
+                android:layout_margin="10dp"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="8 Glasses"
+                android:textColor="@color/white"
+                android:background="@color/waterblue"
+                android:paddingLeft="20sp"
+                android:layout_margin="10dp"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="8 Glasses"
+                android:textColor="@color/white"
+                android:background="@color/waterblue"
+                android:paddingLeft="20sp"
+                android:layout_margin="10dp"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="8 Glasses"
+                android:textColor="@color/white"
+                android:background="@color/waterblue"
+                android:paddingLeft="20sp"
+                android:layout_margin="10dp"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="8 Glasses"
+                android:textColor="@color/white"
+                android:background="@color/waterblue"
+                android:paddingLeft="20sp"
+                android:layout_margin="10dp"
+                android:textSize="18sp" />
+
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/sleeppurple"
+    tools:context=".SleepTrackerFragment">
+
+    <ImageButton
+        android:id="@+id/imgback"
+        android:layout_width="60dp"
+        android:layout_height="55dp"
+        android:backgroundTint="@color/sleeppurple"
+        app:tint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.071"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.041"
+        app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/texttime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/baloo2"
+            android:text="Time"
+            android:textColor="@color/white"
+            android:textSize="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.164" />
+
+        <Button
+            android:id="@+id/endcycle"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:backgroundTint="#310580"
+            android:text="End Cycle"
+            android:fontFamily="@font/nats_regular"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:cornerRadius="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.390" />
+
+        <Button
+            android:id="@+id/set_sleep_goal"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:backgroundTint="#00096f"
+            android:text="Set Goal"
+            android:fontFamily="@font/nats_regular"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:cornerRadius="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.320" />
+
+
+        <Button
+            android:id="@+id/startcycle"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:backgroundTint="#310580"
+            android:text="Start Cycle"
+            android:fontFamily="@font/nats_regular"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:cornerRadius="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.390" />
+
+
+        <TextView
+            android:id="@+id/textviewsleep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nats_regular"
+            android:text="SLEEP TRACKER"
+            android:textColor="@color/white"
+            android:textSize="38dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/setalarm"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:background="@drawable/button_outline"
+            android:backgroundTint="@color/sleeppurple"
+            android:text="Set an alarm"
+            android:fontFamily="@font/nats_regular"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:cornerRadius="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.465" />
+
+        <TextView
+            android:id="@+id/tvDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Optimal time to wake up is 8 AM"
+            android:fontFamily="@font/nats_regular"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.545" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/bottom_sheet1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_behavior="@string/bottom_sheet_behavior"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="300dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:layout_behavior="@string/bottom_sheet_behavior"
+            app:behavior_hideable="true"
+            app:behavior_peekHeight="300dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PAST ACTIVITY"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:layout_margin="10dp"
+                android:textSize="25sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/sleeppurple"
+                android:paddingLeft="20sp"
+                android:text="8 Glasses"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                tools:ignore="TextContrastCheck" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="8 Glasses"
+                android:textColor="@color/white"
+                android:background="@color/sleeppurple"
+                android:paddingLeft="20sp"
+                android:layout_margin="10dp"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="8 Glasses"
+                android:textColor="@color/white"
+                android:background="@color/sleeppurple"
+                android:paddingLeft="20sp"
+                android:layout_margin="10dp"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="8 Glasses"
+                android:textColor="@color/white"
+                android:background="@color/sleeppurple"
+                android:paddingLeft="20sp"
+                android:layout_margin="10dp"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="8 Glasses"
+                android:textColor="@color/white"
+                android:background="@color/sleeppurple"
+                android:paddingLeft="20sp"
+                android:layout_margin="10dp"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="8 Glasses"
+                android:textColor="@color/white"
+                android:background="@color/sleeppurple"
+                android:paddingLeft="20sp"
+                android:layout_margin="10dp"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="8 Glasses"
+                android:textColor="@color/white"
+                android:background="@color/sleeppurple"
+                android:paddingLeft="20sp"
+                android:layout_margin="10dp"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="8 Glasses"
+                android:textColor="@color/white"
+                android:background="@color/sleeppurple"
+                android:paddingLeft="20sp"
+                android:layout_margin="10dp"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="8 Glasses"
+                android:textColor="@color/white"
+                android:background="@color/sleeppurple"
+                android:paddingLeft="20sp"
+                android:layout_margin="10dp"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="8 Glasses"
+                android:textColor="@color/white"
+                android:background="@color/sleeppurple"
+                android:paddingLeft="20sp"
+                android:layout_margin="10dp"
+                android:textSize="18sp" />
+
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
