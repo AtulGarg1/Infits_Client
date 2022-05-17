@@ -17,7 +17,6 @@ import android.view.ViewGroup;
  */
 public class WaterFragment extends Fragment {
 
-    CardView stepfrag, heartfrag, waterfrag, sleepfrag, weightfrag;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -65,39 +64,6 @@ public class WaterFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_water, container, false);
 
-        stepfrag = view.findViewById(R.id.stepfrag);
-        heartfrag = view.findViewById(R.id.heartfrag);
-        waterfrag = view.findViewById(R.id.waterfrag);
-        sleepfrag = view.findViewById(R.id.sleepfrag);
-        weightfrag = view.findViewById(R.id.weightfrag);
-
-        heartfrag.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_waterFragment_to_fragment_Heart);
-            }
-        });
-
-        stepfrag.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_waterFragment_to_stepsFragment);
-            }
-        });
-
-        sleepfrag.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_waterFragment_to_sleepFragment);
-            }
-        });
-
-        weightfrag.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_waterFragment_to_weightFragment);
-            }
-        });
 
         return view;
     }

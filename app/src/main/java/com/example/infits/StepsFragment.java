@@ -65,6 +65,8 @@ public class StepsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_steps, container, false);
 
+        /*
+
         stepfrag = view.findViewById(R.id.stepfrag);
         heartfrag = view.findViewById(R.id.heartfrag);
         waterfrag = view.findViewById(R.id.waterfrag);
@@ -98,6 +100,8 @@ public class StepsFragment extends Fragment {
                 Navigation.findNavController(v).navigate(R.id.action_stepsFragment_to_weightFragment);
             }
         });
+
+         */
 
         return view;
     }
