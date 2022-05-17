@@ -3,7 +3,9 @@ package com.example.infits;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -92,6 +94,8 @@ public class Login extends AppCompatActivity {
                             DataFromDatabase.location = object.getString("location");
                             DataFromDatabase.age = object.getString("age");
                             DataFromDatabase.gender  = object.getString("gender");
+                            byte[] qrimage = Base64.decode(DataFromDatabase.profilePhoto,0);
+                            DataFromDatabase.profile = BitmapFactory.decodeByteArray(qrimage,0,qrimage.length);
                             Log.d("Login Screen","Dietician user id = "+ DataFromDatabase.dietitianuserID);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -112,4 +116,5 @@ public class Login extends AppCompatActivity {
             }
         });
     }
+
 }

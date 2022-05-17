@@ -1,17 +1,42 @@
 package com.example.infits;
 
 import android.app.Dialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.provider.MediaStore;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,8 +45,20 @@ import android.widget.ImageButton;
  */
 public class Account extends Fragment {
 
-    ImageButton imgback;
-    Button logout;
+    String url = "http://192.168.177.91/infits/save.php";
+
+    ActivityResultLauncher<String> photo;
+
+    File file;
+
+    String fileName, path;
+
+    ImageView imgback;
+    Button logout,save;
+    ImageView male, female,profile_pic;
+    String gen = "M";
+
+    Bitmap photoBit;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -69,8 +106,64 @@ public class Account extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_account, container, false);
 
-        imgback = view.findViewById(R.id.imgback);
-        logout = view.findViewById(R.id.logout);
+        imgback = view.findViewById(R.id.backToSettings);
+        logout = view.findViewById(R.id.button_logout);
+        male = view.findViewById(R.id.gender_male_icon);
+        female=view.findViewById(R.id.gender_female_icon);
+        profile_pic=view.findViewById(R.id.dp);
+        save=view.findViewById(R.id.button_save);
+        EditText name=view.findViewById(R.id.name_edt);
+        EditText age=view.findViewById(R.id.age_edt);
+        EditText email=view.findViewById(R.id.email_edt);
+        EditText phone=view.findViewById(R.id.phone_edt);
+
+        profile_pic.setImageBitmap(DataFromDatabase.profile);
+
+        photo = registerForActivityResult(
+                new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+                    @Override
+                    public void onActivityResult(Uri result) {
+                        profile_pic.setImageURI(result);
+                        path = result.getPath();
+                        file = new File(result.toString());
+                        String filename = path.substring(path.lastIndexOf("/")+1);
+                        if (filename.indexOf(".") > 0) {
+                            fileName = filename.substring(0, filename.lastIndexOf("."));
+                        } else {
+                            fileName =  filename;
+                        }
+                        Log.d("MainClass", "Real Path: " + path);
+                        Log.d("MainClass", "Filename With Extension: " + filename);
+                        Log.d("MainClass", "File Without Extension: " + fileName);
+                        try {
+                            photoBit = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver() , result);
+                            DataFromDatabase.profile = photoBit;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        );
+
+        profile_pic.setOnClickListener(v->{
+            photo.launch("image/*");
+        });
+
+        male.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                male.setImageResource(R.drawable.gender_male_selected);
+                female.setImageResource(R.drawable.gender_female);
+            }
+        });
+        female.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                male.setImageResource(R.drawable.gender_male);
+                female.setImageResource(R.drawable.gender_female_selected);
+                gen = "F";
+            }
+        });
 
         imgback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +194,45 @@ public class Account extends Fragment {
             }
         });
 
+        save.setOnClickListener(v->{
+            String nameStr = name.getText().toString();
+            String ageStr = age.getText().toString();
+            String emailStr = email.getText().toString();
+            String mobile = phone.getText().toString();
+            StringRequest request = new StringRequest(Request.Method.POST,url,response -> {
+                    if (response.equals("updated")){
+                        Toast.makeText(getActivity(), "Updated", Toast.LENGTH_SHORT).show();
+                    }
+            },error -> {
+                Toast.makeText(getActivity(),error.toString().trim(),Toast.LENGTH_SHORT).show();
+            }){
+                @Nullable
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    String image = getStringOfImage(photoBit);
+                    LinkedHashMap<String,String> data = new LinkedHashMap<>();
+                    data.put("userID",DataFromDatabase.clientuserID);
+                    data.put("email",emailStr);
+                    data.put("gender",gen);
+                    data.put("age",ageStr);
+                    data.put("mobile",mobile);
+                    data.put("name",nameStr);
+                    data.put("img",image);
+                    data.put("nameImg",DataFromDatabase.clientuserID);
+
+                    return data;
+                }
+            };
+            Volley.newRequestQueue(getActivity()).add(request);
+        });
+
         return view;
+    }
+    public String getStringOfImage(Bitmap bm){
+        ByteArrayOutputStream bo = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG,100,bo);
+        byte[] imageByte = bo.toByteArray();
+        String imageEncode = Base64.encodeToString(imageByte, Base64.DEFAULT);
+        return imageEncode;
     }
 }
