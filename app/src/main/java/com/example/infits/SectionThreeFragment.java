@@ -9,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +22,7 @@ public class SectionThreeFragment extends Fragment {
 
     Button nextbtn;
     TextView backbtn;
+    EditText eTextEmail;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -69,10 +72,16 @@ public class SectionThreeFragment extends Fragment {
 
         nextbtn = view.findViewById(R.id.nextbtn);
         backbtn = view.findViewById(R.id.backbtn);
+        eTextEmail = view.findViewById(R.id.eTextEmail);
+
 
         nextbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String user_email = eTextEmail.getText().toString();
+                Toast.makeText(getContext(),user_email, Toast.LENGTH_SHORT).show();
+
                 Navigation.findNavController(v).navigate(R.id.action_sectionThreeFragment_to_sectionFourFragment);
             }
         });

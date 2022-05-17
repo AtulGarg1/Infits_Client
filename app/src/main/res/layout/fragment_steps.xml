@@ -538,18 +538,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.961" />
 
-
-    <com.jjoe64.graphview.GraphView
-        android:id="@+id/graph"
+    <ImageView
+        android:id="@+id/imageView47"
         android:layout_width="342dp"
         android:layout_height="168dp"
+        android:src="@mipmap/stepsgraph"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.318" />
-
+        app:layout_constraintVertical_bias="0.321" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="350dp"
@@ -583,6 +582,7 @@
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

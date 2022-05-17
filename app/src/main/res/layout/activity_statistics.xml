@@ -23,11 +23,70 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.048">
+
+        <LinearLayout
+            android:layout_width="30dp"
+            android:layout_height="90dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/steps_btn"
+                android:layout_width="65dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/step_stat_selected" />
+
+            <ImageButton
+                android:id="@+id/heart_btn"
+                android:layout_width="65dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/heart_stat_unselected" />
+
+            <ImageButton
+                android:id="@+id/water_btn"
+                android:layout_width="65dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/water_stat_unselected" />
+
+            <ImageButton
+                android:id="@+id/sleep_btn"
+                android:layout_width="65dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/sleep_stat_unselected" />
+
+            <ImageButton
+                android:id="@+id/weight_btn"
+                android:layout_width="65dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/weight_stat_unselected" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView2"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="409dp"
-        android:layout_height="650dp"
+        android:layout_height="600dp"
         app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
