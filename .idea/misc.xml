@@ -11,10 +11,28 @@
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_steps.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/logoutdialog.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/setgoaldialog.xml" value="0.19166666666666668" />
+        <entry key="..\:/Users/yagna/AndroidStudioProjects/infits-client/app/src/main/res/drawable/outline.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/yagna/AndroidStudioProjects/infits-client/app/src/main/res/drawable/switch_off.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/yagna/AndroidStudioProjects/infits-client/app/src/main/res/drawable/switch_on.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/yagna/AndroidStudioProjects/infits-client/app/src/main/res/drawable/switch_on_heart.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/yagna/AndroidStudioProjects/infits-client/app/src/main/res/drawable/switch_on_sleep.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/yagna/AndroidStudioProjects/infits-client/app/src/main/res/drawable/switch_on_water.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/yagna/AndroidStudioProjects/infits-client/app/src/main/res/drawable/switch_on_weight.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/yagna/AndroidStudioProjects/infits-client/app/src/main/res/drawable/switch_text.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/yagna/AndroidStudioProjects/infits-client/app/src/main/res/layout/activity_statistics.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/yagna/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_heart.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/yagna/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section_one.xml" value="0.16893115942028986" />
+        <entry key="..\:/Users/yagna/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section_three.xml" value="0.16893115942028986" />
+        <entry key="..\:/Users/yagna/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section_three_qtwo.xml" value="0.16893115942028986" />
+        <entry key="..\:/Users/yagna/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_sleep.xml" value="0.23875432525951557" />
+        <entry key="..\:/Users/yagna/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_steps.xml" value="0.25892857142857145" />
+        <entry key="..\:/Users/yagna/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_water.xml" value="0.15806159420289856" />
+        <entry key="..\:/Users/yagna/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_weight.xml" value="0.15806159420289856" />
+        <entry key="..\:/Users/yagna/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_weight_date.xml" value="0.1" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
