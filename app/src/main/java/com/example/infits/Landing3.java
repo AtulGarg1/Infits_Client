@@ -22,7 +22,7 @@ public class Landing3 extends AppCompatActivity {
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Landing3.this, Login.class);
+                Intent i = new Intent(Landing3.this, DashBoardMain.class);
                 startActivity(i);
             }
         });

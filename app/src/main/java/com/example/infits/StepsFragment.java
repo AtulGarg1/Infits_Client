@@ -72,7 +72,15 @@ public class StepsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_steps, container, false);
 
+
         final GraphView graph = (GraphView) view.findViewById(R.id.graph);
+        /*
+
+        stepfrag = view.findViewById(R.id.stepfrag);
+        heartfrag = view.findViewById(R.id.heartfrag);
+        waterfrag = view.findViewById(R.id.waterfrag);
+        sleepfrag = view.findViewById(R.id.sleepfrag);
+        weightfrag = view.findViewById(R.id.weightfrag);
 
         ArrayList<String> days = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("dd ");
@@ -147,6 +155,8 @@ public class StepsFragment extends Fragment {
 
         });
         graph.addSeries(series);
+
+         */
 
         return view;
     }
