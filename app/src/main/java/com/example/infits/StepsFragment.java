@@ -6,10 +6,15 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.Toast;
 
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.DataPoint;
@@ -25,6 +30,8 @@ import java.util.Calendar;
  * create an instance of this fragment.
  */
 public class StepsFragment extends Fragment {
+
+    RadioButton customdates_btn, year_btn, month_btn, week_btn;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -72,18 +79,65 @@ public class StepsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_steps, container, false);
 
+        customdates_btn = view.findViewById(R.id.customdates_btn);
+        year_btn = view.findViewById(R.id.year_btn);
+        month_btn = view.findViewById(R.id.month_btn);
+        week_btn = view.findViewById(R.id.week_btn);
+
+        MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.dateRangePicker();
+        MaterialDatePicker materialDatePicker = builder.build();
+
+        customdates_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                customdates_btn.setBackgroundResource(R.drawable.switch_on);
+                materialDatePicker.show(getFragmentManager(),"DATE_PICKER");
+
+            }
+        });
+
+        materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
+            @Override
+            public void onPositiveButtonClick(Object selection) {
+                Toast.makeText(getContext(),"Selected range: "+ materialDatePicker.getHeaderText(),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        year_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                year_btn.setBackgroundResource(R.drawable.switch_on);
+
+            }
+        });
+
+        month_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                month_btn.setBackgroundResource(R.drawable.switch_on);
+
+            }
+        });
+
+        week_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                week_btn.setBackgroundResource(R.drawable.switch_on);
+
+            }
+        });
+
 
         final GraphView graph = (GraphView) view.findViewById(R.id.graph);
-        /*
 
-        stepfrag = view.findViewById(R.id.stepfrag);
-        heartfrag = view.findViewById(R.id.heartfrag);
-        waterfrag = view.findViewById(R.id.waterfrag);
-        sleepfrag = view.findViewById(R.id.sleepfrag);
-        weightfrag = view.findViewById(R.id.weightfrag);
 
         ArrayList<String> days = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("dd ");
+
         Calendar cal = Calendar.getInstance();
         if (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
             cal.add(Calendar.DAY_OF_YEAR, 0);
@@ -156,7 +210,6 @@ public class StepsFragment extends Fragment {
         });
         graph.addSeries(series);
 
-         */
 
         return view;
     }
