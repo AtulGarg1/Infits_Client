@@ -22,6 +22,12 @@
         <action
             android:id="@+id/action_consultationFragment_to_section4Q1"
             app:destination="@id/section4Q1" />
+        <action
+            android:id="@+id/action_consultationFragment_to_section5Q1"
+            app:destination="@id/section5Q1" />
+        <action
+            android:id="@+id/action_consultationFragment_to_section6Q1"
+            app:destination="@id/section6Q1" />
     </fragment>
     <fragment
         android:id="@+id/sectionOneQOne"
@@ -351,7 +357,14 @@
         android:id="@+id/section5Q1"
         android:name="com.example.infits.Section5Q1"
         android:label="fragment_section5_q1"
-        tools:layout="@layout/fragment_section5_q1" />
+        tools:layout="@layout/fragment_section5_q1" >
+        <action
+            android:id="@+id/action_section5Q1_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
+        <action
+            android:id="@+id/action_section5Q1_to_section5Q2"
+            app:destination="@id/section5Q2" />
+    </fragment>
     <fragment
         android:id="@+id/section4Q1"
         android:name="com.example.infits.Section4Q1"
@@ -434,6 +447,318 @@
             app:destination="@id/section4Q6" />
         <action
             android:id="@+id/action_section4Q7_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/section5Q2"
+        android:name="com.example.infits.Section5Q2"
+        android:label="fragment_section5_q2"
+        tools:layout="@layout/fragment_section5_q2" >
+        <action
+            android:id="@+id/action_section5Q2_to_section5Q1"
+            app:destination="@id/section5Q1" />
+        <action
+            android:id="@+id/action_section5Q2_to_section5Q3"
+            app:destination="@id/section5Q3" />
+    </fragment>
+    <fragment
+        android:id="@+id/section5Q3"
+        android:name="com.example.infits.Section5Q3"
+        android:label="fragment_section5_q3"
+        tools:layout="@layout/fragment_section5_q3" >
+        <action
+            android:id="@+id/action_section5Q3_to_section5Q2"
+            app:destination="@id/section5Q2" />
+        <action
+            android:id="@+id/action_section5Q3_to_section5Q4"
+            app:destination="@id/section5Q4" />
+    </fragment>
+    <fragment
+        android:id="@+id/section5Q4"
+        android:name="com.example.infits.Section5Q4"
+        android:label="fragment_section5_q4"
+        tools:layout="@layout/fragment_section5_q4" >
+        <action
+            android:id="@+id/action_section5Q4_to_section5Q3"
+            app:destination="@id/section5Q3" />
+        <action
+            android:id="@+id/action_section5Q4_to_section5Q5"
+            app:destination="@id/section5Q5" />
+    </fragment>
+    <fragment
+        android:id="@+id/section5Q5"
+        android:name="com.example.infits.Section5Q5"
+        android:label="fragment_section5_q5"
+        tools:layout="@layout/fragment_section5_q5" >
+        <action
+            android:id="@+id/action_section5Q5_to_section5Q4"
+            app:destination="@id/section5Q4" />
+        <action
+            android:id="@+id/action_section5Q5_to_section5Q6"
+            app:destination="@id/section5Q6" />
+    </fragment>
+    <fragment
+        android:id="@+id/section5Q6"
+        android:name="com.example.infits.Section5Q6"
+        android:label="fragment_section5_q6"
+        tools:layout="@layout/fragment_section5_q6" >
+        <action
+            android:id="@+id/action_section5Q6_to_section5Q5"
+            app:destination="@id/section5Q5" />
+        <action
+            android:id="@+id/action_section5Q6_to_section5Q7"
+            app:destination="@id/section5Q7" />
+    </fragment>
+    <fragment
+        android:id="@+id/section5Q7"
+        android:name="com.example.infits.Section5Q7"
+        android:label="fragment_section5_q7"
+        tools:layout="@layout/fragment_section5_q7" >
+        <action
+            android:id="@+id/action_section5Q7_to_section5Q6"
+            app:destination="@id/section5Q6" />
+        <action
+            android:id="@+id/action_section5Q7_to_section5Q8"
+            app:destination="@id/section5Q8" />
+    </fragment>
+    <fragment
+        android:id="@+id/section5Q8"
+        android:name="com.example.infits.Section5Q8"
+        android:label="fragment_section5_q8"
+        tools:layout="@layout/fragment_section5_q8" >
+        <action
+            android:id="@+id/action_section5Q8_to_section5Q7"
+            app:destination="@id/section5Q7" />
+        <action
+            android:id="@+id/action_section5Q8_to_section5Q9"
+            app:destination="@id/section5Q9" />
+    </fragment>
+    <fragment
+        android:id="@+id/section5Q9"
+        android:name="com.example.infits.Section5Q9"
+        android:label="fragment_section5_q9"
+        tools:layout="@layout/fragment_section5_q9" >
+        <action
+            android:id="@+id/action_section5Q9_to_section5Q10"
+            app:destination="@id/section5Q10" />
+        <action
+            android:id="@+id/action_section5Q9_to_section5Q8"
+            app:destination="@id/section5Q8" />
+    </fragment>
+    <fragment
+        android:id="@+id/section5Q10"
+        android:name="com.example.infits.Section5Q10"
+        android:label="fragment_section5_q10"
+        tools:layout="@layout/fragment_section5_q10" >
+        <action
+            android:id="@+id/action_section5Q10_to_section5Q11"
+            app:destination="@id/section5Q11" />
+        <action
+            android:id="@+id/action_section5Q10_to_section5Q9"
+            app:destination="@id/section5Q9" />
+    </fragment>
+    <fragment
+        android:id="@+id/section5Q11"
+        android:name="com.example.infits.Section5Q11"
+        android:label="fragment_section5_q11"
+        tools:layout="@layout/fragment_section5_q11" >
+        <action
+            android:id="@+id/action_section5Q11_to_section5Q10"
+            app:destination="@id/section5Q10" />
+        <action
+            android:id="@+id/action_section5Q11_to_section5Q12"
+            app:destination="@id/section5Q12" />
+    </fragment>
+    <fragment
+        android:id="@+id/section5Q12"
+        android:name="com.example.infits.Section5Q12"
+        android:label="fragment_section5_q12"
+        tools:layout="@layout/fragment_section5_q12" >
+        <action
+            android:id="@+id/action_section5Q12_to_section5Q11"
+            app:destination="@id/section5Q11" />
+        <action
+            android:id="@+id/action_section5Q12_to_section5Q13"
+            app:destination="@id/section5Q13" />
+    </fragment>
+    <fragment
+        android:id="@+id/section5Q13"
+        android:name="com.example.infits.Section5Q13"
+        android:label="fragment_section5_q13"
+        tools:layout="@layout/fragment_section5_q13" >
+        <action
+            android:id="@+id/action_section5Q13_to_section5Q12"
+            app:destination="@id/section5Q12" />
+        <action
+            android:id="@+id/action_section5Q13_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/section6Q1"
+        android:name="com.example.infits.Section6Q1"
+        android:label="fragment_section6_q1"
+        tools:layout="@layout/fragment_section6_q1" >
+        <action
+            android:id="@+id/action_section6Q1_to_consultationFragment"
+            app:destination="@id/consultationFragment" />
+        <action
+            android:id="@+id/action_section6Q1_to_section6Q2"
+            app:destination="@id/section6Q2" />
+    </fragment>
+    <fragment
+        android:id="@+id/section6Q2"
+        android:name="com.example.infits.Section6Q2"
+        android:label="fragment_section6_q2"
+        tools:layout="@layout/fragment_section6_q2" >
+        <action
+            android:id="@+id/action_section6Q2_to_section6Q1"
+            app:destination="@id/section6Q1" />
+        <action
+            android:id="@+id/action_section6Q2_to_section6Q3"
+            app:destination="@id/section6Q3" />
+    </fragment>
+    <fragment
+        android:id="@+id/section6Q3"
+        android:name="com.example.infits.Section6Q3"
+        android:label="fragment_section6_q3"
+        tools:layout="@layout/fragment_section6_q3" >
+        <action
+            android:id="@+id/action_section6Q3_to_section6Q2"
+            app:destination="@id/section6Q2" />
+        <action
+            android:id="@+id/action_section6Q3_to_section6Q4"
+            app:destination="@id/section6Q4" />
+    </fragment>
+    <fragment
+        android:id="@+id/section6Q4"
+        android:name="com.example.infits.Section6Q4"
+        android:label="fragment_section6_q4"
+        tools:layout="@layout/fragment_section6_q4" >
+        <action
+            android:id="@+id/action_section6Q4_to_section6Q3"
+            app:destination="@id/section6Q3" />
+        <action
+            android:id="@+id/action_section6Q4_to_section6Q5"
+            app:destination="@id/section6Q5" />
+    </fragment>
+    <fragment
+        android:id="@+id/section6Q5"
+        android:name="com.example.infits.Section6Q5"
+        android:label="fragment_section6_q5"
+        tools:layout="@layout/fragment_section6_q5" >
+        <action
+            android:id="@+id/action_section6Q5_to_section6Q4"
+            app:destination="@id/section6Q4" />
+        <action
+            android:id="@+id/action_section6Q5_to_section6Q6"
+            app:destination="@id/section6Q6" />
+    </fragment>
+    <fragment
+        android:id="@+id/section6Q6"
+        android:name="com.example.infits.Section6Q6"
+        android:label="fragment_section6_q6"
+        tools:layout="@layout/fragment_section6_q6" >
+        <action
+            android:id="@+id/action_section6Q6_to_section6Q5"
+            app:destination="@id/section6Q5" />
+        <action
+            android:id="@+id/action_section6Q6_to_section6Q7"
+            app:destination="@id/section6Q7" />
+    </fragment>
+    <fragment
+        android:id="@+id/section6Q7"
+        android:name="com.example.infits.Section6Q7"
+        android:label="fragment_section6_q7"
+        tools:layout="@layout/fragment_section6_q7" >
+        <action
+            android:id="@+id/action_section6Q7_to_section6Q6"
+            app:destination="@id/section6Q6" />
+        <action
+            android:id="@+id/action_section6Q7_to_section6Q8"
+            app:destination="@id/section6Q8" />
+    </fragment>
+    <fragment
+        android:id="@+id/section6Q8"
+        android:name="com.example.infits.Section6Q8"
+        android:label="fragment_section6_q8"
+        tools:layout="@layout/fragment_section6_q8" >
+        <action
+            android:id="@+id/action_section6Q8_to_section6Q9"
+            app:destination="@id/section6Q9" />
+        <action
+            android:id="@+id/action_section6Q8_to_section6Q7"
+            app:destination="@id/section6Q7" />
+    </fragment>
+    <fragment
+        android:id="@+id/section6Q9"
+        android:name="com.example.infits.Section6Q9"
+        android:label="fragment_section6_q9"
+        tools:layout="@layout/fragment_section6_q9" >
+        <action
+            android:id="@+id/action_section6Q9_to_section6Q10"
+            app:destination="@id/section6Q10" />
+        <action
+            android:id="@+id/action_section6Q9_to_section6Q8"
+            app:destination="@id/section6Q8" />
+    </fragment>
+    <fragment
+        android:id="@+id/section6Q10"
+        android:name="com.example.infits.Section6Q10"
+        android:label="fragment_section6_q10"
+        tools:layout="@layout/fragment_section6_q10" >
+        <action
+            android:id="@+id/action_section6Q10_to_section6Q9"
+            app:destination="@id/section6Q9" />
+        <action
+            android:id="@+id/action_section6Q10_to_section6Q11"
+            app:destination="@id/section6Q11" />
+    </fragment>
+    <fragment
+        android:id="@+id/section6Q11"
+        android:name="com.example.infits.Section6Q11"
+        android:label="fragment_section6_q11"
+        tools:layout="@layout/fragment_section6_q11" >
+        <action
+            android:id="@+id/action_section6Q11_to_section6Q10"
+            app:destination="@id/section6Q10" />
+        <action
+            android:id="@+id/action_section6Q11_to_section6Q12"
+            app:destination="@id/section6Q12" />
+    </fragment>
+    <fragment
+        android:id="@+id/section6Q12"
+        android:name="com.example.infits.Section6Q12"
+        android:label="fragment_section6_q12"
+        tools:layout="@layout/fragment_section6_q12" >
+        <action
+            android:id="@+id/action_section6Q12_to_section6Q11"
+            app:destination="@id/section6Q11" />
+        <action
+            android:id="@+id/action_section6Q12_to_section6Q13"
+            app:destination="@id/section6Q13" />
+    </fragment>
+    <fragment
+        android:id="@+id/section6Q13"
+        android:name="com.example.infits.Section6Q13"
+        android:label="fragment_section6_q13"
+        tools:layout="@layout/fragment_section6_q13" >
+        <action
+            android:id="@+id/action_section6Q13_to_section6Q12"
+            app:destination="@id/section6Q12" />
+        <action
+            android:id="@+id/action_section6Q13_to_section6Q14"
+            app:destination="@id/section6Q14" />
+    </fragment>
+    <fragment
+        android:id="@+id/section6Q14"
+        android:name="com.example.infits.Section6Q14"
+        android:label="fragment_section6_q14"
+        tools:layout="@layout/fragment_section6_q14" >
+        <action
+            android:id="@+id/action_section6Q14_to_section6Q13"
+            app:destination="@id/section6Q13" />
+        <action
+            android:id="@+id/action_section6Q14_to_consultationFragment"
             app:destination="@id/consultationFragment" />
     </fragment>
 </navigation>

@@ -83,14 +83,14 @@ public class Section5Q3 extends Fragment {
 
                 DataSectionFive.snack = snack;
 
-                Navigation.findNavController(v).navigate(R.id.action_section2Q1_to_section2Q2);
+                Navigation.findNavController(v).navigate(R.id.action_section5Q3_to_section5Q4);
             }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_section2Q1_to_consultationFragment);
+                Navigation.findNavController(v).navigate(R.id.action_section5Q3_to_section5Q2);
             }
         });
 

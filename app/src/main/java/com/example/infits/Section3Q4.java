@@ -216,14 +216,14 @@ public class Section3Q4 extends Fragment {
 
                 DataSectionThree.nausea = nausea;
 
-                Navigation.findNavController(v).navigate(R.id.action_sectionOneQSix_to_sectionOneQSeven);
+                Navigation.findNavController(v).navigate(R.id.action_section3Q4_to_section3Q5);
             }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_sectionOneQSix_to_sectionOneQFive);
+                Navigation.findNavController(v).navigate(R.id.action_section3Q4_to_section3Q3);
             }
         });
 

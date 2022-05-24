@@ -83,14 +83,14 @@ public class Section4Q7 extends Fragment {
 
                 DataSectionFour.activity_duration = activity_duration;
 
-                Navigation.findNavController(v).navigate(R.id.action_section2Q1_to_section2Q2);
+                Navigation.findNavController(v).navigate(R.id.action_section4Q7_to_consultationFragment);
             }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_section2Q1_to_consultationFragment);
+                Navigation.findNavController(v).navigate(R.id.action_section4Q7_to_section4Q6);
             }
         });
 

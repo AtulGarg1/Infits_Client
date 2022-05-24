@@ -217,14 +217,14 @@ public class Section4Q5 extends Fragment {
 
                 DataSectionFour.cardio = cardio;
 
-                Navigation.findNavController(v).navigate(R.id.action_sectionOneQSix_to_sectionOneQSeven);
+                Navigation.findNavController(v).navigate(R.id.action_section4Q5_to_section4Q6);
             }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_sectionOneQSix_to_sectionOneQFive);
+                Navigation.findNavController(v).navigate(R.id.action_section4Q5_to_section4Q4);
             }
         });
 

@@ -83,14 +83,14 @@ public class Section5Q4 extends Fragment {
 
                 DataSectionFive.water = water;
 
-                Navigation.findNavController(v).navigate(R.id.action_section2Q1_to_section2Q2);
+                Navigation.findNavController(v).navigate(R.id.action_section5Q4_to_section5Q5);
             }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_section2Q1_to_consultationFragment);
+                Navigation.findNavController(v).navigate(R.id.action_section5Q4_to_section5Q3);
             }
         });
 

@@ -132,14 +132,14 @@ public class Section5Q5 extends Fragment {
 
                 DataSectionFive.allergies = allergies;
 
-                Navigation.findNavController(v).navigate(R.id.action_sectionOneQFive_to_sectionOneQSix);
+                Navigation.findNavController(v).navigate(R.id.action_section5Q5_to_section5Q6);
             }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_sectionOneQFive_to_sectionOneQFour);
+                Navigation.findNavController(v).navigate(R.id.action_section5Q5_to_section5Q4);
             }
         });
 

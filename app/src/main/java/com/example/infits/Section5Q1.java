@@ -219,14 +219,14 @@ public class Section5Q1 extends Fragment {
 
                 DataSectionFive.preference = preference;
 
-                Navigation.findNavController(v).navigate(R.id.action_sectionOneQSix_to_sectionOneQSeven);
+                Navigation.findNavController(v).navigate(R.id.action_section5Q1_to_section5Q2);
             }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_sectionOneQSix_to_sectionOneQFive);
+                Navigation.findNavController(v).navigate(R.id.action_section5Q1_to_consultationFragment);
             }
         });
 
