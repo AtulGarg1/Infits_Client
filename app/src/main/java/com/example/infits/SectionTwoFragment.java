@@ -73,14 +73,14 @@ public class SectionTwoFragment extends Fragment {
         nextbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_sectionTwoFragment_to_sectionThreeFragment);
+                //Navigation.findNavController(v).navigate(R.id.action_sectionTwoFragment_to_sectionThreeFragment);
             }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_sectionTwoFragment_to_sectionOneFragment);
+                //Navigation.findNavController(v).navigate(R.id.action_sectionTwoFragment_to_sectionOneFragment);
             }
         });
 

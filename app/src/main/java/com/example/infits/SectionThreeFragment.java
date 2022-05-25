@@ -82,14 +82,14 @@ public class SectionThreeFragment extends Fragment {
                 String user_email = eTextEmail.getText().toString();
                 Toast.makeText(getContext(),user_email, Toast.LENGTH_SHORT).show();
 
-                Navigation.findNavController(v).navigate(R.id.action_sectionThreeFragment_to_sectionFourFragment);
+                //Navigation.findNavController(v).navigate(R.id.action_sectionThreeFragment_to_sectionFourFragment);
             }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_sectionThreeFragment_to_sectionTwoFragment);
+                //Navigation.findNavController(v).navigate(R.id.action_sectionThreeFragment_to_sectionTwoFragment);
             }
         });
 

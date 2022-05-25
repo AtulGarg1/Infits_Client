@@ -1,6 +1,13 @@
 package com.example.infits;
 
+import static com.example.infits.DataFromDatabase.mobile;
+
+import android.Manifest;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -10,10 +17,12 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
+import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +37,7 @@ import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -35,6 +45,8 @@ import com.android.volley.toolbox.Volley;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -45,6 +57,19 @@ import java.util.Map;
  */
 public class Account extends Fragment {
 
+    DataFromDatabase dataFromDatabase;
+    ImageView male, female,profile_pic;
+
+    RequestQueue queue;
+    Button logout,save;
+    String client_gender, cleint_name, client_age, client_email,client_phoneno,client_userID;
+
+    private Bitmap bitmap;
+    private File destination = null;
+    private InputStream inputStreamImg;
+    private String imgPath = null;
+    private final int PICK_IMAGE_CAMERA = 1, PICK_IMAGE_GALLERY = 2;
+
     String url = "http://192.168.177.91/infits/save.php";
 
     ActivityResultLauncher<String> photo;
@@ -53,9 +78,6 @@ public class Account extends Fragment {
 
     String fileName, path;
 
-    ImageView imgback;
-    Button logout,save;
-    ImageView male, female,profile_pic;
     String gen = "M";
 
     Bitmap photoBit;
@@ -105,6 +127,159 @@ public class Account extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_account, container, false);
+
+        male = view.findViewById(R.id.gender_male_icon);
+        female=view.findViewById(R.id.gender_female_icon);
+        EditText name=view.findViewById(R.id.name_edt);
+        name.setText(DataFromDatabase.name);
+        EditText age=view.findViewById(R.id.age_edt);
+        age.setText(DataFromDatabase.age);
+        EditText email=view.findViewById(R.id.email_edt);
+        email.setText(DataFromDatabase.email);
+        EditText phone=view.findViewById(R.id.phone_edt);
+        phone.setText(DataFromDatabase.mobile);
+        profile_pic=view.findViewById(R.id.dp);
+        ImageView select_pic= view.findViewById(R.id.select_dp);
+        save=view.findViewById(R.id.button_save);
+        logout=view.findViewById(R.id.button_logout);
+        male.setImageResource(R.drawable.gender_male);
+        female.setImageResource(R.drawable.gender_female);
+
+
+        ImageView name_btn=view.findViewById(R.id.name_edt_button);
+        ImageView age_btn=view.findViewById(R.id.age_edt_button);
+        ImageView email_btn=view.findViewById(R.id.email_edt_button);
+        ImageView phone_btn=view.findViewById(R.id.phone_edt_button);
+
+
+        name_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),"name edit enabled",Toast.LENGTH_SHORT).show();
+                name.setCursorVisible(true);
+                name.setFocusableInTouchMode(true);
+                name.setInputType(InputType.TYPE_CLASS_TEXT);
+            }
+        });
+        age_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),"age edit enabled",Toast.LENGTH_SHORT).show();
+                age.setCursorVisible(true);
+                age.setFocusableInTouchMode(true);
+                age.setInputType(InputType.TYPE_CLASS_NUMBER);
+            }
+        });
+        email_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),"email edit enabled",Toast.LENGTH_SHORT).show();
+                email.setCursorVisible(true);
+                email.setFocusableInTouchMode(true);
+                email.setInputType(InputType.TYPE_CLASS_TEXT);
+            }
+        });
+        phone_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),"phone number edit enabled",Toast.LENGTH_SHORT).show();
+                phone.setCursorVisible(true);
+                phone.setFocusableInTouchMode(true);
+                phone.setInputType(InputType.TYPE_CLASS_PHONE);
+            }
+        });
+
+        if(DataFromDatabase.gender=="M"){
+            male.setImageResource(R.drawable.gender_male_selected);
+            female.setImageResource(R.drawable.gender_female);
+        }else if(DataFromDatabase.gender=="F"){
+            male.setImageResource(R.drawable.gender_male);
+            female.setImageResource(R.drawable.gender_female_selected);
+        }
+        select_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage();
+            }
+        });
+
+
+        client_gender=DataFromDatabase.gender;
+        male.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                male.setImageResource(R.drawable.gender_male_selected);
+                female.setImageResource(R.drawable.gender_female);
+                client_gender="M";
+            }
+        });
+        female.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                male.setImageResource(R.drawable.gender_male);
+                female.setImageResource(R.drawable.gender_female_selected);
+                client_gender="F";
+            }
+        });
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i= new Intent(getActivity(),Login.class);
+                startActivity(i);
+                getActivity().finish();
+            }
+        });
+
+
+
+        queue = Volley.newRequestQueue(getContext());
+        save.setOnClickListener(v-> {
+
+            String nameStr = name.getText().toString().trim();
+            String ageStr = age.getText().toString().trim();
+            String emailStr = email.getText().toString().trim();
+            String mobile = phone.getText().toString().trim();
+
+
+
+            Log.d("account","before");
+            StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
+                if (!response.equals("failure")){
+                    Log.d("account","success");
+                    Log.d("response account",response);
+
+
+                    Toast.makeText(getContext(), "save success", Toast.LENGTH_SHORT).show();
+                }
+                else if (response.equals("failure")){
+                    Log.d("account","failure");
+                    Toast.makeText(getContext(), "Login failed", Toast.LENGTH_SHORT).show();
+                }
+            },error -> {
+                Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();}){
+                @Nullable
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String,String> data = new HashMap<>();
+                    data.put("userID",DataFromDatabase.clientuserID);
+                    data.put("email",emailStr);
+                    data.put("gender",gen);
+                    data.put("age",ageStr);
+                    data.put("mobile",mobile);
+                    data.put("name",nameStr);
+
+                    return data;
+
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+            requestQueue.add(stringRequest);
+            Log.d("account","at end");
+        });
+
+        return view;
+
+        /*
 
         imgback = view.findViewById(R.id.backToSettings);
         logout = view.findViewById(R.id.button_logout);
@@ -227,6 +402,8 @@ public class Account extends Fragment {
         });
 
         return view;
+
+         */
     }
     public String getStringOfImage(Bitmap bm){
         ByteArrayOutputStream bo = new ByteArrayOutputStream();
@@ -234,5 +411,80 @@ public class Account extends Fragment {
         byte[] imageByte = bo.toByteArray();
         String imageEncode = Base64.encodeToString(imageByte, Base64.DEFAULT);
         return imageEncode;
+    }
+
+    private void selectImage() {
+        try {
+            PackageManager pm = getContext().getPackageManager();
+            int hasPerm = pm.checkPermission(Manifest.permission.CAMERA, getContext().getPackageName());
+            if (hasPerm == PackageManager.PERMISSION_GRANTED) {
+                //final CharSequence[] options = {"Take Photo", "Choose From Gallery","Remove picture","Cancel"};
+                final CharSequence[] options = { "Choose From Gallery","Remove picture","Cancel"};
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Select Option");
+                builder.setItems(options, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                      /*  if (options[item].equals("Take Photo")) {
+                            dialog.cancel();
+                            Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                            startActivityForResult(intent, PICK_IMAGE_CAMERA);
+                        } else*/
+                        if (options[item].equals("Choose From Gallery")) {
+                            dialog.cancel();
+                            Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(pickPhoto, PICK_IMAGE_GALLERY);
+                        } else if (options[item].equals("Cancel")) {
+                            dialog.cancel();
+                        }
+                        else if(options[item].equals("Remove picture")){
+                            dialog.dismiss();
+                            //profile_pic.setImageResource(R.drawable.blankdp);
+                            profile_pic.setImageResource(R.drawable.profilepic);
+                        }
+                        else
+                            dialog.cancel();
+                    }
+                });
+                builder.show();
+            } else {
+                Toast.makeText(getActivity(), "Camera Permission error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Change app permission in your device settings", Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), "Camera Permission error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Change app permission in your device settings", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        inputStreamImg = null;
+        if (requestCode == PICK_IMAGE_GALLERY) {
+            try {
+                if( data.getData() != null) {
+                    Uri selectedImage = data.getData();
+                    bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+                    //ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                    // bitmap.compress(Bitmap.CompressFormat.JPEG, 50, bytes);
+                    profile_pic.setImageBitmap(bitmap);
+                  /*  imgPath = getRealPathFromURI(selectedImage);
+                    destination = new File(imgPath.toString());*/
+
+                }
+            } catch (Exception e) {
+                Toast.makeText(getActivity(),"No picture selected",Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
+
+    public String getRealPathFromURI(Uri contentUri) {
+        String[] proj = {MediaStore.Audio.Media.DATA};
+        Cursor cursor = getActivity().managedQuery(contentUri, proj, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
     }
 }

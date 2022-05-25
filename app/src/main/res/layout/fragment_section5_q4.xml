@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SectionThreeFragment">
+    tools:context=".Section5Q4">
 
     <ImageView
         android:id="@+id/imageView29"
@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/baloo2"
-        android:text="Question 1/n"
+        android:text="Question 4/13"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
         android:fontFamily="@font/nats_regular"
-        android:text="SECTION 3"
+        android:text="SECTION 5"
         android:textColor="@color/black"
         android:textSize="38sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -163,7 +163,7 @@
 
 
     <EditText
-        android:id="@+id/editTextTextMultiLine"
+        android:id="@+id/eTextHeight"
         android:layout_width="284dp"
         android:layout_height="404dp"
         android:background="@drawable/button_outline"
@@ -188,7 +188,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/baloo2"
-        android:text="Question 1"
+        android:text="How much water do you consume in a day? (In litres)"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
