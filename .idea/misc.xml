@@ -4,17 +4,23 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/edit_text_background.xml" value="0.148" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/activity_account_page.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/activity_dash_board_main.xml" value="0.16666666666666666" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/activity_signup.xml" value="0.6" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/activity_statistics.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_account.xml" value="0.16666666666666666" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_add_liquid.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_dash_board.xml" value="0.19166666666666668" />
-        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_sleep.xml" value="0.1" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_sleep.xml" value="0.3333333333333333" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_sleep_tracker.xml" value="0.22" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_step_tracker.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_steps.xml" value="0.19166666666666668" />
-        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_water.xml" value="0.1" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_water.xml" value="0.16666666666666666" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_water_tracker.xml" value="0.7204610951008645" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_weight.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/logoutdialog.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/setgoaldialog.xml" value="0.19166666666666668" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/watergoaldialog.xml" value="0.1" />
       </map>
     </option>
   </component>

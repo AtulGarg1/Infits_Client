@@ -1,14 +1,22 @@
 package com.example.infits;
 
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.os.Handler;
 import android.provider.AlarmClock;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,19 +24,14 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
+
 import java.util.Locale;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SleepTrackerFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class SleepTrackerFragment extends Fragment {
+
+    String sleep;
 
     Button setalarm, startcycle, endcycle;
     ImageButton imgback;
@@ -41,28 +44,16 @@ public class SleepTrackerFragment extends Fragment {
     private boolean running;
     private boolean wasRunning;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     public SleepTrackerFragment() {
-        // Required empty public constructor
+
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SleepTrackerFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static SleepTrackerFragment newInstance(String param1, String param2) {
         SleepTrackerFragment fragment = new SleepTrackerFragment();
         Bundle args = new Bundle();
@@ -85,7 +76,6 @@ public class SleepTrackerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sleep_tracker, container, false);
 
         imgback = view.findViewById(R.id.imgback);
@@ -99,15 +89,13 @@ public class SleepTrackerFragment extends Fragment {
         simpleDateFormat = new SimpleDateFormat("HH:mm");
         String time = simpleDateFormat.format(calendar.getTime());
 
-        //texttime.setText(""+time);
-
         if(savedInstanceState != null) {
             savedInstanceState.getInt("seconds");
             savedInstanceState.getBoolean("running");
             savedInstanceState.getBoolean("wasRunning");
         }
 
-        runTimer();
+//        runTimer();
         
 
         imgback.setOnClickListener(new View.OnClickListener() {
@@ -130,83 +118,69 @@ public class SleepTrackerFragment extends Fragment {
         startcycle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startcycle.setVisibility(View.INVISIBLE);
+                startcycle.setVisibility(View.GONE);
                 endcycle.setVisibility(View.VISIBLE);
-
-                running = true;
-
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    Intent intent = new Intent(getActivity(),StopWatchService.class);
+                    getActivity().startForegroundService(new Intent(getActivity(),StopWatchService.class));
+                }
+                sleep = "";
+                getActivity().registerReceiver(broadcastReceiver,new IntentFilter("com.example.infits.sleep"));
             }
-
         });
-
 
         endcycle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                endcycle.setVisibility(View.INVISIBLE);
+                endcycle.setVisibility(View.GONE);
                 startcycle.setVisibility(View.VISIBLE);
-
-                running = false;
-
-                tvDuration.setText("You slept for " +timerTime);
-
-                seconds = 0;
-
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    getActivity().getApplicationContext().stopService(new Intent(getActivity(),StopWatchService.class));
+                }
+                getActivity().unregisterReceiver(broadcastReceiver);
+                tvDuration.setText("You slept for " +sleep);
+                sleep = "";
             }
         });
-
         return view;
-
     }
 
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateGUI(intent);
+        }
+    };
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        wasRunning = running;
-        running = false;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if(wasRunning) {
-            running = true;
+    private void updateGUI(Intent intent) {
+        if (intent.getExtras() != null) {
+            sleep = intent.getStringExtra("sleep");
+            Log.i("StepTracker","Countdown seconds remaining:" + sleep);
+            texttime.setText(sleep);
         }
     }
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
+//    private void runTimer() {
 
-        outState.putInt("seconds",seconds);
-        outState.putBoolean("running", running);
-        outState.putBoolean("wasRunning", wasRunning);
-    }
-
-    private void runTimer() {
-
-        final Handler handler = new Handler();
-
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-
-                int hours = seconds / 3600;
-                int minutes = (seconds % 3600) / 60;
-                int secs = seconds % 60;
-
-                timerTime = String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, secs);
-
-                texttime.setText(timerTime);
-
-                if(running) {
-                    seconds++;
-                }
-                handler.postDelayed(this, 1000);
-
-            }
-        });
-    }
-
+//        final Handler handler = new Handler();
+//
+//        handler.post(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                int hours = seconds / 3600;
+//                int minutes = (seconds % 3600) / 60;
+//                int secs = seconds % 60;
+//
+//                timerTime = String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, secs);
+//
+//                texttime.setText(timerTime);
+//
+//                if(running) {
+//                    seconds++;
+//                }
+//                handler.postDelayed(this, 1000);
+//            }
+//        });
+//    }
 }

@@ -287,18 +287,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.961" />
 
-    <ImageView
-        android:id="@+id/imageView47"
-        android:layout_width="342dp"
-        android:layout_height="168dp"
-        android:src="@mipmap/sleepgraph"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.138" />
-
     <com.jjoe64.graphview.GraphView
         android:id="@+id/graph"
         android:layout_width="342dp"
@@ -315,7 +303,7 @@
         android:layout_width="325dp"
         android:layout_height="30dp"
         android:background="@drawable/outline"
-        android:checkedButton="@+id/week_btn"
+        android:checkedButton="@+id/week_btn_weight"
         android:orientation="horizontal"
         app:layout_constraintHorizontal_bias="0.434"
         app:layout_constraintVertical_bias="0.010"
@@ -325,7 +313,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <RadioButton
-            android:id="@+id/customdates_btn"
+            android:id="@+id/customdates_btn_sleep"
             android:layout_width="95dp"
             android:layout_height="wrap_content"
             android:layout_margin="1dp"
@@ -339,7 +327,7 @@
             tools:ignore="TouchTargetSizeCheck" />
 
         <RadioButton
-            android:id="@+id/year_btn"
+            android:id="@+id/year_btn_sleep"
             android:layout_width="76dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -351,7 +339,7 @@
             android:textColor="@drawable/switch_text" />
 
         <RadioButton
-            android:id="@+id/month_btn"
+            android:id="@+id/month_btn_sleep"
             android:layout_width="77dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -363,7 +351,7 @@
             android:textColor="@drawable/switch_text" />
 
         <RadioButton
-            android:id="@+id/week_btn"
+            android:id="@+id/week_btn_sleep"
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

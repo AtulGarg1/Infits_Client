@@ -303,7 +303,7 @@
         android:layout_width="325dp"
         android:layout_height="30dp"
         android:background="@drawable/outline"
-        android:checkedButton="@+id/week_btn"
+        android:checkedButton="@+id/week_btn_weight"
         android:orientation="horizontal"
         app:layout_constraintHorizontal_bias="0.434"
         app:layout_constraintVertical_bias="0.010"
@@ -351,7 +351,7 @@
             android:textColor="@drawable/switch_text" />
 
         <RadioButton
-            android:id="@+id/week_btn"
+            android:id="@+id/week_btn_weight"
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

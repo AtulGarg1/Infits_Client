@@ -2,6 +2,7 @@ package com.example.infits;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -15,9 +16,15 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
 import com.kevalpatel2106.rulerpicker.RulerValuePicker;
 import com.kevalpatel2106.rulerpicker.RulerValuePickerListener;
+
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +32,8 @@ import com.kevalpatel2106.rulerpicker.RulerValuePickerListener;
  * create an instance of this fragment.
  */
 public class BmiFragment extends Fragment {
+
+    String url = "http://192.168.177.91";
 
     RelativeLayout male, female;
     Button btnadd;
@@ -176,11 +185,22 @@ public class BmiFragment extends Fragment {
 
                 getParentFragmentManager().setFragmentResult("personalData", bundle);
 
+                StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
+
+                },error -> {
+                    Toast.makeText(getActivity(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+                }) {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        return super.getParams();
+                    }
+                };
+
+
                 Navigation.findNavController(v).navigate(R.id.action_bmiFragment_to_weightTrackerFragment);
             }
         });
-
-
 
         return view;
     }

@@ -289,7 +289,7 @@
         android:layout_width="325dp"
         android:layout_height="30dp"
         android:background="@drawable/outline"
-        android:checkedButton="@+id/week_btn"
+        android:checkedButton="@+id/week_btn_steps"
         android:orientation="horizontal"
         app:layout_constraintHorizontal_bias="0.434"
         app:layout_constraintVertical_bias="0.010"
@@ -299,7 +299,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <RadioButton
-            android:id="@+id/customdates_btn"
+            android:id="@+id/customdates_btn_steps"
             android:layout_width="95dp"
             android:layout_height="wrap_content"
             android:layout_margin="1dp"
@@ -313,7 +313,7 @@
             tools:ignore="TouchTargetSizeCheck" />
 
         <RadioButton
-            android:id="@+id/year_btn"
+            android:id="@+id/year_btn_steps"
             android:layout_width="76dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -325,7 +325,7 @@
             android:textColor="@drawable/switch_text" />
 
         <RadioButton
-            android:id="@+id/month_btn"
+            android:id="@+id/month_btn_steps"
             android:layout_width="77dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -337,7 +337,7 @@
             android:textColor="@drawable/switch_text" />
 
         <RadioButton
-            android:id="@+id/week_btn"
+            android:id="@+id/week_btn_steps"
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -358,6 +358,6 @@
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.318" />
+        app:layout_constraintVertical_bias="0.118" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
