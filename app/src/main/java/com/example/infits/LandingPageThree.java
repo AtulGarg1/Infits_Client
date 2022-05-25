@@ -64,10 +64,9 @@ public class LandingPageThree extends Fragment {
         View view = inflater.inflate(R.layout.fragment_landing_page_three, container, false);
         Button getStartedBtn = view.findViewById(R.id.getStartedBtn);
         getStartedBtn.setOnClickListener(v->{
-            startActivity(new Intent(getContext(),Login.class)); 
+            startActivity(new Intent(getContext(),DashBoardMain.class));
             getActivity().finishAffinity();
         });
-
 
         return view;
     }

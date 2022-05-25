@@ -74,37 +74,17 @@ public class ConsultationFragment extends Fragment {
         section1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_consultationFragment_to_sectionOneFragment);
+                Navigation.findNavController(v).navigate(R.id.action_consultationFragment_to_sectionOneQOne);
             }
         });
 
         section2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_consultationFragment_to_sectionTwoFragment);
+                Navigation.findNavController(v).navigate(R.id.action_consultationFragment_to_section2Q1);
             }
         });
 
-        section3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_consultationFragment_to_sectionThreeFragment);
-            }
-        });
-
-        section4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_consultationFragment_to_sectionFourFragment);
-            }
-        });
-
-        section5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_consultationFragment_to_sectionFiveFragment);
-            }
-        });
 
 
         return view;
