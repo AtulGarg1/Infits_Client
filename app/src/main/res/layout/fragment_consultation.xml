@@ -553,7 +553,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/connectDoc"
             android:layout_width="325dp"
             android:layout_height="55dp"
             android:backgroundTint="#B9B9B9"

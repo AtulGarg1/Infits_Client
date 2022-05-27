@@ -21,7 +21,7 @@ import android.widget.TextView;
 public class Section3Q4 extends Fragment {
 
     Button nextbtn;
-    TextView backbtn;
+    TextView backbtn, diatv;
     RadioButton yes,some,occ,no,afterFood,beforeFood;
     String nausea;
 
@@ -80,6 +80,7 @@ public class Section3Q4 extends Fragment {
         afterFood = view.findViewById(R.id.afterFood);
         beforeFood = view.findViewById(R.id.beforeFood);
 
+        diatv = view.findViewById(R.id.textView77);
 
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -215,6 +216,7 @@ public class Section3Q4 extends Fragment {
                 //Toast.makeText(getContext(),employment, Toast.LENGTH_SHORT).show();
 
                 DataSectionThree.nausea = nausea;
+                DataSectionThree.s3q4 = diatv.getText().toString();
 
                 Navigation.findNavController(v).navigate(R.id.action_section3Q4_to_section3Q5);
             }

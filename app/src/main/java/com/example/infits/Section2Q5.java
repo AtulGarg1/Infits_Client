@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class Section2Q5 extends Fragment {
 
     Button nextbtn;
-    TextView backbtn;
+    TextView backbtn, diagtv;
     CheckBox dia,hyperthy,hypothy,hyperten,pcod,fattyl,lactose;
     EditText oth;
     ArrayList<String> diagnosed;
@@ -91,6 +91,8 @@ public class Section2Q5 extends Fragment {
         oth = view.findViewById(R.id.oth);
 
         diagnosed = new ArrayList<>();
+
+        diagtv = view.findViewById(R.id.textView77);
 
         dia.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,6 +183,7 @@ public class Section2Q5 extends Fragment {
             public void onClick(View v) {
 
                 DataSectionTwo.diagnosed = diagnosed;
+                DataSectionTwo.s2q5 = diagtv.getText().toString();
 
                 Navigation.findNavController(v).navigate(R.id.action_section2Q5_to_section2Q6);
             }

@@ -24,7 +24,7 @@ import java.util.LinkedHashMap;
 public class SectionOneQSix extends Fragment {
 
     Button nextbtn;
-    TextView backbtn;
+    TextView backbtn, jobtv;
     RadioButton emp, unEmp, pTime;
     String employment;
 
@@ -80,6 +80,8 @@ public class SectionOneQSix extends Fragment {
         unEmp = view.findViewById(R.id.unEmp);
         pTime = view.findViewById(R.id.pTime);
 
+        jobtv = view.findViewById(R.id.textView77);
+
 
         emp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,6 +136,7 @@ public class SectionOneQSix extends Fragment {
                 //Toast.makeText(getContext(),employment, Toast.LENGTH_SHORT).show();
 
                 DataSectionOne.employment = employment;
+                DataSectionOne.s1q6 = jobtv.getText().toString();
 
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQSix_to_sectionOneQSeven);
             }

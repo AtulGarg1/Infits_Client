@@ -21,7 +21,7 @@ import android.widget.TextView;
 public class Section3Q5 extends Fragment {
 
     Button nextbtn;
-    TextView backbtn;
+    TextView backbtn, textView77;
     RadioButton yes,some,occ,no,afterFood,beforeFood;
     String vomiting;
 
@@ -79,6 +79,8 @@ public class Section3Q5 extends Fragment {
         occ = view.findViewById(R.id.occ);
         afterFood = view.findViewById(R.id.afterFood);
         beforeFood = view.findViewById(R.id.beforeFood);
+
+        textView77 = view.findViewById(R.id.textView77);
 
 
         yes.setOnClickListener(new View.OnClickListener() {
@@ -215,15 +217,16 @@ public class Section3Q5 extends Fragment {
                 //Toast.makeText(getContext(),employment, Toast.LENGTH_SHORT).show();
 
                 DataSectionThree.vomiting = vomiting;
+                DataSectionThree.s3q5 = textView77.getText().toString();
 
-                Navigation.findNavController(v).navigate(R.id.action_section3Q5_to_section3Q4);
+                Navigation.findNavController(v).navigate(R.id.action_section3Q5_to_section3Q6);
             }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_section3Q5_to_section3Q6);
+                Navigation.findNavController(v).navigate(R.id.action_section3Q5_to_section3Q4);
             }
         });
 

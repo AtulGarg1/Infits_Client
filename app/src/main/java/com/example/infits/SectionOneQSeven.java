@@ -21,7 +21,7 @@ import android.widget.Toast;
 public class SectionOneQSeven extends Fragment {
 
     Button nextbtn;
-    TextView backbtn;
+    TextView backbtn, jobduratv;
     EditText eTextAge;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -74,6 +74,8 @@ public class SectionOneQSeven extends Fragment {
         backbtn = view.findViewById(R.id.backbtn);
         eTextAge = view.findViewById(R.id.eTextAge);
 
+        jobduratv = view.findViewById(R.id.textView80);
+
 
         nextbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +85,7 @@ public class SectionOneQSeven extends Fragment {
                 //Toast.makeText(getContext(),duration, Toast.LENGTH_SHORT).show();
 
                 DataSectionOne.duration = duration;
+                DataSectionOne.s1q7 = jobduratv.getText().toString();
 
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQSeven_to_sectionOneQEight);
             }

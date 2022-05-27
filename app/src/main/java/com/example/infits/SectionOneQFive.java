@@ -24,7 +24,7 @@ import java.util.LinkedHashMap;
 public class SectionOneQFive extends Fragment {
 
     Button nextbtn;
-    TextView backbtn;
+    TextView backbtn, gendertv;
     RadioButton male, female, other;
     String uGender;
 
@@ -81,6 +81,8 @@ public class SectionOneQFive extends Fragment {
         female = view.findViewById(R.id.female);
         other = view.findViewById(R.id.other);
 
+        gendertv = view.findViewById(R.id.textView77);
+
 
         male.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,6 +134,7 @@ public class SectionOneQFive extends Fragment {
                 //Toast.makeText(getContext(),uGender, Toast.LENGTH_SHORT).show();
 
                 DataSectionOne.gender = uGender;
+                DataSectionOne.s1q5 = gendertv.getText().toString();
 
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQFive_to_sectionOneQSix);
             }

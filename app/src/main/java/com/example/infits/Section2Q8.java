@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class Section2Q8 extends Fragment {
 
     Button nextbtn;
-    TextView backbtn;
+    TextView backbtn, famtv;
     CheckBox dia,hyperthy,hypothy,hyperten,pcod,fattyl;
     EditText oth;
     ArrayList<String> diagnosed;
@@ -85,6 +85,8 @@ public class Section2Q8 extends Fragment {
         oth = view.findViewById(R.id.oth);
 
         diagnosed = new ArrayList<>();
+
+        famtv = view.findViewById(R.id.textView77);
 
         dia.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,6 +159,7 @@ public class Section2Q8 extends Fragment {
             public void onClick(View v) {
 
                 DataSectionTwo.familyHistory = diagnosed;
+                DataSectionTwo.s2q8 = famtv.getText().toString();
 
                 Navigation.findNavController(v).navigate(R.id.action_section2Q8_to_consultationFragment);
             }

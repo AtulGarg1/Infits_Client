@@ -23,7 +23,7 @@ import java.util.LinkedHashMap;
 public class SectionOneQOne extends Fragment {
 
     Button nextbtn;
-    TextView backbtn;
+    TextView backbtn, emailtv;
     EditText eTextEmail;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -76,6 +76,8 @@ public class SectionOneQOne extends Fragment {
         backbtn = view.findViewById(R.id.backbtn);
         eTextEmail = view.findViewById(R.id.eTextEmail);
 
+        emailtv = view.findViewById(R.id.textView80);
+
 
         nextbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +87,7 @@ public class SectionOneQOne extends Fragment {
                 //Toast.makeText(getContext(),user_email, Toast.LENGTH_SHORT).show();
 
                 DataSectionOne.email = user_email;
+                DataSectionOne.s1q1 = emailtv.getText().toString();
 
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQOne_to_sectionOneQTwo);
             }

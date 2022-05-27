@@ -22,7 +22,7 @@ import android.widget.TextView;
 public class Section5Q9 extends Fragment {
 
     Button nextbtn;
-    TextView backbtn;
+    TextView backbtn, textView77;
     RadioButton home,hotel,onehome,hostel,twohome;
     EditText oth;
     String daily_food;
@@ -81,6 +81,8 @@ public class Section5Q9 extends Fragment {
         hostel = view.findViewById(R.id.hostel);
         twohome = view.findViewById(R.id.twohome);
         oth = view.findViewById(R.id.oth);
+
+        textView77 = view.findViewById(R.id.textView77);
 
 
         home.setOnClickListener(new View.OnClickListener() {
@@ -216,6 +218,7 @@ public class Section5Q9 extends Fragment {
                 //Toast.makeText(getContext(),employment, Toast.LENGTH_SHORT).show();
 
                 DataSectionFive.daily_food = daily_food;
+                DataSectionFive.s5q9 = textView77.getText().toString();
 
                 Navigation.findNavController(v).navigate(R.id.action_section5Q9_to_section5Q10);
             }

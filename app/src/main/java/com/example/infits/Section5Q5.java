@@ -21,7 +21,7 @@ import android.widget.TextView;
 public class Section5Q5 extends Fragment {
 
     Button nextbtn;
-    TextView backbtn;
+    TextView backbtn, textView77;
     RadioButton yes,no,dk;
     String allergies;
 
@@ -77,6 +77,8 @@ public class Section5Q5 extends Fragment {
         no = view.findViewById(R.id.no);
         dk = view.findViewById(R.id.dk);
 
+        textView77 = view.findViewById(R.id.textView77);
+
 
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,6 +133,7 @@ public class Section5Q5 extends Fragment {
                 //Toast.makeText(getContext(),uGender, Toast.LENGTH_SHORT).show();
 
                 DataSectionFive.allergies = allergies;
+                DataSectionFive.s5q5 = textView77.getText().toString();
 
                 Navigation.findNavController(v).navigate(R.id.action_section5Q5_to_section5Q6);
             }

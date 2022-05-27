@@ -23,7 +23,7 @@ import java.util.LinkedHashMap;
 public class SectionOneQThree extends Fragment {
 
     Button nextbtn;
-    TextView backbtn;
+    TextView backbtn, agetv;
     EditText eTextAge;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -77,6 +77,8 @@ public class SectionOneQThree extends Fragment {
         backbtn = view.findViewById(R.id.backbtn);
         eTextAge = view.findViewById(R.id.eTextAge);
 
+        agetv = view.findViewById(R.id.textView80);
+
 
         nextbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +88,7 @@ public class SectionOneQThree extends Fragment {
                 //Toast.makeText(getContext(),user_age, Toast.LENGTH_SHORT).show();
 
                 DataSectionOne.age = user_age;
+                DataSectionOne.s1q3 = agetv.getText().toString();
 
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQThree_to_sectionOneQFour);
             }

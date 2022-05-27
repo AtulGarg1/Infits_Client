@@ -23,7 +23,7 @@ import android.widget.Toast;
 public class Section2Q1 extends Fragment {
 
     Button nextbtn;
-    TextView backbtn;
+    TextView backbtn, pheighttv;
     EditText eTextHeight;
 
 
@@ -77,15 +77,20 @@ public class Section2Q1 extends Fragment {
         backbtn = view.findViewById(R.id.backbtn);
         eTextHeight = view.findViewById(R.id.eTextHeight);
 
+        pheighttv = view.findViewById(R.id.textView80);
+
 
         nextbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 String user_height = eTextHeight.getText().toString();
-                //Toast.makeText(getContext(),user_height, Toast.LENGTH_SHORT).show();
+
 
                 DataSectionTwo.height = user_height;
+                DataSectionTwo.s2q1 = pheighttv.getText().toString();
+
+                //Toast.makeText(getContext(),DataSectionTwo.height + " " + DataSectionTwo.s2q1, Toast.LENGTH_SHORT).show();
 
                 Navigation.findNavController(v).navigate(R.id.action_section2Q1_to_section2Q2);
             }

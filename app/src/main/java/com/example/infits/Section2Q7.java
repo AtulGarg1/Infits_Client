@@ -21,7 +21,7 @@ import android.widget.Toast;
 public class Section2Q7 extends Fragment {
 
     Button nextbtn;
-    TextView backbtn;
+    TextView backbtn, medntv;
     EditText eTextEmail;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -74,6 +74,8 @@ public class Section2Q7 extends Fragment {
         backbtn = view.findViewById(R.id.backbtn);
         eTextEmail = view.findViewById(R.id.eTextEmail);
 
+        medntv = view.findViewById(R.id.textView80);
+
 
         nextbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +85,7 @@ public class Section2Q7 extends Fragment {
                 //Toast.makeText(getContext(),user_medi, Toast.LENGTH_SHORT).show();
 
                 DataSectionTwo.medication = user_medi;
+                DataSectionTwo.s2q7 = medntv.getText().toString();
 
                 Navigation.findNavController(v).navigate(R.id.action_section2Q7_to_section2Q8);
             }
