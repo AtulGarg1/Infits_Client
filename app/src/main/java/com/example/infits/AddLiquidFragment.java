@@ -3,6 +3,7 @@ package com.example.infits;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -13,8 +14,17 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.slider.Slider;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +32,8 @@ import com.google.android.material.slider.Slider;
  * create an instance of this fragment.
  */
 public class AddLiquidFragment extends Fragment {
+
+    String url = "http://192.168.177.91/infits/watertracker.php";
 
     RadioButton water, soda, juice, coffee, radioButton;
     Slider slider;
@@ -86,6 +98,7 @@ public class AddLiquidFragment extends Fragment {
 
         radioGroup = view.findViewById(R.id.radioGroup);
 
+        liqamt.setText(String.valueOf(slider.getValue()));
 
         slider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
             @Override
@@ -105,16 +118,40 @@ public class AddLiquidFragment extends Fragment {
         addbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Date date = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd HH:MM:SS");
                 int radioID = radioGroup.getCheckedRadioButtonId();
                 radioButton = view.findViewById(radioID);
 
-                String liquid = radioButton.getText().toString();
+//                String liquid = radioButton.getText().toString();
 
                 Bundle bundle = new Bundle();
-                bundle.putString("liquidType", liquid);
+//                bundle.putString("liquidType", liquid);
                 bundle.putString("liquidAmt", String.valueOf(value));
 
                 getParentFragmentManager().setFragmentResult("liquidData", bundle);
+
+                StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
+                            if (response.equals("updated")){
+                                Toast.makeText(getActivity(), "updated", Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                Toast.makeText(getActivity(), "Some Error", Toast.LENGTH_SHORT).show();
+                            }
+                },error -> {
+                    Toast.makeText(getActivity(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+                }) {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String,String> data = new HashMap<>();
+                        data.put("userID",DataFromDatabase.clientuserID);
+                        data.put("goal","7000");
+                        data.put("date", sdf.format(date));
+                        data.put("consumed",String.valueOf(value));
+                        return data;
+                    }
+                };
 
                 Navigation.findNavController(v).navigate(R.id.action_addLiquidFragment_to_waterTrackerFragment);
 

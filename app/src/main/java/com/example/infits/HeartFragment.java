@@ -73,7 +73,7 @@ public class HeartFragment extends Fragment {
         customdates_btn = view.findViewById(R.id.customdates_btn);
         year_btn = view.findViewById(R.id.year_btn);
         month_btn = view.findViewById(R.id.month_btn);
-        week_btn = view.findViewById(R.id.week_btn);
+//        week_btn = view.findViewById(R.id.week_btn);
 
         MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.dateRangePicker();
         MaterialDatePicker materialDatePicker = builder.build();
@@ -113,14 +113,14 @@ public class HeartFragment extends Fragment {
             }
         });
 
-        week_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                week_btn.setBackgroundResource(R.drawable.switch_on_heart);
-
-            }
-        });
+//        week_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                week_btn.setBackgroundResource(R.drawable.switch_on_heart);
+//
+//            }
+//        });
 
         return view;
     }

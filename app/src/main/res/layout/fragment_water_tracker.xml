@@ -72,33 +72,44 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="249dp"
-            android:layout_height="252dp"
-            android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/wgoalperc"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.16"
-            app:srcCompat="@drawable/waterpic" />
+            app:layout_constraintTop_toBottomOf="@+id/textviewsleep"
+            android:backgroundTint="@color/waterblue">
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="249dp"
+                android:layout_height="252dp"
+                android:src="@drawable/water_bottle"/>
 
+            <ImageButton
+                android:id="@+id/addliq"
+                android:layout_width="26dp"
+                android:layout_height="25dp"
+                android:background="@drawable/btn_background"
+                app:tint="@color/white"
+                android:layout_gravity="center"
+                android:layout_marginBottom="50dp"
+                app:srcCompat="@drawable/ic_baseline_add_24" />
 
+            <TextView
+                android:id="@+id/water_goal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1800ml"
+                android:layout_gravity="center_horizontal"/>
+            <TextView
+                android:id="@+id/water_consumed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0ml"
+                android:layout_gravity="bottom|center_horizontal"/>
 
-        <ImageButton
-            android:id="@+id/addliq"
-            android:layout_width="26dp"
-            android:layout_height="25dp"
-            android:background="@drawable/btn_background"
-            app:tint="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.524"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.177"
-            app:srcCompat="@drawable/ic_baseline_add_24" />
+        </androidx.cardview.widget.CardView>
 
         <ImageView
             android:id="@+id/imageView15"
@@ -112,19 +123,35 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.513" />
 
-        <ImageView
-            android:id="@+id/waterGoal"
-            android:layout_width="24dp"
-            android:layout_height="23dp"
-            android:scaleType="fitXY"
-            android:clickable="true"
+        <Button
+            android:id="@+id/setgoal_watertracker"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/white"
+            android:text="Set Goal"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:cornerRadius="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.321"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.21"
-            app:srcCompat="@drawable/watergoalpic" />
+            app:layout_constraintTop_toBottomOf="@+id/wgoal3"
+            app:layout_constraintVertical_bias="0" />
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/waterGoal"-->
+        <!--            android:layout_width="24dp"-->
+        <!--            android:layout_height="23dp"-->
+        <!--            android:scaleType="fitXY"-->
+        <!--            android:clickable="true"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintHorizontal_bias="0.321"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            app:layout_constraintVertical_bias="0.21"-->
+        <!--            app:srcCompat="@drawable/watergoalpic" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -137,9 +164,11 @@
         android:background="@color/white"
         app:layout_behavior="@string/bottom_sheet_behavior"
         app:behavior_hideable="true"
+        android:layout_marginTop="50dp"
         app:behavior_peekHeight="300dp">
 
         <LinearLayout
+            android:layout_marginTop="50dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"

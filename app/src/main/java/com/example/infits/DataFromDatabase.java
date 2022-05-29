@@ -17,8 +17,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DataFromDatabase {
-
-    String url = "http://192.168.57.1/getdietitiandetails.php";
     public static boolean flag= false;
     public static String profilePhoto="default.jpg";
     public static String dietitianuserID,clientuserID,password,name,email,mobile,location,age,gender;
