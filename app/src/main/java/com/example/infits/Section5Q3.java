@@ -20,7 +20,7 @@ import android.widget.TextView;
 public class Section5Q3 extends Fragment {
 
     Button nextbtn;
-    TextView backbtn;
+    TextView backbtn, textView80;
     EditText eTextHeight;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -73,6 +73,8 @@ public class Section5Q3 extends Fragment {
         backbtn = view.findViewById(R.id.backbtn);
         eTextHeight = view.findViewById(R.id.eTextHeight);
 
+        textView80 = view.findViewById(R.id.textView80);
+
 
         nextbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +84,7 @@ public class Section5Q3 extends Fragment {
                 //Toast.makeText(getContext(),user_height, Toast.LENGTH_SHORT).show();
 
                 DataSectionFive.snack = snack;
+                DataSectionFive.s5q3 = textView80.getText().toString();
 
                 Navigation.findNavController(v).navigate(R.id.action_section5Q3_to_section5Q4);
             }

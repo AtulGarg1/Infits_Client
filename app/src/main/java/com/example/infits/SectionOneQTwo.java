@@ -23,7 +23,7 @@ import java.util.LinkedHashMap;
 public class SectionOneQTwo extends Fragment {
 
     Button nextbtn;
-    TextView backbtn;
+    TextView backbtn, nametv;
     EditText eTextName;
 
 
@@ -77,6 +77,8 @@ public class SectionOneQTwo extends Fragment {
         backbtn = view.findViewById(R.id.backbtn);
         eTextName = view.findViewById(R.id.eTextName);
 
+        nametv = view.findViewById(R.id.textView80);
+
 
         nextbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +88,7 @@ public class SectionOneQTwo extends Fragment {
                 //Toast.makeText(getContext(),user_name, Toast.LENGTH_SHORT).show();
 
                 DataSectionOne.name = user_name;
+                DataSectionOne.s1q2 = nametv.getText().toString();
 
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQTwo_to_sectionOneQThree);
             }

@@ -20,7 +20,7 @@ import android.widget.Toast;
 public class Section2Q4 extends Fragment {
 
     Button nextbtn;
-    TextView backbtn;
+    TextView backbtn, reporttv;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -70,6 +70,8 @@ public class Section2Q4 extends Fragment {
 
         nextbtn = view.findViewById(R.id.nextbtn);
         backbtn = view.findViewById(R.id.backbtn);
+
+        reporttv = view.findViewById(R.id.textView80);
 
 
         nextbtn.setOnClickListener(new View.OnClickListener() {

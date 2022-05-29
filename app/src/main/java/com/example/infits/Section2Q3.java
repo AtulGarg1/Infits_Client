@@ -21,7 +21,7 @@ import android.widget.Toast;
 public class Section2Q3 extends Fragment {
 
     Button nextbtn;
-    TextView backbtn;
+    TextView backbtn, uweighttv;
     EditText eTextuWeight;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -74,6 +74,8 @@ public class Section2Q3 extends Fragment {
         backbtn = view.findViewById(R.id.backbtn);
         eTextuWeight = view.findViewById(R.id.eTextuWeight);
 
+        uweighttv = view.findViewById(R.id.textView80);
+
 
         nextbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +85,7 @@ public class Section2Q3 extends Fragment {
                 //Toast.makeText(getContext(),usual_weight, Toast.LENGTH_SHORT).show();
 
                 DataSectionTwo.usualWeight = usual_weight;
-
+                DataSectionTwo.s2q3 = uweighttv.getText().toString();
 
                 Navigation.findNavController(v).navigate(R.id.action_section2Q3_to_section2Q4);
             }

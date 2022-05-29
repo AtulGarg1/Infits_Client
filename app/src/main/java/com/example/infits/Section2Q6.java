@@ -1,5 +1,6 @@
 package com.example.infits;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -22,7 +23,7 @@ public class Section2Q6 extends Fragment {
     String yesno;
 
     Button nextbtn;
-    TextView backbtn;
+    TextView backbtn, medtv;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -76,9 +77,13 @@ public class Section2Q6 extends Fragment {
         nextbtn = view.findViewById(R.id.nextbtn);
         backbtn = view.findViewById(R.id.backbtn);
 
+        medtv = view.findViewById(R.id.textView77);
+
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                yes.setBackgroundColor(Color.rgb(0,161,45));
                 yesno = "Yes";
             }
         });
@@ -86,6 +91,8 @@ public class Section2Q6 extends Fragment {
         no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                no.setBackgroundColor(Color.rgb(183,0,0));
                 yesno = "No";
             }
         });
@@ -95,7 +102,7 @@ public class Section2Q6 extends Fragment {
             public void onClick(View v) {
 
                 DataSectionTwo.ongoingMed = yesno;
-
+                DataSectionTwo.s2q6 = medtv.getText().toString();
 
                 Navigation.findNavController(v).navigate(R.id.action_section2Q6_to_section2Q7);
             }

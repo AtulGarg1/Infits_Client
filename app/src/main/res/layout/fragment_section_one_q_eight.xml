@@ -199,7 +199,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/baloo2"
-            android:text="Gender"
+            android:text="If employed, the shift you work in"
             android:textColor="@color/black"
             android:textSize="16sp" />
 

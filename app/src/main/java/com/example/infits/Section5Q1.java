@@ -22,7 +22,7 @@ import android.widget.TextView;
 public class Section5Q1 extends Fragment {
 
     Button nextbtn;
-    TextView backbtn;
+    TextView backbtn, textView77;
     RadioButton veg,nonveg,ovo,vegan,gluten;
     EditText oth;
     String preference;
@@ -83,6 +83,8 @@ public class Section5Q1 extends Fragment {
         vegan = view.findViewById(R.id.vegan);
         gluten = view.findViewById(R.id.gluten);
         oth = view.findViewById(R.id.oth);
+
+        textView77 = view.findViewById(R.id.textView77);
 
 
         veg.setOnClickListener(new View.OnClickListener() {
@@ -218,6 +220,7 @@ public class Section5Q1 extends Fragment {
                 //Toast.makeText(getContext(),employment, Toast.LENGTH_SHORT).show();
 
                 DataSectionFive.preference = preference;
+                DataSectionFive.s5q1 = textView77.getText().toString();
 
                 Navigation.findNavController(v).navigate(R.id.action_section5Q1_to_section5Q2);
             }

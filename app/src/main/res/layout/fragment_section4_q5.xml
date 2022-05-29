@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
         android:fontFamily="@font/nats_regular"
-        android:text="SECTION 3"
+        android:text="SECTION 4"
         android:textColor="@color/black"
         android:textSize="38sp"
         app:layout_constraintBottom_toBottomOf="parent"

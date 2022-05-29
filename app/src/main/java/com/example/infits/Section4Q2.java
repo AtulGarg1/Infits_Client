@@ -21,7 +21,7 @@ import android.widget.TextView;
 public class Section4Q2 extends Fragment {
 
     Button nextbtn;
-    TextView backbtn;
+    TextView backbtn, textView77;
     RadioButton no,daily,oneWeek,twWeek,thrWeek,monthly;
     String running;
 
@@ -79,6 +79,8 @@ public class Section4Q2 extends Fragment {
         twWeek = view.findViewById(R.id.twWeek);
         thrWeek = view.findViewById(R.id.thrWeek);
         monthly = view.findViewById(R.id.monthly);
+
+        textView77 = view.findViewById(R.id.textView77);
 
 
         no.setOnClickListener(new View.OnClickListener() {
@@ -216,6 +218,7 @@ public class Section4Q2 extends Fragment {
                 //Toast.makeText(getContext(),employment, Toast.LENGTH_SHORT).show();
 
                 DataSectionFour.running = running;
+                DataSectionFour.s4q2 = textView77.getText().toString();
 
                 Navigation.findNavController(v).navigate(R.id.action_section4Q2_to_section4Q3);
             }

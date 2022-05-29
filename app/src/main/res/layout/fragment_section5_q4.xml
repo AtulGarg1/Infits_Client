@@ -165,7 +165,7 @@
     <EditText
         android:id="@+id/eTextHeight"
         android:layout_width="284dp"
-        android:layout_height="404dp"
+        android:layout_height="380dp"
         android:background="@drawable/button_outline"
         android:ems="10"
         android:fontFamily="@font/nats_regular"
@@ -181,14 +181,15 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.633" />
+        app:layout_constraintVertical_bias="0.666" />
 
     <TextView
         android:id="@+id/textView80"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="272dp"
+        android:layout_height="50dp"
         android:fontFamily="@font/baloo2"
         android:text="How much water do you consume in a day? (In litres)"
+        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -22,7 +22,7 @@ import android.widget.Toast;
 public class SectionOneQEight extends Fragment {
 
     Button nextbtn;
-    TextView backbtn;
+    TextView backbtn, shifttv;
     RadioButton sGeneral,sMorning, sEvening, sChange, sNA;
     String shift;
 
@@ -81,6 +81,8 @@ public class SectionOneQEight extends Fragment {
         sEvening = view.findViewById(R.id.sEvening);
         sChange = view.findViewById(R.id.sChange);
         sNA = view.findViewById(R.id.sNA);
+
+        shifttv = view.findViewById(R.id.textView77);
 
 
         sGeneral.setOnClickListener(new View.OnClickListener() {
@@ -185,6 +187,7 @@ public class SectionOneQEight extends Fragment {
                 //Toast.makeText(getContext(),DataSectionOne.gender, Toast.LENGTH_SHORT).show();
 
                 DataSectionOne.shift = shift;
+                DataSectionOne.s1q8 = shifttv.getText().toString();
 
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQEight_to_consultationFragment);
             }
