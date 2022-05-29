@@ -1,6 +1,7 @@
 package com.example.infits;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -10,24 +11,36 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.os.Handler;
+import android.os.PowerManager;
 import android.provider.AlarmClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class SleepTrackerFragment extends Fragment {
 
@@ -78,12 +91,27 @@ public class SleepTrackerFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sleep_tracker, container, false);
 
+        PowerManager powerManager = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            powerManager = (PowerManager) getActivity().getSystemService(getActivity().POWER_SERVICE);
+        }
+        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                "MyApp::MyWakelockTag");
+        wakeLock.acquire();
+
         imgback = view.findViewById(R.id.imgback);
         setalarm = view.findViewById(R.id.setalarm);
         startcycle = view.findViewById(R.id.startcycle);
         endcycle = view.findViewById(R.id.endcycle);
         texttime = view.findViewById(R.id.texttime);
         tvDuration = view.findViewById(R.id.tvDuration);
+
+        if (!foregroundServiceRunning()){
+            endcycle.setVisibility(View.GONE);
+            startcycle.setVisibility(View.VISIBLE);
+        }
+
+        getActivity().registerReceiver(broadcastReceiver,new IntentFilter("com.example.infits.sleep"));
 
         calendar = Calendar.getInstance();
         simpleDateFormat = new SimpleDateFormat("HH:mm");
@@ -120,25 +148,67 @@ public class SleepTrackerFragment extends Fragment {
             public void onClick(View v) {
                 startcycle.setVisibility(View.GONE);
                 endcycle.setVisibility(View.VISIBLE);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    Intent intent = new Intent(getActivity(),StopWatchService.class);
-                    getActivity().startForegroundService(new Intent(getActivity(),StopWatchService.class));
+                if (!foregroundServiceRunning()) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        Intent intent = new Intent(getActivity(), StopWatchService.class);
+                        getActivity().startForegroundService(new Intent(getActivity(), StopWatchService.class));
+                    }
+                    sleep = "";
+                    getActivity().registerReceiver(broadcastReceiver, new IntentFilter("com.example.infits.sleep"));
                 }
-                sleep = "";
-                getActivity().registerReceiver(broadcastReceiver,new IntentFilter("com.example.infits.sleep"));
             }
         });
 
         endcycle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String time = sleep;
                 endcycle.setVisibility(View.GONE);
                 startcycle.setVisibility(View.VISIBLE);
+                Intent i = new Intent(getActivity(),StopWatchService.class);
+                i.putExtra("status",true);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     getActivity().getApplicationContext().stopService(new Intent(getActivity(),StopWatchService.class));
                 }
                 getActivity().unregisterReceiver(broadcastReceiver);
                 tvDuration.setText("You slept for " +sleep);
+                String url="http://192.168.124.91/infits/sleeptracker.php";
+                StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
+                    if (response.equals("updated")){
+                        Toast.makeText(getActivity(), "Good Morning", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        System.out.println(response);
+                        Toast.makeText(getActivity(), "Not working", Toast.LENGTH_SHORT).show();
+                    }
+                },error -> {
+                    Toast.makeText(getActivity(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+                })
+                {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Calendar cal = Calendar.getInstance();
+                        String pat = "dd-MM-yyyy hh:mm:ss";
+
+                        SimpleDateFormat sdf = new SimpleDateFormat(pat);
+
+                        cal.set(Calendar.DAY_OF_WEEK, 7);
+                        Map<String,String> data = new HashMap<>();
+                        data.put("userID","Azarudeen");
+                        cal.set(Calendar.DAY_OF_WEEK, cal.getFirstDayOfWeek());
+                        data.put("sleeptime", sdf.format(cal.getTime()));
+                        System.out.println(sdf.format(cal.getTime()));
+                        cal.set(Calendar.DAY_OF_WEEK, 7);
+                        data.put("waketime", sdf.format(cal.getTime()));
+                        System.out.println(sdf.format(cal.getTime()));
+                        data.put("timeslept",time);
+                        System.out.println("hi"+time);
+                        data.put("goal", "8");
+                        return data;
+                    }
+                };
+                Volley.newRequestQueue(getActivity().getApplicationContext()).add(request);
                 sleep = "";
             }
         });
@@ -183,4 +253,15 @@ public class SleepTrackerFragment extends Fragment {
 //            }
 //        });
 //    }
+
+    public boolean foregroundServiceRunning(){
+        ActivityManager activityManager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : activityManager.getRunningServices(Integer.MAX_VALUE)){
+            if (MyService.class.getName().equals(service.service.getClassName())){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

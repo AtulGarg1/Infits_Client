@@ -15,9 +15,20 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MyService extends Service implements SensorEventListener {
@@ -41,7 +52,8 @@ public class MyService extends Service implements SensorEventListener {
 
         if (stepSensor == null) {
             Log.e("Ser","No sensor");
-        } else {
+        }
+        else {
             sensorManager.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI);
         }
 
@@ -90,9 +102,10 @@ public class MyService extends Service implements SensorEventListener {
                         .setCategory(Notification.CATEGORY_SERVICE)
                         .setChannelId("MyChannelId")
                         .build();
-                startForeground(1, notification);
+                startForeground(2, notification);
                 intent.putExtra("steps", FetchTrackerInfos.currentSteps);
                 sendBroadcast(intent);
+                updateSteps();
             }
         }
     }
@@ -100,4 +113,38 @@ public class MyService extends Service implements SensorEventListener {
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
+    void updateSteps(){
+        String url="http://192.168.227.91/infits/steptracker.php";;
+        StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
+            if (response.equals("updated")){
+                Toast.makeText(getApplicationContext(), "Updated bro", Toast.LENGTH_SHORT).show();
+                Log.d("Response",response);
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "Not working", Toast.LENGTH_SHORT).show();
+                Log.d("Response",response);
+            }
+        },error -> {
+            Toast.makeText(getApplicationContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Date date = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                sdf.format(date);
+                Map<String,String> data = new HashMap<>();
+                data.put("userID","Azarudeen");
+                data.put("dateandtime", String.valueOf(date));
+                data.put("distance", "14");
+                data.put("avgspeed", "14");
+                data.put("calories","34");
+                data.put("steps", String.valueOf(FetchTrackerInfos.currentSteps));
+                data.put("goal", "5000");
+                return data;
+            }
+        };
+        Volley.newRequestQueue(getApplicationContext()).add(request);
+    }
+
 }

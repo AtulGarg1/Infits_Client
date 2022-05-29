@@ -189,9 +189,6 @@ public class WaterTrackerFragment extends Fragment {
 
                 dialog.show();
 
-
-
-//                Navigation.findNavController(v).navigate(R.id.action_waterTrackerFragment_to_addLiquidFragment);
             }
         });
 

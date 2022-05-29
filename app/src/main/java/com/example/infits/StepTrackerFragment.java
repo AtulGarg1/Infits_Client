@@ -7,8 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
@@ -16,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.os.Handler;
+import android.os.PowerManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,11 +24,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 public class StepTrackerFragment extends Fragment {
 
@@ -67,11 +61,20 @@ public class StepTrackerFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_step_tracker, container, false);
 
         steps_label = view.findViewById(R.id.steps_label);
         setgoal = view.findViewById(R.id.setgoal);
         imgback = view.findViewById(R.id.imgback);
+
+        PowerManager powerManager = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            powerManager = (PowerManager) getActivity().getSystemService(getActivity().POWER_SERVICE);
+        }
+        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                "MyApp::MyWakelockTag");
+        wakeLock.acquire();
 
         setgoal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,8 +136,8 @@ public class StepTrackerFragment extends Fragment {
             int steps = intent.getIntExtra("steps",0);
             Log.i("StepTracker","Countdown seconds remaining:" + steps);
             steps_label.setText(String.valueOf(steps));
-            SharedPreferences sharedPreferences = getActivity().getSharedPreferences(getActivity().getPackageName(), Context.MODE_PRIVATE);
-            sharedPreferences.edit().putInt("steps",steps).apply();
+//            SharedPreferences sharedPreferences = getActivity().getSharedPreferences(getActivity().getPackageName(), Context.MODE_PRIVATE);
+//            sharedPreferences.edit().putInt("steps",steps).apply();
         }
     }
     @Override

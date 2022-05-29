@@ -73,7 +73,7 @@ public class SleepFragment extends Fragment {
         RadioButton custom_radioButton = view.findViewById(R.id.customdates_btn_sleep);
         week_radioButton.setOnClickListener(v->{
             final GraphView graph = (GraphView) view.findViewById(R.id.graph);
-            String url = "http://192.168.124.91/infits/stepsGraph.php";
+            String url = "http://192.168.124.91/infits/sleepGraph.php";
             String from = "";
             String to = "";
             SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
@@ -85,16 +85,17 @@ public class SleepFragment extends Fragment {
                 JSONObject jsonResponse = null;
                 try {
                     jsonResponse = new JSONObject(response);
-                    JSONArray cast = jsonResponse.getJSONArray("steps");
+                    JSONArray cast = jsonResponse.getJSONArray("sleep");
 
                     for (int i=0; i<cast.length(); i++) {
                         JSONObject actor = cast.getJSONObject(i);
-                        String name = actor.getString("steps");
+                        String name = actor.getString("hrsSlept");
                         String date = actor.getString("date");
                         allNames.add(name);
                         Log.d("Length", allNames.get(i));
+                        Log.d("Length", String.valueOf(days.length));
                         days[i] = date;
-                        dataPoints[i] = Float.parseFloat(allNames.get(i))/1000;
+                        dataPoints[i] = Float.parseFloat(allNames.get(i))/5;
                         Log.d("Length", String.valueOf(dataPoints[i]));
                         Log.d("Length",days[i]);
                     }
@@ -116,10 +117,10 @@ public class SleepFragment extends Fragment {
                     LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(values);
                     StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
                     staticLabelsFormatter.setHorizontalLabels(days);
-                    staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1000", "2000", "3000","4000","5000","6000","7000","8000","9000","10000"});
+                    staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1 ", "2 ", "3 ","4 ","5 ","6 ","7 ","8 ","9 ","1 0"});
                     graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
                     graph.getGridLabelRenderer().setNumHorizontalLabels(7);
-                    graph.getViewport().setMinX(1);
+                    graph.getViewport().setMinX(0);
                     graph.getViewport().setMaxX(7);
                     graph.getViewport().setXAxisBoundsManual(true);
                     series.setDrawDataPoints(true);
@@ -147,7 +148,7 @@ public class SleepFragment extends Fragment {
         month_radioButton.setOnClickListener(v->{
             final GraphView graphMonth = (GraphView) view.findViewById(R.id.graph);
             graphMonth.removeAllSeries();
-            String url = "http://192.168.124.91/infits/stepMonthGraph.php";
+            String url = "http://192.168.124.91/infits/sleepMonthGraph.php";
             String from = "";
             String to = "";
             SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
@@ -158,10 +159,10 @@ public class SleepFragment extends Fragment {
                 JSONObject jsonResponse;
                 try {
                     jsonResponse = new JSONObject(response);
-                    JSONArray cast = jsonResponse.getJSONArray("steps");
+                    JSONArray cast = jsonResponse.getJSONArray("sleep");
                     for (int i=0; i<cast.length(); i++) {
                         JSONObject actor = cast.getJSONObject(i);
-                        String name = actor.getString("steps");
+                        String name = actor.getString("hrsSlept");
                         String date = actor.getString("date");
                         allNames.add(name);
                         days[i] = date;
@@ -177,7 +178,7 @@ public class SleepFragment extends Fragment {
                     LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(values);
                     StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graphMonth);
                     staticLabelsFormatter.setHorizontalLabels(days);
-                    staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1000", "2000", "3000","4000","5000","6000","7000","8000","9000","10000"});
+                    staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1 ", "2 ", "3 ","4 ","5 ","6 ","7 ","8 ","9 ","1 0"});
                     graphMonth.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
                     graphMonth.getGridLabelRenderer().setNumHorizontalLabels(7);
                     graphMonth.getViewport().setMinX(1);
@@ -210,7 +211,7 @@ public class SleepFragment extends Fragment {
         year_radioButton.setOnClickListener(v->{
             final GraphView graphMonth = (GraphView) view.findViewById(R.id.graph);
             graphMonth.removeAllSeries();
-            String url = "http://192.168.124.91/infits/stepYearGraph.php";
+            String url = "http://192.168.124.91/infits/sleepYearGraph.php";
             String from = "";
             String to = "";
             SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
@@ -224,7 +225,7 @@ public class SleepFragment extends Fragment {
                         JSONObject actor = cast.getJSONObject(i);
                         String name = actor.getString("av");
                         allNames.add(name);
-                        dataPoints[i] = Float.parseFloat(allNames.get(i))/1000;
+                        dataPoints[i] = Float.parseFloat(allNames.get(i));
                     }
 
                     DataPoint[] values = new DataPoint[dataPoints.length];
@@ -248,7 +249,7 @@ public class SleepFragment extends Fragment {
                     LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(values);
                     StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graphMonth);
                     staticLabelsFormatter.setHorizontalLabels(new String[]{"0","1","2","3","4","5","6","7","8","9","10","11","12"});
-                    staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1000", "2000", "3000","4000","5000","6000","7000","8000","9000","10000"});
+                    staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1", "2", "3 ","4 ","5 ","6 ","7 ","8 ","9 ","1 0"});
                     graphMonth.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
 
                     graphMonth.getGridLabelRenderer().setNumHorizontalLabels(6);
@@ -324,7 +325,7 @@ public class SleepFragment extends Fragment {
                     LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(values);
                     StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
                     staticLabelsFormatter.setHorizontalLabels(days);
-                    staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1000", "2000", "3000","4000","5000","6000","7000","8000","9000","10000"});
+                    staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1 ", "2 ", "3 ","4 ","5 ","6 ","7 ","8 ","9 ","10"});
                     graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
                     graph.getGridLabelRenderer().setNumHorizontalLabels(7);
                     graph.getViewport().setMinX(1);

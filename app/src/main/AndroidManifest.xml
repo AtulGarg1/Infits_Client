@@ -8,11 +8,15 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <uses-feature
         android:name="android.hardware.sensor.stepcounter"
         android:required="true" />
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <uses-permission android:name="android.permission.BODY_SENSORS"/>
 
     <application
         android:allowBackup="true"
@@ -23,10 +27,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Infits"
         android:usesCleartextTraffic="true">
-        <service
-            android:name=".StopWatchService"
-            android:enabled="true"
-            android:exported="true"></service>
+        <service android:name=".StopWatchService"/>
 
         <activity
             android:name=".MainActivity2"
@@ -102,6 +103,9 @@
         </activity>
 
         <service android:name=".MyService" />
+
+        <receiver android:name=".UpdateStepTracker"/>
+
     </application>
 
 </manifest>
