@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -26,7 +27,7 @@ public class Section2Q8 extends Fragment {
     TextView backbtn, famtv;
     CheckBox dia,hyperthy,hypothy,hyperten,pcod,fattyl;
     EditText oth;
-    ArrayList<String> diagnosed;
+    ArrayList<String> fam;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -84,7 +85,7 @@ public class Section2Q8 extends Fragment {
         fattyl = view.findViewById(R.id.fattyl);
         oth = view.findViewById(R.id.oth);
 
-        diagnosed = new ArrayList<>();
+        fam = new ArrayList<>();
 
         famtv = view.findViewById(R.id.textView77);
 
@@ -92,9 +93,9 @@ public class Section2Q8 extends Fragment {
             @Override
             public void onClick(View v) {
                 if(dia.isChecked())
-                    diagnosed.add("Diabetes");
+                    fam.add("Diabetes");
                 else
-                    diagnosed.remove("Diabetes");
+                    fam.remove("Diabetes");
             }
         });
 
@@ -102,9 +103,9 @@ public class Section2Q8 extends Fragment {
             @Override
             public void onClick(View v) {
                 if(hyperthy.isChecked())
-                    diagnosed.add("Hyperthyroidism");
+                    fam.add("Hyperthyroidism");
                 else
-                    diagnosed.remove("Hyperthyroidism");
+                    fam.remove("Hyperthyroidism");
             }
         });
 
@@ -112,9 +113,9 @@ public class Section2Q8 extends Fragment {
             @Override
             public void onClick(View v) {
                 if(hypothy.isChecked())
-                    diagnosed.add("Hypothyroidism");
+                    fam.add("Hypothyroidism");
                 else
-                    diagnosed.remove("Hypothyroidism");
+                    fam.remove("Hypothyroidism");
             }
         });
 
@@ -122,9 +123,9 @@ public class Section2Q8 extends Fragment {
             @Override
             public void onClick(View v) {
                 if(hyperten.isChecked())
-                    diagnosed.add("Hypertension");
+                    fam.add("Hypertension");
                 else
-                    diagnosed.remove("Hypertension");
+                    fam.remove("Hypertension");
             }
         });
 
@@ -132,9 +133,9 @@ public class Section2Q8 extends Fragment {
             @Override
             public void onClick(View v) {
                 if(pcod.isChecked())
-                    diagnosed.add("PCOD/PCOS");
+                    fam.add("PCOD/PCOS");
                 else
-                    diagnosed.remove("PCOD/PCOS");
+                    fam.remove("PCOD/PCOS");
             }
         });
 
@@ -142,24 +143,27 @@ public class Section2Q8 extends Fragment {
             @Override
             public void onClick(View v) {
                 if(fattyl.isChecked())
-                    diagnosed.add("Fatty liver");
+                    fam.add("Fatty liver");
                 else
-                    diagnosed.remove("Fatty liver");
+                    fam.remove("Fatty liver");
             }
         });
 
         String other = oth.getText().toString();
 
         if(other!=null)
-            diagnosed.add(other);
+            fam.add(other);
 
 
         nextbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                DataSectionTwo.familyHistory = diagnosed;
+                DataSectionTwo.familyHistory = fam;
                 DataSectionTwo.s2q8 = famtv.getText().toString();
+
+
+                //Toast.makeText(getContext(), "Data:" + DataSectionTwo.familyHistory, Toast.LENGTH_SHORT).show();
 
                 Navigation.findNavController(v).navigate(R.id.action_section2Q8_to_consultationFragment);
             }

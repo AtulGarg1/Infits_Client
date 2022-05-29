@@ -8,14 +8,17 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.pdf.PdfDocument;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +26,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.itextpdf.text.PageSize;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.annotation.Documented;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,15 +46,12 @@ public class ConsultationFragment extends Fragment {
 
     TextView textView58;
 
-    Button generatePDFbtn;
+    private static final int STORAGE_CODE = 1000;
+
+    private String filePath = Environment.getExternalStorageDirectory().getPath() + "/Download/Sample1.pdf";
+    private File file = new File(filePath);
 
 
-    int pageHeight = 1120;
-    int pagewidth = 792;
-
-    Bitmap bmp, scaledbmp;
-
-    private static final int PERMISSION_REQUEST_CODE = 200;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -154,7 +157,7 @@ public class ConsultationFragment extends Fragment {
             public void onClick(View v) {
 
                 String section1data = DataSectionOne.s1q1 +":\n" + DataSectionOne.email +"\n\n" + DataSectionOne.s1q2 +":\n" + DataSectionOne.name +"\n\n" + DataSectionOne.s1q3 +":\n" + DataSectionOne.age +"\n\n"
-                        + DataSectionOne.s1q4 +":\n" + DataSectionOne.gender +"\n\n" + DataSectionOne.s1q5 +":\n" + DataSectionOne.hometown +"\n\n" + DataSectionOne.s1q6 +":\n" + DataSectionOne.employment +"\n\n" + DataSectionOne.s1q7 +":\n" + DataSectionOne.duration +"\n\n"
+                        + DataSectionOne.s1q4 +":\n" + DataSectionOne.hometown +"\n\n" + DataSectionOne.s1q5 +":\n" + DataSectionOne.gender +"\n\n" + DataSectionOne.s1q6 +":\n" + DataSectionOne.employment +"\n\n" + DataSectionOne.s1q7 +":\n" + DataSectionOne.duration +"\n\n"
                         + DataSectionOne.s1q8 +":\n" + DataSectionOne.shift +"\n\n";
 
                 String section2part1 = DataSectionTwo.s2q1 +":\n" + DataSectionTwo.height +"\n\n" + DataSectionTwo.s2q2 +":\n" + DataSectionTwo.weight +"\n\n"
@@ -169,13 +172,13 @@ public class ConsultationFragment extends Fragment {
                     sb1.append(i);
                     sb1.append("\n");
                 }
-                String diagnosedData = sb1.toString();
+                String diagnosedData = DataSectionTwo.s2q5 + "\n" + sb1.toString();
 
                 for(String i : DataSectionTwo.familyHistory) {
-                    sb1.append(i);
-                    sb1.append("\n");
+                    sb2.append(i);
+                    sb2.append("\n");
                 }
-                String famhistoryData = sb2.toString();
+                String famhistoryData = DataSectionTwo.s2q8 + "\n" + sb2.toString();
 
 
                 String section3data = DataSectionThree.s3q1 +":\n" + DataSectionThree.gastritis +"\n\n" + DataSectionThree.s3q2 +":\n" + DataSectionThree.constipation +"\n\n"
@@ -198,6 +201,7 @@ public class ConsultationFragment extends Fragment {
                         + DataSectionSix.s6q8 +":\n" + DataSectionSix.fruits +"\n\n" + DataSectionSix.s6q9 +":\n" + DataSectionSix.fats +"\n\n" + DataSectionSix.s6q10 +":\n" + DataSectionSix.dry_fruits +"\n\n" + DataSectionSix.s6q11 +":\n" + DataSectionSix.sugar +"\n\n"
                         + DataSectionSix.s6q12 +":\n" + DataSectionSix.fastfood +"\n\n" + DataSectionSix.s6q13 +":\n" + DataSectionSix.sweets +"\n\n" + DataSectionSix.s6q14 +":\n" + DataSectionSix.tea +"\n\n";
 
+                String section2data = section2part1 + "\n\n" + diagnosedData + section2part2 + famhistoryData + "\n\n";
 
                 String allClientData = section1data + section2part1 + diagnosedData + section2part2 + famhistoryData
                         + section3data + section4data + section5data + section6data;
@@ -205,47 +209,110 @@ public class ConsultationFragment extends Fragment {
 
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
 
-                generatePDF(allClientData);
+                generatePDF(allClientData, section1data, section2data, section3data, section4data, section5data, section6data);
 
             }
         });
 
 
-
         return view;
     }
 
-    private void generatePDF(String clientData) {
+    private void generatePDF(String clientData, String section1data, String section2data, String section3data, String section4data, String section5data,String section6data) {
 
-        PdfDocument myPdfDocument = new PdfDocument();
-        PdfDocument.PageInfo myPageInfo = new PdfDocument.PageInfo.Builder(300,600,1).create();
-        PdfDocument.Page myPage = myPdfDocument.startPage(myPageInfo);
+        //String extstoragedir = Environment.getExternalStorageDirectory().toString();
+        //String extstoragedir =Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + "sample1" + ".pdf";
 
-        Paint myPaint = new Paint();
 
-        int x = 10, y=25;
+        PdfDocument pdfDocument = new PdfDocument();
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(450, 2300, 1 ).create();
+        PdfDocument.Page page1 = pdfDocument.startPage(pageInfo);
 
-        for (String line : clientData.split("\n")){
-            myPage.getCanvas().drawText(line, x, y, myPaint);
-            y+=myPaint.descent()-myPaint.ascent();
+        Paint paint = new Paint();
+
+        int x=10, y=25;
+
+        for(String line: clientData.split("\n")) {
+            page1.getCanvas().drawText(line,x,y,paint);
+
+            y+=paint.descent()-paint.ascent();
         }
 
-        myPdfDocument.finishPage(myPage);
+        pdfDocument.finishPage(page1);
 
-        //String pdffilename = "ClientDetails";
+        /*
 
-        //String myFilePath = Environment.getExternalStorageDirectory().getPath() + '\\' + pdffilename + ".pdf";
-        String myFilePath = Environment.getExternalStorageDirectory().getPath() + "/ClientDetails.pdf";
-        File myFile = new File(myFilePath);
+        PdfDocument.PageInfo pageInfo2 = new PdfDocument.PageInfo.Builder(400, 700, 2 ).create();
+        PdfDocument.Page page2 = pdfDocument.startPage(pageInfo2);
+
+        for(String line: section2data.split("\n")) {
+            page2.getCanvas().drawText(line,x,y,paint);
+
+            y+=paint.descent()-paint.ascent();
+        }
+
+        pdfDocument.finishPage(page2);
+
+        PdfDocument.PageInfo pageInfo3 = new PdfDocument.PageInfo.Builder(400, 800, 3 ).create();
+        PdfDocument.Page page3 = pdfDocument.startPage(pageInfo3);
+
+        for(String line: section3data.split("\n")) {
+            page3.getCanvas().drawText(line,x,y,paint);
+
+            y+=paint.descent()-paint.ascent();
+        }
+
+        pdfDocument.finishPage(page3);
+
+        PdfDocument.PageInfo pageInfo4 = new PdfDocument.PageInfo.Builder(400, 800, 4 ).create();
+        PdfDocument.Page page4 = pdfDocument.startPage(pageInfo4);
+
+        for(String line: section4data.split("\n")) {
+            page4.getCanvas().drawText(line,x,y,paint);
+
+            y+=paint.descent()-paint.ascent();
+        }
+
+        pdfDocument.finishPage(page4);
+
+        PdfDocument.PageInfo pageInfo5 = new PdfDocument.PageInfo.Builder(400, 900, 5 ).create();
+        PdfDocument.Page page5 = pdfDocument.startPage(pageInfo5);
+
+        for(String line: section5data.split("\n")) {
+            page5.getCanvas().drawText(line,x,y,paint);
+
+            y+=paint.descent()-paint.ascent();
+        }
+
+        pdfDocument.finishPage(page5);
+
+        PdfDocument.PageInfo pageInfo6 = new PdfDocument.PageInfo.Builder(400, 900, 6 ).create();
+        PdfDocument.Page page6 = pdfDocument.startPage(pageInfo6);
+
+        for(String line: section6data.split("\n")) {
+            page6.getCanvas().drawText(line,x,y,paint);
+
+            y+=paint.descent()-paint.ascent();
+        }
+
+        pdfDocument.finishPage(page6);
+
+         */
+
         try {
-            myPdfDocument.writeTo(new FileOutputStream(myFile));
-            Toast.makeText(getContext(),"PDF Created: " + myFilePath, Toast.LENGTH_SHORT).show();
+            pdfDocument.writeTo(new FileOutputStream(file));
+            Toast.makeText(getContext(), "PDF created", Toast.LENGTH_SHORT).show();
+
         }
-        catch (Exception e){
+        catch(Exception e) {
             e.printStackTrace();
-            Toast.makeText(getContext(),"ERROR", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
         }
 
-        myPdfDocument.close();
+
+        pdfDocument.close();
+
+
     }
+
 }
