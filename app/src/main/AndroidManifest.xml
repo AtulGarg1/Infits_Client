@@ -42,7 +42,7 @@
             android:name=".MainActivity2"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".DashBoardMain"
             android:exported="true" />
         <activity
             android:name=".FAQ"
@@ -102,7 +102,7 @@
             android:name=".Landing1"
             android:exported="true" />
         <activity
-            android:name=".DashBoardMain"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

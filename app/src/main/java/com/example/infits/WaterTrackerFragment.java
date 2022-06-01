@@ -156,7 +156,7 @@ public class WaterTrackerFragment extends Fragment {
                     consumedInDay += (int)Float.parseFloat(choosed.getText().toString());
 //                    consumed.setText(String.valueOf(consumedInDay));
                     dialog.dismiss();
-                    String url="http://192.168.124.91/infits/watertracker.php";
+                    String url="http://192.168.1.14/infits/watertracker.php";
                     StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
                             if (response.equals("updated")){
                                 consumed.setText(String.valueOf(consumedInDay));
