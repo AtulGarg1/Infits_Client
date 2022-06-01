@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         app:layout_behavior="@string/bottom_sheet_behavior"
-        app:behavior_hideable="true"
+        app:behavior_hideable="false"
         app:behavior_peekHeight="500dp">
 
         <LinearLayout

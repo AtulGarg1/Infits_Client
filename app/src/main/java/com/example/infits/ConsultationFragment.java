@@ -2,23 +2,19 @@ package com.example.infits;
 
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.pdf.PdfDocument;
-import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.os.Environment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,12 +22,17 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.itextpdf.text.PageSize;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.lang.annotation.Documented;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,9 +49,13 @@ public class ConsultationFragment extends Fragment {
 
     private static final int STORAGE_CODE = 1000;
 
-    private String filePath = Environment.getExternalStorageDirectory().getPath() + "/Download/Sample1.pdf";
+    private String filePath = Environment.getExternalStorageDirectory().getPath() + "/Download/" + DataFromDatabase.clientuserID + "_healthform.pdf";
     private File file = new File(filePath);
 
+    public ArrayList<String> questions;
+    public ArrayList<String> answers;
+
+    String diagnosedAnswer, famhistoryAnswer;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -156,6 +161,10 @@ public class ConsultationFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                addQuestions();
+                addAnswers();
+
+
                 String section1data = DataSectionOne.s1q1 +":\n" + DataSectionOne.email +"\n\n" + DataSectionOne.s1q2 +":\n" + DataSectionOne.name +"\n\n" + DataSectionOne.s1q3 +":\n" + DataSectionOne.age +"\n\n"
                         + DataSectionOne.s1q4 +":\n" + DataSectionOne.hometown +"\n\n" + DataSectionOne.s1q5 +":\n" + DataSectionOne.gender +"\n\n" + DataSectionOne.s1q6 +":\n" + DataSectionOne.employment +"\n\n" + DataSectionOne.s1q7 +":\n" + DataSectionOne.duration +"\n\n"
                         + DataSectionOne.s1q8 +":\n" + DataSectionOne.shift +"\n\n";
@@ -172,12 +181,14 @@ public class ConsultationFragment extends Fragment {
                     sb1.append(i);
                     sb1.append("\n");
                 }
+                diagnosedAnswer = sb1.toString();
                 String diagnosedData = DataSectionTwo.s2q5 + "\n" + sb1.toString();
 
                 for(String i : DataSectionTwo.familyHistory) {
                     sb2.append(i);
                     sb2.append("\n");
                 }
+                famhistoryAnswer = sb2.toString();
                 String famhistoryData = DataSectionTwo.s2q8 + "\n" + sb2.toString();
 
 
@@ -210,6 +221,42 @@ public class ConsultationFragment extends Fragment {
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
 
                 generatePDF(allClientData, section1data, section2data, section3data, section4data, section5data, section6data);
+
+                String url="http://192.168.1.14/infits/clientconsultation.php";
+
+                //String tablename = DataFromDatabase.clientuserID;
+                String tablename = "clientidconsul";
+
+                StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
+                    System.out.println(response);
+                    if (response.equals("success")){
+                        Toast.makeText(getActivity(), "Details updated", Toast.LENGTH_SHORT).show();
+                        Intent id = new Intent(getActivity(), DashBoardMain.class);
+                        startActivity(id);
+                    }
+                    else{
+                        Toast.makeText(getActivity(), response, Toast.LENGTH_SHORT).show();
+                    }
+                },error -> {
+                    Toast.makeText(getActivity(),error.toString().trim(),Toast.LENGTH_SHORT).show();}){
+                    /*
+                    @Nullable
+                    @Override
+                    protected Map<String, ArrayList<>> getParams() throws AuthFailureError {
+                        Map<String,ArrayList<>> data = new HashMap<>();
+
+                        data.put("question",questions);
+                        data.put("answer",answers);
+                        //data.put("tablename",tablename);
+
+                        return data;
+                    }
+
+                     */
+                };
+                RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+                requestQueue.add(stringRequest);
+
 
             }
         });
@@ -311,6 +358,158 @@ public class ConsultationFragment extends Fragment {
 
 
         pdfDocument.close();
+
+
+    }
+
+    public void addQuestions() {
+
+        questions.add(DataSectionOne.s1q1);
+        questions.add(DataSectionOne.s1q2);
+        questions.add(DataSectionOne.s1q3);
+        questions.add(DataSectionOne.s1q4);
+        questions.add(DataSectionOne.s1q5);
+        questions.add(DataSectionOne.s1q6);
+        questions.add(DataSectionOne.s1q7);
+        questions.add(DataSectionOne.s1q8);
+
+        questions.add(DataSectionTwo.s2q1);
+        questions.add(DataSectionTwo.s2q2);
+        questions.add(DataSectionTwo.s2q3);
+        questions.add(DataSectionTwo.s2q4);
+        questions.add(DataSectionTwo.s2q5);
+        questions.add(DataSectionTwo.s2q6);
+        questions.add(DataSectionTwo.s2q7);
+        questions.add(DataSectionTwo.s2q8);
+
+        questions.add(DataSectionThree.s3q1);
+        questions.add(DataSectionThree.s3q2);
+        questions.add(DataSectionThree.s3q3);
+        questions.add(DataSectionThree.s3q4);
+        questions.add(DataSectionThree.s3q5);
+        questions.add(DataSectionThree.s3q6);
+        questions.add(DataSectionThree.s3q7);
+        questions.add(DataSectionThree.s3q8);
+        questions.add(DataSectionThree.s3q9);
+        questions.add(DataSectionThree.s3q10);
+        questions.add(DataSectionThree.s3q11);
+
+        questions.add(DataSectionFour.s4q1);
+        questions.add(DataSectionFour.s4q2);
+        questions.add(DataSectionFour.s4q3);
+        questions.add(DataSectionFour.s4q4);
+        questions.add(DataSectionFour.s4q5);
+        questions.add(DataSectionFour.s4q6);
+        questions.add(DataSectionFour.s4q7);
+
+        questions.add(DataSectionFive.s5q1);
+        questions.add(DataSectionFive.s5q2);
+        questions.add(DataSectionFive.s5q3);
+        questions.add(DataSectionFive.s5q4);
+        questions.add(DataSectionFive.s5q5);
+        questions.add(DataSectionFive.s5q6);
+        questions.add(DataSectionFive.s5q7);
+        questions.add(DataSectionFive.s5q8);
+        questions.add(DataSectionFive.s5q9);
+        questions.add(DataSectionFive.s5q10);
+        questions.add(DataSectionFive.s5q11);
+        questions.add(DataSectionFive.s5q12);
+        questions.add(DataSectionFive.s5q13);
+
+        questions.add(DataSectionSix.s6q1);
+        questions.add(DataSectionSix.s6q2);
+        questions.add(DataSectionSix.s6q3);
+        questions.add(DataSectionSix.s6q4);
+        questions.add(DataSectionSix.s6q5);
+        questions.add(DataSectionSix.s6q6);
+        questions.add(DataSectionSix.s6q7);
+        questions.add(DataSectionSix.s6q8);
+        questions.add(DataSectionSix.s6q9);
+        questions.add(DataSectionSix.s6q10);
+        questions.add(DataSectionSix.s6q11);
+        questions.add(DataSectionSix.s6q12);
+        questions.add(DataSectionSix.s6q13);
+        questions.add(DataSectionSix.s6q14);
+
+
+    }
+
+    public void addAnswers() {
+
+        //email,name,age,gender,hometown,employment,duration,shift
+        answers.add(DataSectionOne.email);
+        answers.add(DataSectionOne.name);
+        answers.add(DataSectionOne.age);
+        answers.add(DataSectionOne.gender);
+        answers.add(DataSectionOne.hometown);
+        answers.add(DataSectionOne.employment);
+        answers.add(DataSectionOne.duration);
+        answers.add(DataSectionOne.shift);
+
+        //height,weight,usualWeight,ongoingMed,medication;
+        answers.add(DataSectionTwo.height);
+        answers.add(DataSectionTwo.weight);
+        answers.add(DataSectionTwo.usualWeight);
+        answers.add("Image");
+        answers.add(diagnosedAnswer);
+        answers.add(DataSectionTwo.ongoingMed);
+        answers.add(DataSectionTwo.medication);
+        answers.add(famhistoryAnswer);
+
+        //gastritis,constipation,diarrhoea,nausea,vomiting,appetite,hairfall,bloating,micturition,headache,stomachache;
+        answers.add(DataSectionThree.gastritis);
+        answers.add(DataSectionThree.constipation);
+        answers.add(DataSectionThree.diarrhoea);
+        answers.add(DataSectionThree.nausea);
+        answers.add(DataSectionThree.vomiting);
+        answers.add(DataSectionThree.appetite);
+        answers.add(DataSectionThree.hairfall);
+        answers.add(DataSectionThree.bloating);
+        answers.add(DataSectionThree.micturition);
+        answers.add(DataSectionThree.headache);
+        answers.add(DataSectionThree.stomachache);
+
+        //walking,running,yoga,strength,cardio,skipping,activity_duration;
+        answers.add(DataSectionFour.walking);
+        answers.add(DataSectionFour.running);
+        answers.add(DataSectionFour.yoga);
+        answers.add(DataSectionFour.strength);
+        answers.add(DataSectionFour.cardio);
+        answers.add(DataSectionFour.skipping);
+        answers.add(DataSectionFour.activity_duration);
+
+        //preference,mealno,snack,water,allergies,food_allergy,stress_eat,stress_food,daily_food,
+        //            sleep_duration,smoking,alcohol,daily_routine;
+        answers.add(DataSectionFive.preference);
+        answers.add(DataSectionFive.mealno);
+        answers.add(DataSectionFive.snack);
+        answers.add(DataSectionFive.water);
+        answers.add(DataSectionFive.allergies);
+        answers.add(DataSectionFive.food_allergy);
+        answers.add(DataSectionFive.stress_eat);
+        answers.add(DataSectionFive.stress_food);
+        answers.add(DataSectionFive.daily_food);
+        answers.add(DataSectionFive.sleep_duration);
+        answers.add(DataSectionFive.smoking);
+        answers.add(DataSectionFive.alcohol);
+        answers.add(DataSectionFive.daily_routine);
+
+        //cereals,pulses,milk,milkprod,roots,leafy,veg_other,fruits,fats,dry_fruits,sugar
+        // fastfood,sweets,tea;
+        answers.add(DataSectionSix.cereals);
+        answers.add(DataSectionSix.pulses);
+        answers.add(DataSectionSix.milk);
+        answers.add(DataSectionSix.milkprod);
+        answers.add(DataSectionSix.roots);
+        answers.add(DataSectionSix.leafy);
+        answers.add(DataSectionSix.veg_other);
+        answers.add(DataSectionSix.fruits);
+        answers.add(DataSectionSix.fats);
+        answers.add(DataSectionSix.dry_fruits);
+        answers.add(DataSectionSix.sugar);
+        answers.add(DataSectionSix.fastfood);
+        answers.add(DataSectionSix.sweets);
+        answers.add(DataSectionSix.tea);
 
 
     }
