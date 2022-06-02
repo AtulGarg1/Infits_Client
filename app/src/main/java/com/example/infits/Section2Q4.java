@@ -1,16 +1,29 @@
 package com.example.infits;
 
+import android.Manifest;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.InputStream;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,7 +33,14 @@ import android.widget.Toast;
 public class Section2Q4 extends Fragment {
 
     Button nextbtn;
-    TextView backbtn, reporttv;
+    TextView backbtn, reporttv, textView79;
+    ImageView ivUpload;
+
+    private Bitmap bitmap;
+    private File destination = null;
+    private InputStream inputStreamImg;
+    private String imgpath = null;
+    private final int PICK_IMAGE_CAMERA = 1, PICK_IMAGE_GALLERY = 2;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -73,10 +93,26 @@ public class Section2Q4 extends Fragment {
 
         reporttv = view.findViewById(R.id.textView80);
 
+        textView79 = view.findViewById(R.id.textView79);
+
+        ivUpload = view.findViewById(R.id.ivUpload);
+
+
+        ivUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                selectImage();
+
+            }
+        });
+
 
         nextbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                DataSectionTwo.s2q4 = reporttv.getText().toString();
 
                 Navigation.findNavController(v).navigate(R.id.action_section2Q4_to_section2Q5);
             }
@@ -91,4 +127,55 @@ public class Section2Q4 extends Fragment {
 
         return view;
     }
+
+
+
+    private void selectImage() {
+        try {
+
+            Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(pickPhoto, PICK_IMAGE_GALLERY);
+
+
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), "Camera Permission error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Change app permission in your device settings", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        inputStreamImg = null;
+        if (requestCode == PICK_IMAGE_GALLERY) {
+            try {
+                if (data.getData() != null) {
+                    Uri selectedImage = data.getData();
+                    bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+                    //ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                    // bitmap.compress(Bitmap.CompressFormat.JPEG, 50, bytes);
+                    ivUpload.setImageBitmap(bitmap);
+                   imgpath = getRealPathFromURI(selectedImage);
+                    destination = new File(imgpath.toString());
+                    //Toast.makeText(getActivity(), "Path: "+imgPath, Toast.LENGTH_SHORT).show();
+
+                    DataSectionTwo.imgPath = imgpath;
+
+                }
+            } catch (Exception e) {
+                Toast.makeText(getActivity(), "No picture selected", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
+
+    public String getRealPathFromURI(Uri contentUri) {
+        String[] proj = {MediaStore.Audio.Media.DATA};
+        Cursor cursor = getActivity().managedQuery(contentUri, proj, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
+    }
+
 }

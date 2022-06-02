@@ -67,9 +67,6 @@ public class ConsultationFragment extends Fragment {
     String diagnosedAnswer, famhistoryAnswer;
 
 
-
-
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -189,14 +186,14 @@ public class ConsultationFragment extends Fragment {
                     sb1.append(i);
                     sb1.append("\n");
                 }
-                //diagnosedAnswer = sb1.toString();
+                diagnosedAnswer = sb1.toString();
                 String diagnosedData = DataSectionTwo.s2q5 + "\n" + sb1.toString();
 
                 for(String i : DataSectionTwo.familyHistory) {
                     sb2.append(i);
                     sb2.append("\n");
                 }
-                //famhistoryAnswer = sb2.toString();
+                famhistoryAnswer = sb2.toString();
                 String famhistoryData = DataSectionTwo.s2q8 + "\n" + sb2.toString();
 
 
@@ -235,6 +232,22 @@ public class ConsultationFragment extends Fragment {
                     public void run() {
 
                         //Log.i("New thread",Thread.currentThread().getName());
+
+                        StringBuffer sb1 = new StringBuffer();
+                        StringBuffer sb2 = new StringBuffer();
+
+                        for(String i : DataSectionTwo.diagnosed) {
+                            sb1.append(i);
+                            sb1.append(", ");
+                        }
+                        diagnosedAnswer = sb1.toString();
+
+
+                        for(String i : DataSectionTwo.familyHistory) {
+                            sb2.append(i);
+                            sb2.append(", ");
+                        }
+                        famhistoryAnswer = sb2.toString();
 
                         questions.add(DataSectionOne.s1q1);
                         questions.add(DataSectionOne.s1q2);
@@ -303,12 +316,12 @@ public class ConsultationFragment extends Fragment {
                         questions.add(DataSectionSix.s6q13);
                         questions.add(DataSectionSix.s6q14);
 
-                        //email,name,age,gender,hometown,employment,duration,shift
+                        //email,name,age,hometown,gender,employment,duration,shift
                         answers.add(DataSectionOne.email);
                         answers.add(DataSectionOne.name);
                         answers.add(DataSectionOne.age);
-                        answers.add(DataSectionOne.gender);
                         answers.add(DataSectionOne.hometown);
+                        answers.add(DataSectionOne.gender);
                         answers.add(DataSectionOne.employment);
                         answers.add(DataSectionOne.duration);
                         answers.add(DataSectionOne.shift);
@@ -317,7 +330,7 @@ public class ConsultationFragment extends Fragment {
                         answers.add(DataSectionTwo.height);
                         answers.add(DataSectionTwo.weight);
                         answers.add(DataSectionTwo.usualWeight);
-                        answers.add("Image");
+                        answers.add(DataSectionTwo.imgPath);
                         answers.add(diagnosedAnswer);
                         answers.add(DataSectionTwo.ongoingMed);
                         answers.add(DataSectionTwo.medication);
@@ -417,43 +430,6 @@ public class ConsultationFragment extends Fragment {
 
                 Thread t = new Thread(runnable);
                 t.start();
-
-
-
-
-
-
-                /*
-                StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
-                    System.out.println(response);
-                    if (response.equals("success")){
-                        Toast.makeText(getActivity(), "Details updated", Toast.LENGTH_SHORT).show();
-                        Intent id = new Intent(getActivity(), DashBoardMain.class);
-                        startActivity(id);
-                    }
-                    else{
-                        Toast.makeText(getActivity(), response, Toast.LENGTH_SHORT).show();
-                    }
-                },error -> {
-                    Toast.makeText(getActivity(),error.toString().trim(),Toast.LENGTH_SHORT).show();}){
-                    @Nullable
-                    @Override
-                    protected Map<String, ArrayList> getParams() throws AuthFailureError {
-                        Map<String,ArrayList> data = new HashMap<>();
-
-                        data.put("question",questions);
-                        data.put("answer",answers);
-                        //data.put("tablename",tablename);
-
-                        return data;
-                    }
-
-                };
-                RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-                requestQueue.add(stringRequest);
-
-
-                 */
 
             }
         });
@@ -561,7 +537,7 @@ public class ConsultationFragment extends Fragment {
 
     public void SubmitQuesAns(String ques, String ans) {
 
-        String url="http://192.168.72.91/infits/clientconsultation.php";
+        String url="http://192.168.1.14/infits/clientconsultation.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -592,3 +568,4 @@ public class ConsultationFragment extends Fragment {
     }
 
 }
+
