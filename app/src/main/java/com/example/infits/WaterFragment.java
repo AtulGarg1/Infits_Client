@@ -146,7 +146,7 @@ public class WaterFragment extends Fragment {
         month_radioButton.setOnClickListener(v->{
             final GraphView graphMonth = (GraphView) view.findViewById(R.id.graph);
             graphMonth.removeAllSeries();
-            String url = "http://192.168.124.91/infits/waterMonthGraph.php";
+            String url = "http://192.168.72.91/infits/waterMonthGraph.php";
             String from = "";
             String to = "";
             SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
@@ -209,7 +209,7 @@ public class WaterFragment extends Fragment {
         year_radioButton.setOnClickListener(v->{
             final GraphView graphMonth = (GraphView) view.findViewById(R.id.graph);
             graphMonth.removeAllSeries();
-            String url = "http://192.168.124.91/infits/waterYearGraph.php";
+            String url = "http://192.168.72.91/infits/waterYearGraph.php";
             String from = "";
             String to = "";
             SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
@@ -280,7 +280,7 @@ public class WaterFragment extends Fragment {
         });
         custom_radioButton.setOnClickListener(v->{
             final GraphView graph = (GraphView) view.findViewById(R.id.graph);
-            String url = "http://192.168.124.91/infits/stepsGraph.php";
+            String url = "http://192.168.72.91/infits/waterGraph.php";
             String from = "2022-09-10";
             String to = "2022-09-17";
             SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
@@ -292,11 +292,11 @@ public class WaterFragment extends Fragment {
                 JSONObject jsonResponse = null;
                 try {
                     jsonResponse = new JSONObject(response);
-                    JSONArray cast = jsonResponse.getJSONArray("steps");
+                    JSONArray cast = jsonResponse.getJSONArray("water");
 
                     for (int i=0; i<cast.length(); i++) {
                         JSONObject actor = cast.getJSONObject(i);
-                        String name = actor.getString("steps");
+                        String name = actor.getString("drink");
                         String date = actor.getString("date");
                         allNames.add(name);
                         Log.d("Length", allNames.get(i));

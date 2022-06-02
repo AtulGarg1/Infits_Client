@@ -70,7 +70,7 @@ public class Account extends Fragment {
     private String imgPath = null;
     private final int PICK_IMAGE_CAMERA = 1, PICK_IMAGE_GALLERY = 2;
 
-    String url = "http://192.168.177.91/infits/save.php";
+    String url = "http://192.168.72.91/infits/save.php";
 
     ActivityResultLauncher<String> photo;
 
@@ -261,7 +261,7 @@ public class Account extends Fragment {
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String,String> data = new HashMap<>();
-                    data.put("userID",DataFromDatabase.clientuserID);
+//                    data.put("userID",DataFromDatabase.clientuserID);
                     data.put("email",emailStr);
                     data.put("gender",gen);
                     data.put("age",ageStr);

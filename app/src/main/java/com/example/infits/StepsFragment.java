@@ -92,7 +92,7 @@ public class StepsFragment extends Fragment {
         RadioButton custom_radioButton = view.findViewById(R.id.customdates_btn_steps);
         week_radioButton.setOnClickListener(v->{
             final GraphView graph = (GraphView) view.findViewById(R.id.graph);
-            String url = "http://192.168.124.91/infits/stepsGraph.php";
+            String url = "http://192.168.72.91/infits/stepsGraph.php";
             String from = "";
             String to = "";
             SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
@@ -166,7 +166,7 @@ public class StepsFragment extends Fragment {
         month_radioButton.setOnClickListener(v->{
             final GraphView graphMonth = (GraphView) view.findViewById(R.id.graph);
             graphMonth.removeAllSeries();
-            String url = "http://192.168.124.91/infits/stepMonthGraph.php";
+            String url = "http://192.168.72.91/infits/stepMonthGraph.php";
             String from = "";
             String to = "";
             SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
@@ -229,7 +229,7 @@ public class StepsFragment extends Fragment {
         year_radioButton.setOnClickListener(v->{
             final GraphView graphMonth = (GraphView) view.findViewById(R.id.graph);
             graphMonth.removeAllSeries();
-            String url = "http://192.168.124.91/infits/stepYearGraph.php";
+            String url = "http://192.168.72.91/infits/stepYearGraph.php";
             String from = "";
             String to = "";
             SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
@@ -300,7 +300,7 @@ public class StepsFragment extends Fragment {
         });
         custom_radioButton.setOnClickListener(v->{
             final GraphView graph = (GraphView) view.findViewById(R.id.graph);
-            String url = "http://192.168.124.91/infits/stepsGraph.php";
+            String url = "http://192.168.72.91/infits/stepsGraph.php";
             String from = "2022-09-10";
             String to = "2022-09-17";
             SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");

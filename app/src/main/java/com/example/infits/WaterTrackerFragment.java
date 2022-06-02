@@ -8,6 +8,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,9 +29,13 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.slider.Slider;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -105,6 +111,47 @@ public class WaterTrackerFragment extends Fragment {
         textViewsleep = view.findViewById(R.id.textviewsleep);
         consumed = view.findViewById(R.id.water_consumed);
 //        waterGoal = view.findViewById(R.id.water_goal);
+
+        RecyclerView rc = view.findViewById(R.id.past_activity);
+
+        ArrayList<String> dates = new ArrayList<>();
+        ArrayList<String> datas = new ArrayList<>();
+
+        String url = "http://192.168.72.91/infits/pastactivitywater.php";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,url,response -> {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            JSONArray jsonArray = jsonObject.getJSONArray("water");
+            for (int i = 0;i<jsonArray.length();i++){
+                JSONObject object = jsonArray.getJSONObject(i);
+                String data = object.getString("water");
+                String date = object.getString("date");
+                dates.add(date);
+                datas.add(data);
+                System.out.println(datas.get(i));
+                System.out.println(dates.get(i));
+            }
+            AdapterForPastActivity ad = new AdapterForPastActivity(getContext(),dates,datas);
+            rc.setLayoutManager(new LinearLayoutManager(getContext()));
+            rc.setAdapter(ad);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    },error -> {
+        Toast.makeText(getActivity().getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+        Log.d("Error",error.toString());
+    }){
+        @Nullable
+        @Override
+        protected Map<String, String> getParams() throws AuthFailureError {
+            Map<String,String> data = new HashMap<>();
+            data.put("","");
+            return data;
+        }
+    };
+
+        Volley.newRequestQueue(getActivity()).add(stringRequest);
 
         setgoal.setOnClickListener(new View.OnClickListener() {
             @Override

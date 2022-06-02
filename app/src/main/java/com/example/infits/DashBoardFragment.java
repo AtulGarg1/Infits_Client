@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -29,6 +30,7 @@ public class DashBoardFragment extends Fragment {
     CardView stepcard, heartcard, watercard, sleepcard, weightcard, caloriecard;
     Button btnsub, btnsub1;
     TextView name,date;
+    ImageView profile;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -78,6 +80,9 @@ public class DashBoardFragment extends Fragment {
 
         name = view.findViewById(R.id.nameInDash);
         date = view.findViewById(R.id.date);
+        profile = view.findViewById(R.id.profile);
+
+        profile.setImageBitmap(DataFromDatabase.profile);
 
         Date dateToday = new Date();
         SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
@@ -92,6 +97,8 @@ public class DashBoardFragment extends Fragment {
         name.setText(DataFromDatabase.name);
         date.setText(sf.format(dateToday));
         Log.d("Name",DataFromDatabase.name+"");
+        Log.d("Name",DataFromDatabase.age+"");
+        Log.d("Name",DataFromDatabase.email+"");
         btnsub = view.findViewById(R.id.btnsub);
         btnsub1 = view.findViewById(R.id.btnsub1);
 
