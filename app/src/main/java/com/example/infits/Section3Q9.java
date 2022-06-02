@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,7 +24,7 @@ public class Section3Q9 extends Fragment {
     Button nextbtn;
     TextView backbtn, textView77;
     RadioButton yes,some,occ,no,afterFood,beforeFood;
-    String micturition;
+    String micturition="";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -218,14 +219,20 @@ public class Section3Q9 extends Fragment {
 
                 DataSectionThree.micturition = micturition;
                 DataSectionThree.s3q9 = textView77.getText().toString();
-
-                Navigation.findNavController(v).navigate(R.id.action_section3Q9_to_section3Q10);
+                if (micturition.equals(""))
+                    Toast.makeText(getContext(), "Select atleast one of the given options", Toast.LENGTH_SHORT).show();
+                else {
+                    Consultation.section3 += 1;
+                    Navigation.findNavController(v).navigate(R.id.action_section3Q9_to_section3Q10);
+                }
             }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(Consultation.section3>0)
+                    Consultation.section3-=1;
                 Navigation.findNavController(v).navigate(R.id.action_section3Q9_to_section3Q8);
             }
         });

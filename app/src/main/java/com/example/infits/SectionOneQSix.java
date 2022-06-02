@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,7 +80,7 @@ public class SectionOneQSix extends Fragment {
         emp = view.findViewById(R.id.emp);
         unEmp = view.findViewById(R.id.unEmp);
         pTime = view.findViewById(R.id.pTime);
-
+        RadioGroup r1=view.findViewById(R.id.radioGroup);
         jobtv = view.findViewById(R.id.textView77);
 
 
@@ -137,14 +138,20 @@ public class SectionOneQSix extends Fragment {
 
                 DataSectionOne.employment = employment;
                 DataSectionOne.s1q6 = jobtv.getText().toString();
-
-                Navigation.findNavController(v).navigate(R.id.action_sectionOneQSix_to_sectionOneQSeven);
+                if (r1.getCheckedRadioButtonId() == -1)
+                    Toast.makeText(getContext(), "Select your employment status", Toast.LENGTH_SHORT).show();
+                else {
+                    Consultation.section1 += 1;
+                    Navigation.findNavController(v).navigate(R.id.action_sectionOneQSix_to_sectionOneQSeven);
+                }
             }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(Consultation.section1>0)
+                    Consultation.section1-=1;
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQSix_to_sectionOneQFive);
             }
         });

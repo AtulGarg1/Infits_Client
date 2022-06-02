@@ -113,14 +113,21 @@ public class Section2Q4 extends Fragment {
             public void onClick(View v) {
 
                 DataSectionTwo.s2q4 = reporttv.getText().toString();
+                if (imgpath.equals("") || imgpath.equals(" "))
+                    Toast.makeText(getContext(), "Upload an image", Toast.LENGTH_SHORT).show();
+                else {
+                    Consultation.section2 += 1;
 
-                Navigation.findNavController(v).navigate(R.id.action_section2Q4_to_section2Q5);
+                    Navigation.findNavController(v).navigate(R.id.action_section2Q4_to_section2Q5);
+                }
             }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(Consultation.section2>0)
+                    Consultation.section2-=1;
                 Navigation.findNavController(v).navigate(R.id.action_section2Q4_to_section2Q3);
             }
         });

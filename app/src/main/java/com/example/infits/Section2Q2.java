@@ -89,14 +89,20 @@ public class Section2Q2 extends Fragment {
 
                 DataSectionTwo.weight = user_weight;
                 DataSectionTwo.s2q2 = pweighttv.getText().toString();
-
-                Navigation.findNavController(v).navigate(R.id.action_section2Q2_to_section2Q3);
+                if (user_weight.equals("") || user_weight.equals(" "))
+                    Toast.makeText(getContext(), "Enter your weight", Toast.LENGTH_SHORT).show();
+                else {
+                    Consultation.section2 += 1;
+                    Navigation.findNavController(v).navigate(R.id.action_section2Q2_to_section2Q3);
+                }
             }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(Consultation.section2>0)
+                    Consultation.section2-=1;
                 Navigation.findNavController(v).navigate(R.id.action_section2Q2_to_section2Q1);
             }
         });
