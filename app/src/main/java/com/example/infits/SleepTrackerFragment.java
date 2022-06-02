@@ -15,6 +15,8 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.os.PowerManager;
@@ -34,7 +36,12 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import java.util.Date;
@@ -90,6 +97,47 @@ public class SleepTrackerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sleep_tracker, container, false);
+
+        RecyclerView pastActivity = view.findViewById(R.id.past_activity);
+
+        ArrayList<String> dates = new ArrayList<>();
+        ArrayList<String> datas = new ArrayList<>();
+
+        String url = "http://192.168.72.91/infits/pastActivitySleep.php";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                JSONArray jsonArray = jsonObject.getJSONArray("sleep");
+                for (int i = 0;i<jsonArray.length();i++){
+                    JSONObject object = jsonArray.getJSONObject(i);
+                    String data = object.getString("hrsSlept");
+                    String date = object.getString("date");
+                    dates.add(date);
+                    datas.add(data);
+                    System.out.println(datas.get(i));
+                    System.out.println(dates.get(i));
+                }
+                AdapterForPastActivity ad = new AdapterForPastActivity(getContext(),dates,datas);
+                pastActivity.setLayoutManager(new LinearLayoutManager(getContext()));
+                pastActivity.setAdapter(ad);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        },error -> {
+            Toast.makeText(getActivity().getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+            Log.d("Error",error.toString());
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> data = new HashMap<>();
+                data.put("","");
+                return data;
+            }
+        };
+
+        Volley.newRequestQueue(getActivity()).add(stringRequest);
 
         PowerManager powerManager = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {

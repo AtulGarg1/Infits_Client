@@ -5,16 +5,34 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -77,6 +95,47 @@ public class WeightTrackerFragment extends Fragment {
         textbmi = view.findViewById(R.id.textbmi);
         imgback = view.findViewById(R.id.imgback);
         curWeight = view.findViewById(R.id.curWeight);
+
+        RecyclerView pastActivity = view.findViewById(R.id.past_activity);
+
+        ArrayList<String> dates = new ArrayList<>();
+        ArrayList<String> datas = new ArrayList<>();
+
+        String url = "http://192.168.72.91/infits/pastActivityWeight.php";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                JSONArray jsonArray = jsonObject.getJSONArray("weight");
+                for (int i = 0;i<jsonArray.length();i++){
+                    JSONObject object = jsonArray.getJSONObject(i);
+                    String data = object.getString("weight");
+                    String date = object.getString("date");
+                    dates.add(date);
+                    datas.add(data);
+                    System.out.println(datas.get(i));
+                    System.out.println(dates.get(i));
+                }
+                AdapterForPastActivity ad = new AdapterForPastActivity(getContext(),dates,datas);
+                pastActivity.setLayoutManager(new LinearLayoutManager(getContext()));
+                pastActivity.setAdapter(ad);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        },error -> {
+            Toast.makeText(getActivity().getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+            Log.d("Error",error.toString());
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> data = new HashMap<>();
+                data.put("","");
+                return data;
+            }
+        };
+
+        Volley.newRequestQueue(getActivity()).add(stringRequest);
 
         adddet.setOnClickListener(new View.OnClickListener() {
             @Override

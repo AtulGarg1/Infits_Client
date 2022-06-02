@@ -164,11 +164,11 @@
         android:background="@drawable/pastactivitybg"
         app:layout_behavior="@string/bottom_sheet_behavior"
         app:behavior_hideable="false"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="100dp"
         app:behavior_peekHeight="300dp">
 
         <LinearLayout
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/pastactivitybg"
