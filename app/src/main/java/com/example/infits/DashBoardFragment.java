@@ -3,6 +3,7 @@ package com.example.infits;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -15,9 +16,22 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +40,11 @@ import java.util.Date;
  */
 public class DashBoardFragment extends Fragment {
 
+    String url = "http://192.168.4.1/infits/dashboard.php";
+    DataFromDatabase dataFromDatabase;
+    TextView stepstv,glassestv,glassesGoaltv,sleeptv,sleepGoaltv,weighttv,weightGoaltv,calorietv,
+            calorieGoaltv,bpmtv,bpmUptv,bpmDowntv;
+    RequestQueue queue;
     ImageButton sidemenu, notifmenu;
     CardView stepcard, heartcard, watercard, sleepcard, weightcard, caloriecard;
     Button btnsub, btnsub1;
@@ -84,6 +103,22 @@ public class DashBoardFragment extends Fragment {
 
         profile.setImageBitmap(DataFromDatabase.profile);
 
+//        stepstv,glassestv,glassesGoaltv,sleeptv,sleepGoaltv,weighttv,weightGoaltv,calorietv,
+//                calorieGoaltv,bpmtv,bpmUptv,bpmDowntv
+
+        stepstv = view.findViewById(R.id.stepstv);
+        glassestv = view.findViewById(R.id.glassestv);
+        glassesGoaltv = view.findViewById(R.id.glassesGoaltv);
+        sleeptv = view.findViewById(R.id.sleeptv);
+        sleepGoaltv = view.findViewById(R.id.sleepGoaltv);
+        weighttv = view.findViewById(R.id.weighttv);
+        weightGoaltv = view.findViewById(R.id.weightGoaltv);
+        calorietv = view.findViewById(R.id.calorietv);
+        calorieGoaltv = view.findViewById(R.id.calorieGoaltv);
+        bpmtv = view.findViewById(R.id.bpmtv);
+        bpmUptv = view.findViewById(R.id.bpmUp);
+        bpmDowntv = view.findViewById(R.id.bpmDown);
+
         Date dateToday = new Date();
         SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
 
@@ -136,6 +171,75 @@ public class DashBoardFragment extends Fragment {
                 Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_calorieTrackerFragment);
             }
         });
+
+
+        queue = Volley.newRequestQueue(getContext());
+        Log.d("ClientMetrics","before");
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
+            if (!response.equals("failure")){
+                Log.d("ClientMetrics","success");
+                Log.d("response",response);
+
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    JSONObject object = jsonArray.getJSONObject(0);
+                    String stepsStr = object.getString("steps");
+                    String stepsGoal = object.getString("stepsgoal");
+                    String waterStr = object.getString("water");
+                    String waterGoal = object.getString("watergoal");
+                    String sleephrsStr = object.getString("sleephrs");
+                    String sleepminsStr = object.getString("sleepmins");
+                    String sleepGoal = object.getString("sleepgoal");
+                    String weightStr = object.getString("weight");
+                    String weightGoal = object.getString("weightgoal");
+
+                    stepstv.setText(stepsStr+" steps");
+                    glassestv.setText(waterStr+" glasses");
+                    glassesGoaltv.setText(waterGoal+" glasses");
+                    sleeptv.setText(sleephrsStr+" hours"+sleepminsStr+" mins");
+                    sleepGoaltv.setText(sleepGoal+" hours");
+                    weighttv.setText(weightStr+" KiloGrams");
+                    weightGoaltv.setText(weightGoal+" KG");
+                    if (stepsStr=="null"){
+                        stepstv.setText("no data available");
+                    }if (waterStr=="null"){
+                        glassestv.setText("no data available");
+                    }if (waterGoal=="null"){
+                        glassesGoaltv.setText("no data available");
+                    }if (sleephrsStr=="null"){
+                        sleeptv.setText("no data available");
+                    }if (sleepGoal=="null"){
+                        sleepGoaltv.setText("no data available");
+                    }if (weightStr=="null"){
+                        weighttv.setText("no data available");
+                    }if (weightGoal=="null"){
+                        weightGoaltv.setText("no data available");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            else if (response.equals("failure")){
+                Log.d("clientMetrics","failure");
+                Toast.makeText(getContext(), "ClientMetrics failed", Toast.LENGTH_SHORT).show();
+            }
+        },error -> {
+            Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();})
+        {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+                Log.d("ClientMetrics","clientuserID = "+dataFromDatabase.clientuserID);
+                data.put("userID", dataFromDatabase.clientuserID);
+
+                return data;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
+        Log.d("ClientMetrics","at end");
 
         /*
 

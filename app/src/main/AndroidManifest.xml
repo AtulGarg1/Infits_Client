@@ -17,6 +17,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <uses-permission android:name="android.permission.BODY_SENSORS"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
@@ -34,75 +35,98 @@
         android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.Infits">
 
-        android:theme="@style/Theme.Infits"
-        android:usesCleartextTraffic="true">
+<!--        android:theme="@style/Theme.Infits"-->
+<!--        android:usesCleartextTraffic="true">-->
+<!--        -->
         <service android:name=".StopWatchService"/>
 
         <activity
             android:name=".MainActivity2"
+            android:theme="@style/Theme.MaterialComponents.Light"
             android:exported="true" />
         <activity
             android:name=".DashBoardMain"
+            android:theme="@style/Theme.MaterialComponents.Light"
             android:exported="true" />
         <activity
             android:name=".FAQ"
+            android:theme="@style/Theme.MaterialComponents.Light"
             android:exported="true" />
         <activity
             android:name=".ClientConsultation"
+            android:theme="@style/Theme.MaterialComponents.Light"
             android:exported="true" />
         <activity
             android:name=".Consultation"
+            android:theme="@style/Theme.MaterialComponents.Light"
             android:exported="true" />
         <activity
             android:name=".AccountPage"
+            android:theme="@style/Theme.MaterialComponents.Light"
             android:exported="true" />
         <activity
             android:name=".Notifications"
+            android:theme="@style/Theme.MaterialComponents.Light"
             android:exported="true" />
         <activity
             android:name=".Help"
+            android:theme="@style/Theme.MaterialComponents.Light"
             android:exported="true" />
         <activity
             android:name=".Settings"
+            android:theme="@style/Theme.MaterialComponents.Light"
             android:exported="true" />
         <activity
             android:name=".Statistics"
+            android:theme="@style/Theme.MaterialComponents.Light"
             android:exported="true" />
         <activity
             android:name=".Subscription3"
+            android:theme="@style/Theme.MaterialComponents.Light"
             android:exported="true" />
         <activity
             android:name=".Subscription2"
+            android:theme="@style/Theme.MaterialComponents.Light"
             android:exported="true" />
         <activity
             android:name=".Subscription1"
+            android:theme="@style/Theme.MaterialComponents.Light"
             android:exported="true" />
         <activity
             android:name=".DietChart"
+            android:theme="@style/Theme.MaterialComponents.Light"
             android:exported="true" />
         <activity
             android:name=".TermsAndConditions"
+            android:theme="@style/Theme.MaterialComponents.Light"
             android:exported="true" />
         <activity
             android:name=".ResetPassword"
+            android:theme="@style/Theme.MaterialComponents.Light"
             android:exported="true" />
         <activity
             android:name=".Signup"
+            android:theme="@style/Theme.MaterialComponents.Light"
             android:exported="true" />
         <activity
             android:name=".Login"
+            android:theme="@style/Theme.MaterialComponents.Light"
             android:exported="true" />
         <activity
             android:name=".Landing3"
+            android:theme="@style/Theme.MaterialComponents.Light"
             android:exported="true" />
         <activity
             android:name=".Landing2"
+            android:theme="@style/Theme.MaterialComponents.Light"
             android:exported="true" />
         <activity
             android:name=".Landing1"
+            android:theme="@style/Theme.MaterialComponents.Light"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
+            android:theme="@style/Theme.MaterialComponents.Light"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

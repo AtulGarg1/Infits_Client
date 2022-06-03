@@ -30,7 +30,7 @@ public class DashBoardMain extends AppCompatActivity {
         setContentView(R.layout.activity_dash_board_main);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        setSupportActionBar(toolbar);
 
         nav = (NavigationView) findViewById(R.id.navmenu);
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer);

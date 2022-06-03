@@ -157,7 +157,7 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/textgoal"
+                            android:id="@+id/weightGoaltv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="60 KG"
@@ -185,7 +185,7 @@
                             app:layout_constraintVertical_bias="0.95" />
 
                         <TextView
-                            android:id="@+id/weightkg"
+                            android:id="@+id/weighttv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="80 KiloGrams"
@@ -243,7 +243,7 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/textView24"
+                            android:id="@+id/calorieGoaltv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="2000 kCal"
@@ -271,7 +271,7 @@
                             app:layout_constraintVertical_bias="0.95" />
 
                         <TextView
-                            android:id="@+id/textView22"
+                            android:id="@+id/calorietv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1000 kCal"
@@ -346,7 +346,7 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/textView17"
+                            android:id="@+id/glassesGoaltv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="8 Glasses"
@@ -374,7 +374,7 @@
                             app:layout_constraintVertical_bias="0.95" />
 
                         <TextView
-                            android:id="@+id/waterg"
+                            android:id="@+id/glassestv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="4 Glasses"
@@ -432,7 +432,7 @@
                         android:backgroundTint="@color/darkpurple">
 
                         <TextView
-                            android:id="@+id/textView19"
+                            android:id="@+id/sleepGoaltv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="8 Hours"
@@ -460,7 +460,7 @@
                             app:layout_constraintVertical_bias="0.95" />
 
                         <TextView
-                            android:id="@+id/sleephr"
+                            android:id="@+id/sleeptv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="7 hr 35 mins"
@@ -574,7 +574,7 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/stepcnt"
+                            android:id="@+id/stepstv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="500 Steps"
@@ -632,8 +632,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
+                        <ImageView
+                            android:id="@+id/imageView13"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/metrics_heart_rate" />
                         <TextView
-                            android:id="@+id/heartbeat"
+                            android:id="@+id/bpmtv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="85 BPM"
@@ -646,32 +651,34 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintVertical_bias="0.802" />
 
-                        <ImageView
-                            android:id="@+id/imageheart"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:scaleType="fitXY"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.047"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.085"
-                            app:srcCompat="@drawable/heartvec" />
 
                         <TextView
-                            android:id="@+id/textheart"
+                            android:id="@+id/bpmUp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Heart Rate"
+                            android:layout_marginTop="48dp"
+                            android:gravity="top"
+                            android:text="120 bpm"
                             android:textColor="@color/white"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:textSize="12dp"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.078" />
+                            app:layout_constraintHorizontal_bias="0.737"
+                            app:layout_constraintStart_toEndOf="@+id/bpmtv"
+                            app:layout_constraintTop_toTopOf="@+id/imageView13" />
+
+                        <TextView
+                            android:id="@+id/bpmDown"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:gravity="top"
+                            android:text="72 bpm"
+                            android:textColor="@color/white"
+                            android:textSize="12dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.661"
+                            app:layout_constraintStart_toEndOf="@+id/bpmtv"
+                            app:layout_constraintTop_toBottomOf="@+id/bpmUp" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
