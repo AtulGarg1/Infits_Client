@@ -92,7 +92,7 @@ public class SectionOneQThree extends Fragment {
                 if(user_age.equals("")|| user_age.equals(" "))
                     Toast.makeText(getContext(),"Add your age",Toast.LENGTH_SHORT).show();
                 else{
-                    Consultation.section1+=1;
+                    ConsultationFragment.psection1+=1;
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQThree_to_sectionOneQFour);
             }
             }
@@ -101,8 +101,8 @@ public class SectionOneQThree extends Fragment {
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Consultation.section1>0)
-                    Consultation.section1-=1;
+                if (ConsultationFragment.psection1>0)
+                    ConsultationFragment.psection1-=1;
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQThree_to_sectionOneQTwo);
             }
         });

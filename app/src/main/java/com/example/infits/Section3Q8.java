@@ -219,10 +219,11 @@ public class Section3Q8 extends Fragment {
 
                 DataSectionThree.bloating = bloating;
                 DataSectionThree.s3q8 = textView77.getText().toString();
+
                 if (bloating.equals(""))
                     Toast.makeText(getContext(), "Select atleast one of the given options", Toast.LENGTH_SHORT).show();
                 else {
-                    Consultation.section3 += 1;
+                    ConsultationFragment.psection3 += 1;
                     Navigation.findNavController(v).navigate(R.id.action_section3Q8_to_section3Q9);
                 }
             }
@@ -231,8 +232,8 @@ public class Section3Q8 extends Fragment {
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Consultation.section3>0)
-                    Consultation.section3-=1;
+                if(ConsultationFragment.psection3>0)
+                    ConsultationFragment.psection3-=1;
                 Navigation.findNavController(v).navigate(R.id.action_section3Q8_to_section3Q7);
             }
         });

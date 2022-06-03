@@ -89,7 +89,7 @@ public class SectionOneQSeven extends Fragment {
                 if (duration.equals("") || duration.equals(" "))
                     Toast.makeText(getContext(), "Fill the details", Toast.LENGTH_SHORT).show();
                 else {
-                    Consultation.section1 += 1;
+                    ConsultationFragment.psection1 += 1;
                     Navigation.findNavController(v).navigate(R.id.action_sectionOneQSeven_to_sectionOneQEight);
                 }
             }
@@ -98,8 +98,8 @@ public class SectionOneQSeven extends Fragment {
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Consultation.section1>0)
-                    Consultation.section1-=1;
+                if(ConsultationFragment.psection1>0)
+                    ConsultationFragment.psection1-=1;
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQSeven_to_sectionOneQSix);
             }
         });

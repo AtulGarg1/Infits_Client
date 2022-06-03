@@ -222,7 +222,7 @@ public class Section3Q3 extends Fragment {
                 if (diarrhoea.equals(""))
                     Toast.makeText(getContext(), "Select atleast one of the given options", Toast.LENGTH_SHORT).show();
                 else {
-                    Consultation.section3 += 1;
+                    ConsultationFragment.psection3 += 1;
                     Navigation.findNavController(v).navigate(R.id.action_section3Q3_to_section3Q4);
                 }
             }
@@ -231,8 +231,8 @@ public class Section3Q3 extends Fragment {
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Consultation.section3>0)
-                    Consultation.section3-=1;
+                if(ConsultationFragment.psection3>0)
+                    ConsultationFragment.psection3-=1;
                 Navigation.findNavController(v).navigate(R.id.action_section3Q3_to_section3Q2);
             }
         });

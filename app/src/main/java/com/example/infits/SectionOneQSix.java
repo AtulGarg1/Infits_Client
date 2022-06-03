@@ -141,7 +141,7 @@ public class SectionOneQSix extends Fragment {
                 if (r1.getCheckedRadioButtonId() == -1)
                     Toast.makeText(getContext(), "Select your employment status", Toast.LENGTH_SHORT).show();
                 else {
-                    Consultation.section1 += 1;
+                    ConsultationFragment.psection1 += 1;
                     Navigation.findNavController(v).navigate(R.id.action_sectionOneQSix_to_sectionOneQSeven);
                 }
             }
@@ -150,8 +150,8 @@ public class SectionOneQSix extends Fragment {
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Consultation.section1>0)
-                    Consultation.section1-=1;
+                if(ConsultationFragment.psection1>0)
+                    ConsultationFragment.psection1-=1;
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQSix_to_sectionOneQFive);
             }
         });

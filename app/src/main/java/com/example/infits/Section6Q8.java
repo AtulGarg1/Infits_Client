@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -253,14 +254,21 @@ public class Section6Q8 extends Fragment {
 
                 DataSectionSix.fruits = fruits;
                 DataSectionSix.s6q8 = textView77.getText().toString();
+                if (fruits.equals(""))
+                    Toast.makeText(getContext(), "Select atleast one of the given options", Toast.LENGTH_SHORT).show();
+                else {
+                    ConsultationFragment.psection6 += 1;
 
-                Navigation.findNavController(v).navigate(R.id.action_section6Q8_to_section6Q9);
+                    Navigation.findNavController(v).navigate(R.id.action_section6Q8_to_section6Q9);
+                }
             }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(ConsultationFragment.psection6>0)
+                    ConsultationFragment.psection6-=1;
                 Navigation.findNavController(v).navigate(R.id.action_section6Q8_to_section6Q7);
             }
         });

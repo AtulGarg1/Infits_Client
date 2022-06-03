@@ -92,7 +92,7 @@ public class SectionOneQFour extends Fragment {
                 if(user_hometown.equals("")|| user_hometown.equals(" "))
                     Toast.makeText(getContext(),"Add your hometown",Toast.LENGTH_SHORT).show();
                 else{
-                    Consultation.section1+=1;
+                    ConsultationFragment.psection1+=1;
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQFour_to_sectionOneQFive);
             }}
         });
@@ -100,8 +100,8 @@ public class SectionOneQFour extends Fragment {
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Consultation.section1>0)
-                    Consultation.section1-=1;
+                if(ConsultationFragment.psection1>0)
+                    ConsultationFragment.psection1-=1;
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQFour_to_sectionOneQThree);
             }
         });

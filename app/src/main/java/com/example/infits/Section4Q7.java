@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,19 +81,27 @@ public class Section4Q7 extends Fragment {
             @Override
             public void onClick(View v) {
 
-                String activity_duration = eTextHeight.getText().toString();
+                String activity_duration = null;
+                activity_duration = eTextHeight.getText().toString();
                 //Toast.makeText(getContext(),user_height, Toast.LENGTH_SHORT).show();
 
                 DataSectionFour.activity_duration = activity_duration;
                 DataSectionFour.s4q7 = textView80.getText().toString();
+                if (activity_duration.equals(""))
+                    Toast.makeText(getContext(), "Select atleast one of the given options", Toast.LENGTH_SHORT).show();
+                else {
+                    ConsultationFragment.psection4 += 1;
 
-                Navigation.findNavController(v).navigate(R.id.action_section4Q7_to_consultationFragment);
+                    Navigation.findNavController(v).navigate(R.id.action_section4Q7_to_consultationFragment);
+                }
             }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(ConsultationFragment.psection4>0)
+                    ConsultationFragment.psection4-=1;
                 Navigation.findNavController(v).navigate(R.id.action_section4Q7_to_section4Q6);
             }
         });

@@ -89,7 +89,7 @@ public class Section2Q7 extends Fragment {
                 if (user_medi.equals("") || user_medi.equals(" "))
                     Toast.makeText(getContext(), "Enter your medication details", Toast.LENGTH_SHORT).show();
                 else {
-                    Consultation.section2 += 1;
+                    ConsultationFragment.psection2 += 1;
                     Navigation.findNavController(v).navigate(R.id.action_section2Q7_to_section2Q8);
                 }
             }
@@ -98,8 +98,8 @@ public class Section2Q7 extends Fragment {
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Consultation.section2>0)
-                    Consultation.section2-=1;
+                if(ConsultationFragment.psection2>0)
+                    ConsultationFragment.psection2-=1;
                 Navigation.findNavController(v).navigate(R.id.action_section2Q7_to_section2Q6);
             }
         });
