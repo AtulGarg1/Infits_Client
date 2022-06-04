@@ -186,7 +186,7 @@
     <TextView
         android:id="@+id/textView80"
         android:layout_width="257dp"
-        android:layout_height="58dp"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/baloo2"
         android:text="If you do any of the above activities, mention the duration (in minutes/day) [mention NA if not applicable]"
         android:textAlignment="center"

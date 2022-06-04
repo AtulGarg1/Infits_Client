@@ -154,6 +154,7 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
+                        android:background="@drawable/metrics_weight"
                         android:layout_height="match_parent">
 
                         <TextView
@@ -197,34 +198,6 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintVertical_bias="0.617" />
-
-                        <TextView
-                            android:id="@+id/textweight"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Weight Track"
-                            android:textColor="@color/white"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.642"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.092" />
-
-                        <ImageView
-                            android:id="@+id/imageView10"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:scaleType="fitXY"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.047"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.1"
-                            app:srcCompat="@drawable/weightvec" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -240,6 +213,7 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
+                        android:background="@drawable/metrics_calories"
                         android:layout_height="match_parent">
 
                         <TextView
@@ -283,34 +257,6 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintVertical_bias="0.617" />
-
-                        <TextView
-                            android:id="@+id/textcal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Calorie Track"
-                            android:textColor="@color/white"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.768"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.078" />
-
-                        <ImageView
-                            android:id="@+id/imageView11"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:scaleType="fitXY"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.041"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.085"
-                            app:srcCompat="@drawable/calorievec" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
@@ -343,6 +289,7 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
+                        android:background="@drawable/metrics_water"
                         android:layout_height="match_parent">
 
                         <TextView
@@ -387,32 +334,6 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintVertical_bias="0.629" />
 
-                        <TextView
-                            android:id="@+id/textwater"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Water"
-                            android:textColor="@color/white"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.358"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.092" />
-
-                        <ImageView
-                            android:id="@+id/imageView8"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.041"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.1"
-                            app:srcCompat="@drawable/watervec" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -429,7 +350,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:backgroundTint="@color/darkpurple">
+                        android:background="@drawable/metrics_sleep">
 
                         <TextView
                             android:id="@+id/sleepGoaltv"
@@ -473,34 +394,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintVertical_bias="0.641" />
 
-                        <TextView
-                            android:id="@+id/textsleep"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Sleep"
-                            android:textColor="@color/white"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.351"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.078" />
 
-
-                        <ImageView
-                            android:id="@+id/imageView9"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:scaleType="fitXY"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.041"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.085"
-                            app:srcCompat="@drawable/sleepvec" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
@@ -571,6 +465,7 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
+                        android:background="@drawable/metrics_steps"
                         android:layout_height="match_parent">
 
                         <TextView
@@ -587,34 +482,6 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintVertical_bias="0.789" />
 
-                        <ImageView
-                            android:id="@+id/imagestep"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:backgroundTint="@color/orange"
-                            android:scaleType="fitXY"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.047"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.1"
-                            app:srcCompat="@drawable/stepvec" />
-
-                        <TextView
-                            android:id="@+id/textstep"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Steps"
-                            android:textColor="@color/white"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.358"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.092" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -630,13 +497,9 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
+                        android:background="@drawable/metrics_heart_rate"
                         android:layout_height="match_parent">
 
-                        <ImageView
-                            android:id="@+id/imageView13"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/metrics_heart_rate" />
                         <TextView
                             android:id="@+id/bpmtv"
                             android:layout_width="wrap_content"
@@ -656,29 +519,31 @@
                             android:id="@+id/bpmUp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="48dp"
+                            android:layout_marginStart="112dp"
+                            android:layout_marginTop="49dp"
+                            android:layout_marginEnd="16dp"
                             android:gravity="top"
                             android:text="120 bpm"
                             android:textColor="@color/white"
                             android:textSize="12dp"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.737"
-                            app:layout_constraintStart_toEndOf="@+id/bpmtv"
-                            app:layout_constraintTop_toTopOf="@+id/imageView13" />
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/bpmDown"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginStart="45dp"
+                            android:layout_marginTop="68dp"
+                            android:layout_marginEnd="23dp"
                             android:gravity="top"
                             android:text="72 bpm"
                             android:textColor="@color/white"
                             android:textSize="12dp"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.661"
                             app:layout_constraintStart_toEndOf="@+id/bpmtv"
-                            app:layout_constraintTop_toBottomOf="@+id/bpmUp" />
+                            app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
