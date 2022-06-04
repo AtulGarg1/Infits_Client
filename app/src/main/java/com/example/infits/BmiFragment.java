@@ -33,7 +33,7 @@ import java.util.Map;
  */
 public class BmiFragment extends Fragment {
 
-    String url = "http://192.168.177.91";
+    String url = "http://192.168.26.1";
 
     RelativeLayout male, female;
     Button btnadd;

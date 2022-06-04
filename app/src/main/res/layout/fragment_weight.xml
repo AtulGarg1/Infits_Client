@@ -134,7 +134,7 @@
         app:layout_constraintVertical_bias="0.615" />
 
     <TextView
-        android:id="@+id/textView87"
+        android:id="@+id/weeklytv2"
         android:layout_width="100dp"
         android:layout_height="37dp"
         android:background="@drawable/textviewbgweight"
@@ -152,7 +152,7 @@
         app:layout_constraintVertical_bias="0.482" />
 
     <TextView
-        android:id="@+id/textView84"
+        android:id="@+id/dailytv2"
         android:layout_width="100dp"
         android:layout_height="37dp"
         android:background="@drawable/textviewbgweight"
@@ -170,7 +170,7 @@
         app:layout_constraintVertical_bias="0.482" />
 
     <TextView
-        android:id="@+id/textView85"
+        android:id="@+id/monthlytv2"
         android:layout_width="100dp"
         android:layout_height="37dp"
         android:background="@drawable/textviewbgweight"
@@ -203,7 +203,7 @@
         app:layout_constraintVertical_bias="0.535" />
 
     <TextView
-        android:id="@+id/textView82"
+        android:id="@+id/totaltv2"
         android:layout_width="100dp"
         android:layout_height="37dp"
         android:background="@drawable/textviewbgweight"
@@ -225,7 +225,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_medium"
-        android:text="Total"
+        android:text="Yearly Avg."
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"

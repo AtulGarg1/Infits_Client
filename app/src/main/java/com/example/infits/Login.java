@@ -35,7 +35,7 @@ public class Login extends AppCompatActivity {
     TextView reg, fpass;
     Button loginbtn;
     String passwordStr,usernameStr;
-    String url = "http://192.168.4.1/infits/login_client.php";
+    String url = "http://192.168.26.1/infits/login_client.php";
     RequestQueue queue;
 
     @Override
@@ -97,7 +97,7 @@ public class Login extends AppCompatActivity {
                             DataFromDatabase.gender  = object.getString("gender");
                             byte[] qrimage = Base64.decode(DataFromDatabase.profilePhoto,0);
                             DataFromDatabase.profile = BitmapFactory.decodeByteArray(qrimage,0,qrimage.length);
-                            Log.d("Login Screen","Dietician user id = "+ DataFromDatabase.clientuserID);
+                            Log.d("Login Screen","client user id = "+ DataFromDatabase.clientuserID);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

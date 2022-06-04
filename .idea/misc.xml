@@ -47,11 +47,81 @@
         <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_landing_page_two.xml" value="0.2028985507246377" />
         <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_login.xml" value="0.2028985507246377" />
         <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_overview.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section2_q1.xml" value="0.176" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section2_q2.xml" value="0.6" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section2_q3.xml" value="0.8800000000000001" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section2_q4.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section2_q5.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section2_q6.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section2_q7.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section2_q8.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section3_q1.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section3_q10.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section3_q11.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section3_q2.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section3_q3.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section3_q4.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section3_q5.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section3_q6.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section3_q7.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section3_q8.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section3_q9.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section4_q1.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section4_q2.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section4_q3.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section4_q4.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section4_q5.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section4_q6.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section4_q7.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section5_q1.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section5_q10.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section5_q11.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section5_q12.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section5_q13.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section5_q2.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section5_q3.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section5_q4.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section5_q5.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section5_q6.xml" value="0.2028985507246377" />
         <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section5_q7.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section5_q8.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section5_q9.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section6_q1.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section6_q10.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section6_q11.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section6_q12.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section6_q13.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section6_q14.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section6_q2.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section6_q3.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section6_q4.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section6_q5.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section6_q6.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section6_q7.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section6_q8.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section6_q9.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section_five.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section_four.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section_one.xml" value="0.2028985507246377" />
         <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section_one_q_eight.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section_one_q_five.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section_one_q_four.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section_one_q_one.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section_one_q_seven.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section_one_q_six.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section_one_q_three.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section_one_q_two.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section_three.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_section_two.xml" value="0.2028985507246377" />
         <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_settings.xml" value="0.2028985507246377" />
         <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_sleep.xml" value="0.2028985507246377" />
         <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_sleep_tracker.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_steps.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_water.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_water_tracker.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_weight.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_weight_date.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/fragment_weight_tracker.xml" value="0.2028985507246377" />
         <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/setgoaldialog.xml" value="0.2028985507246377" />
         <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/sidemenuheader.xml" value="0.2028985507246377" />
         <entry key="..\:/Users/muska/AndroidStudioProjects/infits-client/app/src/main/res/layout/tabs_main.xml" value="0.2028985507246377" />

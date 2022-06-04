@@ -4,18 +4,31 @@ package com.example.infits;
 
 import android.os.Bundle;
 
-import androidx.cardview.widget.CardView;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +36,8 @@ import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClic
  * create an instance of this fragment.
  */
 public class HeartFragment extends Fragment {
+
+
 
     RadioButton customdates_btn, year_btn, month_btn, week_btn;
 
@@ -75,6 +90,7 @@ public class HeartFragment extends Fragment {
         customdates_btn = view.findViewById(R.id.customdates_btn);
         year_btn = view.findViewById(R.id.year_btn);
         month_btn = view.findViewById(R.id.month_btn);
+
 //        week_btn = view.findViewById(R.id.week_btn);
 
         MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.dateRangePicker();
@@ -114,6 +130,9 @@ public class HeartFragment extends Fragment {
 
             }
         });
+
+
+
 
 //        week_btn.setOnClickListener(new View.OnClickListener() {
 //            @Override

@@ -40,7 +40,7 @@ import java.util.Map;
  */
 public class DashBoardFragment extends Fragment {
 
-    String url = "http://192.168.4.1/infits/dashboard.php";
+    String url = "http://192.168.26.1/infits/dashboard.php";
     DataFromDatabase dataFromDatabase;
     TextView stepstv,glassestv,glassesGoaltv,sleeptv,sleepGoaltv,weighttv,weightGoaltv,calorietv,
             calorieGoaltv,bpmtv,bpmUptv,bpmDowntv;
