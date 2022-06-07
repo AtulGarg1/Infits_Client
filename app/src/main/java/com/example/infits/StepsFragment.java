@@ -32,6 +32,8 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +48,9 @@ public class StepsFragment extends Fragment {
     TextView daily,monthly,weekly,total;
     RequestQueue queue;
     String url = "http://192.168.26.1/infits/stepsFragment.php";
+    String url1 = "http://192.168.26.1/infits/stepsVolley1.php";
+    String url2 = "http://192.168.26.1/infits/stepsVolley2.php";
+    String url3 = "http://192.168.26.1/infits/stepsVolley3.php";
     DataFromDatabase dataFromDatabase;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -429,20 +434,191 @@ public class StepsFragment extends Fragment {
                 Toast.makeText(getContext(), "heartFragment failed", Toast.LENGTH_SHORT).show();
             }
         },error -> {
-            Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();})
+        //    Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();
+        })
         {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-                Log.d("HeartFragment","clientuserID = "+dataFromDatabase.clientuserID);
+                Log.d("Fragment","clientuserID = "+dataFromDatabase.clientuserID);
                 data.put("userID", dataFromDatabase.clientuserID);
                 return data;
             }
         };
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
-        Log.d("HeartFragment","at end");
+        Log.d("Fragment","at end");
         return view;
+    }
+
+
+
+    public ArrayList dates(Date str1, Date str2){
+        // stores sum of steps for graph
+        ArrayList steps = new ArrayList();
+        int date1 = str1.getDate();
+        int date2 = str2.getDate();
+        int mnth1 = str1.getMonth();
+        int mnth2 = str2.getMonth();
+        int year1 = str1.getYear();
+        int year2 = str2.getYear();
+
+        GregorianCalendar gc1 = new GregorianCalendar();
+        gc1.set(Calendar.DAY_OF_MONTH,date1);
+        gc1.set(Calendar.MONTH,mnth1);
+        gc1.set(Calendar.YEAR,year1);
+        int numofdayspassed1 = gc1.get(Calendar.DAY_OF_YEAR);
+
+        GregorianCalendar gc2 = new GregorianCalendar();
+        gc2.set(Calendar.DAY_OF_MONTH,date2);
+        gc2.set(Calendar.MONTH,mnth2);
+        gc2.set(Calendar.YEAR,year2);
+        int numofdayspassed2 = gc2.get(Calendar.DAY_OF_YEAR);
+
+        if (numofdayspassed2-numofdayspassed1<=30){
+            int numberofdays = numofdayspassed2-numofdayspassed1;
+            for(int i=0;i<numberofdays;i++){
+                Calendar cal = Calendar.getInstance();
+                cal.add(date1,i);
+                Log.d("date", i+" "+String.valueOf(date1));
+
+                queue = Volley.newRequestQueue(getContext());
+                Log.d("Fragment","before");
+                StringRequest stringRequest = new StringRequest(Request.Method.POST,url1, response -> {
+                    if (!response.equals("failure")){
+                        Log.d("Fragment","success");
+                        Log.d("Fragment response",response);
+
+                        try {
+                            JSONArray jsonArray = new JSONArray(response);
+                            JSONObject object = jsonArray.getJSONObject(0);
+                            String sum = object.getString("sum");
+                            steps.add(sum);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                    else if (response.equals("failure")){
+                        Log.d("Fragment","failure");
+                        Toast.makeText(getContext(), "Fragment failed", Toast.LENGTH_SHORT).show();
+                    }
+                },error -> {
+                    //    Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();
+                })
+                {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> data = new HashMap<>();
+                        Log.d("Fragment","clientuserID = "+dataFromDatabase.clientuserID);
+                        data.put("userID", dataFromDatabase.clientuserID);
+                        // '2022-07-03'
+                        data.put("date", String.valueOf(year1)+"-"+String.valueOf(mnth1)+"-"+String.valueOf(date1));
+                        return data;
+                    }
+                };
+                RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+                requestQueue.add(stringRequest);
+                Log.d("Fragment","at end");
+            }
+        }else if (numofdayspassed2-numofdayspassed1>30 && year1==year2){
+            int numberofmonths = mnth2-mnth1;
+            for (int i=0;i<numberofmonths;i++){
+                Calendar cal = Calendar.getInstance();
+                cal.add(mnth1,i);
+                Log.d("month", i+" "+String.valueOf(mnth1));
+
+                queue = Volley.newRequestQueue(getContext());
+                Log.d("Fragment","before");
+                StringRequest stringRequest = new StringRequest(Request.Method.POST,url2, response -> {
+                    if (!response.equals("failure")){
+                        Log.d("Fragment","success");
+                        Log.d("Fragment response",response);
+
+                        try {
+                            JSONArray jsonArray = new JSONArray(response);
+                            JSONObject object = jsonArray.getJSONObject(0);
+                            String sum = object.getString("sum");
+                            steps.add(sum);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                    else if (response.equals("failure")){
+                        Log.d("Fragment","failure");
+                        Toast.makeText(getContext(), "Fragment failed", Toast.LENGTH_SHORT).show();
+                    }
+                },error -> {
+                    //    Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();
+                })
+                {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> data = new HashMap<>();
+                        Log.d("Fragment","clientuserID = "+dataFromDatabase.clientuserID);
+                        data.put("userID", dataFromDatabase.clientuserID);
+                        // '2022-05%'
+                        data.put("date", String.valueOf(year1)+"-"+String.valueOf(mnth1)+"%");
+                        return data;
+                    }
+                };
+                RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+                requestQueue.add(stringRequest);
+                Log.d("Fragment","at end");
+            }
+
+        }else if (year1!=year2){
+            int numberofyears = year2-year1;
+            for (int i=0;i<numberofyears;i++){
+                Calendar cal = Calendar.getInstance();
+                cal.add(year1,i);
+                Log.d("year", i+" "+String.valueOf(year1));
+
+                queue = Volley.newRequestQueue(getContext());
+                Log.d("Fragment","before");
+                StringRequest stringRequest = new StringRequest(Request.Method.POST,url3, response -> {
+                    if (!response.equals("failure")){
+                        Log.d("Fragment","success");
+                        Log.d("Fragment response",response);
+
+                        try {
+                            JSONArray jsonArray = new JSONArray(response);
+                            JSONObject object = jsonArray.getJSONObject(0);
+                            String sum = object.getString("sum");
+                            steps.add(sum);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                    else if (response.equals("failure")){
+                        Log.d("Fragment","failure");
+                        Toast.makeText(getContext(), "Fragment failed", Toast.LENGTH_SHORT).show();
+                    }
+                },error -> {
+                    //    Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();
+                })
+                {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> data = new HashMap<>();
+                        Log.d("Fragment","clientuserID = "+dataFromDatabase.clientuserID);
+                        data.put("userID", dataFromDatabase.clientuserID);
+                        // '2022%'
+                        data.put("date", String.valueOf(year1)+"%");
+                        return data;
+                    }
+                };
+                RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+                requestQueue.add(stringRequest);
+                Log.d("Fragment","at end");
+            }
+        }
+        return steps;
     }
 }

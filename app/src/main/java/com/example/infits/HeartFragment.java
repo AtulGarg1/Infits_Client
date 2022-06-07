@@ -7,7 +7,9 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.format.DateFormat;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Array;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,7 +47,7 @@ import java.util.Map;
 public class HeartFragment extends Fragment {
 
 
-
+    String customDates;
     RadioButton customdates_btn, year_btn, month_btn, week_btn;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -102,14 +111,14 @@ public class HeartFragment extends Fragment {
 
                 customdates_btn.setBackgroundResource(R.drawable.switch_on_heart);
                 materialDatePicker.show(getFragmentManager(),"DATE_PICKER");
-
             }
         });
 
         materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
             @Override
             public void onPositiveButtonClick(Object selection) {
-                Toast.makeText(getContext(),"Selected range: "+ materialDatePicker.getHeaderText(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"Selected rrange: "+ materialDatePicker.getHeaderText(),Toast.LENGTH_SHORT).show();
+                customDates= materialDatePicker.getHeaderText();
             }
         });
 
@@ -132,8 +141,6 @@ public class HeartFragment extends Fragment {
         });
 
 
-
-
 //        week_btn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -145,4 +152,10 @@ public class HeartFragment extends Fragment {
 
         return view;
     }
+
+
+
+
+
 }
+
