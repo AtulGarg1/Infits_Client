@@ -361,7 +361,8 @@ public class StepsFragment extends Fragment {
                     LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(values);
                     StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
                     staticLabelsFormatter.setHorizontalLabels(days);
-                    staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1000", "2000", "3000","4000","5000","6000","7000","8000","9000","10000"});
+                    staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1000", "2000", "3000","4000","5000",
+                            "6000","7000","8000","9000","10000"});
                     graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
                     graph.getGridLabelRenderer().setNumHorizontalLabels(7);
                     graph.getViewport().setMinX(1);
@@ -427,7 +428,6 @@ public class StepsFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
             else if (response.equals("failure")){
                 Log.d("HeartFragment","failure");
@@ -454,34 +454,22 @@ public class StepsFragment extends Fragment {
 
 
 
-    public ArrayList dates(Date str1, Date str2){
-        // stores sum of steps for graph
-        ArrayList steps = new ArrayList();
-        int date1 = str1.getDate();
-        int date2 = str2.getDate();
-        int mnth1 = str1.getMonth();
-        int mnth2 = str2.getMonth();
-        int year1 = str1.getYear();
-        int year2 = str2.getYear();
+    public void dates(Integer date1,Integer mnth1,Integer year1,Integer date2,Integer mnth2,Integer year2){
 
         GregorianCalendar gc1 = new GregorianCalendar();
-        gc1.set(Calendar.DAY_OF_MONTH,date1);
+        gc1.set(Calendar.DAY_OF_YEAR,date1);
         gc1.set(Calendar.MONTH,mnth1);
         gc1.set(Calendar.YEAR,year1);
         int numofdayspassed1 = gc1.get(Calendar.DAY_OF_YEAR);
 
         GregorianCalendar gc2 = new GregorianCalendar();
-        gc2.set(Calendar.DAY_OF_MONTH,date2);
+        gc2.set(Calendar.DAY_OF_YEAR,date2);
         gc2.set(Calendar.MONTH,mnth2);
         gc2.set(Calendar.YEAR,year2);
         int numofdayspassed2 = gc2.get(Calendar.DAY_OF_YEAR);
 
         if (numofdayspassed2-numofdayspassed1<=30){
             int numberofdays = numofdayspassed2-numofdayspassed1;
-            for(int i=0;i<numberofdays;i++){
-                Calendar cal = Calendar.getInstance();
-                cal.add(date1,i);
-                Log.d("date", i+" "+String.valueOf(date1));
 
                 queue = Volley.newRequestQueue(getContext());
                 Log.d("Fragment","before");
@@ -492,13 +480,14 @@ public class StepsFragment extends Fragment {
 
                         try {
                             JSONArray jsonArray = new JSONArray(response);
-                            JSONObject object = jsonArray.getJSONObject(0);
-                            String sum = object.getString("sum");
-                            steps.add(sum);
+                            for (int z=0;z< jsonArray.length();z++){
+                                JSONObject object = jsonArray.getJSONObject(z);
+                                String sum = object.getString("sum");
+                                String date = object.getString("date");
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
                     else if (response.equals("failure")){
                         Log.d("Fragment","failure");
@@ -515,15 +504,17 @@ public class StepsFragment extends Fragment {
                         Log.d("Fragment","clientuserID = "+dataFromDatabase.clientuserID);
                         data.put("userID", dataFromDatabase.clientuserID);
                         // '2022-07-03'
-                        data.put("date", String.valueOf(year1)+"-"+String.valueOf(mnth1)+"-"+String.valueOf(date1));
+                        data.put("date1", String.valueOf(year1)+"-"+String.valueOf(mnth1)+"-"+String.valueOf(date1));
+                        data.put("date2", String.valueOf(year2)+"-"+String.valueOf(mnth2)+"-"+String.valueOf(date2));
                         return data;
                     }
                 };
                 RequestQueue requestQueue = Volley.newRequestQueue(getContext());
                 requestQueue.add(stringRequest);
                 Log.d("Fragment","at end");
-            }
+
         }else if (numofdayspassed2-numofdayspassed1>30 && year1==year2){
+            ArrayList steps = new ArrayList();
             int numberofmonths = mnth2-mnth1;
             for (int i=0;i<numberofmonths;i++){
                 Calendar cal = Calendar.getInstance();
@@ -570,8 +561,8 @@ public class StepsFragment extends Fragment {
                 requestQueue.add(stringRequest);
                 Log.d("Fragment","at end");
             }
-
         }else if (year1!=year2){
+            ArrayList steps=new ArrayList<>();
             int numberofyears = year2-year1;
             for (int i=0;i<numberofyears;i++){
                 Calendar cal = Calendar.getInstance();
@@ -619,6 +610,5 @@ public class StepsFragment extends Fragment {
                 Log.d("Fragment","at end");
             }
         }
-        return steps;
     }
 }
