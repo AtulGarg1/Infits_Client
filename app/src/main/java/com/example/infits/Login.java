@@ -35,7 +35,7 @@ public class Login extends AppCompatActivity {
     TextView reg, fpass;
     Button loginbtn;
     String passwordStr,usernameStr;
-    String url = "http://192.168.218.1/infits/login_client.php";
+    String url = "http://192.168.95.1/infits/login_client.php";
     RequestQueue queue;
 
     @Override

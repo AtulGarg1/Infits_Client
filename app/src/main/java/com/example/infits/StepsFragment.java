@@ -47,10 +47,10 @@ public class StepsFragment extends Fragment {
 
     TextView daily,monthly,weekly,total;
     RequestQueue queue;
-    String url = "http://192.168.26.1/infits/stepsFragment.php";
-    String url1 = "http://192.168.26.1/infits/stepsVolley1.php";
-    String url2 = "http://192.168.26.1/infits/stepsVolley2.php";
-    String url3 = "http://192.168.26.1/infits/stepsVolley3.php";
+    String url = "http://192.168.95.1/infits/stepsFragment.php";
+    String url1 = "http://192.168.95.1/infits/stepsVolley1.php";
+    String url2 = "http://192.168.95.1/infits/stepsVolley2.php";
+    String url3 = "http://192.168.95.1/infits/stepsVolley3.php";
     DataFromDatabase dataFromDatabase;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -449,13 +449,19 @@ public class StepsFragment extends Fragment {
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
         Log.d("Fragment","at end");
+
+        ArrayList steps = dates(21,03,2022,22,04,2022);
+        for (int i=0;i<steps.size();i++){
+            Log.d("steps arraylist",steps.get(i).toString());
+        }
         return view;
     }
 
 
 
-    public void dates(Integer date1,Integer mnth1,Integer year1,Integer date2,Integer mnth2,Integer year2){
+    public ArrayList dates(Integer date1,Integer mnth1,Integer year1,Integer date2,Integer mnth2,Integer year2){
 
+        ArrayList steps=new ArrayList<>();
         GregorianCalendar gc1 = new GregorianCalendar();
         gc1.set(Calendar.DAY_OF_YEAR,date1);
         gc1.set(Calendar.MONTH,mnth1);
@@ -484,6 +490,7 @@ public class StepsFragment extends Fragment {
                                 JSONObject object = jsonArray.getJSONObject(z);
                                 String sum = object.getString("sum");
                                 String date = object.getString("date");
+                                steps.add(sum);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -514,7 +521,7 @@ public class StepsFragment extends Fragment {
                 Log.d("Fragment","at end");
 
         }else if (numofdayspassed2-numofdayspassed1>30 && year1==year2){
-            ArrayList steps = new ArrayList();
+
             int numberofmonths = mnth2-mnth1;
             for (int i=0;i<numberofmonths;i++){
                 Calendar cal = Calendar.getInstance();
@@ -562,7 +569,7 @@ public class StepsFragment extends Fragment {
                 Log.d("Fragment","at end");
             }
         }else if (year1!=year2){
-            ArrayList steps=new ArrayList<>();
+
             int numberofyears = year2-year1;
             for (int i=0;i<numberofyears;i++){
                 Calendar cal = Calendar.getInstance();
@@ -610,5 +617,6 @@ public class StepsFragment extends Fragment {
                 Log.d("Fragment","at end");
             }
         }
+        return steps;
     }
 }
