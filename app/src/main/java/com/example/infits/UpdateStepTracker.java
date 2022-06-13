@@ -21,7 +21,7 @@ import java.util.Map;
 public class UpdateStepTracker extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        String url="http://192.168.124.91/infits/steptracker.php";;
+        String url="http://192.168.26.1/infits/steptracker.php";;
         StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
             if (response.equals("updated")){
                 Toast.makeText(context.getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();

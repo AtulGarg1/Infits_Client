@@ -27,8 +27,10 @@ public class Signup extends AppCompatActivity {
     TextView term, memlog;
     Button signbtn;
     RadioButton agreeToCondition;
+
     String url = "http://192.168.1.14/infits/register_client.php";
     String url2 = "http://192.168.1.14/infits/client_table_creation.php";
+
     EditText fullName,userName,emailID,password,phoneNo;
 
     @Override

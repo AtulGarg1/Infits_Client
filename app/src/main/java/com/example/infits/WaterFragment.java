@@ -12,9 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.jjoe64.graphview.GraphView;
@@ -34,6 +37,11 @@ import java.util.List;
 import java.util.Map;
 
 public class WaterFragment extends Fragment {
+
+    TextView daily,monthly,weekly,total;
+    RequestQueue queue;
+    String url = "http://192.168.26.1/infits/waterFragment.php";
+    DataFromDatabase dataFromDatabase;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -66,6 +74,13 @@ public class WaterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_water, container, false);
+
+        daily=view.findViewById(R.id.dailytv2);
+        monthly=view.findViewById(R.id.monthlytv2);
+        weekly=view.findViewById(R.id.weeklytv2);
+        total=view.findViewById(R.id.totaltv2);
+
+
         RadioButton week_radioButton = view.findViewById(R.id.week_btn_water);
         RadioButton month_radioButton = view.findViewById(R.id.month_btn_water);
         RadioButton year_radioButton = view.findViewById(R.id.year_btn_water);
@@ -350,6 +365,68 @@ public class WaterFragment extends Fragment {
             };
             Volley.newRequestQueue(getActivity()).add(stringRequest);
         });
+
+        queue = Volley.newRequestQueue(getContext());
+        Log.d("Fragment","before");
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
+            if (!response.equals("failure")){
+                Log.d("Fragment","success");
+                Log.d("Fragment response",response);
+
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    JSONObject object0 = jsonArray.getJSONObject(0);
+                    JSONObject object1 = jsonArray.getJSONObject(1);
+                    JSONObject object2 = jsonArray.getJSONObject(2);
+                    JSONObject object3 = jsonArray.getJSONObject(3);
+                    String stepsWeek = object0.getString("SumWeek");
+                    if (stepsWeek.equals("null")){
+                        stepsWeek ="0";
+                    }
+                    weekly.setText(stepsWeek);
+                    String stepsMonth = object1.getString("SumMonth");
+                    if (stepsMonth.equals("null")){
+                        stepsMonth ="0";
+                    }
+                    monthly.setText(stepsMonth);
+                    String stepsDaily = object2.getString("SumDaily");
+                    if (stepsDaily.equals("null")){
+                        stepsDaily ="0";
+                    }
+                    daily.setText(stepsDaily);
+                    String stepsTotal = object3.getString("SumTotal");
+                    if (stepsTotal.equals("null")){
+                        stepsTotal ="0";
+                    }
+                    total.setText(stepsTotal);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            else if (response.equals("failure")){
+                Log.d("Fragment","failure");
+                Toast.makeText(getContext(), "Fragment failed", Toast.LENGTH_SHORT).show();
+            }
+        },error -> {
+            Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();})
+        {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+                Log.d("Fragment","clientuserID = "+dataFromDatabase.clientuserID);
+                data.put("userID", dataFromDatabase.clientuserID);
+                return data;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
+        Log.d("Fragment","at end");
+
+
+
         return view;
     }
 }

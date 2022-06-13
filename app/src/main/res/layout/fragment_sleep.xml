@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:theme="@style/Theme.AppCompat.Light"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SleepFragment">
@@ -40,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_medium"
-        android:text="Total"
+        android:text="Yearly Avg."
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -51,7 +52,7 @@
         app:layout_constraintVertical_bias="0.601" />
 
     <TextView
-        android:id="@+id/textView87"
+        android:id="@+id/weeklytv2"
         android:layout_width="100dp"
         android:layout_height="37dp"
         android:background="@drawable/textviewbgsleep"
@@ -84,7 +85,7 @@
         app:layout_constraintVertical_bias="0.719" />
 
     <TextView
-        android:id="@+id/textView82"
+        android:id="@+id/totaltv2"
         android:layout_width="100dp"
         android:layout_height="37dp"
         android:background="@drawable/textviewbgsleep"
@@ -117,7 +118,7 @@
         app:layout_constraintVertical_bias="0.407" />
 
     <TextView
-        android:id="@+id/textView85"
+        android:id="@+id/monthlytv2"
         android:layout_width="100dp"
         android:layout_height="37dp"
         android:background="@drawable/textviewbgsleep"
@@ -234,7 +235,7 @@
         app:layout_constraintVertical_bias="0.719" />
 
     <TextView
-        android:id="@+id/textView84"
+        android:id="@+id/dailytv2"
         android:layout_width="100dp"
         android:layout_height="37dp"
         android:background="@drawable/textviewbgsleep"

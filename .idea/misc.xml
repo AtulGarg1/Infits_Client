@@ -13,6 +13,7 @@
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_steps.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/logoutdialog.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/setgoaldialog.xml" value="0.19166666666666668" />
+
         <entry key="..\:/Users/yagna/AndroidStudioProjects/infits-client/app/src/main/res/drawable/ic_baseline_access_time_24.xml" value="0.12552083333333333" />
         <entry key="..\:/Users/yagna/AndroidStudioProjects/infits-client/app/src/main/res/drawable/ic_baseline_arrow_upward_24.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/yagna/AndroidStudioProjects/infits-client/app/src/main/res/drawable/outline.xml" value="0.19583333333333333" />
@@ -114,6 +115,7 @@
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

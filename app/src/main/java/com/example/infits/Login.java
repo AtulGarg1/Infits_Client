@@ -35,7 +35,9 @@ public class Login extends AppCompatActivity {
     TextView reg, fpass;
     Button loginbtn;
     String passwordStr,usernameStr;
+
     String url = "http://192.168.1.14/infits/login_client.php";
+
     RequestQueue queue;
 
     @Override
@@ -79,7 +81,7 @@ public class Login extends AppCompatActivity {
                     }else{
                         Toast.makeText(Login.this,"Login Successful",Toast.LENGTH_LONG).show();
                         Intent id = new Intent(Login.this, DashBoardMain.class);
-
+                        Log.d("Response Login",response);
                         try {
                             JSONArray jsonArray = new JSONArray(response);
                             JSONObject object = jsonArray.getJSONObject(0);
@@ -87,6 +89,7 @@ public class Login extends AppCompatActivity {
                             DataFromDatabase.clientuserID  = object.getString("clientuserID");
                             DataFromDatabase.dietitianuserID = object.getString("dietitianuserID");
                             DataFromDatabase.name = object.getString("name");
+                            Log.d("name login",DataFromDatabase.name);
                             DataFromDatabase.password = object.getString("password");
                             DataFromDatabase.email = object.getString("email");
                             DataFromDatabase.mobile = object.getString("mobile");
@@ -96,7 +99,7 @@ public class Login extends AppCompatActivity {
                             DataFromDatabase.gender  = object.getString("gender");
                             byte[] qrimage = Base64.decode(DataFromDatabase.profilePhoto,0);
                             DataFromDatabase.profile = BitmapFactory.decodeByteArray(qrimage,0,qrimage.length);
-                            Log.d("Login Screen","Dietician user id = "+ DataFromDatabase.dietitianuserID);
+                            Log.d("Login Screen","client user id = "+ DataFromDatabase.clientuserID);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
