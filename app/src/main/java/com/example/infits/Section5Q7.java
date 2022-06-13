@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,7 +24,7 @@ public class Section5Q7 extends Fragment {
     Button nextbtn;
     TextView backbtn, textView77;
     RadioButton yes,no;
-    String stress_eat;
+    String stress_eat="";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -115,13 +116,25 @@ public class Section5Q7 extends Fragment {
                 DataSectionFive.stress_eat = stress_eat;
                 DataSectionFive.s5q7 = textView77.getText().toString();
 
-                Navigation.findNavController(v).navigate(R.id.action_section5Q7_to_section5Q8);
+                if (stress_eat.equals(""))
+                    Toast.makeText(getContext(), "Select atleast one of the given options", Toast.LENGTH_SHORT).show();
+                else {
+                    ConsultationFragment.psection5 += 1;
+
+                    Navigation.findNavController(v).navigate(R.id.action_section5Q7_to_section5Q8);
+                }
+
+
             }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(ConsultationFragment.psection5>0)
+                    ConsultationFragment.psection5-=1;
+
                 Navigation.findNavController(v).navigate(R.id.action_section5Q7_to_section5Q6);
             }
         });

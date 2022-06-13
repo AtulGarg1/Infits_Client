@@ -86,14 +86,20 @@ public class SectionOneQSeven extends Fragment {
 
                 DataSectionOne.duration = duration;
                 DataSectionOne.s1q7 = jobduratv.getText().toString();
-
-                Navigation.findNavController(v).navigate(R.id.action_sectionOneQSeven_to_sectionOneQEight);
+                if (duration.equals("") || duration.equals(" "))
+                    Toast.makeText(getContext(), "Fill the details", Toast.LENGTH_SHORT).show();
+                else {
+                    ConsultationFragment.psection1 += 1;
+                    Navigation.findNavController(v).navigate(R.id.action_sectionOneQSeven_to_sectionOneQEight);
+                }
             }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(ConsultationFragment.psection1>0)
+                    ConsultationFragment.psection1-=1;
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQSeven_to_sectionOneQSix);
             }
         });

@@ -164,14 +164,22 @@ public class Section2Q8 extends Fragment {
 
 
                 //Toast.makeText(getContext(), "Data:" + DataSectionTwo.familyHistory, Toast.LENGTH_SHORT).show();
-
-                Navigation.findNavController(v).navigate(R.id.action_section2Q8_to_consultationFragment);
+                if ((!dia.isChecked()) && (!hyperten.isChecked()) && (!hyperthy.isChecked())
+                        && (!hypothy.isChecked()) && (!pcod.isChecked()) && (!fattyl.isChecked()) &&
+                        (other.equals("") || other.equals(" ")))
+                    Toast.makeText(getContext(), "Select atleast one of the given options", Toast.LENGTH_SHORT).show();
+                else {
+                    ConsultationFragment.psection2 += 1;
+                    Navigation.findNavController(v).navigate(R.id.action_section2Q8_to_consultationFragment);
+                }
             }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(ConsultationFragment.psection2>0)
+                    ConsultationFragment.psection2-=1;
                 Navigation.findNavController(v).navigate(R.id.action_section2Q8_to_section2Q7);
             }
         });

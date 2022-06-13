@@ -88,14 +88,20 @@ public class SectionOneQOne extends Fragment {
 
                 DataSectionOne.email = user_email;
                 DataSectionOne.s1q1 = emailtv.getText().toString();
-
-                Navigation.findNavController(v).navigate(R.id.action_sectionOneQOne_to_sectionOneQTwo);
+                if(user_email.equals("")|| user_email.equals(" "))
+                    Toast.makeText(getContext(),"Add your email",Toast.LENGTH_SHORT).show();
+                else{
+                    ConsultationFragment.psection1+=1;
+                    Navigation.findNavController(v).navigate(R.id.action_sectionOneQOne_to_sectionOneQTwo);
+                 }
             }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (ConsultationFragment.psection1>0)
+                    ConsultationFragment.psection1-=1;
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQOne_to_consultationFragment);
             }
         });

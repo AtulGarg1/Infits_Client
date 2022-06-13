@@ -70,7 +70,9 @@ public class Account extends Fragment {
     private String imgPath = null;
     private final int PICK_IMAGE_CAMERA = 1, PICK_IMAGE_GALLERY = 2;
 
-    String url = "http://192.168.26.1/infits/save.php";
+ master
+    String url = "http://192.168.1.14/infits/save.php";
+
 
     ActivityResultLauncher<String> photo;
 

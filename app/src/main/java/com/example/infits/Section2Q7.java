@@ -86,14 +86,20 @@ public class Section2Q7 extends Fragment {
 
                 DataSectionTwo.medication = user_medi;
                 DataSectionTwo.s2q7 = medntv.getText().toString();
-
-                Navigation.findNavController(v).navigate(R.id.action_section2Q7_to_section2Q8);
+                if (user_medi.equals("") || user_medi.equals(" "))
+                    Toast.makeText(getContext(), "Enter your medication details", Toast.LENGTH_SHORT).show();
+                else {
+                    ConsultationFragment.psection2 += 1;
+                    Navigation.findNavController(v).navigate(R.id.action_section2Q7_to_section2Q8);
+                }
             }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(ConsultationFragment.psection2>0)
+                    ConsultationFragment.psection2-=1;
                 Navigation.findNavController(v).navigate(R.id.action_section2Q7_to_section2Q6);
             }
         });

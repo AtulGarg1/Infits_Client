@@ -89,14 +89,19 @@ public class SectionOneQFour extends Fragment {
 
                 DataSectionOne.hometown = user_hometown;
                 DataSectionOne.s1q4 = hometv.getText().toString();
-
+                if(user_hometown.equals("")|| user_hometown.equals(" "))
+                    Toast.makeText(getContext(),"Add your hometown",Toast.LENGTH_SHORT).show();
+                else{
+                    ConsultationFragment.psection1+=1;
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQFour_to_sectionOneQFive);
-            }
+            }}
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(ConsultationFragment.psection1>0)
+                    ConsultationFragment.psection1-=1;
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQFour_to_sectionOneQThree);
             }
         });

@@ -27,7 +27,10 @@ public class Signup extends AppCompatActivity {
     TextView term, memlog;
     Button signbtn;
     RadioButton agreeToCondition;
-    String url = "http://192.168.26.1/infits/register_client.php";
+
+    String url = "http://192.168.1.14/infits/register_client.php";
+    String url2 = "http://192.168.1.14/infits/client_table_creation.php";
+
     EditText fullName,userName,emailID,password,phoneNo;
 
     @Override
@@ -98,6 +101,32 @@ public class Signup extends AppCompatActivity {
             };
             RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
             requestQueue.add(stringRequest);
+
+            //Creating client consultation details table
+
+            StringRequest stringRequest2 = new StringRequest(Request.Method.POST,url2, response -> {
+                System.out.println(response);
+                if (response.equals("success")){
+                    Toast.makeText(getApplicationContext(), "Table created", Toast.LENGTH_SHORT).show();
+                    Intent id = new Intent(getApplicationContext(), Login.class);
+                    startActivity(id);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
+                }
+            },error -> {
+                Toast.makeText(getApplicationContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();}){
+                @Nullable
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String,String> data = new HashMap<>();
+                    data.put("userID",userID);
+
+                    return data;
+                }
+            };
+            RequestQueue requestQueue2 = Volley.newRequestQueue(getApplicationContext());
+            requestQueue2.add(stringRequest2);
         });
     }
 }
