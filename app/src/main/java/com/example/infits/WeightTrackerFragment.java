@@ -1,11 +1,16 @@
 package com.example.infits;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.Navigation;
@@ -18,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +36,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,8 +49,11 @@ import java.util.Map;
  */
 public class WeightTrackerFragment extends Fragment {
 
-    ImageButton adddet, imgback;
-    TextView textbmi, curWeight;
+    CardView date_click;
+
+    ImageButton adddet;
+    ImageView imgback;
+    TextView textbmi, curWeight,date_view;
     public int userWeight;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -91,17 +102,33 @@ public class WeightTrackerFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_weight_tracker, container, false);
 
+        SharedPreferences sh = getActivity().getSharedPreferences("Weight",MODE_PRIVATE);
+
         adddet = view.findViewById(R.id.adddet);
-        textbmi = view.findViewById(R.id.textbmi);
+        textbmi = view.findViewById(R.id.bmi);
         imgback = view.findViewById(R.id.imgback);
         curWeight = view.findViewById(R.id.curWeight);
+        date_view = view.findViewById(R.id.date);
+        date_click = view.findViewById(R.id.date_click);
+
+        curWeight.setText(sh.getString("weight","0"));
+
+        Date dateToday = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
+        date_view.setText(sdf.format(dateToday));
+
+        date_click.setOnClickListener(v->{
+            Navigation.findNavController(v).navigate(R.id.action_weightTrackerFragment_to_weightDateFragment);
+
+        });
 
         RecyclerView pastActivity = view.findViewById(R.id.past_activity);
 
         ArrayList<String> dates = new ArrayList<>();
         ArrayList<String> datas = new ArrayList<>();
 
-        String url = "http://192.168.72.91/infits/pastActivityWeight.php";
+        String url = "http://192.168.162.91/infits/pastActivityWeight.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
             try {
@@ -116,14 +143,14 @@ public class WeightTrackerFragment extends Fragment {
                     System.out.println(datas.get(i));
                     System.out.println(dates.get(i));
                 }
-                AdapterForPastActivity ad = new AdapterForPastActivity(getContext(),dates,datas);
+                AdapterForPastActivity ad = new AdapterForPastActivity(getContext(),dates,datas, Color.parseColor("#1FB688"));
                 pastActivity.setLayoutManager(new LinearLayoutManager(getContext()));
                 pastActivity.setAdapter(ad);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         },error -> {
-            Toast.makeText(getActivity().getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getActivity().getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
             Log.d("Error",error.toString());
         }){
             @Nullable
@@ -134,23 +161,12 @@ public class WeightTrackerFragment extends Fragment {
                 return data;
             }
         };
-
         Volley.newRequestQueue(getActivity()).add(stringRequest);
-
         adddet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_weightTrackerFragment_to_weightDateFragment);
-            }
-        });
+                Navigation.findNavController(v).navigate(R.id.action_weightTrackerFragment_to_bmiFragment);
 
-        getParentFragmentManager().setFragmentResultListener("weightData", this, new FragmentResultListener() {
-            @Override
-            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                String uWeight = result.getString("weight");
-                curWeight.setText(uWeight);
-                userWeight = Integer.parseInt(uWeight);
-                String dateChange = result.getString("weightChangeDate");
             }
         });
 
@@ -205,9 +221,6 @@ public class WeightTrackerFragment extends Fragment {
                 Navigation.findNavController(v).navigate(R.id.action_weightTrackerFragment_to_dashBoardFragment);
             }
         });
-
-
-
         return view;
     }
 }

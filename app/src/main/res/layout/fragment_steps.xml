@@ -292,7 +292,7 @@
         android:checkedButton="@+id/week_btn_steps"
         android:orientation="horizontal"
         app:layout_constraintHorizontal_bias="0.434"
-        app:layout_constraintVertical_bias="0.010"
+        app:layout_constraintVertical_bias="0.080"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -357,7 +357,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.118" />
+        app:layout_constraintTop_toBottomOf="@+id/toggle"
+        app:layout_constraintVertical_bias="0.10"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

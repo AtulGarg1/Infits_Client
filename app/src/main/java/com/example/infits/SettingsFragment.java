@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,7 +22,11 @@ import android.widget.ImageButton;
  */
 public class SettingsFragment extends Fragment {
 
+    ImageView profilepic;
+
     ImageButton imgbtnAccount, imgbtnDevice, imgbtnNotif, imgbtnRef, imgbtnAbout, imgbtnHelp;
+
+    TextView tvName;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -68,12 +74,19 @@ public class SettingsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
+        profilepic = view.findViewById(R.id.profilepic);
+
         imgbtnAbout = view.findViewById(R.id.imgbtnAbout);
         imgbtnAccount = view.findViewById(R.id.imgbtnAccount);
         imgbtnDevice = view.findViewById(R.id.imgbtnDevice);
         imgbtnNotif = view.findViewById(R.id.imgbtnNotif);
         imgbtnRef = view.findViewById(R.id.imgbtnRef);
         imgbtnHelp = view.findViewById(R.id.imgbtnHelp);
+        tvName = view.findViewById(R.id.tvName);
+
+        profilepic.setImageBitmap(DataFromDatabase.profile);
+
+        tvName.setText(DataFromDatabase.name);
 
         imgbtnRef.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -21,7 +21,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-
             <LinearLayout
                 android:id="@+id/linearLayout4"
                 android:layout_width="0dp"
@@ -405,7 +404,7 @@
                 android:layout_width="190dp"
                 android:layout_height="72dp"
                 android:text="Hi John"
-                android:textSize="38sp"
+                android:textSize="30sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.072"

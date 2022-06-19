@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -103,7 +104,7 @@ public class SleepTrackerFragment extends Fragment {
         ArrayList<String> dates = new ArrayList<>();
         ArrayList<String> datas = new ArrayList<>();
 
-        String url = "http://192.168.72.91/infits/pastActivitySleep.php";
+        String url = "http://192.168.162.91/infits/pastActivitySleep.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
             try {
@@ -118,7 +119,7 @@ public class SleepTrackerFragment extends Fragment {
                     System.out.println(datas.get(i));
                     System.out.println(dates.get(i));
                 }
-                AdapterForPastActivity ad = new AdapterForPastActivity(getContext(),dates,datas);
+                AdapterForPastActivity ad = new AdapterForPastActivity(getContext(),dates,datas, Color.parseColor("#9C74F5"));
                 pastActivity.setLayoutManager(new LinearLayoutManager(getContext()));
                 pastActivity.setAdapter(ad);
             } catch (JSONException e) {
@@ -153,6 +154,13 @@ public class SleepTrackerFragment extends Fragment {
         endcycle = view.findViewById(R.id.endcycle);
         texttime = view.findViewById(R.id.texttime);
         tvDuration = view.findViewById(R.id.tvDuration);
+
+        tvDuration.setVisibility(View.INVISIBLE);
+
+        if (foregroundServiceRunning()){
+            endcycle.setVisibility(View.VISIBLE);
+            startcycle.setVisibility(View.GONE);
+        }
 
         if (!foregroundServiceRunning()){
             endcycle.setVisibility(View.GONE);
@@ -194,6 +202,13 @@ public class SleepTrackerFragment extends Fragment {
         startcycle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Date date = new Date();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                calendar.add(Calendar.HOUR_OF_DAY, 8);
+                tvDuration.setVisibility(View.VISIBLE);
+                SimpleDateFormat sim = new SimpleDateFormat("HH:mm");
+                tvDuration.setText("Optimal time to wake up is "+sim.format(calendar.getTime()));
                 startcycle.setVisibility(View.GONE);
                 endcycle.setVisibility(View.VISIBLE);
                 if (!foregroundServiceRunning()) {
@@ -220,7 +235,7 @@ public class SleepTrackerFragment extends Fragment {
                 }
                 getActivity().unregisterReceiver(broadcastReceiver);
                 tvDuration.setText("You slept for " +sleep);
-                String url="http://192.168.124.91/infits/sleeptracker.php";
+                String url="http://192.168.162.91/infits/sleeptracker.php";
                 StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
                     if (response.equals("updated")){
                         Toast.makeText(getActivity(), "Good Morning", Toast.LENGTH_SHORT).show();

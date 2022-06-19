@@ -40,7 +40,7 @@ public class SleepFragment extends Fragment {
 
     TextView daily,monthly,weekly,total;
     RequestQueue queue;
-    String url = "http://192.168.26.1/infits/sleepFragment.php";
+    String url = "http://192.168.110.91/infits/sleepFragment.php";
     DataFromDatabase dataFromDatabase;
 
     private static final String ARG_PARAM1 = "param1";
@@ -88,7 +88,7 @@ public class SleepFragment extends Fragment {
         RadioButton custom_radioButton = view.findViewById(R.id.customdates_btn_sleep);
         week_radioButton.setOnClickListener(v->{
             final GraphView graph = (GraphView) view.findViewById(R.id.graph);
-            String url = "http://192.168.124.91/infits/sleepGraph.php";
+            String url = "http://192.168.110.91/infits/sleepGraph.php";
             String from = "";
             String to = "";
             SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
@@ -163,7 +163,7 @@ public class SleepFragment extends Fragment {
         month_radioButton.setOnClickListener(v->{
             final GraphView graphMonth = (GraphView) view.findViewById(R.id.graph);
             graphMonth.removeAllSeries();
-            String url = "http://192.168.124.91/infits/sleepMonthGraph.php";
+            String url = "http://192.168.110.91/infits/sleepMonthGraph.php";
             String from = "";
             String to = "";
             SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
@@ -180,6 +180,8 @@ public class SleepFragment extends Fragment {
                         String name = actor.getString("hrsSlept");
                         String date = actor.getString("date");
                         allNames.add(name);
+                        System.out.println(date);
+                        System.out.println(name);
                         days[i] = date;
                         dataPoints[i] = Float.parseFloat(allNames.get(i))/1000;
                     }
@@ -216,7 +218,7 @@ public class SleepFragment extends Fragment {
 
                     Map<String,String> data = new HashMap<>();
 
-                    data.put("option","Week");
+                    data.put("","");
 
                     return data;
                 }
@@ -226,7 +228,7 @@ public class SleepFragment extends Fragment {
         year_radioButton.setOnClickListener(v->{
             final GraphView graphMonth = (GraphView) view.findViewById(R.id.graph);
             graphMonth.removeAllSeries();
-            String url = "http://192.168.124.91/infits/sleepYearGraph.php";
+            String url = "http://192.168.110.91/infits/sleepYearGraph.php";
             String from = "";
             String to = "";
             SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
@@ -297,7 +299,7 @@ public class SleepFragment extends Fragment {
         });
         custom_radioButton.setOnClickListener(v->{
             final GraphView graph = (GraphView) view.findViewById(R.id.graph);
-            String url = "http://192.168.124.91/infits/stepsGraph.php";
+            String url = "http://192.168.110.91/infits/stepsGraph.php";
             String from = "2022-09-10";
             String to = "2022-09-17";
             SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
@@ -309,11 +311,11 @@ public class SleepFragment extends Fragment {
                 JSONObject jsonResponse = null;
                 try {
                     jsonResponse = new JSONObject(response);
-                    JSONArray cast = jsonResponse.getJSONArray("steps");
+                    JSONArray cast = jsonResponse.getJSONArray("sleep");
 
                     for (int i=0; i<cast.length(); i++) {
                         JSONObject actor = cast.getJSONObject(i);
-                        String name = actor.getString("steps");
+                        String name = actor.getString("sleep");
                         String date = actor.getString("date");
                         allNames.add(name);
                         Log.d("Length", allNames.get(i));
@@ -419,8 +421,8 @@ public class SleepFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-                Log.d("Fragment","clientuserID = "+dataFromDatabase.clientuserID);
-                data.put("userID", dataFromDatabase.clientuserID);
+                Log.d("Fragment","clientuserID = "+"Azarudeen");
+                data.put("userID", "Azarudeen");
                 return data;
             }
         };

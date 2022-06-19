@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -22,7 +23,6 @@ public class DashBoardMain extends AppCompatActivity {
     ActionBarDrawerToggle toggle;
     DrawerLayout drawerLayout;
     Toolbar toolbar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +74,18 @@ public class DashBoardMain extends AppCompatActivity {
                 return true;
             }
         });
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SharedPreferences sharedPreferences = getSharedPreferences("Weight",MODE_PRIVATE);
+
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+
+        myEdit.putString("weight", "0");
+        myEdit.putString("weightChangeDate", "");
+
+        myEdit.apply();
     }
 }

@@ -4,21 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/weightgreen"
+    android:background="@drawable/weighttracker"
     tools:context=".WeightTrackerFragment">
 
-    <ImageButton
+    <ImageView
         android:id="@+id/imgback"
-        android:layout_width="60dp"
-        android:layout_height="55dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:backgroundTint="@color/weightgreen"
+        android:layout_margin="30dp"
         app:tint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.071"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.041"
         app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24" />
 
 
@@ -27,6 +22,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/date_click"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:layout_constraintBottom_toTopOf="@+id/imageView55"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:cardElevation="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/curWeight">
+
+            <ImageView
+                android:layout_width="111dp"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/weightgreen"
+                android:src="@drawable/date" />
+
+            <TextView
+                android:id="@+id/date"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/baloo2"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </androidx.cardview.widget.CardView>
 
         <ImageView
             android:id="@+id/imageView55"
@@ -41,11 +62,11 @@
             app:srcCompat="@drawable/weightcircle" />
 
 
-
         <TextView
             android:id="@+id/textviewsleep2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/baloo2"
             android:text="BMI Calculator"
             android:textColor="@color/white"
             android:textSize="20sp"
@@ -56,37 +77,54 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.43" />
 
-        <TextView
-            android:id="@+id/textbmi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:text="20.15"
-            android:textColor="@color/white"
-            android:textSize="24sp"
+        <androidx.cardview.widget.CardView
+            android:layout_width="330dp"
+            android:layout_height="90dp"
+            app:cardCornerRadius="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.538"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.45" />
+            app:layout_constraintTop_toBottomOf="@+id/textviewsleep2"
+            app:layout_constraintVertical_bias="0.05">
 
-        <com.kevalpatel2106.rulerpicker.RulerValuePicker
-            android:id="@+id/rulerValuePicker"
-            android:layout_width="280dp"
-            android:layout_height="60dp"
-            app:indicator_color="@color/white"
-            app:indicator_interval="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.552"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.535"
-            app:max_value="40"
-            app:min_value="15"
-            app:notch_color="@color/white"
-            app:ruler_text_color="@color/white" />
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="end"
+                android:layout_margin="10dp"
+                android:src="@drawable/retry" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+                <TextView
+                    android:id="@+id/bmi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:text="0"
+                    android:textSize="22sp" />
+                <TextView
+                    android:id="@+id/congrats"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:fontFamily="@font/baloo2"
+                    android:text="Keep it Up!"
+                    android:textColor="#00C170"
+                    android:visibility="invisible"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/bmi"
+                android:layout_marginTop="15dp"/>
+        </androidx.cardview.widget.CardView>
+
 
         <TextView
             android:id="@+id/curWeight"
@@ -122,6 +160,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nats_regular"
+            android:paddingTop="-11dp"
             android:text="WEIGHT TRACKER"
             android:textColor="@color/white"
             android:textSize="38sp"
@@ -148,8 +187,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
     <androidx.core.widget.NestedScrollView
         android:id="@+id/bottom_sheet1"
         android:layout_width="match_parent"
@@ -157,7 +194,7 @@
         android:background="@drawable/pastactivitybg"
         app:layout_behavior="@string/bottom_sheet_behavior"
         app:behavior_hideable="false"
-        app:behavior_peekHeight="300dp">
+        app:behavior_peekHeight="250dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -176,18 +213,16 @@
                 />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
+                android:orientation="horizontal"
+                android:layout_gravity="center">
                 <ImageView
-                    android:layout_width="98dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/pastline"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="40dp"
                     />
-
                 <TextView
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
@@ -200,7 +235,7 @@
                     android:textSize="20sp" />
 
                 <ImageView
-                    android:layout_width="98dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/pastline"
                     android:layout_gravity="center"
@@ -209,8 +244,10 @@
             </LinearLayout>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/past_activity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"/>
         </LinearLayout>
 
 

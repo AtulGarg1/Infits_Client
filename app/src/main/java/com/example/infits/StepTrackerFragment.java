@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -26,6 +27,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +48,13 @@ public class StepTrackerFragment extends Fragment {
 
     Button setgoal;
     ImageButton imgback;
-    TextView steps_label;
+    TextView steps_label,goal_step_count;
+
+    ProgressBar progressBar;
+
+    float goalVal = 0;
+
+    float goalPercent = 0;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -84,12 +92,17 @@ public class StepTrackerFragment extends Fragment {
         steps_label = view.findViewById(R.id.steps_label);
         setgoal = view.findViewById(R.id.setgoal);
         imgback = view.findViewById(R.id.imgback);
+        goal_step_count = view.findViewById(R.id.goal_step_count);
         RecyclerView pastActivity = view.findViewById(R.id.past_activity);
+
+        progressBar = view.findViewById(R.id.progressBar);
+
+        progressBar.setProgress(0);
 
         ArrayList<String> dates = new ArrayList<>();
         ArrayList<String> datas = new ArrayList<>();
 
-        String url = "http://192.168.72.91/infits/pastActivity.php";
+        String url = "http://192.168.162.91/infits/pastActivity.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url,response -> {
             try {
@@ -104,7 +117,7 @@ public class StepTrackerFragment extends Fragment {
                     System.out.println(datas.get(i));
                     System.out.println(dates.get(i));
                 }
-                AdapterForPastActivity ad = new AdapterForPastActivity(getContext(),dates,datas);
+                AdapterForPastActivity ad = new AdapterForPastActivity(getContext(),dates,datas, Color.parseColor("#FF9872"));
                 pastActivity.setLayoutManager(new LinearLayoutManager(getContext()));
                 pastActivity.setAdapter(ad);
             } catch (JSONException e) {
@@ -143,10 +156,14 @@ public class StepTrackerFragment extends Fragment {
                 if (!foregroundServiceRunning()){
                     ContextCompat.startForegroundService(getActivity(), serviceIntent);
                 }
-                final EditText goal = view.findViewById(R.id.goal);
+                EditText goal = dialog.findViewById(R.id.goal);
                 Button save = dialog.findViewById(R.id.save_btn_steps);
+                progressBar.setProgress(0);
+                steps_label.setText(String.valueOf(0));
                 save.setOnClickListener(v->{
                     FetchTrackerInfos.previousStep = FetchTrackerInfos.totalSteps;
+                    goal_step_count.setText(goal.getText().toString());
+                    goalVal = Integer.parseInt(goal.getText().toString());
                     dialog.dismiss();
                 });
                 dialog.show();
@@ -190,9 +207,18 @@ public class StepTrackerFragment extends Fragment {
     }
     private void updateGUI(Intent intent) {
         if (intent.getExtras() != null) {
-            int steps = intent.getIntExtra("steps",0);
+            float steps = intent.getIntExtra("steps",0);
             Log.i("StepTracker","Countdown seconds remaining:" + steps);
-            steps_label.setText(String.valueOf(steps));
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    goalPercent = ((steps/goalVal)*100)*100;
+                    System.out.println(goalPercent);
+                    progressBar.setProgress((int) goalPercent);
+                    steps_label.setText(String.valueOf((int) steps));
+                }
+            },20000);
 //            SharedPreferences sharedPreferences = getActivity().getSharedPreferences(getActivity().getPackageName(), Context.MODE_PRIVATE);
 //            sharedPreferences.edit().putInt("steps",steps).apply();
         }

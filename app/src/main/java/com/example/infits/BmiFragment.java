@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,19 +22,18 @@ import android.widget.Toast;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.kevalpatel2106.rulerpicker.RulerValuePicker;
 import com.kevalpatel2106.rulerpicker.RulerValuePickerListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link BmiFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class BmiFragment extends Fragment {
 
-    String url = "http://192.168.26.1";
+    String url = "http://192.168.162.91/infits/weighttracker.php";
 
     RelativeLayout male, female;
     Button btnadd;
@@ -41,6 +41,10 @@ public class BmiFragment extends Fragment {
     public String g;
     TextView textView31, textView43, textView94;
     RulerValuePicker rulerValuePickerh, rulerValuePickerw;
+
+    int cur_weight= 0;
+
+    int height = 0;
 
     Bundle bundle = new Bundle();
 
@@ -150,7 +154,8 @@ public class BmiFragment extends Fragment {
             public void onValueChange(int selectedValue) {
 
                 textView43.setText(selectedValue+"");
-                //cur_weight = selectedValue;
+
+                height = selectedValue;
 
                 bundle.putString("height", String.valueOf(selectedValue));
 
@@ -167,7 +172,7 @@ public class BmiFragment extends Fragment {
             public void onValueChange(int selectedValue) {
 
                 textView94.setText(selectedValue+"");
-                //cur_weight = selectedValue;
+                cur_weight = selectedValue;
 
                 bundle.putString("weight", String.valueOf(selectedValue));
 
@@ -186,22 +191,40 @@ public class BmiFragment extends Fragment {
                 getParentFragmentManager().setFragmentResult("personalData", bundle);
 
                 StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
-
+                    System.out.println(response);
+                    if (response.equals("updated")){
+                        Navigation.findNavController(v).navigate(R.id.action_bmiFragment_to_weightTrackerFragment);
+                    }
+                    else{
+                        Toast.makeText(getActivity(), "Not working", Toast.LENGTH_SHORT).show();
+                    }
                 },error -> {
                     Toast.makeText(getActivity(), error.toString().trim(), Toast.LENGTH_SHORT).show();
-                }) {
+                }){
                     @Nullable
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
-                        return super.getParams();
+                        Date date = new Date();
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        sdf.format(date);
+                        float hsquare = height* height;
+                        float bmi = cur_weight/(hsquare/10000);
+                        System.out.println(bmi);
+                        System.out.println(hsquare);
+                        System.out.println(height);
+                        Map<String,String> data = new HashMap<>();
+                        data.put("userID","Azarudeen");
+                        data.put("date", String.valueOf(sdf.format(date)));
+                        data.put("weight", String.valueOf(cur_weight));
+                        data.put("height",String.valueOf(height));
+                        data.put("goal","70");
+                        data.put("bmi",String.format("%.2f",bmi));
+                        return data;
                     }
                 };
-
-
-                Navigation.findNavController(v).navigate(R.id.action_bmiFragment_to_weightTrackerFragment);
+                Volley.newRequestQueue(getActivity().getApplicationContext()).add(request);
             }
         });
-
         return view;
     }
 }

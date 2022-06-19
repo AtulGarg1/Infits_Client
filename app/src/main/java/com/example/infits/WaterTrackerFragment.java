@@ -1,6 +1,7 @@
 package com.example.infits;
 
 import android.app.Dialog;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -48,8 +49,8 @@ import java.util.Map;
 public class WaterTrackerFragment extends Fragment {
 
     ImageButton addliq, imgback;
-    TextView wgoalperc, wgoal3, textViewsleep,consumed;
-//    ImageView waterGoal;
+    TextView waterGoalPercent, wgoal3, textViewsleep,consumed;
+    TextView waterGoal;
     String liqType, liqAmt;
     Button setgoal;
     float goalWater;
@@ -105,19 +106,21 @@ public class WaterTrackerFragment extends Fragment {
 
         addliq = view.findViewById(R.id.addliq);
         imgback = view.findViewById(R.id.imgback);
-        wgoalperc = view.findViewById(R.id.wgoalperc);
+        waterGoalPercent = view.findViewById(R.id.water_goal_percent);
         wgoal3 = view.findViewById(R.id.wgoal3);
         setgoal = view.findViewById(R.id.setgoal_watertracker);
         textViewsleep = view.findViewById(R.id.textviewsleep);
         consumed = view.findViewById(R.id.water_consumed);
-//        waterGoal = view.findViewById(R.id.water_goal);
+        waterGoal = view.findViewById(R.id.water_goal);
+
+        waterGoalPercent.setText(String.valueOf(calculateGoal()));
 
         RecyclerView rc = view.findViewById(R.id.past_activity);
 
         ArrayList<String> dates = new ArrayList<>();
         ArrayList<String> datas = new ArrayList<>();
 
-        String url = "http://192.168.72.91/infits/pastactivitywater.php";
+        String url = "http://192.168.162.91/infits/pastactivitywater.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url,response -> {
         try {
@@ -132,7 +135,7 @@ public class WaterTrackerFragment extends Fragment {
                 System.out.println(datas.get(i));
                 System.out.println(dates.get(i));
             }
-            AdapterForPastActivity ad = new AdapterForPastActivity(getContext(),dates,datas);
+            AdapterForPastActivity ad = new AdapterForPastActivity(getContext(),dates,datas, Color.parseColor("#76A5FF"));
             rc.setLayoutManager(new LinearLayoutManager(getContext()));
             rc.setAdapter(ad);
         } catch (JSONException e) {
@@ -158,10 +161,16 @@ public class WaterTrackerFragment extends Fragment {
             public void onClick(View view) {
                 final Dialog dialog = new Dialog(getActivity());
                 dialog.setCancelable(true);
-                dialog.setContentView(R.layout.setgoaldialog);
-                final EditText goaltxt = view.findViewById(R.id.goal);
-
+                dialog.setContentView(R.layout.watergoaldialog);
+                final EditText goaltxt = dialog.findViewById(R.id.goal_water);
+                Button setGoalBtn = dialog.findViewById(R.id.set_water_goal);
+                setGoalBtn.setOnClickListener(v->{
+                    goal = Integer.parseInt(goaltxt.getText().toString());
+                    waterGoal.setText(goaltxt.getText().toString());
+                    dialog.dismiss();
+                });
                 dialog.show();
+                waterGoalPercent.setText(String.valueOf(calculateGoal()));
             }
         });
 
@@ -203,10 +212,11 @@ public class WaterTrackerFragment extends Fragment {
                     consumedInDay += (int)Float.parseFloat(choosed.getText().toString());
 //                    consumed.setText(String.valueOf(consumedInDay));
                     dialog.dismiss();
-                    String url="http://192.168.1.14/infits/watertracker.php";
+                    String url="http://192.168.162.91/infits/watertracker.php";
                     StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
                             if (response.equals("updated")){
                                 consumed.setText(String.valueOf(consumedInDay));
+                                waterGoalPercent.setText(String.valueOf(calculateGoal()));
                             }
                             else{
                                 Toast.makeText(getActivity(), "Not working", Toast.LENGTH_SHORT).show();
@@ -311,5 +321,12 @@ public class WaterTrackerFragment extends Fragment {
 
 
         return view;
+    }
+    String calculateGoal(){
+        int per = consumedInDay*100/goal;
+        System.out.println(per);
+        System.out.println(consumedInDay);
+        System.out.println(goal);
+        return String.valueOf(per)+" %";
     }
 }

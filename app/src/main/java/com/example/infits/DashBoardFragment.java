@@ -40,7 +40,7 @@ import java.util.Map;
  */
 public class DashBoardFragment extends Fragment {
 
-    String url = "http://192.168.95.1/infits/dashboard.php";
+    String url = "http://192.168.162.91/infits/dashboard.php";
     DataFromDatabase dataFromDatabase;
     TextView stepstv,glassestv,glassesGoaltv,sleeptv,sleepGoaltv,weighttv,weightGoaltv,calorietv,
             calorieGoaltv,bpmtv,bpmUptv,bpmDowntv;
@@ -102,7 +102,6 @@ public class DashBoardFragment extends Fragment {
         profile = view.findViewById(R.id.profile);
 
         profile.setImageBitmap(DataFromDatabase.profile);
-
 //        stepstv,glassestv,glassesGoaltv,sleeptv,sleepGoaltv,weighttv,weightGoaltv,calorietv,
 //                calorieGoaltv,bpmtv,bpmUptv,bpmDowntv
 
@@ -231,9 +230,9 @@ public class DashBoardFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-                Log.d("ClientMetrics","clientuserID = "+dataFromDatabase.clientuserID);
-                data.put("userID", dataFromDatabase.clientuserID);
-
+//                Log.d("ClientMetrics","clientuserID = "+dataFromDatabase.clientuserID);
+//                data.put("userID", dataFromDatabase.clientuserID);
+                    data.put("userID","Azarudeen");
                 return data;
             }
         };

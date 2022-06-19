@@ -1,5 +1,7 @@
 package com.example.infits;
 
+import android.app.Dialog;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -11,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +27,7 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.savvi.rangedatepicker.CalendarPickerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,6 +40,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -47,10 +52,10 @@ public class StepsFragment extends Fragment {
 
     TextView daily,monthly,weekly,total;
     RequestQueue queue;
-    String url = "http://192.168.95.1/infits/stepsFragment.php";
-    String url1 = "http://192.168.95.1/infits/stepsVolley1.php";
-    String url2 = "http://192.168.95.1/infits/stepsVolley2.php";
-    String url3 = "http://192.168.95.1/infits/stepsVolley3.php";
+    String url = "http://192.168.162.91/infits/stepsFragment.php";
+    String url1 = "http://192.168.162.91/infits/stepsVolley1.php";
+    String url2 = "http://192.168.162.91/infits/stepsVolley2.php";
+    String url3 = "http://192.168.162.91/infits/stepsVolley3.php";
     DataFromDatabase dataFromDatabase;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -110,9 +115,7 @@ public class StepsFragment extends Fragment {
         RadioButton custom_radioButton = view.findViewById(R.id.customdates_btn_steps);
         week_radioButton.setOnClickListener(v->{
             final GraphView graph = (GraphView) view.findViewById(R.id.graph);
-            String url = "http://192.168.72.91/infits/stepsGraph.php";
-            String from = "";
-            String to = "";
+            String url = "http://192.168.162.91/infits/stepsGraph.php";
             SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
             String [] days = new String[7];
             float[] dataPoints= new float[7];
@@ -124,7 +127,7 @@ public class StepsFragment extends Fragment {
                     jsonResponse = new JSONObject(response);
                     JSONArray cast = jsonResponse.getJSONArray("steps");
 
-                    for (int i=0; i<cast.length(); i++) {
+                    for (int i=0; i<7; i++) {
                         JSONObject actor = cast.getJSONObject(i);
                         String name = actor.getString("steps");
                         String date = actor.getString("date");
@@ -136,7 +139,7 @@ public class StepsFragment extends Fragment {
                         Log.d("Length",days[i]);
                     }
                     DataPoint[] values = new DataPoint[dataPoints.length];
-                    for(int i =0; i<dataPoints.length; i++){
+                    for(int i =0; i<days.length; i++){
                         if (i==0){
                             DataPoint val = new DataPoint(0, 0);
                             values[i] = val;
@@ -150,7 +153,7 @@ public class StepsFragment extends Fragment {
                             values[i] = val;
                         }
                     }
-                    LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(values);
+                    LineGraphSeries<DataPoint> series = new LineGraphSeries<>(values);
                     StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
                     staticLabelsFormatter.setHorizontalLabels(days);
                     staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1000", "2000", "3000","4000","5000","6000","7000","8000","9000","10000"});
@@ -160,7 +163,8 @@ public class StepsFragment extends Fragment {
                     graph.getViewport().setMaxX(7);
                     graph.getViewport().setXAxisBoundsManual(true);
                     series.setDrawDataPoints(true);
-                    series.setDataPointsRadius(10);
+                    series.setDataPointsRadius(7);
+                    series.setColor(Color.parseColor("#FFA381"));
                     graph.addSeries(series);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -184,9 +188,7 @@ public class StepsFragment extends Fragment {
         month_radioButton.setOnClickListener(v->{
             final GraphView graphMonth = (GraphView) view.findViewById(R.id.graph);
             graphMonth.removeAllSeries();
-            String url = "http://192.168.72.91/infits/stepMonthGraph.php";
-            String from = "";
-            String to = "";
+            String url = "http://192.168.162.91/infits/stepMonthGraph.php";
             SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
             String [] days = new String[31];
             float[] dataPoints= new float[31];
@@ -204,13 +206,11 @@ public class StepsFragment extends Fragment {
                         days[i] = date;
                         dataPoints[i] = Float.parseFloat(allNames.get(i))/1000;
                     }
-
                     DataPoint[] values = new DataPoint[dataPoints.length];
                     for(int i =0; i<dataPoints.length; i++){
                         DataPoint val = new DataPoint(i, dataPoints[i]);
                         values[i] = val;
                     }
-
                     LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(values);
                     StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graphMonth);
                     staticLabelsFormatter.setHorizontalLabels(days);
@@ -224,6 +224,7 @@ public class StepsFragment extends Fragment {
                     Log.d("length", String.valueOf(dataPoints.length));
                     series.setDrawDataPoints(true);
                     series.setDataPointsRadius(7);
+                    series.setColor(Color.parseColor("#FFA381"));
                     graphMonth.addSeries(series);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -247,9 +248,7 @@ public class StepsFragment extends Fragment {
         year_radioButton.setOnClickListener(v->{
             final GraphView graphMonth = (GraphView) view.findViewById(R.id.graph);
             graphMonth.removeAllSeries();
-            String url = "http://192.168.72.91/infits/stepYearGraph.php";
-            String from = "";
-            String to = "";
+            String url = "http://192.168.162.91/infits/stepYearGraph.php";
             SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
             String [] days = new String[12];
             float[] dataPoints= new float[12];
@@ -296,6 +295,7 @@ public class StepsFragment extends Fragment {
                     Log.d("length", String.valueOf(dataPoints.length));
                     series.setDrawDataPoints(true);
                     series.setDataPointsRadius(7);
+                    series.setColor(Color.parseColor("#FFA381"));
                     graphMonth.addSeries(series);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -317,79 +317,115 @@ public class StepsFragment extends Fragment {
             Volley.newRequestQueue(getActivity()).add(stringRequest);
         });
         custom_radioButton.setOnClickListener(v->{
-            final GraphView graph = (GraphView) view.findViewById(R.id.graph);
-            String url = "http://192.168.72.91/infits/stepsGraph.php";
-            String from = "2022-09-10";
-            String to = "2022-09-17";
-            SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
-            String [] days = new String[7];
-            float[] dataPoints= new float[7];
-            StringRequest stringRequest = new StringRequest(Request.Method.GET,url,response -> {
-                graph.removeAllSeries();
-                List<String> allNames = new ArrayList<String>();
-                JSONObject jsonResponse = null;
-                try {
-                    jsonResponse = new JSONObject(response);
-                    JSONArray cast = jsonResponse.getJSONArray("steps");
+            final Dialog dialog = new Dialog(getActivity());
+            dialog.setCancelable(true);
+            dialog.setContentView(R.layout.calender_dialouge);
+            final Calendar nextYear = Calendar.getInstance();
+            nextYear.add(Calendar.YEAR,10);
 
-                    for (int i=0; i<cast.length(); i++) {
-                        JSONObject actor = cast.getJSONObject(i);
-                        String name = actor.getString("steps");
-                        String date = actor.getString("date");
-                        allNames.add(name);
-                        Log.d("Length", allNames.get(i));
-                        days[i] = date;
-                        dataPoints[i] = Float.parseFloat(allNames.get(i))/1000;
-                        Log.d("Length", String.valueOf(dataPoints[i]));
-                        Log.d("Length",days[i]);
-                    }
-                    DataPoint[] values = new DataPoint[dataPoints.length];
-                    for(int i =0; i<dataPoints.length; i++){
-                        if (i==0){
-                            DataPoint val = new DataPoint(0, 0);
-                            values[i] = val;
-                        }
-                        else if (i == 6){
-                            DataPoint val = new DataPoint(i+1, dataPoints[i]);
-                            values[i] = val;
-                        }
-                        else{
-                            DataPoint val = new DataPoint(i, dataPoints[i]);
-                            values[i] = val;
-                        }
-                    }
-                    LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(values);
-                    StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
-                    staticLabelsFormatter.setHorizontalLabels(days);
-                    staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1000", "2000", "3000","4000","5000",
-                            "6000","7000","8000","9000","10000"});
-                    graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-                    graph.getGridLabelRenderer().setNumHorizontalLabels(7);
-                    graph.getViewport().setMinX(1);
-                    graph.getViewport().setMaxX(7);
-                    graph.getViewport().setXAxisBoundsManual(true);
-                    series.setDrawDataPoints(true);
-                    series.setDataPointsRadius(10);
-                    graph.addSeries(series);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            },error -> {
-                Log.d("Data",error.toString().trim());
-            }){
-                @Nullable
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
+            final Calendar lastYear = Calendar.getInstance();
+            lastYear.add(Calendar.YEAR, -10);
 
-                    Map<String,String> data = new HashMap<>();
-                    data.put("from",from);
-                    data.put("to",to);
-                    return data;
+            CalendarPickerView calendarPickerView = dialog.findViewById(R.id.cal_for_graph);
+            calendarPickerView.init(lastYear.getTime(), nextYear.getTime(), new SimpleDateFormat("MMMM, YYYY", Locale.getDefault())).inMode(CalendarPickerView.SelectionMode.RANGE).withSelectedDate(new Date());
+
+            Button done = dialog.findViewById(R.id.done);
+            Button cancel = dialog.findViewById(R.id.cancel);
+
+            done.setOnClickListener(vi->{
+                String from = "";
+                String to = "";
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                for (int i = 0;i < calendarPickerView.getSelectedDates().size();i++){
+                    if (i == 0){
+                        from = sdf.format(calendarPickerView.getSelectedDates().get(i));
+                    }
+                    if (i == calendarPickerView.getSelectedDates().size()-1){
+                        to = sdf.format(calendarPickerView.getSelectedDates().get(i));
+                    }
                 }
-            };
-            Volley.newRequestQueue(getActivity()).add(stringRequest);
+                final GraphView graph = (GraphView) view.findViewById(R.id.graph);
+                String url = "http://192.168.162.91/infits/custom.php";
+
+                String finalFrom = from;
+                String finalTo = to;
+                StringRequest stringRequest = new StringRequest(Request.Method.GET,url, response -> {
+                    graph.removeAllSeries();
+                    System.out.println(response);
+
+                    List<String> allNames = new ArrayList<String>();
+                    JSONObject jsonResponse = null;
+                    try {
+                        jsonResponse = new JSONObject(response);
+                        JSONArray cast = jsonResponse.getJSONArray("steps");
+                        String [] days = new String[cast.length()];
+                        float[] dataPoints= new float[cast.length()];
+                        for (int i=0; i<cast.length(); i++) {
+                            JSONObject actor = cast.getJSONObject(i);
+                            String name = actor.getString("steps");
+                            String date = actor.getString("date");
+                            allNames.add(name);
+                            Log.d("Length", allNames.get(i));
+                            days[i] = date;
+                            dataPoints[i] = Float.parseFloat(allNames.get(i))/1000;
+                            Log.d("Length", String.valueOf(dataPoints[i]));
+                            Log.d("Length",days[i]);
+                        }
+                        DataPoint[] values = new DataPoint[dataPoints.length];
+                        for(int i =0; i<dataPoints.length; i++){
+                            if (i==0){
+                                DataPoint val = new DataPoint(0, 0);
+                                values[i] = val;
+                            }
+                            else if (i == 6){
+                                DataPoint val = new DataPoint(i+1, dataPoints[i]);
+                                values[i] = val;
+                            }
+                            else{
+                                DataPoint val = new DataPoint(i, dataPoints[i]);
+                                values[i] = val;
+                            }
+                        }
+                        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(values);
+                        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
+                        staticLabelsFormatter.setHorizontalLabels(days);
+                        staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1000", "2000", "3000","4000","5000",
+                                "6000","7000","8000","9000","10000"});
+                        graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+                        graph.getGridLabelRenderer().setNumHorizontalLabels(days.length);
+                        graph.getViewport().setMinX(1);
+                        graph.getViewport().setMaxX(days.length);
+                        graph.getViewport().setXAxisBoundsManual(true);
+                        series.setDrawDataPoints(true);
+                        series.setColor(Color.parseColor("#FFA381"));
+                        series.setDataPointsRadius(7);
+                        graph.addSeries(series);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },error -> {
+                    Log.d("Data",error.toString().trim());
+                }){
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+
+                        Map<String,String> data = new HashMap<>();
+                        data.put("from", finalFrom);
+                        data.put("to", finalTo);
+                        return data;
+                    }
+                };
+                Volley.newRequestQueue(getActivity()).add(stringRequest);
+                dialog.dismiss();
+            });
+
+            cancel.setOnClickListener(vi->{
+                dialog.dismiss();
+            });
+
+            dialog.show();
         });
-
 
         queue = Volley.newRequestQueue(getContext());
         Log.d("HeartFragment","before");
@@ -448,175 +484,174 @@ public class StepsFragment extends Fragment {
         };
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
-        Log.d("Fragment","at end");
-
-        ArrayList steps = dates(21,03,2022,22,04,2022);
-        for (int i=0;i<steps.size();i++){
-            Log.d("steps arraylist",steps.get(i).toString());
-        }
+//        Log.d("Fragment","at end");
+//        ArrayList steps = dates(27,01,2022,22,05,2022);
+//        for (int i=0;i<steps.size();i++){
+//            Log.d("steps arraylist",steps.get(i).toString());
+//        }
         return view;
     }
 
-
-
-    public ArrayList dates(Integer date1,Integer mnth1,Integer year1,Integer date2,Integer mnth2,Integer year2){
-
-        ArrayList steps=new ArrayList<>();
-        GregorianCalendar gc1 = new GregorianCalendar();
-        gc1.set(Calendar.DAY_OF_YEAR,date1);
-        gc1.set(Calendar.MONTH,mnth1);
-        gc1.set(Calendar.YEAR,year1);
-        int numofdayspassed1 = gc1.get(Calendar.DAY_OF_YEAR);
-
-        GregorianCalendar gc2 = new GregorianCalendar();
-        gc2.set(Calendar.DAY_OF_YEAR,date2);
-        gc2.set(Calendar.MONTH,mnth2);
-        gc2.set(Calendar.YEAR,year2);
-        int numofdayspassed2 = gc2.get(Calendar.DAY_OF_YEAR);
-
-        if (numofdayspassed2-numofdayspassed1<=30){
-            int numberofdays = numofdayspassed2-numofdayspassed1;
-
-                queue = Volley.newRequestQueue(getContext());
-                Log.d("Fragment","before");
-                StringRequest stringRequest = new StringRequest(Request.Method.POST,url1, response -> {
-                    if (!response.equals("failure")){
-                        Log.d("Fragment","success");
-                        Log.d("Fragment response",response);
-
-                        try {
-                            JSONArray jsonArray = new JSONArray(response);
-                            for (int z=0;z< jsonArray.length();z++){
-                                JSONObject object = jsonArray.getJSONObject(z);
-                                String sum = object.getString("sum");
-                                String date = object.getString("date");
-                                steps.add(sum);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    else if (response.equals("failure")){
-                        Log.d("Fragment","failure");
-                        Toast.makeText(getContext(), "Fragment failed", Toast.LENGTH_SHORT).show();
-                    }
-                },error -> {
-                    //    Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();
-                })
-                {
-                    @Nullable
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> data = new HashMap<>();
-                        Log.d("Fragment","clientuserID = "+dataFromDatabase.clientuserID);
-                        data.put("userID", dataFromDatabase.clientuserID);
-                        // '2022-07-03'
-                        data.put("date1", String.valueOf(year1)+"-"+String.valueOf(mnth1)+"-"+String.valueOf(date1));
-                        data.put("date2", String.valueOf(year2)+"-"+String.valueOf(mnth2)+"-"+String.valueOf(date2));
-                        return data;
-                    }
-                };
-                RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-                requestQueue.add(stringRequest);
-                Log.d("Fragment","at end");
-
-        }else if (numofdayspassed2-numofdayspassed1>30 && year1==year2){
-
-            int numberofmonths = mnth2-mnth1;
-            for (int i=0;i<numberofmonths;i++){
-                Calendar cal = Calendar.getInstance();
-                cal.add(mnth1,i);
-                Log.d("month", i+" "+String.valueOf(mnth1));
-
-                queue = Volley.newRequestQueue(getContext());
-                Log.d("Fragment","before");
-                StringRequest stringRequest = new StringRequest(Request.Method.POST,url2, response -> {
-                    if (!response.equals("failure")){
-                        Log.d("Fragment","success");
-                        Log.d("Fragment response",response);
-
-                        try {
-                            JSONArray jsonArray = new JSONArray(response);
-                            JSONObject object = jsonArray.getJSONObject(0);
-                            String sum = object.getString("sum");
-                            steps.add(sum);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                    else if (response.equals("failure")){
-                        Log.d("Fragment","failure");
-                        Toast.makeText(getContext(), "Fragment failed", Toast.LENGTH_SHORT).show();
-                    }
-                },error -> {
-                    //    Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();
-                })
-                {
-                    @Nullable
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> data = new HashMap<>();
-                        Log.d("Fragment","clientuserID = "+dataFromDatabase.clientuserID);
-                        data.put("userID", dataFromDatabase.clientuserID);
-                        // '2022-05%'
-                        data.put("date", String.valueOf(year1)+"-"+String.valueOf(mnth1)+"%");
-                        return data;
-                    }
-                };
-                RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-                requestQueue.add(stringRequest);
-                Log.d("Fragment","at end");
-            }
-        }else if (year1!=year2){
-
-            int numberofyears = year2-year1;
-            for (int i=0;i<numberofyears;i++){
-                Calendar cal = Calendar.getInstance();
-                cal.add(year1,i);
-                Log.d("year", i+" "+String.valueOf(year1));
-
-                queue = Volley.newRequestQueue(getContext());
-                Log.d("Fragment","before");
-                StringRequest stringRequest = new StringRequest(Request.Method.POST,url3, response -> {
-                    if (!response.equals("failure")){
-                        Log.d("Fragment","success");
-                        Log.d("Fragment response",response);
-
-                        try {
-                            JSONArray jsonArray = new JSONArray(response);
-                            JSONObject object = jsonArray.getJSONObject(0);
-                            String sum = object.getString("sum");
-                            steps.add(sum);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                    else if (response.equals("failure")){
-                        Log.d("Fragment","failure");
-                        Toast.makeText(getContext(), "Fragment failed", Toast.LENGTH_SHORT).show();
-                    }
-                },error -> {
-                    //    Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();
-                })
-                {
-                    @Nullable
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> data = new HashMap<>();
-                        Log.d("Fragment","clientuserID = "+dataFromDatabase.clientuserID);
-                        data.put("userID", dataFromDatabase.clientuserID);
-                        // '2022%'
-                        data.put("date", String.valueOf(year1)+"%");
-                        return data;
-                    }
-                };
-                RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-                requestQueue.add(stringRequest);
-                Log.d("Fragment","at end");
-            }
-        }
-        return steps;
-    }
+//    public ArrayList dates(Integer date1,Integer mnth1,Integer year1,Integer date2,Integer mnth2,Integer year2){
+//
+//        ArrayList steps=new ArrayList<>();
+//        GregorianCalendar gc1 = new GregorianCalendar();
+//        gc1.set(Calendar.DAY_OF_WEEK,date1);
+//        gc1.set(Calendar.MONTH,mnth1);
+//        gc1.set(Calendar.YEAR,year1);
+//        int numofdayspassed1 = gc1.get(Calendar.DAY_OF_YEAR);
+//
+//        GregorianCalendar gc2 = new GregorianCalendar();
+//        gc2.set(Calendar.DAY_OF_WEEK,date2);
+//        gc2.set(Calendar.MONTH,mnth2);
+//        gc2.set(Calendar.YEAR,year2);
+//        int numofdayspassed2 = gc2.get(Calendar.DAY_OF_YEAR);
+//
+//        Log.d("number",numofdayspassed2+"  ");
+//        Log.d("number",numofdayspassed1+"  ");
+//
+//        if (numofdayspassed2-numofdayspassed1<=30){
+//            int numberofdays = numofdayspassed2-numofdayspassed1;
+//
+//            queue = Volley.newRequestQueue(getContext());
+//            Log.d("Fragment","before");
+//            StringRequest stringRequest = new StringRequest(Request.Method.POST,url1, response -> {
+//                if (!response.equals("failure")){
+//                    Log.d("Fragment","success");
+//                    Log.d("Fragment response",response);
+//
+//                    try {
+//                        JSONArray jsonArray = new JSONArray(response);
+//                        for (int z=0;z< jsonArray.length();z++){
+//                            JSONObject object = jsonArray.getJSONObject(z);
+//                            String sum = object.getString("Sum");
+//                            String date = object.getString("date");
+//                            steps.add(sum);
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//                else if (response.equals("failure")){
+//                    Log.d("Fragment","failure");
+//                    Toast.makeText(getContext(), "Fragment failed", Toast.LENGTH_SHORT).show();
+//                }
+//            },error -> {
+//                //    Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();
+//            })
+//            {
+//                @Nullable
+//                @Override
+//                protected Map<String, String> getParams() throws AuthFailureError {
+//                    Map<String, String> data = new HashMap<>();
+//                    Log.d("Fragment","clientuserID = "+dataFromDatabase.clientuserID);
+//                    data.put("userID", dataFromDatabase.clientuserID);
+//                    // '2022-07-03'
+//                    data.put("date1", String.valueOf(year1)+"-"+String.valueOf(mnth1)+"-"+String.valueOf(date1));
+//                    data.put("date2", String.valueOf(year2)+"-"+String.valueOf(mnth2)+"-"+String.valueOf(date2));
+//                    return data;
+//                }
+//            };
+//            RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+//            requestQueue.add(stringRequest);
+//            Log.d("Fragment","at end");
+//
+//        }else if (numofdayspassed2-numofdayspassed1>30 && year1==year2){
+//
+//            int numberofmonths = mnth2-mnth1;
+//            for (int i=0;i<numberofmonths;i++){
+//                Calendar cal = Calendar.getInstance();
+//                cal.add(mnth1,i);
+//                Log.d("month", i+" "+String.valueOf(mnth1));
+//
+//                queue = Volley.newRequestQueue(getContext());
+//                Log.d("Fragment","before");
+//                StringRequest stringRequest = new StringRequest(Request.Method.POST,url2, response -> {
+//                    if (!response.equals("failure")){
+//                        Log.d("Fragment","success");
+//                        Log.d("Fragment response",response);
+//
+//                        try {
+//                            JSONArray jsonArray = new JSONArray(response);
+//                            JSONObject object = jsonArray.getJSONObject(0);
+//                            String sum = object.getString("Sum");
+//                            steps.add(sum);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                    else if (response.equals("failure")){
+//                        Log.d("Fragment","failure");
+//                        Toast.makeText(getContext(), "Fragment failed", Toast.LENGTH_SHORT).show();
+//                    }
+//                },error -> {
+//                    //    Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();
+//                })
+//                {
+//                    @Nullable
+//                    @Override
+//                    protected Map<String, String> getParams() throws AuthFailureError {
+//                        Map<String, String> data = new HashMap<>();
+//                        Log.d("Fragment","clientuserID = "+dataFromDatabase.clientuserID);
+//                        data.put("userID", dataFromDatabase.clientuserID);
+//                        // '2022-05%'
+//                        data.put("date", String.valueOf(year1)+"-"+String.valueOf(mnth1)+"%");
+//                        return data;
+//                    }
+//                };
+//                RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+//                requestQueue.add(stringRequest);
+//                Log.d("Fragment","at end");
+//            }
+//        }else if (year1!=year2){
+//
+//            int numberofyears = year2-year1;
+//            for (int i=0;i<numberofyears;i++){
+//                Calendar cal = Calendar.getInstance();
+//                cal.add(year1,i);
+//                Log.d("year", i+" "+String.valueOf(year1));
+//
+//                queue = Volley.newRequestQueue(getContext());
+//                Log.d("Fragment","before");
+//                StringRequest stringRequest = new StringRequest(Request.Method.POST,url3, response -> {
+//                    if (!response.equals("failure")){
+//                        Log.d("Fragment","success");
+//                        Log.d("Fragment response",response);
+//
+//                        try {
+//                            JSONArray jsonArray = new JSONArray(response);
+//                            JSONObject object = jsonArray.getJSONObject(0);
+//                            String sum = object.getString("Sum");
+//                            steps.add(sum);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                    }
+//                    else if (response.equals("failure")){
+//                        Log.d("Fragment","failure");
+//                        Toast.makeText(getContext(), "Fragment failed", Toast.LENGTH_SHORT).show();
+//                    }
+//                },error -> {
+//                    //    Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();
+//                })
+//                {
+//                    @Nullable
+//                    @Override
+//                    protected Map<String, String> getParams() throws AuthFailureError {
+//                        Map<String, String> data = new HashMap<>();
+//                        Log.d("Fragment","clientuserID = "+dataFromDatabase.clientuserID);
+//                        data.put("userID", dataFromDatabase.clientuserID);
+//                        // '2022%'
+//                        data.put("date", String.valueOf(year1)+"%");
+//                        return data;
+//                    }
+//                };
+//                RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+//                requestQueue.add(stringRequest);
+//                Log.d("Fragment","at end");
+//            }
+//        }
+//        return steps;
+//    }
 }

@@ -70,7 +70,7 @@ public class Account extends Fragment {
     private String imgPath = null;
     private final int PICK_IMAGE_CAMERA = 1, PICK_IMAGE_GALLERY = 2;
 
-    String url = "http://192.168.26.1/infits/save.php";
+    String url = "http://192.168.110.91/infits/save.php";
 
     ActivityResultLauncher<String> photo;
 
@@ -144,7 +144,7 @@ public class Account extends Fragment {
         logout=view.findViewById(R.id.button_logout);
         male.setImageResource(R.drawable.gender_male);
         female.setImageResource(R.drawable.gender_female);
-
+        profile_pic.setImageBitmap(DataFromDatabase.profile);
 
         ImageView name_btn=view.findViewById(R.id.name_edt_button);
         ImageView age_btn=view.findViewById(R.id.age_edt_button);
@@ -229,8 +229,6 @@ public class Account extends Fragment {
                 getActivity().finish();
             }
         });
-
-
 
         queue = Volley.newRequestQueue(getContext());
         save.setOnClickListener(v-> {

@@ -41,7 +41,7 @@ public class WeightFragment extends Fragment {
 
     TextView daily,monthly,weekly,total;
     RequestQueue queue;
-    String url = "http://192.168.26.1/infits/weightFragment.php";
+    String url = "http://192.168.110.91/infits/weightFragment.php";
     DataFromDatabase dataFromDatabase;
 
     private static final String ARG_PARAM1 = "param1";
@@ -164,7 +164,7 @@ public class WeightFragment extends Fragment {
         month_radioButton.setOnClickListener(v->{
             final GraphView graphMonth = (GraphView) view.findViewById(R.id.graph);
             graphMonth.removeAllSeries();
-            String url = "http://192.168.124.91/infits/stepMonthGraph.php";
+            String url = "http://192.168.110.91/infits/stepMonthGraph.php";
             String from = "";
             String to = "";
             SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
@@ -227,7 +227,7 @@ public class WeightFragment extends Fragment {
         year_radioButton.setOnClickListener(v->{
             final GraphView graphMonth = (GraphView) view.findViewById(R.id.graph);
             graphMonth.removeAllSeries();
-            String url = "http://192.168.124.91/infits/stepYearGraph.php";
+            String url = "http://192.168.110.91/infits/stepYearGraph.php";
             String from = "";
             String to = "";
             SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
@@ -298,7 +298,7 @@ public class WeightFragment extends Fragment {
         });
         custom_radioButton.setOnClickListener(v->{
             final GraphView graph = (GraphView) view.findViewById(R.id.graph);
-            String url = "http://192.168.124.91/infits/stepsGraph.php";
+            String url = "http://192.168.110.91/infits/stepsGraph.php";
             String from = "2022-09-10";
             String to = "2022-09-17";
             SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");

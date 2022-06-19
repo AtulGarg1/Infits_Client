@@ -3,6 +3,7 @@ package com.example.infits;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
@@ -35,7 +36,7 @@ public class Login extends AppCompatActivity {
     TextView reg, fpass;
     Button loginbtn;
     String passwordStr,usernameStr;
-    String url = "http://192.168.95.1/infits/login_client.php";
+    String url = "http://192.168.162.91/infits/login_client.php";
     RequestQueue queue;
 
     @Override
@@ -73,9 +74,12 @@ public class Login extends AppCompatActivity {
                 usernameStr = username.getEditText().getText().toString().trim();
                 passwordStr = password.getEditText().getText().toString().trim();
 
+                loginbtn.setClickable(false);
+
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
                     if(response.equals("failure")){
                         Toast.makeText(Login.this,"Login failed",Toast.LENGTH_SHORT).show();
+                        loginbtn.setClickable(true);
                     }else{
                         Toast.makeText(Login.this,"Login Successful",Toast.LENGTH_LONG).show();
                         Intent id = new Intent(Login.this, DashBoardMain.class);
@@ -88,6 +92,16 @@ public class Login extends AppCompatActivity {
                             DataFromDatabase.dietitianuserID = object.getString("dietitianuserID");
                             DataFromDatabase.name = object.getString("name");
                             Log.d("name login",DataFromDatabase.name);
+
+                            SharedPreferences loginDetails = getSharedPreferences("loginDetails",MODE_PRIVATE);
+
+                            SharedPreferences.Editor editor = loginDetails.edit();
+
+                            editor.putString("name",object.getString("name"));
+
+                            editor.putString("clientuserID",object.getString("clientuserID"));
+
+                            editor.apply();
                             DataFromDatabase.password = object.getString("password");
                             DataFromDatabase.email = object.getString("email");
                             DataFromDatabase.mobile = object.getString("mobile");
@@ -103,7 +117,10 @@ public class Login extends AppCompatActivity {
                         }
                         startActivity(id);
                     }
-                }, error -> Toast.makeText(Login.this,error.toString().trim(),Toast.LENGTH_SHORT).show()){
+                }, error -> {
+                    Toast.makeText(Login.this,error.toString().trim(),Toast.LENGTH_SHORT).show();
+                    loginbtn.setClickable(true);
+                }){
                     @Override
                     protected Map<String,String> getParams() throws AuthFailureError{
                         LinkedHashMap<String,String> data = new LinkedHashMap<>();
@@ -116,7 +133,5 @@ public class Login extends AppCompatActivity {
                 requestQueue.add(stringRequest);
             }
         });
-
     }
-
 }

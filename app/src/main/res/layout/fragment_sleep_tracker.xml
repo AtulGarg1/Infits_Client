@@ -6,7 +6,12 @@
     android:layout_height="match_parent"
     android:background="@color/sleeppurple"
     tools:context=".SleepTrackerFragment">
-
+<ImageView
+    android:layout_width="150dp"
+    android:layout_height="150dp"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="50dp"
+    android:background="@drawable/moon"/>
     <ImageButton
         android:id="@+id/imgback"
         android:layout_width="60dp"
@@ -61,25 +66,6 @@
             app:layout_constraintVertical_bias="0.390" />
 
         <Button
-            android:id="@+id/set_sleep_goal"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:backgroundTint="#00096f"
-            android:text="Set Goal"
-            android:fontFamily="@font/nats_regular"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:cornerRadius="10sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.320" />
-
-
-        <Button
             android:id="@+id/startcycle"
             android:layout_width="150dp"
             android:layout_height="50dp"
@@ -114,21 +100,19 @@
             android:id="@+id/setalarm"
             android:layout_width="150dp"
             android:layout_height="50dp"
-            android:background="@drawable/button_outline"
             android:backgroundTint="@color/sleeppurple"
+            android:background="@drawable/button_outline"
             android:text="Set an alarm"
             android:fontFamily="@font/nats_regular"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="16sp"
-            app:cornerRadius="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.465" />
-
         <TextView
             android:id="@+id/tvDuration"
             android:layout_width="wrap_content"
@@ -174,18 +158,16 @@
                 />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
+                android:orientation="horizontal"
+                android:layout_gravity="center">
                 <ImageView
-                    android:layout_width="98dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/pastline"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="40dp"
                     />
-
                 <TextView
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
@@ -198,7 +180,7 @@
                     android:textSize="20sp" />
 
                 <ImageView
-                    android:layout_width="98dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/pastline"
                     android:layout_gravity="center"
@@ -208,8 +190,10 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/past_activity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"/>
 
         </LinearLayout>
 

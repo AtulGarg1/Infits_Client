@@ -40,7 +40,7 @@ public class WaterFragment extends Fragment {
 
     TextView daily,monthly,weekly,total;
     RequestQueue queue;
-    String url = "http://192.168.26.1/infits/waterFragment.php";
+    String url = "http://192.168.110.91/infits/waterFragment.php";
     DataFromDatabase dataFromDatabase;
 
     private static final String ARG_PARAM1 = "param1";
@@ -87,7 +87,7 @@ public class WaterFragment extends Fragment {
         RadioButton custom_radioButton = view.findViewById(R.id.customdates_btn_water);
         week_radioButton.setOnClickListener(v->{
             final GraphView graph = (GraphView) view.findViewById(R.id.graph);
-            String url = "http://192.168.124.91/infits/waterGraph.php";
+            String url = "http://192.168.110.91/infits/waterGraph.php";
             String from = "";
             String to = "";
             SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
@@ -130,7 +130,7 @@ public class WaterFragment extends Fragment {
                     LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(values);
                     StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
                     staticLabelsFormatter.setHorizontalLabels(days);
-                    staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1000", "2000", "3000","4000","5000","6000","7000","8000","9000","10000"});
+                    staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1", "2", "3","4","5","6","7","8","9","10"});
                     graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
                     graph.getGridLabelRenderer().setNumHorizontalLabels(7);
                     graph.getViewport().setMinX(1);
@@ -161,7 +161,7 @@ public class WaterFragment extends Fragment {
         month_radioButton.setOnClickListener(v->{
             final GraphView graphMonth = (GraphView) view.findViewById(R.id.graph);
             graphMonth.removeAllSeries();
-            String url = "http://192.168.72.91/infits/waterMonthGraph.php";
+            String url = "http://192.168.110.91/infits/waterMonthGraph.php";
             String from = "";
             String to = "";
             SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
@@ -191,7 +191,7 @@ public class WaterFragment extends Fragment {
                     LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(values);
                     StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graphMonth);
                     staticLabelsFormatter.setHorizontalLabels(days);
-                    staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1000", "2000", "3000","4000","5000","6000","7000","8000","9000","10000"});
+                    staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1", "2", "3","4","5","6","7","8","9","10"});
                     graphMonth.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
                     graphMonth.getGridLabelRenderer().setNumHorizontalLabels(5);
                     graphMonth.getViewport().setMinX(1);
@@ -224,7 +224,7 @@ public class WaterFragment extends Fragment {
         year_radioButton.setOnClickListener(v->{
             final GraphView graphMonth = (GraphView) view.findViewById(R.id.graph);
             graphMonth.removeAllSeries();
-            String url = "http://192.168.72.91/infits/waterYearGraph.php";
+            String url = "http://192.168.110.91/infits/waterYearGraph.php";
             String from = "";
             String to = "";
             SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
@@ -262,7 +262,7 @@ public class WaterFragment extends Fragment {
                     LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(values);
                     StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graphMonth);
                     staticLabelsFormatter.setHorizontalLabels(new String[]{"0","1","2","3","4","5","6","7","8","9","10","11","12"});
-                    staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1000", "2000", "3000","4000","5000","6000","7000","8000","9000","10000"});
+                    staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1", "2", "3","4","5","6","7","8","9","10"});
                     graphMonth.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
 
                     graphMonth.getGridLabelRenderer().setNumHorizontalLabels(6);
@@ -295,7 +295,7 @@ public class WaterFragment extends Fragment {
         });
         custom_radioButton.setOnClickListener(v->{
             final GraphView graph = (GraphView) view.findViewById(R.id.graph);
-            String url = "http://192.168.72.91/infits/waterGraph.php";
+            String url = "http://192.168.110.91/infits/waterGraph.php";
             String from = "2022-09-10";
             String to = "2022-09-17";
             SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
@@ -316,7 +316,7 @@ public class WaterFragment extends Fragment {
                         allNames.add(name);
                         Log.d("Length", allNames.get(i));
                         days[i] = date;
-                        dataPoints[i] = Float.parseFloat(allNames.get(i))/1000;
+                        dataPoints[i] = Float.parseFloat(allNames.get(i))/1;
                         Log.d("Length", String.valueOf(dataPoints[i]));
                         Log.d("Length",days[i]);
                     }
@@ -338,7 +338,7 @@ public class WaterFragment extends Fragment {
                     LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(values);
                     StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
                     staticLabelsFormatter.setHorizontalLabels(days);
-                    staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1000", "2000", "3000","4000","5000","6000","7000","8000","9000","10000"});
+                    staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1", "2", "3","4","5","6","7","8","9","10"});
                     graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
                     graph.getGridLabelRenderer().setNumHorizontalLabels(7);
                     graph.getViewport().setMinX(1);
@@ -416,16 +416,14 @@ public class WaterFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-                Log.d("Fragment","clientuserID = "+dataFromDatabase.clientuserID);
-                data.put("userID", dataFromDatabase.clientuserID);
+//                Log.d("Fragment","clientuserID = "+dataFromDatabase.clientuserID);
+                data.put("userID", "Azarudeen");
                 return data;
             }
         };
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
         Log.d("Fragment","at end");
-
-
 
         return view;
     }
