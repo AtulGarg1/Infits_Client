@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class DataSectionTwo {
 
-    public static String height,weight,usualWeight,ongoingMed,medication;
+    public static String height,weight,usualWeight,imgPath,ongoingMed,medication;
 
     public static ArrayList<String> diagnosed; //5
     public static ArrayList<String> familyHistory; //8

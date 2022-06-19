@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,7 +81,7 @@ public class SectionOneQFive extends Fragment {
         male = view.findViewById(R.id.male);
         female = view.findViewById(R.id.female);
         other = view.findViewById(R.id.other);
-
+        RadioGroup radio=view.findViewById(R.id.radioGroup);
         gendertv = view.findViewById(R.id.textView77);
 
 
@@ -136,13 +137,20 @@ public class SectionOneQFive extends Fragment {
                 DataSectionOne.gender = uGender;
                 DataSectionOne.s1q5 = gendertv.getText().toString();
 
+                if(radio.getCheckedRadioButtonId()==-1)
+                    Toast.makeText(getContext(),"Select a gender",Toast.LENGTH_SHORT).show();
+                else{
+                    ConsultationFragment.psection1+=1;
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQFive_to_sectionOneQSix);
+            }
             }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(ConsultationFragment.psection1>0)
+                    ConsultationFragment.psection1-=1;
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQFive_to_sectionOneQFour);
             }
         });

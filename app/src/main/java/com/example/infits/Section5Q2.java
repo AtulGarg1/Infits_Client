@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,19 +81,27 @@ public class Section5Q2 extends Fragment {
             @Override
             public void onClick(View v) {
 
-                String mealno = eTextHeight.getText().toString();
+                String mealno = "";
+                mealno = eTextHeight.getText().toString();
                 //Toast.makeText(getContext(),user_height, Toast.LENGTH_SHORT).show();
 
                 DataSectionFive.mealno = mealno;
                 DataSectionFive.s5q2 = textView80.getText().toString();
+                if (mealno.equals(""))
+                    Toast.makeText(getContext(), "Enter details", Toast.LENGTH_SHORT).show();
+                else {
+                    ConsultationFragment.psection5 += 1;
 
-                Navigation.findNavController(v).navigate(R.id.action_section5Q2_to_section5Q3);
+                    Navigation.findNavController(v).navigate(R.id.action_section5Q2_to_section5Q3);
+                }
             }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(ConsultationFragment.psection5>0)
+                    ConsultationFragment.psection5-=1;
                 Navigation.findNavController(v).navigate(R.id.action_section5Q2_to_section5Q1);
             }
         });

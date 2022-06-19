@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -81,7 +82,7 @@ public class SectionOneQEight extends Fragment {
         sEvening = view.findViewById(R.id.sEvening);
         sChange = view.findViewById(R.id.sChange);
         sNA = view.findViewById(R.id.sNA);
-
+        RadioGroup r=view.findViewById(R.id.radioGroup);
         shifttv = view.findViewById(R.id.textView77);
 
 
@@ -188,14 +189,20 @@ public class SectionOneQEight extends Fragment {
 
                 DataSectionOne.shift = shift;
                 DataSectionOne.s1q8 = shifttv.getText().toString();
-
-                Navigation.findNavController(v).navigate(R.id.action_sectionOneQEight_to_consultationFragment);
+                if (r.getCheckedRadioButtonId()==-1)
+                    Toast.makeText(getContext(), "Select the shift", Toast.LENGTH_SHORT).show();
+                else {
+                    ConsultationFragment.psection1 += 1;
+                    Navigation.findNavController(v).navigate(R.id.action_sectionOneQEight_to_consultationFragment);
+                }
             }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(ConsultationFragment.psection1>0)
+                    ConsultationFragment.psection1-=1;
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQEight_to_sectionOneQSeven);
             }
         });

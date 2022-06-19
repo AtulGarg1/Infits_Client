@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,11 +50,24 @@ import java.util.Map;
  */
 public class ConsultationFragment extends Fragment {
 
-    CardView section1, section2, section3, section4, section5, section6;
+    CardView section1;
+    CardView section2;
+    CardView section3;
+    CardView section4;
+    CardView section5;
+    CardView section6;
 
     Button connectDoc;
 
     TextView textView58;
+
+    public static int psection1=0;
+    public static int psection2=0;
+    public static int psection3=0;
+    public static int psection4=0;
+    public static int psection5=0;
+    public static int psection6=0;
+
 
     private static final int STORAGE_CODE = 1000;
 
@@ -65,9 +79,6 @@ public class ConsultationFragment extends Fragment {
     public static ArrayList<String> answers = new ArrayList<>();
 
     String diagnosedAnswer, famhistoryAnswer;
-
-
-
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -127,10 +138,38 @@ public class ConsultationFragment extends Fragment {
 
         textView58 = view.findViewById(R.id.textView58);
 
+        ProgressBar p1=view.findViewById(R.id.sectionprogress1);
+        ProgressBar p2=view.findViewById(R.id.sectionprogress2);
+        ProgressBar p3=view.findViewById(R.id.sectionprogress3);
+        ProgressBar p4=view.findViewById(R.id.sectionprogress4);
+        ProgressBar p5=view.findViewById(R.id.sectionprogress5);
+        ProgressBar p6=view.findViewById(R.id.sectionprogress6);
+
+        TextView t1=view.findViewById(R.id.section1perc);
+        TextView t2=view.findViewById(R.id.section2perc);
+        TextView t3=view.findViewById(R.id.section3perc);
+        TextView t4=view.findViewById(R.id.section4perc);
+        TextView t5=view.findViewById(R.id.section5perc);
+        TextView t6=view.findViewById(R.id.section6perc);
+
+        p1.setProgress(psection1/8);
+        t1.setText(String.valueOf(psection1/8*100)+"%");
+        p2.setProgress(psection2/8);
+        t2.setText(String.valueOf(psection2/8*100)+"%");
+        p3.setProgress(psection3/11);
+        t3.setText(String.valueOf(psection3/11*100)+"%");
+        p4.setProgress(psection4/7);
+        t4.setText(String.valueOf(psection4/7*100)+"%");
+        p5.setProgress(psection5/13);
+        t5.setText(String.valueOf(psection5/13*100)+"%");
+        p6.setProgress(psection6/14);
+        t6.setText(String.valueOf(psection6/14*100)+"%");
+
         section1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.action_consultationFragment_to_sectionOneQOne);
+                Toast.makeText(getActivity(), "UserID: "+DataFromDatabase.clientuserID, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -189,14 +228,14 @@ public class ConsultationFragment extends Fragment {
                     sb1.append(i);
                     sb1.append("\n");
                 }
-                //diagnosedAnswer = sb1.toString();
+                diagnosedAnswer = sb1.toString();
                 String diagnosedData = DataSectionTwo.s2q5 + "\n" + sb1.toString();
 
                 for(String i : DataSectionTwo.familyHistory) {
                     sb2.append(i);
                     sb2.append("\n");
                 }
-                //famhistoryAnswer = sb2.toString();
+                famhistoryAnswer = sb2.toString();
                 String famhistoryData = DataSectionTwo.s2q8 + "\n" + sb2.toString();
 
 
@@ -235,6 +274,22 @@ public class ConsultationFragment extends Fragment {
                     public void run() {
 
                         //Log.i("New thread",Thread.currentThread().getName());
+
+                        StringBuffer sb1 = new StringBuffer();
+                        StringBuffer sb2 = new StringBuffer();
+
+                        for(String i : DataSectionTwo.diagnosed) {
+                            sb1.append(i);
+                            sb1.append(", ");
+                        }
+                        diagnosedAnswer = sb1.toString();
+
+
+                        for(String i : DataSectionTwo.familyHistory) {
+                            sb2.append(i);
+                            sb2.append(", ");
+                        }
+                        famhistoryAnswer = sb2.toString();
 
                         questions.add(DataSectionOne.s1q1);
                         questions.add(DataSectionOne.s1q2);
@@ -303,12 +358,12 @@ public class ConsultationFragment extends Fragment {
                         questions.add(DataSectionSix.s6q13);
                         questions.add(DataSectionSix.s6q14);
 
-                        //email,name,age,gender,hometown,employment,duration,shift
+                        //email,name,age,hometown,gender,employment,duration,shift
                         answers.add(DataSectionOne.email);
                         answers.add(DataSectionOne.name);
                         answers.add(DataSectionOne.age);
-                        answers.add(DataSectionOne.gender);
                         answers.add(DataSectionOne.hometown);
+                        answers.add(DataSectionOne.gender);
                         answers.add(DataSectionOne.employment);
                         answers.add(DataSectionOne.duration);
                         answers.add(DataSectionOne.shift);
@@ -317,7 +372,7 @@ public class ConsultationFragment extends Fragment {
                         answers.add(DataSectionTwo.height);
                         answers.add(DataSectionTwo.weight);
                         answers.add(DataSectionTwo.usualWeight);
-                        answers.add("Image");
+                        answers.add(DataSectionTwo.imgPath);
                         answers.add(diagnosedAnswer);
                         answers.add(DataSectionTwo.ongoingMed);
                         answers.add(DataSectionTwo.medication);
@@ -417,43 +472,6 @@ public class ConsultationFragment extends Fragment {
 
                 Thread t = new Thread(runnable);
                 t.start();
-
-
-
-
-
-
-                /*
-                StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
-                    System.out.println(response);
-                    if (response.equals("success")){
-                        Toast.makeText(getActivity(), "Details updated", Toast.LENGTH_SHORT).show();
-                        Intent id = new Intent(getActivity(), DashBoardMain.class);
-                        startActivity(id);
-                    }
-                    else{
-                        Toast.makeText(getActivity(), response, Toast.LENGTH_SHORT).show();
-                    }
-                },error -> {
-                    Toast.makeText(getActivity(),error.toString().trim(),Toast.LENGTH_SHORT).show();}){
-                    @Nullable
-                    @Override
-                    protected Map<String, ArrayList> getParams() throws AuthFailureError {
-                        Map<String,ArrayList> data = new HashMap<>();
-
-                        data.put("question",questions);
-                        data.put("answer",answers);
-                        //data.put("tablename",tablename);
-
-                        return data;
-                    }
-
-                };
-                RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-                requestQueue.add(stringRequest);
-
-
-                 */
 
             }
         });
@@ -561,7 +579,7 @@ public class ConsultationFragment extends Fragment {
 
     public void SubmitQuesAns(String ques, String ans) {
 
-        String url="http://192.168.72.91/infits/clientconsultation.php";
+        String url="http://192.168.1.14/infits/clientconsultation.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -592,3 +610,4 @@ public class ConsultationFragment extends Fragment {
     }
 
 }
+

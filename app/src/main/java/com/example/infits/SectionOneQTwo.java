@@ -89,14 +89,19 @@ public class SectionOneQTwo extends Fragment {
 
                 DataSectionOne.name = user_name;
                 DataSectionOne.s1q2 = nametv.getText().toString();
-
+                if(user_name.equals("")|| user_name.equals(" "))
+                    Toast.makeText(getContext(),"Add your name",Toast.LENGTH_SHORT).show();
+                else{
+                    ConsultationFragment.psection1+=1;
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQTwo_to_sectionOneQThree);
-            }
+            }}
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (ConsultationFragment.psection1>0)
+                    ConsultationFragment.psection1-=1;
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQTwo_to_sectionOneQOne);
             }
         });

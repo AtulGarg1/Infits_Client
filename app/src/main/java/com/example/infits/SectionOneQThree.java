@@ -89,14 +89,20 @@ public class SectionOneQThree extends Fragment {
 
                 DataSectionOne.age = user_age;
                 DataSectionOne.s1q3 = agetv.getText().toString();
-
+                if(user_age.equals("")|| user_age.equals(" "))
+                    Toast.makeText(getContext(),"Add your age",Toast.LENGTH_SHORT).show();
+                else{
+                    ConsultationFragment.psection1+=1;
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQThree_to_sectionOneQFour);
+            }
             }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (ConsultationFragment.psection1>0)
+                    ConsultationFragment.psection1-=1;
                 Navigation.findNavController(v).navigate(R.id.action_sectionOneQThree_to_sectionOneQTwo);
             }
         });

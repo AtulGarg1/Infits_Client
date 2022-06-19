@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +24,7 @@ public class Section5Q6 extends Fragment {
     Button nextbtn;
     TextView backbtn, textView80;
     EditText eTextHeight;
+    String food_allergy = "";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -81,19 +83,27 @@ public class Section5Q6 extends Fragment {
             @Override
             public void onClick(View v) {
 
-                String food_allergy = eTextHeight.getText().toString();
+
+                food_allergy = eTextHeight.getText().toString();
                 //Toast.makeText(getContext(),user_height, Toast.LENGTH_SHORT).show();
 
                 DataSectionFive.food_allergy = food_allergy;
                 DataSectionFive.s5q6 = textView80.getText().toString();
+                if (food_allergy.equals(""))
+                    Toast.makeText(getContext(), "Enter details", Toast.LENGTH_SHORT).show();
+                else {
+                    ConsultationFragment.psection5 += 1;
 
-                Navigation.findNavController(v).navigate(R.id.action_section5Q6_to_section5Q7);
+                    Navigation.findNavController(v).navigate(R.id.action_section5Q6_to_section5Q7);
+                }
             }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(ConsultationFragment.psection5>0)
+                    ConsultationFragment.psection5-=1;
                 Navigation.findNavController(v).navigate(R.id.action_section5Q6_to_section5Q5);
             }
         });

@@ -81,6 +81,7 @@
         android:id="@+id/progressBar"
         android:layout_width="311dp"
         android:layout_height="4dp"
+        android:progress="25"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

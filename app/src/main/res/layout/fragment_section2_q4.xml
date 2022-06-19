@@ -82,6 +82,7 @@
         android:id="@+id/progressBar"
         android:layout_width="311dp"
         android:layout_height="4dp"
+        android:progress="37"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -141,13 +142,14 @@
                     app:layout_constraintHorizontal_bias="0.502"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.78" />
+                    app:layout_constraintVertical_bias="0.951" />
 
                 <ImageView
-                    android:id="@+id/imageView30"
-                    android:layout_width="144dp"
-                    android:layout_height="144dp"
+                    android:id="@+id/ivUpload"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:clickable="true"
+                    android:scaleType="fitCenter"
                     android:src="@mipmap/uploadimg"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

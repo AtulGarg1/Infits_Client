@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +15,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -184,14 +187,22 @@ public class Section2Q5 extends Fragment {
 
                 DataSectionTwo.diagnosed = diagnosed;
                 DataSectionTwo.s2q5 = diagtv.getText().toString();
-
-                Navigation.findNavController(v).navigate(R.id.action_section2Q5_to_section2Q6);
+                if ((!dia.isChecked()) && (!hyperten.isChecked()) && (!hyperthy.isChecked())
+                && (!hypothy.isChecked()) && (!pcod.isChecked()) && (!fattyl.isChecked()) &&
+                        (!lactose.isChecked()) && (other.equals("") ||other.equals(" ")))
+                    Toast.makeText(getContext(), "Select atleast one of the given options", Toast.LENGTH_SHORT).show();
+                else {
+                    ConsultationFragment.psection2 += 1;
+                    Navigation.findNavController(v).navigate(R.id.action_section2Q5_to_section2Q6);
+                }
             }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(ConsultationFragment.psection2>0)
+                    ConsultationFragment.psection2-=1;
                 Navigation.findNavController(v).navigate(R.id.action_section2Q5_to_section2Q4);
             }
         });

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,7 +21,7 @@ import android.widget.TextView;
 public class Section2Q6 extends Fragment {
 
     Button yes, no;
-    String yesno;
+    String yesno=null;
 
     Button nextbtn;
     TextView backbtn, medtv;
@@ -105,14 +106,20 @@ public class Section2Q6 extends Fragment {
 
                 DataSectionTwo.ongoingMed = yesno;
                 DataSectionTwo.s2q6 = medtv.getText().toString();
-
-                Navigation.findNavController(v).navigate(R.id.action_section2Q6_to_section2Q7);
+                if (yesno.equals(null))
+                    Toast.makeText(getContext(), "Select yes/no", Toast.LENGTH_SHORT).show();
+                else {
+                    ConsultationFragment.psection2 += 1;
+                    Navigation.findNavController(v).navigate(R.id.action_section2Q6_to_section2Q7);
+                }
             }
         });
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(ConsultationFragment.psection2>0)
+                    ConsultationFragment.psection2-=1;
                 Navigation.findNavController(v).navigate(R.id.action_section2Q6_to_section2Q5);
             }
         });
