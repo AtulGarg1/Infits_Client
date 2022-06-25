@@ -128,7 +128,7 @@ public class WeightTrackerFragment extends Fragment {
         ArrayList<String> dates = new ArrayList<>();
         ArrayList<String> datas = new ArrayList<>();
 
-        String url = "http://192.168.162.91/infits/pastActivityWeight.php";
+        String url = String.format("%spastActivityWeight.php",DataFromDatabase.ipConfig);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
             try {

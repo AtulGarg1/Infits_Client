@@ -36,7 +36,6 @@
             <ImageView
                 android:layout_width="111dp"
                 android:layout_height="50dp"
-                android:backgroundTint="@color/weightgreen"
                 android:src="@drawable/date" />
 
             <TextView

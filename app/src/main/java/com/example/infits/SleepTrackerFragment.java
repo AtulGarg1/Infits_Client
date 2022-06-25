@@ -29,6 +29,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,7 +56,7 @@ public class SleepTrackerFragment extends Fragment {
     String sleep;
 
     Button setalarm, startcycle, endcycle;
-    ImageButton imgback;
+    ImageView imgback;
     TextView texttime, tvDuration;
     Calendar calendar;
     SimpleDateFormat simpleDateFormat;
@@ -104,7 +105,7 @@ public class SleepTrackerFragment extends Fragment {
         ArrayList<String> dates = new ArrayList<>();
         ArrayList<String> datas = new ArrayList<>();
 
-        String url = "http://192.168.162.91/infits/pastActivitySleep.php";
+        String url = String.format("%spastActivitySleep.php",DataFromDatabase.ipConfig);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
             try {
