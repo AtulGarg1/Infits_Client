@@ -33,7 +33,7 @@ import java.util.Map;
  */
 public class AddLiquidFragment extends Fragment {
 
-    String url = "http://192.168.26.1/infits/watertracker.php";
+    String url = "http://192.168.9.1/infits/watertracker.php";
 
     RadioButton water, soda, juice, coffee, radioButton;
     Slider slider;

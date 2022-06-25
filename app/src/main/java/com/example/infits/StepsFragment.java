@@ -52,10 +52,10 @@ public class StepsFragment extends Fragment {
 
     TextView daily,monthly,weekly,total;
     RequestQueue queue;
-    String url = "http://192.168.162.91/infits/stepsFragment.php";
-    String url1 = "http://192.168.162.91/infits/stepsVolley1.php";
-    String url2 = "http://192.168.162.91/infits/stepsVolley2.php";
-    String url3 = "http://192.168.162.91/infits/stepsVolley3.php";
+    String url = "http://192.168.9.1/infits/stepsFragment.php";
+    String url1 = "http://192.168.9.1/infits/stepsVolley1.php";
+    String url2 = "http://192.168.9.1/infits/stepsVolley2.php";
+    String url3 = "http://192.168.9.1/infits/stepsVolley3.php";
     DataFromDatabase dataFromDatabase;
 
     // TODO: Rename parameter arguments, choose names that match

@@ -24,7 +24,7 @@ import java.util.Map;
 public class DataFromDatabase {
     public static boolean flag= false;
     public static String profilePhoto="default.jpg";
-    public static String dietitianuserID,clientuserID = "Azarudeen",password,name,email,mobile,location,age,gender;
+    public static String dietitianuserID,clientuserID,password,name,email,mobile,location,age,gender;
     public static Bitmap profile;
 
 

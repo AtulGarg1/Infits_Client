@@ -40,7 +40,7 @@ public class WaterFragment extends Fragment {
 
     TextView daily,monthly,weekly,total;
     RequestQueue queue;
-    String url = "http://192.168.110.91/infits/waterFragment.php";
+    String url = "http://192.168.9.1/infits/waterFragment.php";
     DataFromDatabase dataFromDatabase;
 
     private static final String ARG_PARAM1 = "param1";

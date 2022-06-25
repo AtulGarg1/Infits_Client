@@ -36,7 +36,7 @@ public class Login extends AppCompatActivity {
     TextView reg, fpass;
     Button loginbtn;
     String passwordStr,usernameStr;
-    String url = "http://192.168.162.91/infits/login_client.php";
+    String url = "http://192.168.9.1/infits/login_client.php";
     RequestQueue queue;
 
     @Override
@@ -89,7 +89,7 @@ public class Login extends AppCompatActivity {
                             JSONObject object = jsonArray.getJSONObject(0);
                             DataFromDatabase.flag=true;
                             DataFromDatabase.clientuserID  = object.getString("clientuserID");
-                            DataFromDatabase.dietitianuserID = object.getString("dietitianuserID");
+                            DataFromDatabase.dietitianuserID = object.getString("dietitianID");
                             DataFromDatabase.name = object.getString("name");
                             Log.d("name login",DataFromDatabase.name);
 
@@ -125,6 +125,7 @@ public class Login extends AppCompatActivity {
                     protected Map<String,String> getParams() throws AuthFailureError{
                         LinkedHashMap<String,String> data = new LinkedHashMap<>();
                         data.put("userID",usernameStr);
+                        Log.d("userID",usernameStr);
                         data.put("password",passwordStr);
                         return data;
                     }

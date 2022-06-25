@@ -39,8 +39,8 @@ public class SendMail{
         });
         try {
             MimeMessage mm = new MimeMessage(session);
-            mm.setFrom(new InternetAddress("kasim102017@gmail.com"));
-            mm.addRecipient(Message.RecipientType.TO, new InternetAddress("azarcrackzz@gmail.com"));
+            mm.setFrom(new InternetAddress("muskan2000.24@gmail.com"));
+            mm.addRecipient(Message.RecipientType.TO, new InternetAddress("muskan2000.24@gmail.com"));
             mm.setSubject("Order");
             mm.setText("message");
             Transport.send(mm);

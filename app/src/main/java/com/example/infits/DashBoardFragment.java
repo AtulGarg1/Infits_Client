@@ -40,7 +40,7 @@ import java.util.Map;
  */
 public class DashBoardFragment extends Fragment {
 
-    String url = "http://192.168.162.91/infits/dashboard.php";
+    String url = "http://192.168.9.1/infits/dashboard.php";
     DataFromDatabase dataFromDatabase;
     TextView stepstv,glassestv,glassesGoaltv,sleeptv,sleepGoaltv,weighttv,weightGoaltv,calorietv,
             calorieGoaltv,bpmtv,bpmUptv,bpmDowntv;
@@ -105,16 +105,16 @@ public class DashBoardFragment extends Fragment {
 //        stepstv,glassestv,glassesGoaltv,sleeptv,sleepGoaltv,weighttv,weightGoaltv,calorietv,
 //                calorieGoaltv,bpmtv,bpmUptv,bpmDowntv
 
-        stepstv = view.findViewById(R.id.stepstv);
-        glassestv = view.findViewById(R.id.glassestv);
-        glassesGoaltv = view.findViewById(R.id.glassesGoaltv);
-        sleeptv = view.findViewById(R.id.sleeptv);
-        sleepGoaltv = view.findViewById(R.id.sleepGoaltv);
-        weighttv = view.findViewById(R.id.weighttv);
-        weightGoaltv = view.findViewById(R.id.weightGoaltv);
-        calorietv = view.findViewById(R.id.calorietv);
-        calorieGoaltv = view.findViewById(R.id.calorieGoaltv);
-        bpmtv = view.findViewById(R.id.bpmtv);
+        stepstv = view.findViewById(R.id.steps);
+        glassestv = view.findViewById(R.id.glasses);
+        glassesGoaltv = view.findViewById(R.id.glassesGoal);
+        sleeptv = view.findViewById(R.id.sleep);
+        sleepGoaltv = view.findViewById(R.id.sleepgoal);
+        weighttv = view.findViewById(R.id.weight);
+        weightGoaltv = view.findViewById(R.id.weightGoal);
+        calorietv = view.findViewById(R.id.calorie);
+        calorieGoaltv = view.findViewById(R.id.calorieGoal);
+        bpmtv = view.findViewById(R.id.bpm);
         bpmUptv = view.findViewById(R.id.bpmUp);
         bpmDowntv = view.findViewById(R.id.bpmDown);
 
@@ -199,19 +199,20 @@ public class DashBoardFragment extends Fragment {
                     sleepGoaltv.setText(sleepGoal+" hours");
                     weighttv.setText(weightStr+" KiloGrams");
                     weightGoaltv.setText(weightGoal+" KG");
-                    if (stepsStr=="null"){
+
+                    if (stepsStr.equals("null")){
                         stepstv.setText("no data available");
-                    }if (waterStr=="null"){
+                    }if (waterStr.equals("null")){
                         glassestv.setText("no data available");
-                    }if (waterGoal=="null"){
+                    }if (waterGoal.equals("null")){
                         glassesGoaltv.setText("no data available");
-                    }if (sleephrsStr=="null"){
+                    }if (sleephrsStr.equals("null")){
                         sleeptv.setText("no data available");
-                    }if (sleepGoal=="null"){
+                    }if (sleepGoal.equals("null")){
                         sleepGoaltv.setText("no data available");
-                    }if (weightStr=="null"){
+                    }if (weightStr.equals("null")){
                         weighttv.setText("no data available");
-                    }if (weightGoal=="null"){
+                    }if (weightGoal.equals("null")){
                         weightGoaltv.setText("no data available");
                     }
                 } catch (JSONException e) {

@@ -40,7 +40,7 @@ public class SleepFragment extends Fragment {
 
     TextView daily,monthly,weekly,total;
     RequestQueue queue;
-    String url = "http://192.168.110.91/infits/sleepFragment.php";
+    String url = "http://192.168.9.1/infits/sleepFragment.php";
     DataFromDatabase dataFromDatabase;
 
     private static final String ARG_PARAM1 = "param1";

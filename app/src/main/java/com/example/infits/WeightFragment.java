@@ -41,7 +41,7 @@ public class WeightFragment extends Fragment {
 
     TextView daily,monthly,weekly,total;
     RequestQueue queue;
-    String url = "http://192.168.110.91/infits/weightFragment.php";
+    String url = "http://192.168.9.1/infits/weightFragment.php";
     DataFromDatabase dataFromDatabase;
 
     private static final String ARG_PARAM1 = "param1";
