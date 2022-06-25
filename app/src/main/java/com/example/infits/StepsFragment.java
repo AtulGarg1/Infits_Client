@@ -52,7 +52,8 @@ public class StepsFragment extends Fragment {
 
     TextView daily,monthly,weekly,total;
     RequestQueue queue;
-    String url = "http://192.168.162.91/infits/stepsFragment.php";
+    String url = String.format("%sstepsFragment.php",DataFromDatabase.ipConfig);
+//    String url = "http://192.168.162.91/infits/stepsFragment.php";
     String url1 = "http://192.168.162.91/infits/stepsVolley1.php";
     String url2 = "http://192.168.162.91/infits/stepsVolley2.php";
     String url3 = "http://192.168.162.91/infits/stepsVolley3.php";
@@ -115,7 +116,8 @@ public class StepsFragment extends Fragment {
         RadioButton custom_radioButton = view.findViewById(R.id.customdates_btn_steps);
         week_radioButton.setOnClickListener(v->{
             final GraphView graph = (GraphView) view.findViewById(R.id.graph);
-            String url = "http://192.168.162.91/infits/stepsGraph.php";
+            String url = String.format("%sstepsGraph.php",DataFromDatabase.ipConfig);
+//            String url = "http://192.168.162.91/infits/stepsGraph.php";
             SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
             String [] days = new String[7];
             float[] dataPoints= new float[7];
@@ -188,7 +190,8 @@ public class StepsFragment extends Fragment {
         month_radioButton.setOnClickListener(v->{
             final GraphView graphMonth = (GraphView) view.findViewById(R.id.graph);
             graphMonth.removeAllSeries();
-            String url = "http://192.168.162.91/infits/stepMonthGraph.php";
+            String url = String.format("%sstepMonthGraph.php",DataFromDatabase.ipConfig);
+//            String url = "http://192.168.162.91/infits/stepMonthGraph.php";
             SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
             String [] days = new String[31];
             float[] dataPoints= new float[31];
@@ -248,7 +251,8 @@ public class StepsFragment extends Fragment {
         year_radioButton.setOnClickListener(v->{
             final GraphView graphMonth = (GraphView) view.findViewById(R.id.graph);
             graphMonth.removeAllSeries();
-            String url = "http://192.168.162.91/infits/stepYearGraph.php";
+            String url = String.format("%sstepYearGraph.php",DataFromDatabase.ipConfig);
+//            String url = "http://192.168.162.91/infits/stepYearGraph.php";
             SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
             String [] days = new String[12];
             float[] dataPoints= new float[12];
@@ -345,8 +349,8 @@ public class StepsFragment extends Fragment {
                     }
                 }
                 final GraphView graph = (GraphView) view.findViewById(R.id.graph);
-                String url = "http://192.168.162.91/infits/custom.php";
-
+//                String url = "http://192.168.162.91/infits/custom.php";
+                String url = String.format("%scustom.php",DataFromDatabase.ipConfig);
                 String finalFrom = from;
                 String finalTo = to;
                 StringRequest stringRequest = new StringRequest(Request.Method.GET,url, response -> {

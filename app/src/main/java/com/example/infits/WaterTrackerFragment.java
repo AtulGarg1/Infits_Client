@@ -48,7 +48,8 @@ import java.util.Map;
  */
 public class WaterTrackerFragment extends Fragment {
 
-    ImageButton addliq, imgback;
+    ImageButton addliq;
+    ImageView  imgback;
     TextView waterGoalPercent, wgoal3, textViewsleep,consumed;
     TextView waterGoal;
     String liqType, liqAmt;
@@ -120,7 +121,7 @@ public class WaterTrackerFragment extends Fragment {
         ArrayList<String> dates = new ArrayList<>();
         ArrayList<String> datas = new ArrayList<>();
 
-        String url = "http://192.168.162.91/infits/pastactivitywater.php";
+        String url = String.format("%spastActivityWater.php",DataFromDatabase.ipConfig);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url,response -> {
         try {
@@ -212,7 +213,8 @@ public class WaterTrackerFragment extends Fragment {
                     consumedInDay += (int)Float.parseFloat(choosed.getText().toString());
 //                    consumed.setText(String.valueOf(consumedInDay));
                     dialog.dismiss();
-                    String url="http://192.168.162.91/infits/watertracker.php";
+                    String url = String.format("%swatertracker.php",DataFromDatabase.ipConfig);
+//                    String url="http://192.168.162.91/infits/watertracker.php";
                     StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
                             if (response.equals("updated")){
                                 consumed.setText(String.valueOf(consumedInDay));

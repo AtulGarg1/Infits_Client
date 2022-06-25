@@ -8,7 +8,9 @@
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/circular.xml" value="0.1" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/circular_thin.xml" value="0.165" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/edit_text_background.xml" value="0.148" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/sleep_tracker_bakcground.xml" value="0.165" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/step_tracker_background.xml" value="0.165" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/water_tracker_background.xml" value="0.165" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/weighttracker.xml" value="0.165" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/activity_account_page.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/activity_dash_board_main.xml" value="0.16666666666666666" />
@@ -18,23 +20,25 @@
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/activity_signup.xml" value="0.6" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/activity_statistics.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/activity_step_tracker.xml" value="0.19166666666666668" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/activity_testing.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/calender_dialouge.xml" value="0.14666666666666667" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_account.xml" value="0.16666666666666666" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_bmi.xml" value="0.22" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_dash_board.xml" value="0.2375" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_graph.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_section6_q5.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_section6_q6.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_section_one_q_two.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_settings.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_sleep.xml" value="0.1" />
-        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_sleep_tracker.xml" value="0.4294049008168028" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_sleep_tracker.xml" value="0.22" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_step_tracker.xml" value="0.3197219808861859" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_steps.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_water.xml" value="0.16666666666666666" />
-        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_water_tracker.xml" value="0.3333333333333333" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_water_tracker.xml" value="0.38333333333333336" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_weight.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_weight_date.xml" value="0.12" />
-        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_weight_tracker.xml" value="0.475" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_weight_tracker.xml" value="0.40350877192982454" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/logoutdialog.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/past_activity_layout.xml" value="0.22" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/setgoaldialog.xml" value="0.19166666666666668" />

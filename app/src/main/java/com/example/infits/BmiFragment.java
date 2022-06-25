@@ -33,8 +33,7 @@ import java.util.Map;
 
 public class BmiFragment extends Fragment {
 
-    String url = "http://192.168.162.91/infits/weighttracker.php";
-
+    String url = String.format("%sweighttracker.php",DataFromDatabase.ipConfig);
     RelativeLayout male, female;
     Button btnadd;
     NumberPicker numPicker;

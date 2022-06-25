@@ -102,7 +102,7 @@ public class StepTrackerFragment extends Fragment {
         ArrayList<String> dates = new ArrayList<>();
         ArrayList<String> datas = new ArrayList<>();
 
-        String url = "http://192.168.162.91/infits/pastActivity.php";
+        String url = String.format("%spastActivity.php",DataFromDatabase.ipConfig);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url,response -> {
             try {

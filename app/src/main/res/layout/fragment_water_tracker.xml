@@ -4,21 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/waterblue"
+    android:background="@drawable/water_tracker_background"
     tools:context=".WaterTrackerFragment">
 
-    <ImageButton
+    <ImageView
         android:id="@+id/imgback"
-        android:layout_width="60dp"
-        android:layout_height="55dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:backgroundTint="@color/waterblue"
         app:tint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.071"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.041"
+        android:layout_margin="25dp"
         app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24" />
 
 
@@ -75,7 +70,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/waterblue"
+            app:cardBackgroundColor="@android:color/transparent"
             app:flow_horizontalBias="0.3"
             app:cardElevation="0dp"
             app:layout_constraintBottom_toTopOf="@+id/water_goal_percent"
@@ -88,6 +83,8 @@
                 android:id="@+id/imageView5"
                 android:layout_width="249dp"
                 android:layout_height="252dp"
+                android:transformPivotY="300dp"
+
                 android:src="@drawable/water_bottle" />
 
             <ImageButton

@@ -106,7 +106,7 @@ public class WeightDateFragment extends Fragment {
 //        tv_weight2 = view.findViewById(R.id.tv_weight2);
         calendarView = view.findViewById(R.id.calendarView);
 
-        String urlMark = "http://192.168.162.91/infits/weightDate.php";
+        String urlMark = String.format("%sweightDate.php",DataFromDatabase.ipConfig);
 
         StringRequest stringRequestCal = new StringRequest(Request.Method.POST,urlMark,response -> {
 
@@ -142,7 +142,7 @@ public class WeightDateFragment extends Fragment {
 
         Volley.newRequestQueue(getContext()).add(stringRequestCal);
 
-        String urlUnMark = "http://192.168.162.91/infits/unUpdated.php";
+        String urlUnMark = String.format("%sunUpdated.php",DataFromDatabase.ipConfig);
 
         StringRequest stringRequestCalUn = new StringRequest(Request.Method.POST,urlUnMark,response -> {
 

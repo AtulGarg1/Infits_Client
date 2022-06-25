@@ -1,6 +1,6 @@
 package com.example.infits;
 
-import android.content.Intent;
+
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -40,7 +40,7 @@ import java.util.Map;
  */
 public class DashBoardFragment extends Fragment {
 
-    String url = "http://192.168.162.91/infits/dashboard.php";
+    String url = String.format("%sdashboard.php",DataFromDatabase.ipConfig);
     DataFromDatabase dataFromDatabase;
     TextView stepstv,glassestv,glassesGoaltv,sleeptv,sleepGoaltv,weighttv,weightGoaltv,calorietv,
             calorieGoaltv,bpmtv,bpmUptv,bpmDowntv;
