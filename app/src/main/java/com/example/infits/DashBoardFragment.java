@@ -40,7 +40,7 @@ import java.util.Map;
  */
 public class DashBoardFragment extends Fragment {
 
-    String url = "http://192.168.9.1/infits/dashboard.php";
+    String url = String.format("%sDashboard.php",DataFromDatabase.ipConfig);
     DataFromDatabase dataFromDatabase;
     TextView stepstv,glassestv,glassesGoaltv,sleeptv,sleepGoaltv,weighttv,weightGoaltv,calorietv,
             calorieGoaltv,bpmtv,bpmUptv,bpmDowntv;
@@ -133,7 +133,7 @@ public class DashBoardFragment extends Fragment {
         Log.d("Name",DataFromDatabase.name+"");
         Log.d("Name",DataFromDatabase.age+"");
         Log.d("Name",DataFromDatabase.email+"");
-        btnsub = view.findViewById(R.id.btnsub);
+        btnsub = view.findViewById(R.id.btnsub1);
         btnsub1 = view.findViewById(R.id.btnsub1);
 
         stepcard.setOnClickListener(new View.OnClickListener() {

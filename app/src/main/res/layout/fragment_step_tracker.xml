@@ -27,42 +27,43 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ProgressBar
+        <com.tenclouds.gaugeseekbar.GaugeSeekBar
             android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_marginTop="100dp"
-            android:padding="10dp"
             android:layout_width="270dp"
             android:layout_height="270dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:max="2000"
-            android:progress="40"
-            android:scaleY="-1"
-            android:scaleX="-1"
-            android:progressDrawable="@drawable/circular"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/textView10"/>
-
-        <ProgressBar
-            android:id="@+id/progressBar2"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="270dp"
-            android:layout_height="270dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="100dp"
-            android:padding="10dp"
-            android:progress="50"
-            android:progressDrawable="@drawable/circular_thin"
-            android:scaleY="-1"
-            android:scrollbarThumbHorizontal="@drawable/dot"
+            android:rotation="-15"
+            app:interactive="false"
             app:layout_constraintBottom_toTopOf="@+id/textView10"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.46"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:progress="0.34"
+            app:progressGradient="@array/progress"
+            app:startAngleDegrees="65"
+            app:thumbColor="@color/white"
+            app:thumbRadius="10dp"
+            app:trackGradient="@array/track"
+            app:trackWidth="4dp" />
+
+<!--        <ProgressBar-->
+<!--            android:id="@+id/progressBar"-->
+<!--            style="?android:attr/progressBarStyleHorizontal"-->
+<!--            android:layout_width="270dp"-->
+<!--            android:layout_height="270dp"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_marginTop="100dp"-->
+<!--            android:padding="10dp"-->
+<!--            android:progress="50"-->
+<!--            android:progressDrawable="@drawable/circular_thin"-->
+<!--            android:scaleY="-1"-->
+<!--            android:scrollbarThumbHorizontal="@drawable/dot"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/textView10"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
         <TextView
             android:id="@+id/textView25"

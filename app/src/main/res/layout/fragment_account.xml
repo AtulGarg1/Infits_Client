@@ -233,7 +233,7 @@
                         <Button
                             android:id="@+id/button_logout"
                             android:layout_width="117dp"
-                            android:layout_height="42dp"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal|bottom"
                             android:backgroundTint="#FF565E"
                             android:fontFamily="@font/nats_regular"
@@ -246,7 +246,7 @@
                         <Button
                             android:id="@+id/button_save"
                             android:layout_width="117dp"
-                            android:layout_height="42dp"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal|bottom"
                             android:backgroundTint="#FF565E"
                             android:fontFamily="@font/nats_regular"

@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/nameInDash"
-            android:layout_width="190dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/nats_regular"
+            android:lineHeight="0dp"
             android:text="Michael Simpson"
-            android:textSize="40sp"
-            android:textStyle="bold" />
+            android:textSize="38sp" />
 
         <TextView
             android:id="@+id/date"
@@ -27,45 +27,42 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/nameInDash"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="25dp"
             android:text="Feb 10, 2022"
             android:textSize="16sp" />
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/proCrad"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_alignParentTop="true"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="25dp"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="10dp"
             android:background="@drawable/profile_image"
-            app:cardCornerRadius="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.942"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.093">
+            app:cardCornerRadius="10dp">
 
             <ImageView
                 android:id="@+id/profile"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:srcCompat="@drawable/profilepic" />
+                app:srcCompat="@drawable/profilepic"/>
         </androidx.cardview.widget.CardView>
 
-        <TableLayout
-            android:id="@+id/tableLayout"
+        <LinearLayout
+            android:id="@+id/cards"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/date"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="20dp"
-            android:padding="5dp">
+            android:layout_alignTop="@+id/date"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_marginTop="35dp">
 
-            <TableRow>
+            <LinearLayout
+                android:id="@+id/left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginEnd="25dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/stepcard"
@@ -73,16 +70,16 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:layout_width="200dp"
-                        android:layout_height="120dp"
-                        android:layout_marginLeft="10dp"
+                        android:layout_width="150dp"
+                        android:layout_height="110dp"
+                        android:scaleType="fitXY"
                         android:src="@drawable/metrics_steps" />
 
                     <TextView
                         android:id="@+id/steps"
                         android:layout_width="wrap_content"
                         android:layout_height="19dp"
-                        android:layout_marginLeft="30dp"
+                        android:layout_marginLeft="20dp"
                         android:layout_marginTop="75dp"
                         android:gravity="top"
                         android:text="500 Steps"
@@ -91,21 +88,140 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/watercard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="110dp"
+                        android:layout_marginTop="15dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/metrics_water" />
+
+                    <TextView
+                        android:id="@+id/glasses"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="70dp"
+                        android:gravity="top"
+                        android:text="4 Glasses"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/watergoal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="100dp"
+                        android:gravity="top"
+                        android:text="Goal"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/glassesGoal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="100dp"
+                        android:layout_marginRight="30dp"
+                        android:gravity="top"
+                        android:text="8 Glasses"
+                        android:textColor="@color/white" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/weightcard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="110dp"
+                        android:layout_marginTop="15dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/metrics_weight" />
+
+                    <TextView
+                        android:id="@+id/weight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="65dp"
+                        android:gravity="top"
+                        android:text="80 Kilograms"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/GoalWeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="100dp"
+                        android:gravity="top"
+                        android:text="Goal"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/weightGoal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="100dp"
+                        android:layout_marginRight="30dp"
+                        android:gravity="top"
+                        android:text="60 KG"
+                        android:textColor="@color/white" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="110dp"
+                        android:layout_marginTop="15dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/consultation" />
+
+                    <Button
+                        android:id="@+id/btnsub1"
+                        android:layout_width="90dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:backgroundTint="@color/btnblue"
+                        android:text="Go Pro!"
+                        android:textAlignment="center"
+                        android:textSize="7dp"
+                        app:cornerRadius="20sp" />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
                     android:id="@+id/heartcard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:layout_width="200dp"
-                        android:layout_height="120dp"
-                        android:layout_marginLeft="20dp"
+                        android:layout_width="150dp"
+                        android:layout_height="110dp"
+                        android:scaleType="fitXY"
                         android:src="@drawable/metrics_heart_rate" />
 
                     <TextView
                         android:id="@+id/bpm"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="40dp"
+                        android:layout_marginStart="20dp"
                         android:layout_marginTop="75dp"
                         android:gravity="top"
                         android:text="85 BPM"
@@ -116,8 +232,8 @@
                         android:id="@+id/bpmUp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="140dp"
-                        android:layout_marginTop="65dp"
+                        android:layout_marginLeft="95dp"
+                        android:layout_marginTop="60dp"
                         android:gravity="top"
                         android:text="120 bpm"
                         android:textColor="@color/white"
@@ -127,60 +243,12 @@
                         android:id="@+id/bpmDown"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="140dp"
-                        android:layout_marginTop="84dp"
+                        android:layout_marginLeft="95dp"
+                        android:layout_marginTop="75dp"
                         android:gravity="top"
                         android:text="72 bpm"
                         android:textColor="@color/white"
                         android:textSize="12dp" />
-
-                </androidx.cardview.widget.CardView>
-            </TableRow>
-
-            <TableRow>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/watercard"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:layout_width="200dp"
-                        android:layout_height="120dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="15dp"
-                        android:src="@drawable/metrics_water" />
-
-                    <TextView
-                        android:id="@+id/glasses"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="75dp"
-                        android:gravity="top"
-                        android:text="4 Glasses"
-                        android:textColor="@color/white" />
-
-                    <TextView
-                        android:id="@+id/watergoal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="113dp"
-                        android:gravity="top"
-                        android:text="Goal"
-                        android:textColor="@color/white" />
-
-                    <TextView
-                        android:id="@+id/glassesGoal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:layout_marginTop="113dp"
-                        android:layout_marginRight="30dp"
-                        android:gravity="top"
-                        android:text="8 Glasses"
-                        android:textColor="@color/white" />
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
@@ -189,17 +257,17 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:layout_width="200dp"
-                        android:layout_height="120dp"
-                        android:layout_marginLeft="20dp"
+                        android:layout_width="150dp"
+                        android:layout_height="110dp"
                         android:layout_marginTop="15dp"
+                        android:scaleType="fitXY"
                         android:src="@drawable/metrics_sleep" />
 
                     <TextView
                         android:id="@+id/sleep"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="41dp"
+                        android:layout_marginLeft="30dp"
                         android:layout_marginTop="75dp"
                         android:gravity="top"
                         android:text="7hr_35_mins"
@@ -209,8 +277,8 @@
                         android:id="@+id/Goalsleep"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="41dp"
-                        android:layout_marginTop="113dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="95dp"
                         android:gravity="top"
                         android:text="Goal"
                         android:textColor="@color/white" />
@@ -220,57 +288,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:layout_marginTop="113dp"
+                        android:layout_marginTop="95dp"
                         android:layout_marginRight="30dp"
                         android:gravity="top"
                         android:text="8 Hours"
-                        android:textColor="@color/white" />
-                </androidx.cardview.widget.CardView>
-            </TableRow>
-
-            <TableRow>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/weightcard"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:layout_width="200dp"
-                        android:layout_height="120dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="15dp"
-                        android:src="@drawable/metrics_weight" />
-
-                    <TextView
-                        android:id="@+id/weight"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="71dp"
-                        android:gravity="top"
-                        android:text="80 Kilograms"
-                        android:textColor="@color/white" />
-
-                    <TextView
-                        android:id="@+id/GoalWeight"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="113dp"
-                        android:gravity="top"
-                        android:text="Goal"
-                        android:textColor="@color/white" />
-
-                    <TextView
-                        android:id="@+id/weightGoal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:layout_marginTop="113dp"
-                        android:layout_marginRight="30dp"
-                        android:gravity="top"
-                        android:text="60 KG"
                         android:textColor="@color/white" />
                 </androidx.cardview.widget.CardView>
 
@@ -280,18 +301,18 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:layout_width="200dp"
-                        android:layout_height="120dp"
-                        android:layout_marginLeft="20dp"
+                        android:layout_width="150dp"
+                        android:layout_height="110dp"
                         android:layout_marginTop="15dp"
+                        android:scaleType="fitXY"
                         android:src="@drawable/metrics_calories" />
 
                     <TextView
                         android:id="@+id/calorie"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="41dp"
-                        android:layout_marginTop="75dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="65dp"
                         android:gravity="top"
                         android:text="1000 kCal"
                         android:textColor="@color/white" />
@@ -300,8 +321,8 @@
                         android:id="@+id/calorieGoal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="41dp"
-                        android:layout_marginTop="113dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="90dp"
                         android:gravity="top"
                         android:text="Limit"
                         android:textColor="@color/white" />
@@ -311,82 +332,48 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:layout_marginTop="113dp"
+                        android:layout_marginTop="90dp"
                         android:layout_marginRight="30dp"
                         android:gravity="top"
                         android:text="2000 kCal"
                         android:textColor="@color/white" />
 
                 </androidx.cardview.widget.CardView>
-            </TableRow>
-
-            <TableRow>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:layout_width="180dp"
-                        android:layout_height="120dp"
-                        android:layout_marginLeft="20dp"
+                        android:layout_width="150dp"
+                        android:layout_height="110dp"
                         android:layout_marginTop="15dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/consultations" />
-
-                    <Button
-                        android:id="@+id/btnsub1"
-                        android:layout_width="90dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="70dp"
-                        android:layout_marginTop="85dp"
-                        android:backgroundTint="@color/btnblue"
-                        android:gravity="center"
-                        android:text="Go Pro!"
-                        android:textAlignment="center"
-                        android:textSize="7dp"
-                        app:cornerRadius="20sp" />
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:layout_width="200dp"
-                        android:layout_height="120dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="15dp"
                         android:src="@drawable/dietchart" />
 
-                    <Button
-                        android:id="@+id/btnsub"
-                        android:layout_width="90dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginTop="85dp"
-                        android:backgroundTint="@color/btnblue"
-                        android:gravity="center"
-                        android:text="Go Pro!"
-                        android:textAlignment="center"
-                        android:textSize="7dp"
-                        app:cornerRadius="20sp" />
-
+                    <!--                    <Button-->
+                    <!--                        android:id="@+id/btnsub"-->
+                    <!--                        android:layout_width="90dp"-->
+                    <!--                        android:layout_height="30dp"-->
+                    <!--                        android:layout_marginLeft="80dp"-->
+                    <!--                        android:layout_marginTop="85dp"-->
+                    <!--                        android:backgroundTint="@color/btnblue"-->
+                    <!--                        android:gravity="center"-->
+                    <!--                        android:text="Go Pro!"-->
+                    <!--                        android:textAlignment="center"-->
+                    <!--                        android:textSize="7dp"-->
+                    <!--                        app:cornerRadius="20sp" />-->
                 </androidx.cardview.widget.CardView>
-            </TableRow>
-        </TableLayout>
-
-        <ImageView
-            android:id="@+id/imageView12"
-            android:layout_width="304dp"
-            android:layout_height="91dp"
-            android:layout_below="@id/tableLayout"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="30dp"
-            app:srcCompat="@drawable/quote" />
+            </LinearLayout>
+        </LinearLayout>
     </RelativeLayout>
 
-
-
-
-</FrameLayout>
+    <ImageView
+        android:id="@+id/imageView12"
+        android:layout_width="230dp"
+        android:layout_height="90dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        app:srcCompat="@drawable/quote" />
+</RelativeLayout>

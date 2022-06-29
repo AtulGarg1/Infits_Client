@@ -36,7 +36,7 @@ public class Login extends AppCompatActivity {
     TextView reg, fpass;
     Button loginbtn;
     String passwordStr,usernameStr;
-    String url = "http://192.168.9.1/infits/login_client.php";
+    String url = String.format("%slogin_client.php",DataFromDatabase.ipConfig);
     RequestQueue queue;
 
     @Override
@@ -89,7 +89,7 @@ public class Login extends AppCompatActivity {
                             JSONObject object = jsonArray.getJSONObject(0);
                             DataFromDatabase.flag=true;
                             DataFromDatabase.clientuserID  = object.getString("clientuserID");
-                            DataFromDatabase.dietitianuserID = object.getString("dietitianID");
+                            DataFromDatabase.dietitianuserID = object.getString("dietitianuserID");
                             DataFromDatabase.name = object.getString("name");
                             Log.d("name login",DataFromDatabase.name);
 

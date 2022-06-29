@@ -1,315 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".WeightFragment">
-
-
-    <ImageView
-        android:id="@+id/imageView46"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:scaleType="fitXY"
-        android:src="@mipmap/weightmore"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.785"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/textView90"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_medium"
-        android:text="Weekly Avg"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.792"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.421" />
-
-    <TextView
-        android:id="@+id/textView92"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_medium"
-        android:text="Kgs"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.762"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.733" />
-
-    <TextView
-        android:id="@+id/textView47"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/nats_regular"
-        android:text="Share Your Stats With Friends"
-        android:textColor="#6B6B6B"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.859" />
-
-    <TextView
-        android:id="@+id/textView86"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_medium"
-        android:text="Daily Count"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.188"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.421" />
-
-    <ImageView
-        android:id="@+id/imageView39"
-        android:layout_width="4dp"
-        android:layout_height="224dp"
-        android:src="@mipmap/waterlinev"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.613" />
-
-    <ImageView
-        android:id="@+id/imageView42"
-        android:layout_width="224dp"
-        android:layout_height="4dp"
-        android:src="@mipmap/waterlineh"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.577" />
-
-    <TextView
-        android:id="@+id/textView91"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_medium"
-        android:text="Kgs"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.222"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.542" />
-
-    <TextView
-        android:id="@+id/textView89"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_medium"
-        android:text="Monthly Avg."
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.194"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.615" />
-
-    <TextView
-        android:id="@+id/weeklytv2"
-        android:layout_width="100dp"
-        android:layout_height="37dp"
-        android:background="@drawable/textviewbgweight"
-        android:fontFamily="@font/roboto_medium"
-        android:text="8"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        app:cornerRadius="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.813"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.482" />
-
-    <TextView
-        android:id="@+id/dailytv2"
-        android:layout_width="100dp"
-        android:layout_height="37dp"
-        android:background="@drawable/textviewbgweight"
-        android:fontFamily="@font/roboto_medium"
-        android:text="8"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        app:cornerRadius="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.173"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.482" />
-
-    <TextView
-        android:id="@+id/monthlytv2"
-        android:layout_width="100dp"
-        android:layout_height="37dp"
-        android:background="@drawable/textviewbgweight"
-        android:fontFamily="@font/roboto_medium"
-        android:text="12"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        app:cornerRadius="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.173"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.682" />
-
-    <TextView
-        android:id="@+id/textView83"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_medium"
-        android:text="Kgs"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.762"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.535" />
-
-    <TextView
-        android:id="@+id/totaltv2"
-        android:layout_width="100dp"
-        android:layout_height="37dp"
-        android:background="@drawable/textviewbgweight"
-        android:fontFamily="@font/roboto_medium"
-        android:text="10"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        app:cornerRadius="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.813"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.682" />
-
-    <TextView
-        android:id="@+id/textView88"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_medium"
-        android:text="Yearly Avg."
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.752"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.615" />
-
-    <TextView
-        android:id="@+id/textView93"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_medium"
-        android:text="Kgs"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.222"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.733" />
-
-    <ImageView
-        android:id="@+id/imageView41"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@mipmap/instagram"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.257"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.961" />
-
-    <ImageView
-        android:id="@+id/imageView44"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@mipmap/twitter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.585"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.961" />
-
-    <ImageView
-        android:id="@+id/imageView43"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@mipmap/facebook"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.425"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.961" />
-
-    <com.jjoe64.graphview.GraphView
-        android:id="@+id/graph"
-        android:layout_width="342dp"
-        android:layout_height="168dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.145" />
 
     <RadioGroup
         android:id="@+id/toggle"
-        android:layout_width="325dp"
+        android:layout_width="match_parent"
         android:layout_height="30dp"
         android:background="@drawable/outline"
         android:checkedButton="@+id/week_btn_weight"
         android:orientation="horizontal"
-        app:layout_constraintHorizontal_bias="0.434"
-        app:layout_constraintVertical_bias="0.010"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="25dp">
 
         <RadioButton
             android:id="@+id/customdates_btn_weight"
@@ -317,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="1dp"
             android:layout_weight="1"
-            android:background="@drawable/switch_off"
+            android:background="@drawable/switch_on_weight"
             android:button="@null"
             android:fontFamily="@font/nats_regular"
             android:gravity="center"
@@ -330,7 +36,7 @@
             android:layout_width="76dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/switch_off"
+            android:background="@drawable/switch_on_weight"
             android:button="@null"
             android:fontFamily="@font/nats_regular"
             android:gravity="center"
@@ -342,7 +48,7 @@
             android:layout_width="77dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/switch_off"
+            android:background="@drawable/switch_on_weight"
             android:button="@null"
             android:fontFamily="@font/nats_regular"
             android:gravity="center"
@@ -362,5 +68,12 @@
             android:textColor="@drawable/switch_text" />
     </RadioGroup>
 
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/graph"
+        android:layout_width="match_parent"
+        android:layout_height="168dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -35,6 +35,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.tenclouds.gaugeseekbar.GaugeSeekBar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,6 +44,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class StepTrackerFragment extends Fragment {
 
@@ -50,7 +52,7 @@ public class StepTrackerFragment extends Fragment {
     ImageButton imgback;
     TextView steps_label,goal_step_count;
 
-    ProgressBar progressBar;
+GaugeSeekBar  progressBar;
 
     float goalVal = 0;
 
@@ -152,7 +154,7 @@ public class StepTrackerFragment extends Fragment {
                 final Dialog dialog = new Dialog(getActivity());
                 dialog.setCancelable(true);
                 dialog.setContentView(R.layout.setgoaldialog);
-                Intent serviceIntent = new Intent(getActivity(), MyService.class);;
+                Intent serviceIntent = new Intent(getActivity(), MyService.class);
                 if (!foregroundServiceRunning()){
                     ContextCompat.startForegroundService(getActivity(), serviceIntent);
                 }
@@ -213,7 +215,7 @@ public class StepTrackerFragment extends Fragment {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    goalPercent = ((steps/goalVal)*100)*100;
+                    goalPercent = ((steps/goalVal)*100)/100;
                     System.out.println(goalPercent);
                     progressBar.setProgress((int) goalPercent);
                     steps_label.setText(String.valueOf((int) steps));

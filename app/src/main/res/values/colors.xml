@@ -21,5 +21,17 @@
     <color name="btnset">#FAFAFA</color>
     <color name="transparent">#0000C853</color>
     <color name="heartpink">#E375B3</color>
+    <color name="steps">#FFA381</color>
 
+    <color name="calendar_selected_day_b">#FFA381</color>
+    <color name="calendar_selected_range_bg">@color/blue</color>
+
+    <color name="range_color">#ffaaaa</color>
+    <color name="whitesixty">#99FFFFFF</color>
+    <array name="progress">
+        <item>@color/white</item>
+    </array>
+    <array name="track">
+        <item>@color/whitesixty</item>
+    </array>
 </resources>

@@ -2,10 +2,12 @@ package com.example.infits;
 
 import android.app.Dialog;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -23,6 +25,20 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager;
+import com.archit.calendardaterangepicker.customviews.CustomDateView;
+import com.archit.calendardaterangepicker.customviews.DateRangeCalendarView;
+import com.archit.calendardaterangepicker.models.CalendarStyleAttributes;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.DataPoint;
@@ -50,7 +66,6 @@ import java.util.Map;
  */
 public class StepsFragment extends Fragment {
 
-    TextView daily,monthly,weekly,total;
     RequestQueue queue;
     String url = "http://192.168.9.1/infits/stepsFragment.php";
     String url1 = "http://192.168.9.1/infits/stepsVolley1.php";
@@ -101,306 +116,243 @@ public class StepsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_steps, container, false);
 
-        daily=view.findViewById(R.id.dailytv2);
-        monthly=view.findViewById(R.id.monthlytv2);
-        weekly=view.findViewById(R.id.weeklytv2);
-        total=view.findViewById(R.id.totaltv2);
+        LineChart lineChart =  view.findViewById(R.id.graph);
+        ArrayList<Entry> NoOfEmp = new ArrayList<>();
+
+
+        final LineDataSet[] dataSet = {new LineDataSet(NoOfEmp, "Number Of Employees")};
+        dataSet[0].setDrawHorizontalHighlightIndicator(false);
+        dataSet[0].setDrawVerticalHighlightIndicator(false);
+        ArrayList<ILineDataSet> year = new ArrayList<>();
+        year.add(dataSet[0]);
+
+        dataSet[0].setColor(Color.parseColor("#FFA381"));
+        dataSet[0].setCircleColor(Color.parseColor("#FFA381"));
+        Typeface tf = ResourcesCompat.getFont(getContext(),R.font.nats_regular);
+        LineData data = new LineData(dataSet[0]);
+
+        XAxis xl = lineChart.getXAxis();
+        xl.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+        lineChart.getAxisRight().setEnabled(false);
+
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setDrawAxisLine(false);
+        xAxis.setDrawGridLines(false);
+
+        YAxis yAxisRight = lineChart.getAxisRight();
+        yAxisRight.setDrawAxisLine(true);
+        yAxisRight.setDrawGridLines(true);
+
+        YAxis yAxisLeft = lineChart.getAxisLeft();
+        yAxisLeft.setDrawGridLines(true);
+
+        data.setValueTypeface(tf);
+
+        lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                e.getData();
+                CustomMarkerView customMarkerView = new CustomMarkerView(getContext(),R.layout.mark);
+                lineChart.setMarker(customMarkerView);
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
+
+        dataSet[0].setDrawValues(false);
+
+        lineChart.getDescription().setEnabled(false);
+        lineChart.getLegend().setEnabled(false);
+
+        lineChart.setData(data);
 
         RadioButton week_radioButton = view.findViewById(R.id.week_btn_steps);
         RadioButton month_radioButton = view.findViewById(R.id.month_btn_steps);
         RadioButton year_radioButton = view.findViewById(R.id.year_btn_steps);
         RadioButton custom_radioButton = view.findViewById(R.id.customdates_btn_steps);
-        week_radioButton.setOnClickListener(v->{
-            final GraphView graph = (GraphView) view.findViewById(R.id.graph);
-            String url = "http://192.168.162.91/infits/stepsGraph.php";
-            SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
-            String [] days = new String[7];
-            float[] dataPoints= new float[7];
-            StringRequest stringRequest = new StringRequest(Request.Method.GET,url, response -> {
-                graph.removeAllSeries();
-                List<String> allNames = new ArrayList<String>();
+        week_radioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NoOfEmp.removeAll(NoOfEmp);
+                String url = String.format("%sstepsGraph.php",DataFromDatabase.ipConfig);
+                StringRequest stringRequest = new StringRequest(Request.Method.GET,url,response -> {
+                    List<String> allNames = new ArrayList<>();
+                    JSONObject jsonResponse = null;
+                    try {
+                        jsonResponse = new JSONObject(response);
+                        JSONArray cast = jsonResponse.getJSONArray("steps");
+                        for (int i=0; i<cast.length(); i++) {
+                            JSONObject actor = cast.getJSONObject(i);
+                            String name = actor.getString("steps");
+                            String date = actor.getString("date");
+                            System.out.println(name+"   "+date);
+                            allNames.add(name);
+                            NoOfEmp.add(new Entry(i,Float.parseFloat(name)));
+                            System.out.println("Points "+NoOfEmp.get(i));
+                            dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
+
+                            dataSet[0].setValues(NoOfEmp);
+
+                            String[] xAxisLables = new String[]{"SUN","MON","TUE","WED","THU","FRI","SAT"};
+
+                            lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xAxisLables));
+                            dataSet[0].notifyDataSetChanged();
+                            lineChart.getData().notifyDataChanged();
+                            lineChart.notifyDataSetChanged();
+                            lineChart.invalidate();
+                        }
+                    }catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },error -> {
+                    Log.d("Data",error.toString().trim());
+                });
+                Volley.newRequestQueue(getActivity()).add(stringRequest);
+            }
+        });
+
+        month_radioButton.setOnClickListener(v->{
+            NoOfEmp.removeAll(NoOfEmp);
+            String url = String.format("%sstepsMonthGraph.php",DataFromDatabase.ipConfig);
+            StringRequest stringRequest = new StringRequest(Request.Method.GET,url,response -> {
+                List<String> allNames = new ArrayList<>();
                 JSONObject jsonResponse = null;
                 try {
                     jsonResponse = new JSONObject(response);
                     JSONArray cast = jsonResponse.getJSONArray("steps");
-
-                    for (int i=0; i<7; i++) {
+                    for (int i=0; i<cast.length(); i++) {
                         JSONObject actor = cast.getJSONObject(i);
                         String name = actor.getString("steps");
                         String date = actor.getString("date");
+                        System.out.println(name+"   "+date);
                         allNames.add(name);
-                        Log.d("Length", allNames.get(i));
-                        days[i] = date;
-                        dataPoints[i] = Float.parseFloat(allNames.get(i))/1000;
-                        Log.d("Length", String.valueOf(dataPoints[i]));
-                        Log.d("Length",days[i]);
+                        NoOfEmp.add(new Entry(i,Float.parseFloat(name)));
+                        System.out.println("Points "+NoOfEmp.get(i));
+                        dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
+
+                        dataSet[0].setValues(NoOfEmp);
+
+                        dataSet[0].notifyDataSetChanged();
+
+                        ArrayList<String> mons = new ArrayList<>();
+
+                        for (int j = 0;j < 31;j++){
+                            mons.add(String.valueOf(i));
+                        }
+
+                        lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(mons));
+
+                        lineChart.getData().notifyDataChanged();
+                        lineChart.notifyDataSetChanged();
+                        lineChart.invalidate();
                     }
-                    DataPoint[] values = new DataPoint[dataPoints.length];
-                    for(int i =0; i<days.length; i++){
-                        if (i==0){
-                            DataPoint val = new DataPoint(0, 0);
-                            values[i] = val;
-                        }
-                        else if (i == 6){
-                            DataPoint val = new DataPoint(i+1, dataPoints[i]);
-                            values[i] = val;
-                        }
-                        else{
-                            DataPoint val = new DataPoint(i, dataPoints[i]);
-                            values[i] = val;
-                        }
+                    ArrayList<String> mons = new ArrayList<>();
+
+                    for (int i = 0;i < 31;i++){
+                        mons.add(String.valueOf(i));
                     }
-                    LineGraphSeries<DataPoint> series = new LineGraphSeries<>(values);
-                    StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
-                    staticLabelsFormatter.setHorizontalLabels(days);
-                    staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1000", "2000", "3000","4000","5000","6000","7000","8000","9000","10000"});
-                    graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-                    graph.getGridLabelRenderer().setNumHorizontalLabels(7);
-                    graph.getViewport().setMinX(1);
-                    graph.getViewport().setMaxX(7);
-                    graph.getViewport().setXAxisBoundsManual(true);
-                    series.setDrawDataPoints(true);
-                    series.setDataPointsRadius(7);
-                    series.setColor(Color.parseColor("#FFA381"));
-                    graph.addSeries(series);
-                } catch (JSONException e) {
+
+                    lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(mons));
+                }catch (JSONException e) {
                     e.printStackTrace();
                 }
             },error -> {
                 Log.d("Data",error.toString().trim());
-            }){
-                @Nullable
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-
-                    Map<String,String> data = new HashMap<>();
-
-                    data.put("option","Month");
-
-                    return data;
-                }
-            };
+            });
             Volley.newRequestQueue(getActivity()).add(stringRequest);
         });
-        month_radioButton.setOnClickListener(v->{
-            final GraphView graphMonth = (GraphView) view.findViewById(R.id.graph);
-            graphMonth.removeAllSeries();
-            String url = "http://192.168.162.91/infits/stepMonthGraph.php";
-            SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
-            String [] days = new String[31];
-            float[] dataPoints= new float[31];
+        year_radioButton.setOnClickListener(v->{
+            NoOfEmp.removeAll(NoOfEmp);
+            String url = String.format("%sstepsYearGraph.php",DataFromDatabase.ipConfig);
             StringRequest stringRequest = new StringRequest(Request.Method.GET,url,response -> {
                 List<String> allNames = new ArrayList<>();
-                JSONObject jsonResponse;
+                JSONObject jsonResponse = null;
                 try {
                     jsonResponse = new JSONObject(response);
                     JSONArray cast = jsonResponse.getJSONArray("steps");
                     for (int i=0; i<cast.length(); i++) {
                         JSONObject actor = cast.getJSONObject(i);
-                        String name = actor.getString("steps");
-                        String date = actor.getString("date");
-                        allNames.add(name);
-                        days[i] = date;
-                        dataPoints[i] = Float.parseFloat(allNames.get(i))/1000;
-                    }
-                    DataPoint[] values = new DataPoint[dataPoints.length];
-                    for(int i =0; i<dataPoints.length; i++){
-                        DataPoint val = new DataPoint(i, dataPoints[i]);
-                        values[i] = val;
-                    }
-                    LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(values);
-                    StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graphMonth);
-                    staticLabelsFormatter.setHorizontalLabels(days);
-                    staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1000", "2000", "3000","4000","5000","6000","7000","8000","9000","10000"});
-                    graphMonth.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-                    graphMonth.getGridLabelRenderer().setNumHorizontalLabels(7);
-                    graphMonth.getViewport().setMinX(1);
-                    graphMonth.getViewport().setMaxX(31);
-                    graphMonth.getViewport().setXAxisBoundsManual(true);
-
-                    Log.d("length", String.valueOf(dataPoints.length));
-                    series.setDrawDataPoints(true);
-                    series.setDataPointsRadius(7);
-                    series.setColor(Color.parseColor("#FFA381"));
-                    graphMonth.addSeries(series);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            },error -> {
-                Log.d("Data",error.toString().trim());
-            }){
-                @Nullable
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-
-                    Map<String,String> data = new HashMap<>();
-
-                    data.put("option","Week");
-
-                    return data;
-                }
-            };
-            Volley.newRequestQueue(getActivity()).add(stringRequest);
-        });
-        year_radioButton.setOnClickListener(v->{
-            final GraphView graphMonth = (GraphView) view.findViewById(R.id.graph);
-            graphMonth.removeAllSeries();
-            String url = "http://192.168.162.91/infits/stepYearGraph.php";
-            SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
-            String [] days = new String[12];
-            float[] dataPoints= new float[12];
-            StringRequest stringRequest = new StringRequest(Request.Method.GET,url,response -> {
-                List<String> allNames = new ArrayList<String>();
-                try {
-                    JSONArray cast = new JSONArray(response);
-                    for (int i=0; i<cast.length(); i++) {
-                        JSONObject actor = cast.getJSONObject(i);
                         String name = actor.getString("av");
+                        System.out.println(name);
                         allNames.add(name);
-                        dataPoints[i] = Float.parseFloat(allNames.get(i))/1000;
+                        NoOfEmp.add(new Entry(i,Float.parseFloat(name)));
+                        System.out.println("Points "+NoOfEmp.get(i));
+                        dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
+
+                        dataSet[0].setValues(NoOfEmp);
+
+                        dataSet[0].notifyDataSetChanged();
+                        lineChart.getData().notifyDataChanged();
+                        lineChart.notifyDataSetChanged();
+                        lineChart.invalidate();
                     }
-
-                    DataPoint[] values = new DataPoint[dataPoints.length];
-                    for(int i =0; i<dataPoints.length; i++){
-                        if (i==0){
-                            DataPoint val = new DataPoint(0,0);
-                            values[i] = val;
-                        }
-                        if (i==11){
-                            DataPoint val = new DataPoint(i+1 , dataPoints[i]);
-                            values[i] = val;
-                        }
-                        else {
-                            DataPoint val = new DataPoint(i , dataPoints[i]);
-                            Log.d("Step", String.valueOf(dataPoints.length));
-                            values[i] = val;
-                            Log.d("vals", String.valueOf(val));
-                        }
-                    }
-
-                    LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(values);
-                    StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graphMonth);
-                    staticLabelsFormatter.setHorizontalLabels(new String[]{"0","1","2","3","4","5","6","7","8","9","10","11","12"});
-                    staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1000", "2000", "3000","4000","5000","6000","7000","8000","9000","10000"});
-                    graphMonth.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-
-                    graphMonth.getGridLabelRenderer().setNumHorizontalLabels(6);
-                    graphMonth.getViewport().setMinX(0);
-                    graphMonth.getViewport().setMaxX(12);
-                    graphMonth.getViewport().setXAxisBoundsManual(true);
-
-                    Log.d("length", String.valueOf(dataPoints.length));
-                    series.setDrawDataPoints(true);
-                    series.setDataPointsRadius(7);
-                    series.setColor(Color.parseColor("#FFA381"));
-                    graphMonth.addSeries(series);
-                } catch (JSONException e) {
+                }catch (JSONException e) {
                     e.printStackTrace();
                 }
             },error -> {
                 Log.d("Data",error.toString().trim());
-            }){
-                @Nullable
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-
-                    Map<String,String> data = new HashMap<>();
-
-                    data.put("option","Week");
-
-                    return data;
-                }
-            };
+            });
             Volley.newRequestQueue(getActivity()).add(stringRequest);
         });
         custom_radioButton.setOnClickListener(v->{
             final Dialog dialog = new Dialog(getActivity());
             dialog.setCancelable(true);
-            dialog.setContentView(R.layout.calender_dialouge);
+            dialog.setContentView(R.layout.calender_dialog);
             final Calendar nextYear = Calendar.getInstance();
             nextYear.add(Calendar.YEAR,10);
 
             final Calendar lastYear = Calendar.getInstance();
             lastYear.add(Calendar.YEAR, -10);
 
+//            DateRangeCalendarView cal = dialog.findViewById(R.id.cal_for_graph);
+
+//            com.archit.calendardaterangepicker.customviews.CalendarDateRangeManagerImpl
+
             CalendarPickerView calendarPickerView = dialog.findViewById(R.id.cal_for_graph);
-            calendarPickerView.init(lastYear.getTime(), nextYear.getTime(), new SimpleDateFormat("MMMM, YYYY", Locale.getDefault())).inMode(CalendarPickerView.SelectionMode.RANGE).withSelectedDate(new Date());
+            calendarPickerView.init(lastYear.getTime(), nextYear.getTime(), new SimpleDateFormat("MMMM", Locale.getDefault())).inMode(CalendarPickerView.SelectionMode.RANGE).withSelectedDate(new Date());
+
 
             Button done = dialog.findViewById(R.id.done);
             Button cancel = dialog.findViewById(R.id.cancel);
 
             done.setOnClickListener(vi->{
-                String from = "";
-                String to = "";
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                for (int i = 0;i < calendarPickerView.getSelectedDates().size();i++){
-                    if (i == 0){
-                        from = sdf.format(calendarPickerView.getSelectedDates().get(i));
-                    }
-                    if (i == calendarPickerView.getSelectedDates().size()-1){
-                        to = sdf.format(calendarPickerView.getSelectedDates().get(i));
-                    }
-                }
-                final GraphView graph = (GraphView) view.findViewById(R.id.graph);
-                String url = "http://192.168.162.91/infits/custom.php";
+//                List<Date> dates = calendarPickerView.getSelectedDates();
+//                SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
+//                String from = sf.format(dates.get(0));
+//                String to = sf.format(dates.get(dates.size()-1));
 
-                String finalFrom = from;
-                String finalTo = to;
-                StringRequest stringRequest = new StringRequest(Request.Method.GET,url, response -> {
-                    graph.removeAllSeries();
-                    System.out.println(response);
-
-                    List<String> allNames = new ArrayList<String>();
+                NoOfEmp.removeAll(NoOfEmp);
+                String url = String.format("%sstepsYearGraph.php",DataFromDatabase.ipConfig);
+                StringRequest stringRequest = new StringRequest(Request.Method.GET,url,response -> {
+                    List<String> allNames = new ArrayList<>();
                     JSONObject jsonResponse = null;
                     try {
                         jsonResponse = new JSONObject(response);
                         JSONArray cast = jsonResponse.getJSONArray("steps");
-                        String [] days = new String[cast.length()];
-                        float[] dataPoints= new float[cast.length()];
                         for (int i=0; i<cast.length(); i++) {
                             JSONObject actor = cast.getJSONObject(i);
-                            String name = actor.getString("steps");
-                            String date = actor.getString("date");
+                            String name = actor.getString("av");
+                            System.out.println(name);
                             allNames.add(name);
-                            Log.d("Length", allNames.get(i));
-                            days[i] = date;
-                            dataPoints[i] = Float.parseFloat(allNames.get(i))/1000;
-                            Log.d("Length", String.valueOf(dataPoints[i]));
-                            Log.d("Length",days[i]);
+                            NoOfEmp.add(new Entry(i,Float.parseFloat(name)));
+                            System.out.println("Points "+NoOfEmp.get(i));
+                            dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
+
+                            dataSet[0].setValues(NoOfEmp);
+
+                            dataSet[0].notifyDataSetChanged();
+                            lineChart.getData().notifyDataChanged();
+                            lineChart.notifyDataSetChanged();
+                            lineChart.invalidate();
                         }
-                        DataPoint[] values = new DataPoint[dataPoints.length];
-                        for(int i =0; i<dataPoints.length; i++){
-                            if (i==0){
-                                DataPoint val = new DataPoint(0, 0);
-                                values[i] = val;
-                            }
-                            else if (i == 6){
-                                DataPoint val = new DataPoint(i+1, dataPoints[i]);
-                                values[i] = val;
-                            }
-                            else{
-                                DataPoint val = new DataPoint(i, dataPoints[i]);
-                                values[i] = val;
-                            }
-                        }
-                        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(values);
-                        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
-                        staticLabelsFormatter.setHorizontalLabels(days);
-                        staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1000", "2000", "3000","4000","5000",
-                                "6000","7000","8000","9000","10000"});
-                        graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-                        graph.getGridLabelRenderer().setNumHorizontalLabels(days.length);
-                        graph.getViewport().setMinX(1);
-                        graph.getViewport().setMaxX(days.length);
-                        graph.getViewport().setXAxisBoundsManual(true);
-                        series.setDrawDataPoints(true);
-                        series.setColor(Color.parseColor("#FFA381"));
-                        series.setDataPointsRadius(7);
-                        graph.addSeries(series);
-                    } catch (JSONException e) {
+                    }catch (JSONException e) {
                         e.printStackTrace();
                     }
                 },error -> {
@@ -409,10 +361,9 @@ public class StepsFragment extends Fragment {
                     @Nullable
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
-
                         Map<String,String> data = new HashMap<>();
-                        data.put("from", finalFrom);
-                        data.put("to", finalTo);
+//                        data.put("from",from);
+//                        data.put("to",to);
                         return data;
                     }
                 };
@@ -427,63 +378,63 @@ public class StepsFragment extends Fragment {
             dialog.show();
         });
 
-        queue = Volley.newRequestQueue(getContext());
-        Log.d("HeartFragment","before");
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
-            if (!response.equals("failure")){
-                Log.d("HeartFragment","success");
-                Log.d("heartFragment response",response);
-
-                try {
-                    JSONArray jsonArray = new JSONArray(response);
-                    JSONObject object0 = jsonArray.getJSONObject(0);
-                    JSONObject object1 = jsonArray.getJSONObject(1);
-                    JSONObject object2 = jsonArray.getJSONObject(2);
-                    JSONObject object3 = jsonArray.getJSONObject(3);
-                    String stepsWeek = object0.getString("stepsSumWeek");
-                    if (stepsWeek.equals("null")){
-                        stepsWeek ="0";
-                    }
-                    weekly.setText(stepsWeek);
-                    String stepsMonth = object1.getString("stepsSumMonth");
-                    if (stepsMonth.equals("null")){
-                        stepsMonth ="0";
-                    }
-                    monthly.setText(stepsMonth);
-                    String stepsDaily = object2.getString("stepsSumDaily");
-                    if (stepsDaily.equals("null")){
-                        stepsDaily ="0";
-                    }
-                    daily.setText(stepsDaily);
-                    String stepsTotal = object3.getString("stepsSumTotal");
-                    if (stepsTotal.equals("null")){
-                        stepsTotal ="0";
-                    }
-                    total.setText(stepsTotal);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-            else if (response.equals("failure")){
-                Log.d("HeartFragment","failure");
-                Toast.makeText(getContext(), "heartFragment failed", Toast.LENGTH_SHORT).show();
-            }
-        },error -> {
-        //    Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();
-        })
-        {
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> data = new HashMap<>();
-                Log.d("Fragment","clientuserID = "+dataFromDatabase.clientuserID);
-                data.put("userID", dataFromDatabase.clientuserID);
-                return data;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        requestQueue.add(stringRequest);
+//        queue = Volley.newRequestQueue(getContext());
+//        Log.d("HeartFragment","before");
+//        StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
+//            if (!response.equals("failure")){
+//                Log.d("HeartFragment","success");
+//                Log.d("heartFragment response",response);
+//
+//                try {
+//                    JSONArray jsonArray = new JSONArray(response);
+//                    JSONObject object0 = jsonArray.getJSONObject(0);
+//                    JSONObject object1 = jsonArray.getJSONObject(1);
+//                    JSONObject object2 = jsonArray.getJSONObject(2);
+//                    JSONObject object3 = jsonArray.getJSONObject(3);
+//                    String stepsWeek = object0.getString("stepsSumWeek");
+//                    if (stepsWeek.equals("null")){
+//                        stepsWeek ="0";
+//                    }
+//                    weekly.setText(stepsWeek);
+//                    String stepsMonth = object1.getString("stepsSumMonth");
+//                    if (stepsMonth.equals("null")){
+//                        stepsMonth ="0";
+//                    }
+//                    monthly.setText(stepsMonth);
+//                    String stepsDaily = object2.getString("stepsSumDaily");
+//                    if (stepsDaily.equals("null")){
+//                        stepsDaily ="0";
+//                    }
+//                    daily.setText(stepsDaily);
+//                    String stepsTotal = object3.getString("stepsSumTotal");
+//                    if (stepsTotal.equals("null")){
+//                        stepsTotal ="0";
+//                    }
+//                    total.setText(stepsTotal);
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            else if (response.equals("failure")){
+//                Log.d("HeartFragment","failure");
+//                Toast.makeText(getContext(), "heartFragment failed", Toast.LENGTH_SHORT).show();
+//            }
+//        },error -> {
+//        //    Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();
+//        })
+//        {
+//            @Nullable
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                Map<String, String> data = new HashMap<>();
+//                Log.d("Fragment","clientuserID = "+dataFromDatabase.clientuserID);
+//                data.put("userID", dataFromDatabase.clientuserID);
+//                return data;
+//            }
+//        };
+//        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+//        requestQueue.add(stringRequest);
 //        Log.d("Fragment","at end");
 //        ArrayList steps = dates(27,01,2022,22,05,2022);
 //        for (int i=0;i<steps.size();i++){

@@ -28,9 +28,9 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+        android:theme="@style/Theme.Infits">
         <activity
-            android:name=".DashBoardMain"
+            android:name=".Login"
             android:exported="false" />
 
         <service android:name=".StopWatchService" />
@@ -99,12 +99,11 @@
             android:name=".Landing1"
             android:exported="true" />
         <activity
-            android:name=".Login"
+            android:name=".DashBoardMain"
             android:exported="true"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
