@@ -27,6 +27,4 @@ public class DataFromDatabase {
     public static String profilePhoto="default.jpg";
     public static String dietitianuserID,clientuserID,password,name,email,mobile,location,age,gender;
     public static Bitmap profile;
-
-
 }

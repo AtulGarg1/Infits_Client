@@ -6,20 +6,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".WeightDateFragment">
 
-    
 
-    <sun.bob.mcalendarview.MCalendarView
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         android:id="@+id/calendarView"
-        android:layout_width="311dp"
-        android:layout_height="293dp"
-        tools:context=".WeightDateFragment"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/tv_weight"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.066"
-        />
+        app:mcv_selectionColor="#00F"
+        app:mcv_leftArrowMask="@drawable/ic_keyboard_arrow_left_black_24dp"
+        app:mcv_rightArrowMask="@drawable/arrow_right"
+        app:mcv_firstDayOfWeek="sunday"
+        app:mcv_arrowColor="@color/weightcolor"
+        app:mcv_showOtherDates="all" />
+
+
+<!--    <sun.bob.mcalendarview.MCalendarView-->
+<!--        android:id="@+id/calendarView"-->
+<!--        android:layout_width="311dp"-->
+<!--        android:layout_height="293dp"-->
+<!--        tools:context=".WeightDateFragment"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.491"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.066"-->
+<!--        />-->
 
     <TextView
         android:id="@+id/tv_weight"
@@ -49,7 +64,7 @@
         app:layout_constraintVertical_bias="0.833"
         app:max_value="300"
         app:min_value="10"
-        app:notch_color="@color/weightgreen"
+        app:notch_color="@color/blue"
         app:ruler_text_color="@color/black" />
 
     <Button
