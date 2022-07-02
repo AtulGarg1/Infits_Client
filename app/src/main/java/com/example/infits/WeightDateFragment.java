@@ -4,11 +4,16 @@ import static android.content.Context.MODE_PRIVATE;
 
 
 import org.threeten.bp.LocalDate;
+
+import android.app.Dialog;
 import android.content.SharedPreferences;
 
+import android.graphics.drawable.Drawable;
+import android.icu.text.CaseMap;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -29,9 +34,13 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.kevalpatel2106.rulerpicker.RulerValuePicker;
 
+import com.kevalpatel2106.rulerpicker.RulerValuePickerListener;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
+import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
+import com.prolificinteractive.materialcalendarview.format.TitleFormatter;
 import com.tistory.dwfox.dwrulerviewlibrary.view.ScrollingValuePicker;
 
 import org.json.JSONArray;
@@ -56,18 +65,13 @@ import sun.bob.mcalendarview.MarkStyle;
 import sun.bob.mcalendarview.listeners.OnDateClickListener;
 import sun.bob.mcalendarview.vo.DateData;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link WeightDateFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class WeightDateFragment extends Fragment {
 
     RulerValuePicker rulerValuePicker;
     Button btnadd;
     TextView tv_weight, tv_weight2;
     int cur_weight;
-    //    MCalendarView calendarView;
+
     String curDate;
 
     MaterialCalendarView mcv;
@@ -78,30 +82,19 @@ public class WeightDateFragment extends Fragment {
     final String DATE_FORMAT = "yyyy-MM-dd";
 
     int pink = 0;
-    int gray = 1;
+    int green = 1;
+    int blue = 2;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     public WeightDateFragment() {
-        // Required empty public constructor
+
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment WeightDateFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static WeightDateFragment newInstance(String param1, String param2) {
         WeightDateFragment fragment = new WeightDateFragment();
         Bundle args = new Bundle();
@@ -138,97 +131,27 @@ public class WeightDateFragment extends Fragment {
                     .commit();
             mcv.setSelectionMode(MaterialCalendarView.SELECTION_MODE_SINGLE);
         }
-        rulerValuePicker = view.findViewById(R.id.rulerValuePicker);
+
+        markGreen();
+        markRed();
+
+        List<CalendarDay> independent = new ArrayList<>();
+        mcv.setWeekDayLabels(new String[]{"S","M","T","W","T","F","S"});
+//        mcv.setTitleFormatter(titleFormatter);
+
+        mcv.setOnDateChangedListener(new OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Toast.makeText(getContext(),"Selected date "+simpleDateFormat.format(date.getDate()),Toast.LENGTH_LONG).show();
+            }
+        });
+
+//        mcv.setOnMonthChangedListener(this);
+//        rulerValuePicker = view.findViewById(R.id.rulerValuePicker);
         btnadd = view.findViewById(R.id.btnadd);
         tv_weight = view.findViewById(R.id.tv_weight);
-//        tv_weight2 = view.findViewById(R.id.tv_weight2);
-//        calendarView = view.findViewById(R.id.calendarView);
-//
-//        ScrollingValuePicker myScrollingValuePicker;
-//        myScrollingValuePicker = (ScrollingValuePicker) view.findViewById(R.id.scrolla);
-//        myScrollingValuePicker.setViewMultipleSize(5);
-//        myScrollingValuePicker.setMaxValue(0,100);
-//        myScrollingValuePicker.setValueTypeMultiple(5);
-//        myScrollingValuePicker.getScrollView().setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                if (event.getAction() == MotionEvent.ACTION_UP) {
-//                    myScrollingValuePicker.getScrollView().startScrollerTask();
-//                }
-//                return false;
-//            }
-//        });
 
-        String urlMark = String.format("%sweightDate.php",DataFromDatabase.ipConfig);
-
-        StringRequest stringRequestCal = new StringRequest(Request.Method.POST,urlMark,response -> {
-
-            try {
-                JSONObject object = new JSONObject(response);
-                JSONArray weight = object.getJSONArray("weight");
-                ArrayList<String> dates = new ArrayList<>();
-                for (int i = 0;i<weight.length();i++){
-                    JSONObject date = weight.getJSONObject(i);
-                    String dateStr = date.getString("date");
-                    dates.add(dateStr);
-                    String[] array = dateStr.split("-");
-                    System.out.println(dateStr);
-                    setEvent(dates, gray);
-//                    calendarView.markDate(
-//                            new DateData(Integer.parseInt(array[0]), Integer.parseInt(array[1]), Integer.parseInt(array[2])).setMarkStyle(new MarkStyle(MarkStyle.BACKGROUND, Color.GREEN)));
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-        },error -> {
-                Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> data = new HashMap<>();
-//                Log.d("Fragment","clientuserID = " + DataFromDatabase.clientuserID);
-                data.put("userID", "Azarudeen");
-                return data;
-            }
-        };
-
-        Volley.newRequestQueue(getContext()).add(stringRequestCal);
-
-        String urlUnMark = String.format("%sunUpdated.php",DataFromDatabase.ipConfig);
-
-        StringRequest stringRequestCalUn = new StringRequest(Request.Method.POST,urlUnMark,response -> {
-            try {
-                JSONObject object = new JSONObject(response);
-                JSONArray weight = object.getJSONArray("dates");
-                ArrayList<String> dates = new ArrayList<>();
-                for (int i = 0;i<weight.length();i++){
-//                    JSONObject date = weight.getJSONObject(i);
-                    String dateStr = weight.getString(i);
-                    dates.add(dateStr);
-                    String[] array = dateStr.split("-");
-                    System.out.println(dateStr);
-                    setEvent(dates, pink);
-                    mcv.invalidateDecorators();
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-        },error -> {
-            Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> data = new HashMap<>();
-//                Log.d("Fragment","clientuserID = " + DataFromDatabase.clientuserID);
-                data.put("userID", "Azarudeen");
-                return data;
-            }
-        };
-        Volley.newRequestQueue(getContext()).add(stringRequestCalUn);
 //        rulerValuePicker.setValuePickerListener(new RulerValuePickerListener() {
 //            @Override
 //            public void onValueChange(int selectedValue) {
@@ -259,7 +182,6 @@ public class WeightDateFragment extends Fragment {
 //                olddate[0] = new DateData(date.getYear(),date.getMonth(),date.getDay());
 //            }
 //        });
-
         btnadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -283,16 +205,10 @@ public class WeightDateFragment extends Fragment {
         });
         return view;
     }
+
     void setEvent(ArrayList<String> dateList, int color) {
 
         ArrayList<LocalDate> localDateList = new ArrayList<>();
-
-//        "2019-01-01",
-//                "2019-01-03", "2019-01-04", "2019-01-05", "2019-01-06");
-//        final List<String> grayDateList = Arrays.asList(
-//                "2019-01-09", "2019-01-10", "2019-01-11",
-//                "2019-01-24", "2019-01-25", "2019-01-26", "2019-01-27", "2019-01-28", "2019-01-29");
-
 
         for (String string : dateList) {
             LocalDate calendar = getLocalDate(string);
@@ -305,7 +221,6 @@ public class WeightDateFragment extends Fragment {
         ArrayList<CalendarDay> datesCenter = new ArrayList<>();
         ArrayList<CalendarDay> datesRight = new ArrayList<>();
         ArrayList<CalendarDay> datesIndependent = new ArrayList<>();
-
 
         for (LocalDate localDate : localDateList) {
 
@@ -340,7 +255,7 @@ public class WeightDateFragment extends Fragment {
             setDecor(datesLeft, R.drawable.p_left);
             setDecor(datesRight, R.drawable.p_right);
             setDecor(datesIndependent, R.drawable.p_independent);
-        } else {
+        } else if (color == green){
             setDecor(datesCenter, R.drawable.g_center);
             setDecor(datesLeft, R.drawable.g_left);
             setDecor(datesRight, R.drawable.g_right);
@@ -371,5 +286,77 @@ public class WeightDateFragment extends Fragment {
             return null;
         }
         return null;
+    }
+
+    void markRed(){
+
+        String urlUnMark = String.format("%sunUpdated.php",DataFromDatabase.ipConfig);
+
+        StringRequest stringRequestCalUn = new StringRequest(Request.Method.POST,urlUnMark,response -> {
+            try {
+                JSONObject object = new JSONObject(response);
+                JSONArray weight = object.getJSONArray("dates");
+                ArrayList<String> dates = new ArrayList<>();
+                for (int i = 0;i<weight.length();i++){
+//                    JSONObject date = weight.getJSONObject(i);
+                    String dateStr = weight.getString(i);
+                    dates.add(dateStr);
+                    String[] array = dateStr.split("-");
+                    System.out.println(dateStr);
+                    setEvent(dates, pink);
+                    mcv.invalidateDecorators();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        },error -> {
+            Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+//                Log.d("Fragment","clientuserID = " + DataFromDatabase.clientuserID);
+                data.put("userID", "Azarudeen");
+                return data;
+            }
+        };
+        Volley.newRequestQueue(getContext()).add(stringRequestCalUn);
+
+    }
+
+    void markGreen(){
+        String urlMark = String.format("%sweightDate.php",DataFromDatabase.ipConfig);
+
+        StringRequest stringRequestCal = new StringRequest(Request.Method.POST,urlMark,response -> {
+
+            try {
+                JSONObject object = new JSONObject(response);
+                JSONArray weight = object.getJSONArray("weight");
+                ArrayList<String> dates = new ArrayList<>();
+                for (int i = 0;i<weight.length();i++) {
+                    JSONObject date = weight.getJSONObject(i);
+                    String dateStr = date.getString("date");
+                    dates.add(dateStr);
+                    String[] array = dateStr.split("-");
+                    System.out.println(dateStr);
+                    setEvent(dates, green);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        },error -> {
+            Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+                data.put("userID", "Azarudeen");
+                return data;
+            }
+        };
+        Volley.newRequestQueue(getContext()).add(stringRequestCal);
     }
 }

@@ -14,6 +14,10 @@
             android:icon="@drawable/message"
             android:title="Consultation" />
 
+        <item android:id="@+id/message"
+            android:icon="@drawable/message"
+            android:title="Messages" />
+
         <item android:id="@+id/setting"
             android:icon="@drawable/settingimg"
             android:title="Settings" />

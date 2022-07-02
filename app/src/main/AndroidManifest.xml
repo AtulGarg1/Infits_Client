@@ -30,7 +30,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Infits">
         <activity
-            android:name=".DashBoardMain"
+            android:name=".Login"
             android:exported="false" />
 
         <service android:name=".StopWatchService" />
@@ -98,8 +98,10 @@
         <activity
             android:name=".Landing1"
             android:exported="true" />
+        <activity android:name=".ChatArea"
+            android:exported="true"/>
         <activity
-            android:name=".Login"
+            android:name=".DashBoardMain"
             android:exported="true"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
             <intent-filter>

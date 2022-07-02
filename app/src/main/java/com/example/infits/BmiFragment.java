@@ -37,7 +37,7 @@ public class BmiFragment extends Fragment {
 
     RelativeLayout male, female;
     Button btnadd;
-    NumberPicker numPicker;
+    com.shawnlin.numberpicker.NumberPicker numPicker;
     public String g;
     TextView textView31, textView43, textView94;
     RulerValuePicker rulerValuePickerh, rulerValuePickerw;
@@ -138,16 +138,16 @@ public class BmiFragment extends Fragment {
         });
 
 
-        numPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-
-                //textView31.setText(String.valueOf(newVal));
-
-                bundle.putString("age", String.valueOf(newVal));
-
-            }
-        });
+//        numPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+//            @Override
+//            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+//
+//                //textView31.setText(String.valueOf(newVal));
+//
+//                bundle.putString("age", String.valueOf(newVal));
+//
+//            }
+//        });
 
         rulerValuePickerh.setValuePickerListener(new RulerValuePickerListener() {
             @Override

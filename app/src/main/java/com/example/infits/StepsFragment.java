@@ -344,6 +344,7 @@ public class StepsFragment extends Fragment {
                             NoOfEmp.add(new Entry(i,Float.parseFloat(name)));
                             System.out.println("Points "+NoOfEmp.get(i));
                             dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
+                            dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
 
                             dataSet[0].setValues(NoOfEmp);
 
@@ -374,7 +375,6 @@ public class StepsFragment extends Fragment {
             cancel.setOnClickListener(vi->{
                 dialog.dismiss();
             });
-
             dialog.show();
         });
 

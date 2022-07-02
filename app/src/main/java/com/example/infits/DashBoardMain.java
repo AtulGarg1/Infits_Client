@@ -70,6 +70,11 @@ public class DashBoardMain extends AppCompatActivity {
                         //Toast.makeText(getApplicationContext(),"Settings", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
+                    case R.id.message:
+                        Intent imt = new Intent(DashBoardMain.this, ChatArea.class);
+                        startActivity(imt);
+                        //Toast.makeText(getApplicationContext(),"Settings", Toast.LENGTH_LONG).show();
+                        drawerLayout.closeDrawer(GravityCompat.START);
                 }
                 return true;
             }

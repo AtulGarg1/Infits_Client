@@ -81,10 +81,11 @@
         app:layout_constraintVertical_bias="0.068">
 
         <ImageView
-            android:layout_width="180px"
-            android:layout_height="170px"
+            android:layout_width="190px"
+            android:layout_height="180px"
             android:layout_centerInParent="true"
-            android:src="@drawable/malesymbol" />
+            android:src="@drawable/malesymbol"
+            app:tint="#21BB89" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -116,13 +117,15 @@
             android:layout_height="180px"
             android:layout_centerInParent="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/femalesymbol" />
+            android:src="@drawable/femalesymbol"
+            app:tint="#21BB89" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Female"
-            android:textColor="@color/black"
+            android:textColor="#748D95"
             android:id="@+id/textfemale"
+            android:fontFamily="@font/nats_regular"
             android:layout_alignParentBottom="true"
             android:layout_margin="10dp"
             android:layout_centerHorizontal="true"
@@ -161,17 +164,51 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.323" />
 
-    <NumberPicker
+    <com.shawnlin.numberpicker.NumberPicker
         android:id="@+id/numPicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        app:np_textSize="20sp"
+        app:np_typeface="@string/done"
+        app:np_orientation="horizontal"
+        app:np_wheelItemCount="7"
+        app:np_dividerType="side_lines"
+        app:np_dividerThickness="0dp"
+        app:np_itemSpacing="10dp"
+        app:np_textColor="#748D95"
+        app:np_dividerDistance="10dp"
+        android:background="@drawable/age_picker"
+        app:np_selectedTextColor="@color/white"
+        app:np_wrapSelectorWheel="true"
+        app:np_selectedTextSize="26sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.468" />
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/rulerValuePickerh"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView31"-->
+<!--        android:scrollbars="horizontal"-->
+<!--        android:clipToPadding="false"/>-->
+
+<!--    <com.wefika.horizontalpicker.HorizontalPicker-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:values="@array/month"-->
+<!--        android:ellipsize="marquee"-->
+<!--        app:sideItems="3"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/rulerValuePickerh"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView31" />-->
 
     <com.kevalpatel2106.rulerpicker.RulerValuePicker
         android:id="@+id/rulerValuePickerh"

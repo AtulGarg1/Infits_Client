@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 
 public class EventDecorator implements DayViewDecorator {
+    private String date;
     Context context;
     private int drawable;
     private HashSet<CalendarDay> dates;
@@ -20,6 +21,13 @@ public class EventDecorator implements DayViewDecorator {
         this.drawable = drawable;
         this.dates = new HashSet<>(calendarDays1);
     }
+
+    public EventDecorator(Context context, int drawable, String date) {
+        this.context = context;
+        this.drawable = drawable;
+        this.date = date;
+    }
+
 
     @Override
     public boolean shouldDecorate(CalendarDay day) {

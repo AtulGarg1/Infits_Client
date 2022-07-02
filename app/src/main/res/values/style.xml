@@ -17,4 +17,13 @@
         <item name="android:layout_marginStart">30dp</item>
     </style>
 
+    <style name="CustomCalendarMonth" parent="AppTheme">
+        <item name="android:textColorPrimary">@color/orange</item>
+        <item name="fontFamily">@font/baloo2</item>
+    </style>
+
+    <style name="CustomCalendarWeek" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/weightgreen</item>
+    </style>
+
 </resources>

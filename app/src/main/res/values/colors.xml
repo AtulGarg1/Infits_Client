@@ -23,12 +23,19 @@
     <color name="heartpink">#E375B3</color>
     <color name="steps">#FFA381</color>
 
+    <array name="range">
+        <item>#5884FE</item>
+        <item>#DA75EC</item>
+    </array>
+
     <color name="calendar_selected_day_b">#FFA381</color>
     <color name="calendar_selected_range_bg">@color/blue</color>
 
     <color name="colorGray">#808080</color>
 
     <color name="weightcolor">#1FB889</color>
+
+    <color name="weight">#1FB58A</color>
 
     <color name="range_color">#ffaaaa</color>
     <color name="whitesixty">#99FFFFFF</color>

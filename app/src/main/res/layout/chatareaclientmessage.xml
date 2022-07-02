@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_marginTop="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/client_msg"
+        android:layout_width="295dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_background"
+        android:fontFamily="@font/nats_regular"
+        android:lineHeight="16sp"
+        android:paddingHorizontal="21dp"
+        android:paddingVertical="9dp"
+        android:text="message"
+        android:textAlignment="textStart"
+        android:textColor="#535353"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_min="3dp"
+        app:layout_constraintWidth_max="270dp"
+        app:layout_constraintWidth_percent="0.7"/>
+
+    <TextView
+        android:id="@+id/client_msg_time"
+        android:layout_width="wrap_content"
+        android:layout_height="39dp"
+        android:gravity="end"
+        android:fontFamily="@font/nats_regular"
+        android:text="13:00"
+        android:textSize="16sp"
+        android:layout_marginRight="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/client_msg" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
