@@ -10,6 +10,10 @@
             android:icon="@drawable/chartimg"
             android:title="Charts" />
 
+        <item android:id="@+id/live"
+            android:icon="@drawable/live_menu"
+            android:title="Live"/>
+
         <item android:id="@+id/consul"
             android:icon="@drawable/message"
             android:title="Consultation" />

@@ -13,6 +13,8 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -176,6 +178,11 @@ GaugeSeekBar  progressBar;
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.action_stepTrackerFragment_to_dashBoardFragment);
+                FragmentManager manager = getActivity().getSupportFragmentManager();
+//                FragmentTransaction trans = manager.beginTransaction();
+//                trans.remove(StepTrackerFragment.this);
+//                trans.commit();
+                manager.popBackStack();
             }
         });
 //        final Handler handler = new Handler();
@@ -217,7 +224,7 @@ GaugeSeekBar  progressBar;
                 public void run() {
                     goalPercent = ((steps/goalVal)*100)/100;
                     System.out.println(goalPercent);
-                    progressBar.setProgress((int) goalPercent);
+                    progressBar.setProgress(goalPercent);
                     steps_label.setText(String.valueOf((int) steps));
                 }
             },20000);

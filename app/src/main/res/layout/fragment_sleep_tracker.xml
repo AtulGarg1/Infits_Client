@@ -12,21 +12,24 @@
     android:layout_gravity="center_horizontal"
     android:layout_marginTop="50dp"
     android:background="@drawable/moon"/>
-    <ImageView
-        android:id="@+id/imgback"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:backgroundTint="@null"
-        app:tint="@color/white"
-        android:layout_margin="30dp"
-        app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24" />
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/imgback"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="30dp"
+            android:backgroundTint="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/textviewsleep"
+            app:layout_constraintEnd_toStartOf="@+id/textviewsleep"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textviewsleep"
+            app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24"
+            app:tint="@color/white" />
 
         <TextView
             android:id="@+id/texttime"

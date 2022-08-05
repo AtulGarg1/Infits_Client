@@ -8,12 +8,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ResetPassword extends AppCompatActivity {
 
-    ImageButton b1;
-    TextView logtext;
+    ImageView back_login;
     Button sendMailBtn;
 
     @Override
@@ -21,11 +21,10 @@ public class ResetPassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password);
 
-        b1=(ImageButton) findViewById(R.id.imageButton3);
-        logtext = (TextView) findViewById(R.id.logtext);
+        back_login = findViewById(R.id.back_login);
         sendMailBtn = findViewById(R.id.sendMailBtn);
 
-        b1.setOnClickListener(new View.OnClickListener() {
+        back_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(ResetPassword.this, Login.class);
@@ -55,14 +54,6 @@ public class ResetPassword extends AppCompatActivity {
                         SendMail sm = new SendMail(getApplicationContext(), emailId, message);
                     }
                 }).start();
-            }
-        });
-
-        logtext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent il = new Intent(ResetPassword.this, Login.class);
-                startActivity(il);
             }
         });
     }

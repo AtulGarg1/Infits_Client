@@ -1,6 +1,7 @@
 package com.example.infits;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -126,12 +127,8 @@ public class SettingsFragment extends Fragment {
         imgbtnDevice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Dialog dialog = new Dialog(getContext());
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCancelable(true);
-                dialog.setContentView(R.layout.devicesdialog);
-
-                dialog.show();
+                Intent intent = new Intent(getContext(),DeviceSettings.class);
+                startActivity(intent);
             }
         });
 

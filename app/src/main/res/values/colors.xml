@@ -6,7 +6,7 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="white">#FFFFFF</color>
     <color name="orange">#FF806C</color>
     <color name="purple">#BD4AAE</color>
     <color name="blue">#278EFF</color>
@@ -37,8 +37,11 @@
 
     <color name="weight">#1FB58A</color>
 
+    <color name="live_text_box">#66FFFFFF</color>
+
     <color name="range_color">#ffaaaa</color>
     <color name="whitesixty">#99FFFFFF</color>
+    <color name="bluetoothThumb">#2C3F96</color>
     <array name="progress">
         <item>@color/white</item>
     </array>

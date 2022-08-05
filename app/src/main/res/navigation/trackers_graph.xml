@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_step_tracker" >
         <action
             android:id="@+id/action_stepTrackerFragment_to_dashBoardFragment"
-            app:destination="@id/dashBoardFragment" />
+            app:destination="@id/dashBoardFragment"
+            app:popUpTo="@id/trackers_graph"/>
     </fragment>
     <fragment
         android:id="@+id/weightTrackerFragment"
@@ -21,13 +22,16 @@
         tools:layout="@layout/fragment_weight_tracker" >
         <action
             android:id="@+id/action_weightTrackerFragment_to_bmiFragment"
-            app:destination="@id/bmiFragment" />
+            app:destination="@id/bmiFragment"
+            app:popUpTo="@id/trackers_graph" />
         <action
             android:id="@+id/action_weightTrackerFragment_to_dashBoardFragment"
-            app:destination="@id/dashBoardFragment" />
+            app:destination="@id/dashBoardFragment"
+            app:popUpTo="@id/trackers_graph" />
         <action
             android:id="@+id/action_weightTrackerFragment_to_weightDateFragment"
-            app:destination="@id/weightDateFragment" />
+            app:destination="@id/weightDateFragment"
+            app:popUpTo="@id/weightTrackerFragment" />
     </fragment>
     <fragment
         android:id="@+id/calorieTrackerFragment"
@@ -54,10 +58,11 @@
         android:id="@+id/waterTrackerFragment"
         android:name="com.example.infits.WaterTrackerFragment"
         android:label="fragment_water_tracker"
-        tools:layout="@layout/fragment_water_tracker" >
+        tools:layout="@layout/fragment_water_tracker">
         <action
             android:id="@+id/action_waterTrackerFragment_to_dashBoardFragment"
-            app:destination="@id/dashBoardFragment" />
+            app:destination="@id/dashBoardFragment"
+            app:popUpTo="@id/trackers_graph" />
         <action
             android:id="@+id/action_waterTrackerFragment_to_addLiquidFragment"
             app:destination="@id/addLiquidFragment" />
@@ -69,7 +74,8 @@
         tools:layout="@layout/fragment_sleep_tracker" >
         <action
             android:id="@+id/action_sleepTrackerFragment_to_dashBoardFragment"
-            app:destination="@id/dashBoardFragment" />
+            app:destination="@id/dashBoardFragment"
+            app:popUpTo="@id/trackers_graph" />
     </fragment>
     <fragment
         android:id="@+id/bmiFragment"
@@ -78,7 +84,8 @@
         tools:layout="@layout/fragment_bmi" >
         <action
             android:id="@+id/action_bmiFragment_to_weightTrackerFragment"
-            app:destination="@id/weightTrackerFragment" />
+            app:destination="@id/weightTrackerFragment"
+            app:popUpTo="@id/weightTrackerFragment"/>
     </fragment>
     <fragment
         android:id="@+id/dashBoardFragment"
@@ -100,6 +107,9 @@
         <action
             android:id="@+id/action_dashBoardFragment_to_waterTrackerFragment"
             app:destination="@id/waterTrackerFragment" />
+        <action
+            android:id="@+id/action_dashBoardFragment_to_heartRate"
+            app:destination="@id/heartRate" />
     </fragment>
     <fragment
         android:id="@+id/addLiquidFragment"
@@ -117,6 +127,17 @@
         tools:layout="@layout/fragment_weight_date" >
         <action
             android:id="@+id/action_weightDateFragment_to_weightTrackerFragment"
-            app:destination="@id/weightTrackerFragment" />
+            app:destination="@id/weightTrackerFragment"
+            app:popUpTo="@id/weightTrackerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/heartRate"
+        android:name="com.example.infits.HeartRate"
+        android:label="fragment_heart_rate"
+        tools:layout="@layout/fragment_heart_rate" >
+        <action
+            android:id="@+id/action_heartRate_to_dashBoardFragment"
+            app:destination="@id/dashBoardFragment"
+            app:popUpTo="@id/trackers_graph" />
     </fragment>
 </navigation>

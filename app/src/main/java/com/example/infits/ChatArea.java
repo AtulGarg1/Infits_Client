@@ -65,7 +65,7 @@ public class ChatArea extends AppCompatActivity {
     private Socket mSocket;
     {
         try {
-            mSocket = IO.socket("http://192.168.109.91:8080");
+            mSocket = IO.socket("http://192.168.99.91:8080");
         } catch (URISyntaxException e) {}
     }
     
@@ -78,8 +78,8 @@ public class ChatArea extends AppCompatActivity {
     TextView name;
     EditText message;
     ImageView profile_pic;
-    String url = "http://192.168.109.91/dietian/messages.php";
-    String url3 = "http://192.168.109.91/dietian/messagesSend.php";
+    String url = "http://192.168.99.91/dietian/messages.php";
+    String url3 = "http://192.168.99.91/dietian/messagesSend.php";
     DataFromDatabase dataFromDatabase;
     RequestQueue queue;
     List<ChatMessage> msg=new ArrayList<>();

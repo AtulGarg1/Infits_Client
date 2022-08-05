@@ -53,8 +53,7 @@ public class WaterFragment extends Fragment {
 
 //    TextView daily,monthly,weekly,total;
     RequestQueue queue;
-    String url = "http://192.168.9.1/infits/waterFragment.php";
-    DataFromDatabase dataFromDatabase;
+    String url = String.format("%s/waterFragment.php",DataFromDatabase.ipConfig);
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -157,7 +156,7 @@ public class WaterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 NoOfEmp.removeAll(NoOfEmp);
-                String url = "http://192.168.17.91/infits/waterGraph.php";
+                String url = String.format("%s/waterGraph.php",DataFromDatabase.ipConfig);
                 StringRequest stringRequest = new StringRequest(Request.Method.GET,url,response -> {
                 List<String> allNames = new ArrayList<>();
                 JSONObject jsonResponse = null;

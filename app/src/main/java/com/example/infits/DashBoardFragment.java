@@ -133,8 +133,6 @@ public class DashBoardFragment extends Fragment {
         Log.d("Name",DataFromDatabase.name+"");
         Log.d("Name",DataFromDatabase.age+"");
         Log.d("Name",DataFromDatabase.email+"");
-        btnsub = view.findViewById(R.id.btnsub1);
-        btnsub1 = view.findViewById(R.id.btnsub1);
 
         stepcard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,6 +167,10 @@ public class DashBoardFragment extends Fragment {
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_calorieTrackerFragment);
             }
+        });
+
+        heartcard.setOnClickListener(v->{
+            Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_heartRate);
         });
 
 

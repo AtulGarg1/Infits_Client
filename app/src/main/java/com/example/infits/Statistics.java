@@ -355,7 +355,7 @@ public class Statistics extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-                data.put("userID", "Azarudeen");
+                data.put("userID", DataFromDatabase.clientuserID);
                 return data;
             }
         };

@@ -17,6 +17,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -91,6 +94,9 @@ public class WeightDateFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    RecyclerView rv;
+    PickerAdapter adapter;
+
     public WeightDateFragment() {
 
     }
@@ -120,6 +126,8 @@ public class WeightDateFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_weight_date, container, false);
 
         mcv = view.findViewById(R.id.calendarView);
+
+        rv =  view.findViewById(R.id.rv);
 
         Calendar cal = Calendar.getInstance();
 
@@ -201,6 +209,33 @@ public class WeightDateFragment extends Fragment {
 //                getParentFragmentManager().setFragmentResult("weightData", bundle);
 
                 Navigation.findNavController(v).navigate(R.id.action_weightDateFragment_to_weightTrackerFragment);
+            }
+        });
+        PickerLayoutManager pickerLayoutManager = new PickerLayoutManager(getContext(), PickerLayoutManager.HORIZONTAL, false);
+        pickerLayoutManager.setChangeAlpha(true);
+        pickerLayoutManager.setScaleDownBy(0.1f);
+        pickerLayoutManager.setScaleDownDistance(0.1f);
+
+        adapter = new PickerAdapter(getContext(), getData(100), rv);
+        SnapHelper snapHelper = new LinearSnapHelper();
+        snapHelper.attachToRecyclerView(rv);
+        rv.setLayoutManager(pickerLayoutManager);
+        rv.setAdapter(adapter);
+
+        pickerLayoutManager.setOnScrollStopListener(new PickerLayoutManager.onScrollStopListener() {
+            @Override
+            public void selectedView(View view) {
+//                Toast.makeText(MainActivity.this, ("Selected value : "+((TextView) view).getText().toString()), Toast.LENGTH_SHORT).show();
+                tv_weight.setText(((TextView) view).getText());
+                if (((TextView) view).getText() == "5"){
+//                    ((TextView) view).setPadding(0,0,0,0);
+//                    ((TextView) view).setCompoundDrawablesWithIntrinsicBounds(0,R.drawable.interval,0,0);
+                }
+                else{
+//                    ((TextView) view).setPadding(0,10,0,10);
+//                    ((TextView) view).setCompoundDrawablesWithIntrinsicBounds(0,R.drawable.lines,0,0);
+                }
+
             }
         });
         return view;
@@ -358,5 +393,12 @@ public class WeightDateFragment extends Fragment {
             }
         };
         Volley.newRequestQueue(getContext()).add(stringRequestCal);
+    }
+    public List<String> getData(int count) {
+        List<String> data = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            data.add(String.valueOf(i));
+        }
+        return data;
     }
 }

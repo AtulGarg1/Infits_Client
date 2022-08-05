@@ -53,14 +53,18 @@ public class DashBoardMain extends AppCompatActivity {
                     case R.id.charts:
                         Intent ich = new Intent(DashBoardMain.this, Statistics.class);
                         startActivity(ich);
-                        //Toast.makeText(getApplicationContext(),"Charts", Toast.LENGTH_LONG).show();
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+
+                    case R.id.live:
+                        Intent icL = new Intent(DashBoardMain.this, LiveListAct.class);
+                        startActivity(icL);
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
 
                     case R.id.consul:
                         Intent icl = new Intent(DashBoardMain.this, Consultation.class);
                         startActivity(icl);
-                        //Toast.makeText(getApplicationContext(),"Consultation", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
 

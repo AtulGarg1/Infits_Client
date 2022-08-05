@@ -134,7 +134,6 @@
                 android:textSize="26sp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"/>
-
             <RadioButton
                 android:id="@+id/female"
                 android:layout_width="match_parent"

@@ -6,6 +6,9 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,13 +30,18 @@ import com.kevalpatel2106.rulerpicker.RulerValuePicker;
 import com.kevalpatel2106.rulerpicker.RulerValuePickerListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class BmiFragment extends Fragment {
 
-    String url = "http://192.168.9.1/infits/weighttracker.php";
+    String url = String.format("%sweighttracker.php",DataFromDatabase.ipConfig);
+
+    RecyclerView rv;
+    PickerAdapter adapter;
 
     RelativeLayout male, female;
     Button btnadd;
@@ -111,6 +119,8 @@ public class BmiFragment extends Fragment {
         numPicker.setMaxValue(120);
 
 
+        RecyclerView rv = view.findViewById(R.id.rv);
+
         male.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,6 +147,25 @@ public class BmiFragment extends Fragment {
             }
         });
 
+
+        PickerLayoutManager pickerLayoutManager = new PickerLayoutManager(getContext(), PickerLayoutManager.HORIZONTAL, false);
+        pickerLayoutManager.setChangeAlpha(true);
+        pickerLayoutManager.setScaleDownBy(0.1f);
+        pickerLayoutManager.setScaleDownDistance(0.1f);
+
+        adapter = new PickerAdapter(getContext(), getData(100), rv);
+        SnapHelper snapHelper = new LinearSnapHelper();
+//        snapHelper.attachToRecyclerView(rv);
+//        rv.setLayoutManager(pickerLayoutManager);
+//        rv.setAdapter(adapter);
+
+        pickerLayoutManager.setOnScrollStopListener(new PickerLayoutManager.onScrollStopListener() {
+            @Override
+            public void selectedView(View view) {
+//                Toast.makeText(MainActivity.this, ("Selected value : "+((TextView) view).getText().toString()), Toast.LENGTH_SHORT).show();
+                textView31.setText(((TextView) view).getText());
+            }
+        });
 
 //        numPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
 //            @Override
@@ -226,5 +255,12 @@ public class BmiFragment extends Fragment {
             }
         });
         return view;
+    }
+    public List<String> getData(int count) {
+        List<String> data = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            data.add(String.valueOf(i));
+        }
+        return data;
     }
 }

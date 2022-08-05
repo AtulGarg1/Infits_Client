@@ -67,13 +67,17 @@ dependencies {
     implementation 'com.github.dwfox:DWRulerView:1.0.0'
     implementation 'com.github.prolificinteractive:material-calendarview:1.5.0'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.1.1'
-//    implementation 'com.wefika:horizontal-picker:1.1.1'
     implementation 'io.github.ShawnLin013:number-picker:2.4.13'
-    implementation 'ke.tang:ruler:1.0.5'
 
+    implementation 'com.gauravbhola.ripplepulsebackground:library:1.0.0'
+
+    implementation 'com.github.ruzhan123:RippleView:v1.0'
 
     implementation ('io.socket:socket.io-client:2.0.0') {
         exclude group: 'org.json', module: 'json'
     }
 
+    implementation 'com.txusballesteros:snake:1.0'
+
+    implementation "com.polidea.rxandroidble3:rxandroidble:1.16.0"
 }

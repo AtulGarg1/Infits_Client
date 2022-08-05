@@ -27,12 +27,11 @@
         android:textColor="#545454"
         android:textSize="16sp"
         android:textStyle="bold"
+        app:layout_constraintVertical_bias="0"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.116"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.842" />
+        app:layout_constraintEnd_toEndOf="@+id/imageView54"
+        app:layout_constraintStart_toStartOf="@+id/imageView54"
+        app:layout_constraintTop_toBottomOf="@+id/imageView54" />
 
     <com.kevalpatel2106.rulerpicker.RulerValuePicker
         android:id="@+id/rulerValuePickerw"
@@ -66,6 +65,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.718" />
+
 
     <RelativeLayout
         android:layout_width="150dp"
@@ -166,7 +166,7 @@
 
     <com.shawnlin.numberpicker.NumberPicker
         android:id="@+id/numPicker"
-        android:layout_width="300dp"
+        android:layout_width="400dp"
         android:layout_height="60dp"
         app:np_textSize="20sp"
         app:np_typeface="@string/done"
@@ -174,9 +174,9 @@
         app:np_wheelItemCount="7"
         app:np_dividerType="side_lines"
         app:np_dividerThickness="0dp"
-        app:np_itemSpacing="10dp"
+        app:np_itemSpacing="5dp"
         app:np_textColor="#748D95"
-        app:np_dividerDistance="10dp"
+        app:np_dividerDistance="5dp"
         android:background="@drawable/age_picker"
         app:np_selectedTextColor="@color/white"
         app:np_wrapSelectorWheel="true"
@@ -225,7 +225,7 @@
         app:max_value="400"
         app:min_value="50"
         app:notch_color="@color/black"
-        app:ruler_text_color="@color/black" />
+        app:ruler_text_color="@color/black"/>
 
     <ImageView
         android:id="@+id/imageView53"

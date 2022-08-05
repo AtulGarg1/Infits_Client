@@ -120,7 +120,6 @@ public class WeightTrackerFragment extends Fragment {
 
         date_click.setOnClickListener(v->{
             Navigation.findNavController(v).navigate(R.id.action_weightTrackerFragment_to_weightDateFragment);
-
         });
 
         RecyclerView pastActivity = view.findViewById(R.id.past_activity);
@@ -174,7 +173,7 @@ public class WeightTrackerFragment extends Fragment {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
                 String uGender = result.getString("gender");
-                int uAge = Integer.parseInt(result.getString("age"));
+//                int uAge = Integer.parseInt(result.getString("age"));
                 float uHeight = Float.parseFloat(result.getString("height"));
                 int uWeight = Integer.parseInt(result.getString("weight"));
 
