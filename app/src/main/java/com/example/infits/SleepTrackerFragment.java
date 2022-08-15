@@ -294,34 +294,10 @@ public class SleepTrackerFragment extends Fragment {
         }
     }
 
-//    private void runTimer() {
-
-//        final Handler handler = new Handler();
-//
-//        handler.post(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//                int hours = seconds / 3600;
-//                int minutes = (seconds % 3600) / 60;
-//                int secs = seconds % 60;
-//
-//                timerTime = String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, secs);
-//
-//                texttime.setText(timerTime);
-//
-//                if(running) {
-//                    seconds++;
-//                }
-//                handler.postDelayed(this, 1000);
-//            }
-//        });
-//    }
-
     public boolean foregroundServiceRunning(){
         ActivityManager activityManager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : activityManager.getRunningServices(Integer.MAX_VALUE)){
-            if (MyService.class.getName().equals(service.service.getClassName())){
+            if (StopWatchService.class.getName().equals(service.service.getClassName())){
                 return true;
             }
         }

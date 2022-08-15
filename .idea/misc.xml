@@ -5,10 +5,12 @@
       <map>
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable-v24/ic_baseline_attach_file_24.xml" value="0.1745" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/age_picker.xml" value="0.1745" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/brand_color_for_device.xml" value="0.1" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/btn_background.xml" value="0.165" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/button_outline.xml" value="0.1995" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/circular.xml" value="0.1" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/circular_thin.xml" value="0.165" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/color_for_meal_tracker_details.xml" value="0.1" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/edit_text_background.xml" value="0.148" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/femalemalefocus.xml" value="0.1745" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/g_center.xml" value="0.1745" />
@@ -20,6 +22,7 @@
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/graph_button_sleep.xml" value="0.165" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/graph_button_water.xml" value="0.165" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/graph_button_weight.xml" value="0.165" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.1" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/message_box.xml" value="0.1745" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/outline.xml" value="0.1995" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/p_center.xml" value="0.1745" />
@@ -31,23 +34,34 @@
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/step_tracker_background.xml" value="0.165" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/switch_off.xml" value="0.1995" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/switch_on_sleep.xml" value="0.1" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/take_pic_btn.xml" value="0.146" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/water_tracker_background.xml" value="0.165" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/drawable/weighttracker.xml" value="0.165" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/activity_account_page.xml" value="0.19166666666666668" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/activity_camera_for_meal_tracker.xml" value="0.14285714285714285" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/activity_chat_area.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/activity_dash_board_main.xml" value="0.16666666666666666" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/activity_device_settings.xml" value="0.13148148148148148" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/activity_diet_plan_main_screen.xml" value="0.12571428571428572" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/activity_enter_food_details.xml" value="0.2857142857142857" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/activity_login.xml" value="0.4466666666666667" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/activity_main2.xml" value="0.1" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/activity_questions_after_scan.xml" value="0.1375" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/activity_reset_password.xml" value="0.19166666666666668" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/activity_scan.xml" value="0.1" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/activity_scan_result.xml" value="0.18857142857142858" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/activity_settings.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/activity_signup.xml" value="0.6" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/activity_statistics.xml" value="0.22" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/activity_step_tracker.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/activity_testing.xml" value="0.19166666666666668" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/add_btn_for_diet_plan.xml" value="0.3828571428571429" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/bluetooth_device.xml" value="0.1375" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/calender_dialog.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/calender_dialouge.xml" value="0.14666666666666667" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/chatareaclientmessage.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/chatareadietitianmessage.xml" value="0.1" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/food_items_list.xml" value="0.5714285714285714" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_account.xml" value="0.16666666666666666" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_bmi.xml" value="0.4466666666666667" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_dash_board.xml" value="0.22" />
@@ -70,6 +84,7 @@
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/fragment_weight_tracker.xml" value="0.40350877192982454" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/logoutdialog.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/mark.xml" value="3.3333333333333335" />
+        <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/meal_tracker_main.xml" value="0.1375" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/past_activity_layout.xml" value="0.22" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/referralcodedialog.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/row.xml" value="0.19166666666666668" />

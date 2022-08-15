@@ -91,8 +91,6 @@ public class LiveListAct extends AppCompatActivity {
                         String note = object.getString("note");
                         System.out.println(date + "  "+time+" "+ title+" "+note);
 
-
-
                         Date liveTimeToday = new SimpleDateFormat("HH:mm:ss").parse(time);
                         Calendar calendarLive = Calendar.getInstance();
                         calendarLive.setTime(liveTimeToday);
@@ -102,17 +100,19 @@ public class LiveListAct extends AppCompatActivity {
                         Date liveDate = simpleDateFormat.parse(date);
                         Log.d("MainClass", simpleTimeFormat.format(calendarLive.getTime()));
                         Log.d("MainClass", simpleTimeFormat.format(dateToday.getTime()));
-                        if (!date.equals(simpleDateFormat.format(dateToday.getTime())) && !calendarLive.before(calendar.getTime()) ){
-                            System.out.println("Inside UP");
-                            System.out.println(date.equals(simpleDateFormat.format(dateToday.getTime())));
-                            System.out.println();
-                            upTitle.add(title);
-                            upDate.add(date);
-                            upTime.add(time);
-                            upNote.add(note);
-                            upcomingList.setAdapter(new UpcomingListAdapter(getApplicationContext(),upTitle,upDate,upTime,upNote));
+                        if (liveDate.compareTo(todayDate) <= 0 && dateToday1.before(calendarLive.getTime())){
+                            if (status.equals("upcoming")){
+                                System.out.println("Inside UP");
+                                System.out.println(date.equals(simpleDateFormat.format(dateToday.getTime())));
+                                System.out.println();
+                                upTitle.add(title);
+                                upDate.add(date);
+                                upTime.add(time);
+                                upNote.add(note);
+                                upcomingList.setAdapter(new UpcomingListAdapter(getApplicationContext(),upTitle,upDate,upTime,upNote));
+                            }
                         }
-                        if (liveDate.compareTo(todayDate) <= 0 && dateToday1.after(calendarLive.getTime())){
+                        if (liveDate.compareTo(todayDate) >= 0 && dateToday1.after(calendarLive.getTime())){
                             if (status.equals("upcoming")){
                                 System.out.println("Inside Now");
                                 nowTitle.add(title);

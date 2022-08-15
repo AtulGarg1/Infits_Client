@@ -12,7 +12,11 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
 
+    <uses-feature android:name="android.hardware.camera.flash" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-feature
         android:name="android.hardware.bluetooth_le"
         android:required="true" />
@@ -29,9 +33,12 @@
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.BODY_SENSORS" />
-    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <meta-data
+        android:name="com.google.android.gms.vision.DEPENDENCIES"
+        android:value="face" />
 
     <application
         android:allowBackup="true"
@@ -42,6 +49,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Infits">
+        <activity
+            android:name=".QuestionsAfterScan"
+            android:exported="false" />
+        <activity
+            android:name=".ScanResult"
+            android:exported="false" />
+        <activity
+            android:name=".ScanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EnterFoodDetails"
+            android:exported="false" />
+        <activity
+            android:name=".CameraForMealTracker"
+            android:exported="false" />
         <activity
             android:name=".LiveListAct"
             android:exported="false" />
@@ -122,6 +144,12 @@
             android:exported="true" />
         <activity
             android:name=".Login"
+            android:exported="false" />
+        <activity
+            android:name=".Diet_plan_main_screen"
+            android:exported="false" />
+        <activity
+            android:name=".Meal_main"
             android:exported="false" />
         <activity
             android:name=".DashBoardMain"

@@ -46,7 +46,7 @@ public class DashBoardFragment extends Fragment {
             calorieGoaltv,bpmtv,bpmUptv,bpmDowntv;
     RequestQueue queue;
     ImageButton sidemenu, notifmenu;
-    CardView stepcard, heartcard, watercard, sleepcard, weightcard, caloriecard;
+    CardView stepcard, heartcard, watercard, sleepcard, weightcard, caloriecard,dietcard;
     Button btnsub, btnsub1;
     TextView name,date;
     ImageView profile;
@@ -127,6 +127,7 @@ public class DashBoardFragment extends Fragment {
         sleepcard = view.findViewById(R.id.sleepcard);
         weightcard = view.findViewById(R.id.weightcard);
         caloriecard = view.findViewById(R.id.caloriecard);
+        dietcard = view.findViewById(R.id.dietcard);
 
         name.setText(DataFromDatabase.name);
         date.setText(sf.format(dateToday));
@@ -165,7 +166,8 @@ public class DashBoardFragment extends Fragment {
         caloriecard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_calorieTrackerFragment);
+                Intent intent = new Intent(getContext(),Meal_main.class);
+                startActivity(intent);
             }
         });
 
@@ -173,6 +175,9 @@ public class DashBoardFragment extends Fragment {
             Navigation.findNavController(v).navigate(R.id.action_dashBoardFragment_to_heartRate);
         });
 
+        dietcard.setOnClickListener(v->{
+                startActivity(new Intent(getContext(),Diet_plan_main_screen.class));
+        });
 
         queue = Volley.newRequestQueue(getContext());
         Log.d("ClientMetrics","before");

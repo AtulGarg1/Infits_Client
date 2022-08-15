@@ -18,6 +18,10 @@
             android:icon="@drawable/message"
             android:title="Consultation" />
 
+        <item android:id="@+id/scan"
+            android:title="Scan"
+            android:icon="@drawable/scan"/>
+
         <item android:id="@+id/message"
             android:icon="@drawable/message"
             android:title="Messages" />

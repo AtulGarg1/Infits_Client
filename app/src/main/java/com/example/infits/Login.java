@@ -110,8 +110,8 @@ public class Login extends AppCompatActivity {
                             DataFromDatabase.age = object.getString("age");
                             DataFromDatabase.gender  = object.getString("gender");
                             DataFromDatabase.profilePhotoBase = DataFromDatabase.profilePhoto;
-                            byte[] qrimage = Base64.decode(DataFromDatabase.profilePhoto,0);
                             System.out.println(DataFromDatabase.profilePhoto);
+                            byte[] qrimage = Base64.decode(DataFromDatabase.profilePhoto,0);
                             DataFromDatabase.profile = BitmapFactory.decodeByteArray(qrimage,0,qrimage.length);
                             Log.d("Login Screen","client user id = "+ DataFromDatabase.clientuserID);
                             finish();
