@@ -143,7 +143,7 @@
             android:name=".ChatArea"
             android:exported="true" />
         <activity
-            android:name=".Login"
+            android:name=".DashBoardMain"
             android:exported="false" />
         <activity
             android:name=".Diet_plan_main_screen"
@@ -152,7 +152,7 @@
             android:name=".Meal_main"
             android:exported="false" />
         <activity
-            android:name=".DashBoardMain"
+            android:name=".Login"
             android:exported="true"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
             <intent-filter>

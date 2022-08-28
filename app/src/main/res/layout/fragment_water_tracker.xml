@@ -7,96 +7,66 @@
     android:background="@drawable/water_tracker_background"
     tools:context=".WaterTrackerFragment">
 
-    <ImageView
-        android:id="@+id/imgback"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:backgroundTint="@color/waterblue"
-        app:tint="@color/white"
-        android:layout_margin="25dp"
-        app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24" />
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/imgback"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="24dp"
+            android:backgroundTint="@android:color/transparent"
+            app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24"
+            app:tint="@color/white" />
 
         <TextView
-            android:id="@+id/wgoal3"
+            android:id="@+id/textviewstep"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
             android:fontFamily="@font/nats_regular"
-            android:text="Goal Reached"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.543" />
-
-
-        <TextView
-            android:id="@+id/water_goal_percent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nats_regular"
-            android:text="50%"
-            android:textColor="@color/white"
-            android:textSize="60dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.489" />
-
-        <TextView
-            android:id="@+id/textviewsleep"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nats_regular"
+            android:gravity="center"
             android:text="WATER TRACKER"
             android:textColor="@color/white"
-            android:textSize="38dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            android:textSize="28sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_marginTop="80dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@android:color/transparent"
-            app:flow_horizontalBias="0.3"
             app:cardElevation="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/water_goal_percent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.42"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textviewsleep">
+            android:layout_gravity="center"
+            android:layout_marginEnd="15dp">
 
             <ImageView
                 android:id="@+id/imageView5"
-                android:layout_width="249dp"
-                android:layout_height="252dp"
-                android:transformPivotY="300dp"
-
+                android:layout_width="130dp"
+                android:layout_height="272dp"
                 android:src="@drawable/water_bottle" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/addliq"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="70dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_horizontal|top"
                 android:layout_marginStart="15dp"
-                android:background="@drawable/btn_background"
-                app:srcCompat="@drawable/ic_baseline_add_24"
-                app:tint="@color/white" />
+                android:layout_marginTop="60dp"
+                app:srcCompat="@drawable/water_add"/>
 
             <TextView
                 android:id="@+id/water_goal"
@@ -104,8 +74,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="1800ml"
-                android:layout_marginTop="70dp"
-                android:textSize="8dp"
+                android:layout_marginTop="85dp"
+                android:textSize="6sp"
                 android:textColor="#0051AB"
                 android:fontFamily="@font/roboto_regular"
                 android:layout_marginStart="15dp"/>
@@ -124,49 +94,48 @@
 
         </androidx.cardview.widget.CardView>
 
-        <ImageView
-            android:id="@+id/imageView15"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:src="@drawable/waterrect"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.513" />
-
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="70dp"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/waterrect">
+                <TextView
+                    android:id="@+id/water_goal_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nats_regular"
+                    android:text="50%"
+                    android:textColor="@color/white"
+                    android:textSize="40sp"
+                    android:layout_marginTop="-20dp"/>
+                <TextView
+                    android:id="@+id/wgoal3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nats_regular"
+                    android:text="Goal Reached"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:layout_marginTop="-30dp"/>
+            </LinearLayout>
         <Button
             android:id="@+id/setgoal_watertracker"
             android:layout_width="120dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
+            android:fontFamily="@font/nats_regular"
             android:text="Set Goal"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:cornerRadius="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/wgoal3"
-            app:layout_constraintVertical_bias="0" />
+            android:layout_marginTop="10dp"/>
 
-        <!--        <ImageView-->
-        <!--            android:id="@+id/waterGoal"-->
-        <!--            android:layout_width="24dp"-->
-        <!--            android:layout_height="23dp"-->
-        <!--            android:scaleType="fitXY"-->
-        <!--            android:clickable="true"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintHorizontal_bias="0.321"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toTopOf="parent"-->
-        <!--            app:layout_constraintVertical_bias="0.21"-->
-        <!--            app:srcCompat="@drawable/watergoalpic" />-->
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 
 
 
@@ -194,19 +163,20 @@
                 android:layout_height="24dp"
                 android:src="@drawable/wateruparrow"
                 android:layout_gravity="center_horizontal"
-                />
+                android:layout_marginTop="10dp"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="25dp">
                 <ImageView
-                    android:layout_width="80dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/pastline"
                     android:layout_gravity="center"
-                    />
+                    android:layout_weight="2"/>
                 <TextView
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
@@ -216,14 +186,14 @@
                     android:fontFamily="@font/nats_regular"
                     android:layout_margin="10dp"
                     android:layout_gravity="center"
-                    android:textSize="20sp" />
+                    android:textSize="14sp" />
 
                 <ImageView
-                    android:layout_width="80dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/pastline"
                     android:layout_gravity="center"
-                    />
+                    android:layout_weight="2"/>
 
             </LinearLayout>
 

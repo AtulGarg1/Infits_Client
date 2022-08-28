@@ -70,7 +70,7 @@ public class Account extends Fragment {
     private String imgPath = null;
     private final int PICK_IMAGE_CAMERA = 1, PICK_IMAGE_GALLERY = 2;
 
-    String url = "http://192.168.9.1/infits/save.php";
+    String url = String.format("%ssave.php",DataFromDatabase.ipConfig);
 
     ActivityResultLauncher<String> photo;
 
@@ -469,12 +469,10 @@ public class Account extends Fragment {
                     profile_pic.setImageBitmap(bitmap);
                   /*  imgPath = getRealPathFromURI(selectedImage);
                     destination = new File(imgPath.toString());*/
-
                 }
             } catch (Exception e) {
                 Toast.makeText(getActivity(),"No picture selected",Toast.LENGTH_SHORT).show();
             }
-
         }
     }
 

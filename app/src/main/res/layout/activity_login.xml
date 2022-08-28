@@ -17,43 +17,44 @@
         app:srcCompat="@drawable/infits"
         android:layout_weight="1"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutUsername"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <EditText
+        android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginHorizontal="40dp"
         android:fontFamily="@font/nats_regular"
         android:hint="Username"
+        android:textSize="14sp"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="10dp"
+        android:background="@drawable/username_background"
         android:textColorHint="@color/white"
-        app:boxStrokeColor="@color/white"
-        app:hintTextColor="@color/white">
+        android:textColor="@color/white"
+        app:hintTextColor="@color/white"
+        android:inputType="textPersonName" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/username"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </com.google.android.material.textfield.TextInputLayout>
+<!--        <com.google.android.material.textfield.TextInputEditText-->
+<!--            android:id="@+id/username"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"/>-->
+<!--    </com.google.android.material.textfield.TextInputLayout>-->
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutPassword"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <EditText
+        android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginHorizontal="40dp"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/nats_regular"
         android:hint="Password"
+        android:textSize="14sp"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="10dp"
+        android:background="@drawable/password_background"
         android:textColorHint="@color/white"
-        app:boxStrokeColor="@color/white"
-        app:hintTextColor="@color/white">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
+        android:textColor="@color/white"
+        app:hintTextColor="@color/white"
+        android:inputType="textPassword"/>
 
     <TextView
         android:id="@+id/fpass"
@@ -65,16 +66,17 @@
         android:fontFamily="@font/nats_regular"
         android:text="Forgot Password?"
         android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:layout_marginTop="6dp"
+        android:textSize="12sp" />
 
     <Button
         android:id="@+id/logbtn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginHorizontal="40dp"
-        android:layout_marginTop="10dp"
         android:backgroundTint="@color/white"
         android:fontFamily="@font/nats_regular"
+        android:layout_marginTop="25dp"
         android:text="Login"
         android:textAlignment="center"
         android:textAllCaps="false"
@@ -97,23 +99,23 @@
 
         <ImageView
             android:id="@+id/imageButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
             android:scaleType="fitXY"
             android:src="@drawable/google_sign"  />
 
         <ImageView
             android:id="@+id/imageButton1"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
             android:layout_marginHorizontal="45dp"
             android:scaleType="fitXY"
             android:src="@drawable/twitter_sign"/>
 
         <ImageView
             android:id="@+id/imageButton2"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
             android:scaleType="fitXY"
             android:src="@drawable/twitter_sign"/>
 
@@ -122,7 +124,7 @@
     <TextView
         android:id="@+id/reg"
         android:layout_width="160dp"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:clickable="true"
         android:drawableBottom="@drawable/horizontal_line"
         android:fontFamily="@font/nats_regular"

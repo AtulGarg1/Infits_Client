@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 public class LiveListAct extends AppCompatActivity {
@@ -135,7 +136,11 @@ public class LiveListAct extends AppCompatActivity {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                return super.getParams();
+
+                Map<String,String> data = new HashMap<>();
+                data.put("dietitianuserID",DataFromDatabase.dietitianuserID);
+
+                return data;
             }
         };
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());

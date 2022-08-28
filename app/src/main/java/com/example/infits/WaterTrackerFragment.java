@@ -48,8 +48,7 @@ import java.util.Map;
  */
 public class WaterTrackerFragment extends Fragment {
 
-    ImageButton addliq;
-    ImageView  imgback;
+    ImageView  imgback,addliq;
     TextView waterGoalPercent, wgoal3, textViewsleep,consumed;
     TextView waterGoal;
     String liqType, liqAmt;
@@ -150,7 +149,7 @@ public class WaterTrackerFragment extends Fragment {
         @Override
         protected Map<String, String> getParams() throws AuthFailureError {
             Map<String,String> data = new HashMap<>();
-            data.put("","");
+            data.put("clientID",DataFromDatabase.clientuserID);
             return data;
         }
     };
@@ -163,6 +162,7 @@ public class WaterTrackerFragment extends Fragment {
                 final Dialog dialog = new Dialog(getActivity());
                 dialog.setCancelable(true);
                 dialog.setContentView(R.layout.watergoaldialog);
+                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                 final EditText goaltxt = dialog.findViewById(R.id.goal_water);
                 Button setGoalBtn = dialog.findViewById(R.id.set_water_goal);
                 setGoalBtn.setOnClickListener(v->{
@@ -179,9 +179,9 @@ public class WaterTrackerFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 final Dialog dialog = new Dialog(getActivity());
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setCancelable(true);
                 dialog.setContentView(R.layout.fragment_add_liquid);
+                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
                 Button addDrank = dialog.findViewById(R.id.addbtn);
 
@@ -190,6 +190,8 @@ public class WaterTrackerFragment extends Fragment {
                 TextView choosed = dialog.findViewById(R.id.liqamt);
 
                 final int[] value = new int[1];
+
+
 
                 slider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
                     @Override
@@ -201,7 +203,7 @@ public class WaterTrackerFragment extends Fragment {
                     public void onStopTrackingTouch(@NonNull Slider slider) {
 
                         value[0] = (int) slider.getValue();
-                        choosed.setText(String.valueOf(value[0]));
+                        choosed.setText(String.valueOf((float) value[0]));
                         Log.d("Water",String.valueOf(value[0]));
 
                     }

@@ -10,6 +10,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,10 +70,10 @@ public class Login extends AppCompatActivity {
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextInputLayout username= findViewById(R.id.textInputLayoutUsername);
-                TextInputLayout password= findViewById(R.id.textInputLayoutPassword);
-                usernameStr = username.getEditText().getText().toString().trim();
-                passwordStr = password.getEditText().getText().toString().trim();
+                EditText username= findViewById(R.id.username);
+                EditText password= findViewById(R.id.password);
+                usernameStr = username.getText().toString();
+                passwordStr = password.getText().toString();
 
                 loginbtn.setClickable(false);
 
@@ -92,15 +93,10 @@ public class Login extends AppCompatActivity {
                             DataFromDatabase.dietitianuserID = object.getString("dietitianuserID");
                             DataFromDatabase.name = object.getString("name");
                             Log.d("name login",DataFromDatabase.name);
-
                             SharedPreferences loginDetails = getSharedPreferences("loginDetails",MODE_PRIVATE);
-
                             SharedPreferences.Editor editor = loginDetails.edit();
-
                             editor.putString("name",object.getString("name"));
-
                             editor.putString("clientuserID",object.getString("clientuserID"));
-
                             editor.apply();
                             DataFromDatabase.password = object.getString("password");
                             DataFromDatabase.email = object.getString("email");
@@ -110,7 +106,14 @@ public class Login extends AppCompatActivity {
                             DataFromDatabase.age = object.getString("age");
                             DataFromDatabase.gender  = object.getString("gender");
                             DataFromDatabase.profilePhotoBase = DataFromDatabase.profilePhoto;
-                            System.out.println(DataFromDatabase.profilePhoto);
+
+                            if (object.getString("verification").equals("0")){
+                                DataFromDatabase.proUser = false;
+                            }
+                            if (object.getString("verification").equals("1")){
+                                DataFromDatabase.proUser = true;
+                            }
+                            System.out.println(DataFromDatabase.proUser+" Prouser");
                             byte[] qrimage = Base64.decode(DataFromDatabase.profilePhoto,0);
                             DataFromDatabase.profile = BitmapFactory.decodeByteArray(qrimage,0,qrimage.length);
                             Log.d("Login Screen","client user id = "+ DataFromDatabase.clientuserID);

@@ -395,7 +395,6 @@ public class Diet_plan_main_screen extends AppCompatActivity {
                 fri.setTextColor(Color.parseColor("#1D8BF1"));
                 sat.setBackgroundColor(Color.WHITE);
                 sat.setTextColor(Color.parseColor("#1D8BF1"));
-
             }
             if (checkedId == R.id.wed) {
                 setNullAdapter();
@@ -753,8 +752,8 @@ public class Diet_plan_main_screen extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> data = new HashMap<>();
-                data.put("dietitianuserID","Rahul");
-                data.put("clientID","Azarudeen");
+                data.put("dietitianID",DataFromDatabase.dietitianuserID);
+                data.put("clientID",DataFromDatabase.clientuserID);
                 data.put("day",day);
                 return data;
             }

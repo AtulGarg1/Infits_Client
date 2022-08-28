@@ -1,18 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="320dp"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".WeightDateFragment"
-    android:orientation="vertical">
+    app:cardElevation="0dp"
+    app:cardCornerRadius="10dp"
+    android:background="@color/white"
+    android:layout_margin="10dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_gravity="center">
 
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         android:id="@+id/calendarView"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        app:mcv_tileWidth="45dp"
-        app:mcv_tileHeight="30dp"
+        app:mcv_tileWidth="35dp"
+        app:mcv_tileHeight="35dp"
+        android:padding="5dp"
         android:layout_gravity="center"
         app:mcv_arrowColor="@color/weightcolor"
         app:mcv_firstDayOfWeek="sunday"
@@ -22,10 +33,10 @@
         app:mcv_selectionColor="#4A9DFF"
         app:mcv_showOtherDates="all"
         app:mcv_weekDayTextAppearance="@style/CustomCalendarWeek"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="20dp"/>
 
     <ImageView
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="55dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/caldetails" />
@@ -37,46 +48,29 @@
         android:text="70"
         android:fontFamily="@font/nats_regular"
         android:textColor="#545454"
-        android:textSize="80sp"
+        android:textSize="60sp"
         android:textStyle="bold"
         android:layout_gravity="center"
-        android:layout_marginTop="-10dp"
+        android:layout_marginTop="-20dp"
         android:letterSpacing="0"
-        android:layout_marginBottom="-30dp"/>
+        android:layout_marginBottom="-20dp"/>
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/upline"
-        android:layout_margin="10dp"
+        android:layout_marginHorizontal="10dp"
         android:layout_gravity="center"/>
-
-<!--    <com.kevalpatel2106.rulerpicker.RulerValuePicker-->
-<!--        android:id="@+id/rulerValuePicker"-->
-<!--        android:layout_width="300dp"-->
-<!--        android:layout_height="90dp"-->
-<!--        app:indicator_color="@color/black"-->
-<!--        app:indicator_interval="10dp"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:background="@color/transparent"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.496"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.833"-->
-<!--        app:max_value="300"-->
-<!--        app:min_value="10"-->
-<!--        app:ruler_text_color="@color/black" />-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="wrap_content"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:clipToPadding="false"
+        android:layout_gravity="center"
         android:paddingLeft="183dp"
         android:paddingRight="183dp"
-        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
         android:layout_marginHorizontal="15dp"/>
 
 
@@ -84,19 +78,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/upline"
-        android:layout_margin="10dp"
+        android:layout_marginHorizontal="10dp"
         android:layout_gravity="center"/>
     <Button
         android:id="@+id/btnadd"
-        android:layout_width="200dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/weightcolor"
         android:text="Save"
         android:fontFamily="@font/nats_regular"
         android:textColor="@color/white"
-        android:textSize="24sp"
+        android:textSize="16sp"
         app:cornerRadius="30sp"
         android:layout_gravity="center"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="30dp"/>
 
-</LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

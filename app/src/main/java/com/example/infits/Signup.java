@@ -42,7 +42,7 @@ public class Signup extends AppCompatActivity {
         term = (TextView) findViewById(R.id.term);
         memlog = (TextView) findViewById(R.id.memlog);
         signbtn = (Button) findViewById(R.id.signbtn);
-        fullName = findViewById(R.id.new_full_name);
+        fullName = findViewById(R.id.new_name);
         userName = findViewById(R.id.new_user_name);
         emailID = findViewById(R.id.new_email);
         password = findViewById(R.id.new_password);

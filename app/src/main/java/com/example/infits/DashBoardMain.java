@@ -48,6 +48,7 @@ public class DashBoardMain extends AppCompatActivity {
                         startActivity(idb);
                         //Toast.makeText(getApplicationContext(),"Dashboard", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
+                        finish();
                         break;
 
                     case R.id.charts:
@@ -79,10 +80,12 @@ public class DashBoardMain extends AppCompatActivity {
                         startActivity(imt);
                         //Toast.makeText(getApplicationContext(),"Settings", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
                     case R.id.scan:
                         Intent iscan = new Intent(DashBoardMain.this,ScanActivity.class);
                         startActivity(iscan);
                         drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
                 }
                 return true;
             }

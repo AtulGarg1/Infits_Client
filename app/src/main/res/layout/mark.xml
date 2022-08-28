@@ -9,14 +9,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text=""
-        android:textSize="12sp"
-        android:padding="10dp"
-        android:textColor="@android:color/white"
+        android:background="@drawable/_mark"
+        android:backgroundTint="#263238"
         android:ellipsize="end"
+        android:padding="7dp"
         android:singleLine="true"
-        android:background="#263238"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/white"
+        android:textSize="8sp" />
 <ImageView
     android:layout_width="20dp"
     android:layout_height="20dp"

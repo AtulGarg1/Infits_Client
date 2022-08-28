@@ -135,7 +135,7 @@ GaugeSeekBar  progressBar;
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> data = new HashMap<>();
-                data.put("","");
+                data.put("clientID",DataFromDatabase.clientuserID);
                 return data;
             }
         };
@@ -156,6 +156,7 @@ GaugeSeekBar  progressBar;
                 final Dialog dialog = new Dialog(getActivity());
                 dialog.setCancelable(true);
                 dialog.setContentView(R.layout.setgoaldialog);
+                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                 Intent serviceIntent = new Intent(getActivity(), MyService.class);
                 if (!foregroundServiceRunning()){
                     ContextCompat.startForegroundService(getActivity(), serviceIntent);

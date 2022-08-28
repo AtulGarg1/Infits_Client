@@ -6,6 +6,37 @@
     android:layout_height="match_parent"
     android:background="@drawable/sleep_tracker_bakcground"
     tools:context=".SleepTrackerFragment">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imgback"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="24dp"
+            android:backgroundTint="@android:color/transparent"
+            app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/textviewstep"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/nats_regular"
+            android:gravity="center"
+            android:text="SLEEP TRACKER"
+            android:textColor="@color/white"
+            android:textSize="28sp" />
+    </RelativeLayout>
+
 <ImageView
     android:layout_width="150dp"
     android:layout_height="150dp"
@@ -13,23 +44,12 @@
     android:layout_marginTop="50dp"
     android:background="@drawable/moon"/>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/imgback"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_margin="30dp"
-            android:backgroundTint="@null"
-            app:layout_constraintBottom_toBottomOf="@+id/textviewsleep"
-            app:layout_constraintEnd_toStartOf="@+id/textviewsleep"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textviewsleep"
-            app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24"
-            app:tint="@color/white" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
         <TextView
             android:id="@+id/texttime"
@@ -38,13 +58,8 @@
             android:fontFamily="@font/baloo2"
             android:text="Time"
             android:textColor="@color/white"
-            android:textSize="100dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.204" />
+            android:textSize="70sp"
+            android:layout_marginTop="120dp"/>
 
         <Button
             android:id="@+id/endcycle"
@@ -57,62 +72,32 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             app:cornerRadius="10sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.390" />
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/startcycle"
             android:layout_width="150dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:backgroundTint="#310580"
             android:fontFamily="@font/nats_regular"
             android:text="Start Cycle"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="12sp"
             app:cornerRadius="10sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.390" />
+            android:layout_marginTop="20dp"/>
 
-
-        <TextView
-            android:id="@+id/textviewsleep"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nats_regular"
-            android:text="SLEEP TRACKER"
-            android:textColor="@color/white"
-            android:textSize="38sp"
-            app:layout_constraintBottom_toTopOf="@+id/texttime"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/setalarm"
             android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:background="@drawable/button_outline"
-            android:backgroundTint="@color/sleeppurple"
+            android:layout_height="35dp"
+            android:background="@drawable/set_alarm_border"
             android:fontFamily="@font/nats_regular"
             android:text="Set an alarm"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.465" />
+            android:textSize="12sp"
+            android:layout_marginTop="15dp"/>
 
         <TextView
             android:id="@+id/tvDuration"
@@ -122,13 +107,9 @@
             android:text="Optimal time to wake up is 8 AM"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.545" />
+            android:layout_marginTop="10dp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/bottom_sheet1"
@@ -154,19 +135,20 @@
                 android:layout_height="24dp"
                 android:src="@drawable/sleepuparrow"
                 android:layout_gravity="center_horizontal"
-                />
+                android:layout_marginTop="10dp"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="25dp">
                 <ImageView
-                    android:layout_width="80dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/pastline"
                     android:layout_gravity="center"
-                    />
+                    android:layout_weight="2"/>
                 <TextView
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
@@ -176,17 +158,15 @@
                     android:fontFamily="@font/nats_regular"
                     android:layout_margin="10dp"
                     android:layout_gravity="center"
-                    android:textSize="20sp" />
+                    android:textSize="14sp" />
 
                 <ImageView
-                    android:layout_width="80dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/pastline"
                     android:layout_gravity="center"
-                    />
-
+                    android:layout_weight="2"/>
             </LinearLayout>
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/past_activity"
                 android:layout_width="wrap_content"

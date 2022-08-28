@@ -61,15 +61,6 @@ public class HeartFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Fragment_Heart.
-     */
-    // TODO: Rename and change types and number of parameters
     public static HeartFragment newInstance(String param1, String param2) {
         HeartFragment fragment = new HeartFragment();
         Bundle args = new Bundle();
@@ -94,49 +85,49 @@ public class HeartFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_heart, container, false);
 
-        customdates_btn = view.findViewById(R.id.customdates_btn);
-        year_btn = view.findViewById(R.id.year_btn);
-        month_btn = view.findViewById(R.id.month_btn);
-
-//        week_btn = view.findViewById(R.id.week_btn);
-
-        MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.dateRangePicker();
-        MaterialDatePicker materialDatePicker = builder.build();
-
-        customdates_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                customdates_btn.setBackgroundResource(R.drawable.switch_on_heart);
-                materialDatePicker.show(getFragmentManager(),"DATE_PICKER");
-            }
-        });
-
-        materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
-            @Override
-            public void onPositiveButtonClick(Object selection) {
-                Toast.makeText(getContext(),"Selected rrange: "+ materialDatePicker.getHeaderText(),Toast.LENGTH_SHORT).show();
-                customDates= materialDatePicker.getHeaderText();
-            }
-        });
-
-        year_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                year_btn.setBackgroundResource(R.drawable.switch_on_heart);
-
-            }
-        });
-
-        month_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                month_btn.setBackgroundResource(R.drawable.switch_on_heart);
-
-            }
-        });
+//        customdates_btn = view.findViewById(R.id.customdates_btn);
+//        year_btn = view.findViewById(R.id.year_btn);
+//        month_btn = view.findViewById(R.id.month_btn);
+//
+////        week_btn = view.findViewById(R.id.week_btn);
+//
+//        MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.dateRangePicker();
+//        MaterialDatePicker materialDatePicker = builder.build();
+//
+//        customdates_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                customdates_btn.setBackgroundResource(R.drawable.switch_on_heart);
+//                materialDatePicker.show(getFragmentManager(),"DATE_PICKER");
+//            }
+//        });
+//
+//        materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
+//            @Override
+//            public void onPositiveButtonClick(Object selection) {
+//                Toast.makeText(getContext(),"Selected rrange: "+ materialDatePicker.getHeaderText(),Toast.LENGTH_SHORT).show();
+//                customDates= materialDatePicker.getHeaderText();
+//            }
+//        });
+//
+//        year_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                year_btn.setBackgroundResource(R.drawable.switch_on_heart);
+//
+//            }
+//        });
+//
+//        month_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                month_btn.setBackgroundResource(R.drawable.switch_on_heart);
+//
+//            }
+//        });
 
 
 //        week_btn.setOnClickListener(new View.OnClickListener() {

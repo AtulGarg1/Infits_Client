@@ -5,24 +5,24 @@
         <corners android:radius="5dp"/>
         <solid android:color="@color/white"/>
     </shape></item>
-    <item android:width="160dp"
+    <item android:width="110dp"
         android:height="2dp" android:gravity="top|left"><shape  android:shape="rectangle">
         <solid android:color="#E0E0E0"/>
     </shape></item>
-    <item android:width="160dp"
+    <item android:width="110dp"
         android:height="2dp" android:gravity="top|end"><shape  android:shape="rectangle">
         <solid android:color="#E0E0E0"/>
     </shape></item>
-    <item android:width="160dp"
+    <item android:width="110dp"
         android:height="2dp" android:gravity="bottom|end"><shape  android:shape="rectangle">
         <solid android:color="#E0E0E0"/>
     </shape></item>
-    <item android:width="160dp"
+    <item android:width="110dp"
         android:height="2dp" android:gravity="bottom|left"><shape  android:shape="rectangle">
         <solid android:color="#E0E0E0"/>
     </shape></item>
-    <item android:width="60dp"
-        android:height="60dp"
+    <item android:width="45dp"
+        android:height="45dp"
         android:gravity="center">
         <shape  android:shape="rectangle">
             <corners android:radius="5dp"/>

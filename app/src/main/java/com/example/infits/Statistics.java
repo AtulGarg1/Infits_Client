@@ -29,7 +29,7 @@ public class Statistics extends AppCompatActivity {
 
     ImageButton steps_btn, heart_btn, water_btn, sleep_btn, weight_btn;
 
-    TextView daily,weekly,monthly,total;
+    TextView daily,weekly,monthly,total,dailytv,weeklytv,monthlytv,totaltv;
 
     ImageView plus;
 
@@ -50,6 +50,11 @@ public class Statistics extends AppCompatActivity {
         monthly = findViewById(R.id.monthly_Avg);
         total = findViewById(R.id.total);
 
+        dailytv = findViewById(R.id.dailytv);
+        weeklytv = findViewById(R.id.weeklytv);
+        monthlytv = findViewById(R.id.monthlytv);
+        totaltv = findViewById(R.id.totaltv);
+
         plus = findViewById(R.id.plus);
 
         stepsCount();
@@ -65,6 +70,14 @@ public class Statistics extends AppCompatActivity {
             monthly.setBackground(getDrawable(R.drawable.graph_button));
             total.setBackground(getDrawable(R.drawable.graph_button));
             plus.setImageDrawable(getDrawable(R.drawable.plus));
+
+            dailytv.setText("Steps");
+            weeklytv.setText("Steps");
+            monthlytv.setText("Steps");
+            totaltv.setText("Steps");
+
+
+
             stepsCount();
             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView2,new StepsFragment()).commit();
         });
@@ -81,7 +94,11 @@ public class Statistics extends AppCompatActivity {
             total.setBackground(getDrawable(R.drawable.graph_button_heart));
             plus.setImageDrawable(getDrawable(R.drawable.plus_heart));
 
-//            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView2,new HeartFragment()).commit();
+            dailytv.setText("BPM");
+            weeklytv.setText("BPM");
+            monthlytv.setText("BPM");
+            totaltv.setText("BPM");
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView2,new HeartFragment()).commit();
         });
 
         water_btn.setOnClickListener(v ->{
@@ -91,6 +108,12 @@ public class Statistics extends AppCompatActivity {
             sleep_btn.setBackgroundResource(R.drawable.sleep_stat_unselected);
             weight_btn.setBackgroundResource(R.drawable.weight_stat_unselected);
             waterCount();
+
+            dailytv.setText("ML");
+            weeklytv.setText("ML");
+            monthlytv.setText("ML");
+            totaltv.setText("ML");
+
             daily.setBackground(getDrawable(R.drawable.graph_button_water));
             weekly.setBackground(getDrawable(R.drawable.graph_button_water));
             monthly.setBackground(getDrawable(R.drawable.graph_button_water));
@@ -112,6 +135,13 @@ public class Statistics extends AppCompatActivity {
             monthly.setBackground(getDrawable(R.drawable.graph_button_sleep));
             total.setBackground(getDrawable(R.drawable.graph_button_sleep));
             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView2,new SleepFragment()).commit();
+
+            dailytv.setText("Hours");
+            weeklytv.setText("Hours");
+            monthlytv.setText("Hours");
+            totaltv.setText("Hours");
+
+
         });
 
         weight_btn.setOnClickListener(v ->{
@@ -127,6 +157,11 @@ public class Statistics extends AppCompatActivity {
             weightCount();
             plus.setImageDrawable(getDrawable(R.drawable.plus_weight));
             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView2,new WeightFragment()).commit();
+            dailytv.setText("KG");
+            weeklytv.setText("KG");
+            monthlytv.setText("KG");
+            totaltv.setText("KG");
+
         });
     }
 

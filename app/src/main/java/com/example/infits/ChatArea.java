@@ -78,8 +78,8 @@ public class ChatArea extends AppCompatActivity {
     TextView name;
     EditText message;
     ImageView profile_pic;
-    String url = "http://192.168.99.91/dietian/messages.php";
-    String url3 = "http://192.168.99.91/dietian/messagesSend.php";
+    String url = String.format("%smessages.php",DataFromDatabase.ipConfig);
+    String url3 = String.format("%smessagesSend.php",DataFromDatabase.ipConfig);
     DataFromDatabase dataFromDatabase;
     RequestQueue queue;
     List<ChatMessage> msg=new ArrayList<>();
@@ -97,12 +97,13 @@ public class ChatArea extends AppCompatActivity {
         r1=findViewById(R.id.FrameContainerMessages);
 
         send = findViewById(R.id.send_message_btn);
-        chat_area_client_name = "Rahul";
+
         name = findViewById(R.id.chat_area_client_name);
-        name.setText(chat_area_client_name);
+        name.setText(DataFromDatabase.dietitianuserID);
         profile_pic = findViewById(R.id.chat_area_profile_pic);
         message = findViewById(R.id.typed_message);
         Button send = findViewById(R.id.send_message_btn);
+        profile_pic.setImageBitmap(DataFromDatabase.dtPhoto);
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

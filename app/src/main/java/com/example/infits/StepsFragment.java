@@ -181,7 +181,9 @@ public class StepsFragment extends Fragment {
             public void onClick(View v) {
                 NoOfEmp.removeAll(NoOfEmp);
                 String url = String.format("%sstepsGraph.php",DataFromDatabase.ipConfig);
-                StringRequest stringRequest = new StringRequest(Request.Method.GET,url,response -> {
+                StringRequest stringRequest = new StringRequest(Request.Method.POST,url,response -> {
+                    System.out.println(DataFromDatabase.clientuserID);
+                    System.out.println(response);
                     List<String> allNames = new ArrayList<>();
                     JSONObject jsonResponse = null;
                     try {
@@ -212,7 +214,16 @@ public class StepsFragment extends Fragment {
                     }
                 },error -> {
                     Log.d("Data",error.toString().trim());
-                });
+                }){
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+
+                        Map<String,String> dataVol  = new HashMap<>();
+                        dataVol.put("clientuserID" , DataFromDatabase.clientuserID);
+                        return dataVol;
+                    }
+                };
                 Volley.newRequestQueue(getActivity()).add(stringRequest);
             }
         });
@@ -264,7 +275,18 @@ public class StepsFragment extends Fragment {
                 }
             },error -> {
                 Log.d("Data",error.toString().trim());
-            });
+            }){
+                @Nullable
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+
+                    Map<String,String> data = new HashMap<>();
+
+                    data.put("clientID",DataFromDatabase.clientuserID);
+
+                    return data;
+                }
+            };
             Volley.newRequestQueue(getActivity()).add(stringRequest);
         });
         year_radioButton.setOnClickListener(v->{
@@ -297,7 +319,18 @@ public class StepsFragment extends Fragment {
                 }
             },error -> {
                 Log.d("Data",error.toString().trim());
-            });
+            }){
+                @Nullable
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+
+                    Map<String,String> data = new HashMap<>();
+
+                    data.put("clientID",DataFromDatabase.clientuserID);
+
+                    return data;
+                }
+            };
             Volley.newRequestQueue(getActivity()).add(stringRequest);
         });
         custom_radioButton.setOnClickListener(v->{
@@ -364,6 +397,7 @@ public class StepsFragment extends Fragment {
                         Map<String,String> data = new HashMap<>();
 //                        data.put("from",from);
 //                        data.put("to",to);
+                        data.put("clientID",DataFromDatabase.clientuserID);
                         return data;
                     }
                 };

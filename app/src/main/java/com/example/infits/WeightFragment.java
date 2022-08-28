@@ -1,5 +1,6 @@
 package com.example.infits;
 
+import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +40,7 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.savvi.rangedatepicker.CalendarPickerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,8 +49,10 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class WeightFragment extends Fragment {
@@ -278,76 +283,81 @@ public class WeightFragment extends Fragment {
             Volley.newRequestQueue(getActivity()).add(stringRequest);
         });
         custom_radioButton.setOnClickListener(v->{
-            final GraphView graph = (GraphView) view.findViewById(R.id.graph);
-            String url = "http://192.168.110.91/infits/stepsGraph.php";
-            String from = "2022-09-10";
-            String to = "2022-09-17";
-            SimpleDateFormat fromTo = new SimpleDateFormat("yyyy-MM-dd");
-            String [] days = new String[7];
-            float[] dataPoints= new float[7];
-            StringRequest stringRequest = new StringRequest(Request.Method.GET,url,response -> {
-                graph.removeAllSeries();
-                List<String> allNames = new ArrayList<String>();
-                JSONObject jsonResponse = null;
-                try {
-                    jsonResponse = new JSONObject(response);
-                    JSONArray cast = jsonResponse.getJSONArray("steps");
+            final Dialog dialog = new Dialog(getActivity());
+            dialog.setCancelable(true);
+            dialog.setContentView(R.layout.calender_dialog);
+            final Calendar nextYear = Calendar.getInstance();
+            nextYear.add(Calendar.YEAR,10);
 
-                    for (int i=0; i<cast.length(); i++) {
-                        JSONObject actor = cast.getJSONObject(i);
-                        String name = actor.getString("steps");
-                        String date = actor.getString("date");
-                        allNames.add(name);
-                        Log.d("Length", allNames.get(i));
-                        days[i] = date;
-                        dataPoints[i] = Float.parseFloat(allNames.get(i))/1000;
-                        Log.d("Length", String.valueOf(dataPoints[i]));
-                        Log.d("Length",days[i]);
-                    }
-                    DataPoint[] values = new DataPoint[dataPoints.length];
-                    for(int i =0; i<dataPoints.length; i++){
-                        if (i==0){
-                            DataPoint val = new DataPoint(0, 0);
-                            values[i] = val;
-                        }
-                        else if (i == 6){
-                            DataPoint val = new DataPoint(i+1, dataPoints[i]);
-                            values[i] = val;
-                        }
-                        else{
-                            DataPoint val = new DataPoint(i, dataPoints[i]);
-                            values[i] = val;
-                        }
-                    }
-                    LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(values);
-                    StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
-                    staticLabelsFormatter.setHorizontalLabels(days);
-                    staticLabelsFormatter.setVerticalLabels(new String[] {"0", "1000", "2000", "3000","4000","5000","6000","7000","8000","9000","10000"});
-                    graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-                    graph.getGridLabelRenderer().setNumHorizontalLabels(7);
-                    graph.getViewport().setMinX(1);
-                    graph.getViewport().setMaxX(7);
-                    graph.getViewport().setXAxisBoundsManual(true);
-                    series.setDrawDataPoints(true);
-                    series.setDataPointsRadius(10);
-                    graph.addSeries(series);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            },error -> {
-                Log.d("Data",error.toString().trim());
-            }){
-                @Nullable
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
+            final Calendar lastYear = Calendar.getInstance();
+            lastYear.add(Calendar.YEAR, -10);
 
-                    Map<String,String> data = new HashMap<>();
-                    data.put("from",from);
-                    data.put("to",to);
-                    return data;
-                }
-            };
-            Volley.newRequestQueue(getActivity()).add(stringRequest);
+//            DateRangeCalendarView cal = dialog.findViewById(R.id.cal_for_graph);
+
+//            com.archit.calendardaterangepicker.customviews.CalendarDateRangeManagerImpl
+
+            CalendarPickerView calendarPickerView = dialog.findViewById(R.id.cal_for_graph);
+            calendarPickerView.init(lastYear.getTime(), nextYear.getTime(), new SimpleDateFormat("MMMM", Locale.getDefault())).inMode(CalendarPickerView.SelectionMode.RANGE).withSelectedDate(new Date());
+
+
+            Button done = dialog.findViewById(R.id.done);
+            Button cancel = dialog.findViewById(R.id.cancel);
+
+            done.setOnClickListener(vi->{
+//                List<Date> dates = calendarPickerView.getSelectedDates();
+//                SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
+//                String from = sf.format(dates.get(0));
+//                String to = sf.format(dates.get(dates.size()-1));
+
+                NoOfEmp.removeAll(NoOfEmp);
+                String url = String.format("%sstepsYearGraph.php",DataFromDatabase.ipConfig);
+                StringRequest stringRequest = new StringRequest(Request.Method.GET,url,response -> {
+                    List<String> allNames = new ArrayList<>();
+                    JSONObject jsonResponse = null;
+                    try {
+                        jsonResponse = new JSONObject(response);
+                        JSONArray cast = jsonResponse.getJSONArray("steps");
+                        for (int i=0; i<cast.length(); i++) {
+                            JSONObject actor = cast.getJSONObject(i);
+                            String name = actor.getString("av");
+                            System.out.println(name);
+                            allNames.add(name);
+                            NoOfEmp.add(new Entry(i,Float.parseFloat(name)));
+                            System.out.println("Points "+NoOfEmp.get(i));
+                            dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
+                            dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
+
+                            dataSet[0].setValues(NoOfEmp);
+
+                            dataSet[0].notifyDataSetChanged();
+                            lineChart.getData().notifyDataChanged();
+                            lineChart.notifyDataSetChanged();
+                            lineChart.invalidate();
+                        }
+                    }catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },error -> {
+                    Log.d("Data",error.toString().trim());
+                }){
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String,String> data = new HashMap<>();
+//                        data.put("from",from);
+//                        data.put("to",to);
+                        data.put("clientID",DataFromDatabase.clientuserID);
+                        return data;
+                    }
+                };
+                Volley.newRequestQueue(getActivity()).add(stringRequest);
+                dialog.dismiss();
+            });
+
+            cancel.setOnClickListener(vi->{
+                dialog.dismiss();
+            });
+            dialog.show();
         });
 
 

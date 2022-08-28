@@ -15,6 +15,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearSnapHelper;
@@ -68,7 +69,7 @@ import sun.bob.mcalendarview.MarkStyle;
 import sun.bob.mcalendarview.listeners.OnDateClickListener;
 import sun.bob.mcalendarview.vo.DateData;
 
-public class WeightDateFragment extends Fragment {
+public class WeightDateFragment extends DialogFragment {
 
     RulerValuePicker rulerValuePicker;
     Button btnadd;
@@ -133,8 +134,8 @@ public class WeightDateFragment extends Fragment {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             mcv.state().edit()
-                    .setMinimumDate(CalendarDay.from(2018, 4, 3))
-                    .setMaximumDate(CalendarDay.from(2025, 5, 12))
+                    .setMinimumDate(CalendarDay.from(2022, 4, 3))
+                    .setMaximumDate(CalendarDay.from(2100, 12, 31))
                     .setCalendarDisplayMode(CalendarMode.MONTHS)
                     .commit();
             mcv.setSelectionMode(MaterialCalendarView.SELECTION_MODE_SINGLE);
@@ -216,7 +217,7 @@ public class WeightDateFragment extends Fragment {
         pickerLayoutManager.setScaleDownBy(0.1f);
         pickerLayoutManager.setScaleDownDistance(0.1f);
 
-        adapter = new PickerAdapter(getContext(), getData(100), rv);
+        adapter = new PickerAdapter(getContext(), getData(200), rv);
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(rv);
         rv.setLayoutManager(pickerLayoutManager);
@@ -325,40 +326,41 @@ public class WeightDateFragment extends Fragment {
 
     void markRed(){
 
-        String urlUnMark = String.format("%sunUpdated.php",DataFromDatabase.ipConfig);
+        new Thread(() -> {
+            String urlUnMark = String.format("%sunUpdated.php",DataFromDatabase.ipConfig);
 
-        StringRequest stringRequestCalUn = new StringRequest(Request.Method.POST,urlUnMark,response -> {
-            try {
-                JSONObject object = new JSONObject(response);
-                JSONArray weight = object.getJSONArray("dates");
-                ArrayList<String> dates = new ArrayList<>();
-                for (int i = 0;i<weight.length();i++){
+            StringRequest stringRequestCalUn = new StringRequest(Request.Method.POST,urlUnMark,response -> {
+                try {
+                    JSONObject object = new JSONObject(response);
+                    JSONArray weight = object.getJSONArray("dates");
+                    ArrayList<String> dates = new ArrayList<>();
+                    for (int i = 0;i<weight.length();i++){
 //                    JSONObject date = weight.getJSONObject(i);
-                    String dateStr = weight.getString(i);
-                    dates.add(dateStr);
-                    String[] array = dateStr.split("-");
-                    System.out.println(dateStr);
-                    setEvent(dates, pink);
-                    mcv.invalidateDecorators();
+                        String dateStr = weight.getString(i);
+                        dates.add(dateStr);
+                        String[] array = dateStr.split("-");
+                        System.out.println(dateStr);
+                        setEvent(dates, pink);
+                        mcv.invalidateDecorators();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
 
-        },error -> {
-            Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> data = new HashMap<>();
+            },error -> {
+                Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();
+            }){
+                @Nullable
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> data = new HashMap<>();
 //                Log.d("Fragment","clientuserID = " + DataFromDatabase.clientuserID);
-                data.put("userID", "Azarudeen");
-                return data;
-            }
-        };
-        Volley.newRequestQueue(getContext()).add(stringRequestCalUn);
-
+                    data.put("userID", "Azarudeen");
+                    return data;
+                }
+            };
+            Volley.newRequestQueue(getContext()).add(stringRequestCalUn);
+        });
     }
 
     void markGreen(){

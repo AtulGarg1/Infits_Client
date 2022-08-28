@@ -83,6 +83,5 @@ dependencies {
 
     implementation 'com.github.bumptech.glide:glide:4.13.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.2'
-
     implementation "com.polidea.rxandroidble3:rxandroidble:1.16.0"
 }

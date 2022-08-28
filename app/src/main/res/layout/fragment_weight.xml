@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="1dp"
             android:layout_weight="1"
-            android:background="@drawable/switch_on_weight"
+            android:background="@drawable/switch_weight_left"
             android:button="@null"
             android:fontFamily="@font/nats_regular"
             android:gravity="center"
@@ -55,17 +55,17 @@
             android:text="Month"
             android:textColor="@drawable/switch_text" />
 
-        <RadioButton
-            android:id="@+id/week_btn_weight"
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/switch_on_weight"
-            android:button="@null"
-            android:fontFamily="@font/nats_regular"
-            android:gravity="center"
-            android:text="Week"
-            android:textColor="@drawable/switch_text" />
+            <RadioButton
+                android:id="@+id/week_btn_weight"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/switch_on_weight_right"
+                android:button="@null"
+                android:fontFamily="@font/nats_regular"
+                android:gravity="center"
+                android:text="Week"
+                android:textColor="@drawable/switch_text" />
     </RadioGroup>
 
     <com.github.mikephil.charting.charts.LineChart

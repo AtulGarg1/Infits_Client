@@ -46,12 +46,12 @@ public class PickerAdapter extends RecyclerView.Adapter<PickerAdapter.TextVH> {
             holder.points.setCompoundDrawablesWithIntrinsicBounds(0,R.drawable.interval,0,0);
             holder.points.setText(String.valueOf(position));
             holder.points.setTextColor(Color.parseColor("#545454"));
-            holder.points.setPadding(0,0,0,0);
+            holder.points.setPadding(5,0,5,0);
         }
         else{
                 holder.points.setCompoundDrawablesWithIntrinsicBounds(0,R.drawable.lines,0,0);
                 holder.points.setText(String.valueOf(position));
-                holder.points.setPadding(0,10,0,10);
+                holder.points.setPadding(5,10,5,10);
                 holder.points.setTextColor(Color.parseColor("#FFFFFF"));
         }
         holder.points.setOnClickListener(new View.OnClickListener() {

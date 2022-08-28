@@ -16,6 +16,7 @@
         android:checkedButton="@+id/week_btn_steps"
         android:orientation="horizontal"
         android:layout_gravity="center"
+        android:gravity="center"
         android:layout_marginHorizontal="25dp">
 
         <RadioButton
@@ -23,11 +24,12 @@
             android:layout_width="95dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/switch_off"
+            android:background="@drawable/switch_steps_left"
             android:button="@null"
             android:fontFamily="@font/nats_regular"
             android:gravity="center"
             android:text="Custom Dates"
+            android:textSize="10sp"
             android:textColor="@drawable/switch_text"
             tools:ignore="TouchTargetSizeCheck" />
 
@@ -38,6 +40,7 @@
             android:layout_weight="1"
             android:background="@drawable/switch_off"
             android:button="@null"
+            android:textSize="10sp"
             android:fontFamily="@font/nats_regular"
             android:gravity="center"
             android:text="Year"
@@ -49,6 +52,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/switch_off"
+            android:textSize="10sp"
             android:button="@null"
             android:fontFamily="@font/nats_regular"
             android:gravity="center"
@@ -60,7 +64,8 @@
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/switch_off"
+            android:background="@drawable/switch_steps_right"
+            android:textSize="10sp"
             android:button="@null"
             android:fontFamily="@font/nats_regular"
             android:gravity="center"

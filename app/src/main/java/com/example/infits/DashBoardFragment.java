@@ -1,6 +1,8 @@
 package com.example.infits;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -8,11 +10,14 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.text.Html;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,46 +38,30 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DashBoardFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class DashBoardFragment extends Fragment {
 
     String url = String.format("%sDashboard.php",DataFromDatabase.ipConfig);
     DataFromDatabase dataFromDatabase;
     TextView stepstv,glassestv,glassesGoaltv,sleeptv,sleepGoaltv,weighttv,weightGoaltv,calorietv,
-            calorieGoaltv,bpmtv,bpmUptv,bpmDowntv;
+            calorieGoaltv,bpmtv,bpmUptv,bpmDowntv,meal_date,diet_date;
     RequestQueue queue;
     ImageButton sidemenu, notifmenu;
-    CardView stepcard, heartcard, watercard, sleepcard, weightcard, caloriecard,dietcard;
+    CardView stepcard, heartcard, watercard, sleepcard, weightcard, caloriecard,dietcard,goProCard,mealTrackerCard,dietCardPro;
     Button btnsub, btnsub1;
     TextView name,date;
     ImageView profile;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private String urlDt = String.format("%sgetDietitianDetail.php",DataFromDatabase.ipConfig);
 
     public DashBoardFragment() {
-        // Required empty public constructor
+
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DashBoardFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static DashBoardFragment newInstance(String param1, String param2) {
         DashBoardFragment fragment = new DashBoardFragment();
         Bundle args = new Bundle();
@@ -102,8 +91,6 @@ public class DashBoardFragment extends Fragment {
         profile = view.findViewById(R.id.profile);
 
         profile.setImageBitmap(DataFromDatabase.profile);
-//        stepstv,glassestv,glassesGoaltv,sleeptv,sleepGoaltv,weighttv,weightGoaltv,calorietv,
-//                calorieGoaltv,bpmtv,bpmUptv,bpmDowntv
 
         stepstv = view.findViewById(R.id.steps);
         glassestv = view.findViewById(R.id.glasses);
@@ -117,6 +104,7 @@ public class DashBoardFragment extends Fragment {
         bpmtv = view.findViewById(R.id.bpm);
         bpmUptv = view.findViewById(R.id.bpmUp);
         bpmDowntv = view.findViewById(R.id.bpmDown);
+        meal_date = view.findViewById(R.id.date_meal);
 
         Date dateToday = new Date();
         SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
@@ -128,12 +116,28 @@ public class DashBoardFragment extends Fragment {
         weightcard = view.findViewById(R.id.weightcard);
         caloriecard = view.findViewById(R.id.caloriecard);
         dietcard = view.findViewById(R.id.dietcard);
-
+        goProCard = view.findViewById(R.id.proCrad);
+        mealTrackerCard = view.findViewById(R.id.meal_tracker);
+        dietCardPro = view.findViewById(R.id.dietcardPro);
+        diet_date = view.findViewById(R.id.date_diet);
         name.setText(DataFromDatabase.name);
         date.setText(sf.format(dateToday));
-        Log.d("Name",DataFromDatabase.name+"");
-        Log.d("Name",DataFromDatabase.age+"");
-        Log.d("Name",DataFromDatabase.email+"");
+
+        meal_date.setText(sf.format(dateToday));
+        diet_date.setText(sf.format(dateToday));
+
+        if (DataFromDatabase.proUser){
+            goProCard.setVisibility(View.GONE);
+            mealTrackerCard.setVisibility(View.VISIBLE);
+            dietCardPro.setVisibility(View.GONE);
+            dietcard.setVisibility(View.VISIBLE);
+        }
+        if (!DataFromDatabase.proUser){
+            goProCard.setVisibility(View.VISIBLE);
+            mealTrackerCard.setVisibility(View.GONE);
+            dietCardPro.setVisibility(View.VISIBLE);
+            dietcard.setVisibility(View.GONE);
+        }
 
         stepcard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,9 +170,13 @@ public class DashBoardFragment extends Fragment {
         caloriecard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(),Meal_main.class);
-                startActivity(intent);
+
             }
+        });
+
+        mealTrackerCard.setOnClickListener(v->{
+            Intent intent = new Intent(getContext(),Meal_main.class);
+            startActivity(intent);
         });
 
         heartcard.setOnClickListener(v->{
@@ -177,6 +185,45 @@ public class DashBoardFragment extends Fragment {
 
         dietcard.setOnClickListener(v->{
                 startActivity(new Intent(getContext(),Diet_plan_main_screen.class));
+        });
+
+        if (DataFromDatabase.proUser){
+            StringRequest dietitianDetails = new StringRequest(Request.Method.POST,urlDt,response -> {
+                System.out.println(response);
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    JSONObject object = jsonArray.getJSONObject(0);
+                    DataFromDatabase.flag = true;
+                    DataFromDatabase.dietitianuserID = object.getString("dietitianuserID");
+                    byte[] qrimage = Base64.decode(object.getString("profilePhoto"), 0);
+                    DataFromDatabase.dtPhoto = BitmapFactory.decodeByteArray(qrimage, 0, qrimage.length);
+                } catch (JSONException jsonException) {
+                    jsonException.printStackTrace();
+                }
+            },error -> {
+
+            }){
+                @Nullable
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+
+                    Map<String,String> data = new HashMap<>();
+
+                    data.put("userID",DataFromDatabase.dietitianuserID);
+
+                    return data;
+                }
+            };
+
+            Volley.newRequestQueue(getContext()).add(dietitianDetails);
+        }
+
+        goProCard.setOnClickListener(v->{
+            showDialog();
+        });
+
+        dietCardPro.setOnClickListener(v->{
+            showDialog();
         });
 
         queue = Volley.newRequestQueue(getContext());
@@ -199,13 +246,13 @@ public class DashBoardFragment extends Fragment {
                     String weightStr = object.getString("weight");
                     String weightGoal = object.getString("weightgoal");
 
-                    stepstv.setText(stepsStr+" steps");
-                    glassestv.setText(waterStr+" glasses");
-                    glassesGoaltv.setText(waterGoal+" glasses");
-                    sleeptv.setText(sleephrsStr+" hours"+sleepminsStr+" mins");
-                    sleepGoaltv.setText(sleepGoal+" hours");
-                    weighttv.setText(weightStr+" KiloGrams");
-                    weightGoaltv.setText(weightGoal+" KG");
+                    stepstv.setText(Html.fromHtml(String.format("<strong>%s</strong> steps",stepsStr)));
+                    glassestv.setText(Html.fromHtml(String.format("<strong>%s</strong> ml",waterStr)));
+                    glassesGoaltv.setText(Html.fromHtml(String.format("<strong>%s ml</strong>",waterGoal)));
+                    sleeptv.setText(Html.fromHtml(String.format("<strong>%s</strong> hr <strong>%s</strong> mins",sleephrsStr,sleepminsStr)));
+                    sleepGoaltv.setText(Html.fromHtml(String.format("<strong>%s Hours</strong>",sleepGoal)));
+                    weighttv.setText(Html.fromHtml(String.format("<strong>%s </strong>KiloGrams",weightStr)));
+                    weightGoaltv.setText(Html.fromHtml(String.format("<strong>%s KG</strong>",weightGoal)));
 
                     if (stepsStr.equals("null")){
                         stepstv.setText("no data available");
@@ -238,36 +285,26 @@ public class DashBoardFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-//                Log.d("ClientMetrics","clientuserID = "+dataFromDatabase.clientuserID);
-//                data.put("userID", dataFromDatabase.clientuserID);
-                    data.put("userID","Azarudeen");
+                data.put("userID", DataFromDatabase.clientuserID);
                 return data;
             }
         };
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
-        Log.d("ClientMetrics","at end");
-
-        /*
-
-        btnsub.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent isub = new Intent(DashBoard1.this, Subscription1.class);
-                startActivity(isub);
-            }
-        });
-
-        btnsub1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent isub = new Intent(DashBoard1.this, Statistics.class);
-                startActivity(isub);
-            }
-        });
-
-         */
+//        Log.d("ClientMetrics","at end");
 
         return view;
+    }
+
+    private void showDialog() {
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.referralcodedialog);
+        final EditText referralCode = dialog.findViewById(R.id.referralcode);
+        ImageView checkReferral = dialog.findViewById(R.id.checkReferral);
+        checkReferral.setOnClickListener(vi->{
+            dialog.dismiss();
+        });
+        dialog.show();
     }
 }
