@@ -85,7 +85,7 @@ public class Section2Q6 extends Fragment {
             public void onClick(View v) {
 
                 yes.setBackgroundColor(Color.rgb(0,161,45));
-                no.setBackgroundColor(Color.rgb(0,0,0));
+                no.setBackgroundColor(Color.rgb(255,255,255));
                 yesno = "Yes";
             }
         });
@@ -95,7 +95,7 @@ public class Section2Q6 extends Fragment {
             public void onClick(View v) {
 
                 no.setBackgroundColor(Color.rgb(183,0,0));
-                yes.setBackgroundColor(Color.rgb(0,0,0));
+                yes.setBackgroundColor(Color.rgb(255,255,255));
                 yesno = "No";
             }
         });

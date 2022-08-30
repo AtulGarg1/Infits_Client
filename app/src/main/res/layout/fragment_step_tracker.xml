@@ -59,10 +59,10 @@
                 app:interactive="false"
                 app:progress="0.34"
                 app:progressGradient="@array/progress"
+                app:progressWidth="5dp"
                 app:startAngleDegrees="65"
                 app:thumbColor="@color/white"
                 app:thumbRadius="10dp"
-                app:progressWidth="5dp"
                 app:trackGradient="@array/track"
                 app:trackWidth="2.5dp" />
 

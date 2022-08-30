@@ -16,6 +16,7 @@
         android:checkedButton="@+id/week_btn_sleep"
         android:orientation="horizontal"
         android:layout_gravity="center"
+        android:gravity="center"
         android:layout_marginHorizontal="25dp">
 
         <RadioButton
@@ -24,11 +25,12 @@
             android:layout_height="wrap_content"
             android:layout_margin="1dp"
             android:layout_weight="1"
-            android:background="@drawable/switch_on_sleep"
+            android:background="@drawable/switch_sleep_left"
             android:button="@null"
             android:fontFamily="@font/nats_regular"
             android:gravity="center"
             android:text="Custom Dates"
+            android:textSize="10sp"
             android:textColor="@drawable/switch_text"
             tools:ignore="TouchTargetSizeCheck" />
 
@@ -37,6 +39,7 @@
             android:layout_width="76dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:textSize="10sp"
             android:background="@drawable/switch_on_sleep"
             android:button="@null"
             android:fontFamily="@font/nats_regular"
@@ -48,6 +51,7 @@
             android:id="@+id/month_btn_sleep"
             android:layout_width="77dp"
             android:layout_height="match_parent"
+            android:textSize="10sp"
             android:layout_weight="1"
             android:background="@drawable/switch_on_sleep"
             android:button="@null"
@@ -61,11 +65,12 @@
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/switch_on_sleep"
+            android:background="@drawable/switch_sleep_right"
             android:button="@null"
             android:fontFamily="@font/nats_regular"
             android:gravity="center"
             android:text="Week"
+            android:textSize="10sp"
             android:textColor="@drawable/switch_text" />
     </RadioGroup>
 

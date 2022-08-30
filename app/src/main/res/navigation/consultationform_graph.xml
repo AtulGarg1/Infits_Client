@@ -39,7 +39,8 @@
             app:destination="@id/sectionOneQTwo" />
         <action
             android:id="@+id/action_sectionOneQOne_to_consultationFragment"
-            app:destination="@id/consultationFragment" />
+            app:destination="@id/consultationFragment"
+            app:popUpTo="@id/consultationform_graph"/>
     </fragment>
     <fragment
         android:id="@+id/sectionOneQTwo"
@@ -135,7 +136,8 @@
             app:destination="@id/section2Q2" />
         <action
             android:id="@+id/action_section2Q1_to_consultationFragment"
-            app:destination="@id/consultationFragment" />
+            app:destination="@id/consultationFragment"
+            app:popUpTo="@id/consultationform_graph"/>
     </fragment>
     <fragment
         android:id="@+id/section2Q2"
@@ -231,7 +233,8 @@
             app:destination="@id/section3Q2" />
         <action
             android:id="@+id/action_section3Q1_to_consultationFragment"
-            app:destination="@id/consultationFragment" />
+            app:destination="@id/consultationFragment"
+            app:popUpTo="@id/consultationform_graph"/>
     </fragment>
     <fragment
         android:id="@+id/section3Q2"
@@ -360,7 +363,8 @@
         tools:layout="@layout/fragment_section5_q1" >
         <action
             android:id="@+id/action_section5Q1_to_consultationFragment"
-            app:destination="@id/consultationFragment" />
+            app:destination="@id/consultationFragment"
+            app:popUpTo="@id/consultationform_graph"/>
         <action
             android:id="@+id/action_section5Q1_to_section5Q2"
             app:destination="@id/section5Q2" />
@@ -375,7 +379,8 @@
             app:destination="@id/section4Q2" />
         <action
             android:id="@+id/action_section4Q1_to_consultationFragment"
-            app:destination="@id/consultationFragment" />
+            app:destination="@id/consultationFragment"
+            app:popUpTo="@id/consultationform_graph"/>
     </fragment>
     <fragment
         android:id="@+id/section4Q2"
@@ -447,7 +452,8 @@
             app:destination="@id/section4Q6" />
         <action
             android:id="@+id/action_section4Q7_to_consultationFragment"
-            app:destination="@id/consultationFragment" />
+            app:destination="@id/consultationFragment"
+            app:popUpTo="@id/consultationform_graph"/>
     </fragment>
     <fragment
         android:id="@+id/section5Q2"
@@ -600,7 +606,8 @@
         tools:layout="@layout/fragment_section6_q1" >
         <action
             android:id="@+id/action_section6Q1_to_consultationFragment"
-            app:destination="@id/consultationFragment" />
+            app:destination="@id/consultationFragment"
+            app:popUpTo="@id/consultationform_graph"/>
         <action
             android:id="@+id/action_section6Q1_to_section6Q2"
             app:destination="@id/section6Q2" />

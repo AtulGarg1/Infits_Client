@@ -85,7 +85,7 @@ public class ChatArea extends AppCompatActivity {
     List<ChatMessage> msg=new ArrayList<>();
     ChatMessageAdapter ad1;
     RecyclerView r1;
-    Button send;
+    ImageView send;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +102,6 @@ public class ChatArea extends AppCompatActivity {
         name.setText(DataFromDatabase.dietitianuserID);
         profile_pic = findViewById(R.id.chat_area_profile_pic);
         message = findViewById(R.id.typed_message);
-        Button send = findViewById(R.id.send_message_btn);
         profile_pic.setImageBitmap(DataFromDatabase.dtPhoto);
         send.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -12,6 +12,7 @@ import androidx.navigation.NavController;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -38,6 +39,14 @@ public class DashBoardMain extends AppCompatActivity {
         toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_open,R.string.navigation_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
+        if (!DataFromDatabase.proUser){
+            Menu nav_Menu = nav.getMenu();
+            nav_Menu.findItem(R.id.consul).setVisible(false);
+            nav_Menu.findItem(R.id.message).setVisible(false);
+            nav_Menu.findItem(R.id.live).setVisible(false);
+            nav_Menu.findItem(R.id.scan).setVisible(false);
+        }
 
         nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override

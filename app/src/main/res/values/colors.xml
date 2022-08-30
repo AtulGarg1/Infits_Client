@@ -48,4 +48,25 @@
     <array name="track">
         <item>@color/whitesixty</item>
     </array>
+    <array name="consultation_track_color">
+        <item>#EDEDED</item>
+    </array>
+    <array name="section_two">
+        <item>#FF7777</item>
+    </array>
+    <array name="section_one">
+        <item>#9873FF</item>
+    </array>
+    <array name="section_three">
+        <item>#FFCD6B</item>
+    </array>
+    <array name="section_four">
+        <item>#DE3BEC</item>
+    </array>
+    <array name="section_five">
+        <item>#704CFF</item>
+    </array>
+    <array name="section_six">
+        <item>#1FB688</item>
+    </array>
 </resources>

@@ -126,7 +126,7 @@
         android:backgroundTint="@color/white"
         android:textColor="@color/black"
         android:fontFamily="@font/nats_regular"
-        android:visibility="visible"
+        android:visibility="gone"
         android:textSize="20sp"
         android:id="@+id/connect_div"/>
 

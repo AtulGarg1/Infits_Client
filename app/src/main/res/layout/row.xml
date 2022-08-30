@@ -18,10 +18,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/card1"
             android:text="Q1. Question 1"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textColor="@color/white"
             android:fontFamily="@font/nats_regular"
-            android:padding="16dp" />
+            android:paddingStart="10dp"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -29,14 +29,15 @@
             android:id="@+id/expandable_layout">
 
             <TextView
+                android:id="@+id/ans1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/ans1"
+                android:fontFamily="@font/lato"
+                android:paddingHorizontal="10dp"
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
-                android:padding="16dp"
-                android:textSize="16sp"
                 android:textColor="@color/white"
-                android:fontFamily="@font/lato" />
+                android:textSize="11sp"
+                android:paddingVertical="10dp"/>
 
         </RelativeLayout>
     </LinearLayout>

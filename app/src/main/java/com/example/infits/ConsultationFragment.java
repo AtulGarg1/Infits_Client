@@ -33,6 +33,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.tenclouds.gaugeseekbar.GaugeSeekBar;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -138,12 +139,12 @@ public class ConsultationFragment extends Fragment {
 
         textView58 = view.findViewById(R.id.textView58);
 
-        ProgressBar p1=view.findViewById(R.id.sectionprogress1);
-        ProgressBar p2=view.findViewById(R.id.sectionprogress2);
-        ProgressBar p3=view.findViewById(R.id.sectionprogress3);
-        ProgressBar p4=view.findViewById(R.id.sectionprogress4);
-        ProgressBar p5=view.findViewById(R.id.sectionprogress5);
-        ProgressBar p6=view.findViewById(R.id.sectionprogress6);
+        GaugeSeekBar p1=view.findViewById(R.id.sectionprogress1);
+        GaugeSeekBar p2=view.findViewById(R.id.sectionprogress2);
+        GaugeSeekBar p3=view.findViewById(R.id.sectionprogress3);
+        GaugeSeekBar p4=view.findViewById(R.id.sectionprogress4);
+        GaugeSeekBar p5=view.findViewById(R.id.sectionprogress5);
+        GaugeSeekBar p6=view.findViewById(R.id.sectionprogress6);
 
         TextView t1=view.findViewById(R.id.section1perc);
         TextView t2=view.findViewById(R.id.section2perc);

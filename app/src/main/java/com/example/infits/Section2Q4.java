@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -34,7 +35,9 @@ public class Section2Q4 extends Fragment {
 
     Button nextbtn;
     TextView backbtn, reporttv, textView79;
-    ImageView ivUpload;
+    CardView ivUpload;
+
+    ImageView ivUploadimg;
 
     private Bitmap bitmap;
     private File destination = null;
@@ -97,6 +100,7 @@ public class Section2Q4 extends Fragment {
 
         ivUpload = view.findViewById(R.id.ivUpload);
 
+        ivUploadimg = view.findViewById(R.id.ivUploadimg);
 
         ivUpload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,7 +166,7 @@ public class Section2Q4 extends Fragment {
                     bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
                     //ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                     // bitmap.compress(Bitmap.CompressFormat.JPEG, 50, bytes);
-                    ivUpload.setImageBitmap(bitmap);
+                    ivUploadimg.setImageBitmap(bitmap);
                    imgpath = getRealPathFromURI(selectedImage);
                     destination = new File(imgpath.toString());
                     //Toast.makeText(getActivity(), "Path: "+imgPath, Toast.LENGTH_SHORT).show();

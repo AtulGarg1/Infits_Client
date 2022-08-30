@@ -4,29 +4,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_gravity="end"
+    android:layout_margin="10dp">
 
     <TextView
         android:id="@+id/dietitian_msg_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="16dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginHorizontal="10dp"
         android:fontFamily="@font/nats_regular"
         android:text="14:00"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        android:textSize="10sp"
+        android:gravity="center"/>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
     <TextView
         android:id="@+id/dietitian_msg"
-        android:layout_width="295dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
+        android:layout_gravity="center_vertical"
         android:background="@drawable/edit_text_background"
         android:backgroundTint="#EBD7FF"
         android:fontFamily="@font/nats_regular"
@@ -35,16 +37,6 @@
         android:paddingVertical="9dp"
         android:text="@string/Loremipsum"
         android:textColor="#535353"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.862"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dietitian_msg" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:textSize="10sp" />
+    </LinearLayout>
 </LinearLayout>
