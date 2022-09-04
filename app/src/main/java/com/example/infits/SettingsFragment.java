@@ -25,32 +25,20 @@ public class SettingsFragment extends Fragment {
 
     ImageView profilepic;
 
-    ImageButton imgbtnAccount, imgbtnDevice, imgbtnNotif, imgbtnRef, imgbtnAbout, imgbtnHelp;
+    ImageButton imgbtnAccount, imgbtnDevice, imgbtnNotif, imgbtnRef, imgbtnAbout, imgbtnHelp,imgbtnKnowDt;
 
     TextView tvName;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     public SettingsFragment() {
-        // Required empty public constructor
+
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SettingsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static SettingsFragment newInstance(String param1, String param2) {
         SettingsFragment fragment = new SettingsFragment();
         Bundle args = new Bundle();
@@ -83,6 +71,7 @@ public class SettingsFragment extends Fragment {
         imgbtnNotif = view.findViewById(R.id.imgbtnNotif);
         imgbtnRef = view.findViewById(R.id.imgbtnRef);
         imgbtnHelp = view.findViewById(R.id.imgbtnHelp);
+        imgbtnKnowDt = view.findViewById(R.id.know_diet_btn);
         tvName = view.findViewById(R.id.tvName);
 
         profilepic.setImageBitmap(DataFromDatabase.profile);
@@ -131,6 +120,13 @@ public class SettingsFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        imgbtnAbout.setOnClickListener(v->{
+            Navigation.findNavController(v).navigate(R.id.action_settingsFragment_to_aboutUsFragment);
+        });
+        imgbtnKnowDt.setOnClickListener(v->{
+            Navigation.findNavController(v).navigate(R.id.action_settingsFragment_to_profile2);
+        });
+
 
         return view;
     }

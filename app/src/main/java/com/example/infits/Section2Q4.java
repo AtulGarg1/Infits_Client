@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
 
@@ -117,12 +119,15 @@ public class Section2Q4 extends Fragment {
             public void onClick(View v) {
 
                 DataSectionTwo.s2q4 = reporttv.getText().toString();
-                if (imgpath.equals("") || imgpath.equals(" "))
-                    Toast.makeText(getContext(), "Upload an image", Toast.LENGTH_SHORT).show();
-                else {
-                    ConsultationFragment.psection2 += 1;
+                try {
+                    if (imgpath.equals("") || imgpath.equals(" "))
+                        Toast.makeText(getContext(), "Upload an image", Toast.LENGTH_SHORT).show();
+                    else {
+                        ConsultationFragment.psection2 += 1;
+                        Navigation.findNavController(v).navigate(R.id.action_section2Q4_to_section2Q5);
+                    }
+                }catch(NullPointerException ex){
 
-                    Navigation.findNavController(v).navigate(R.id.action_section2Q4_to_section2Q5);
                 }
             }
         });
@@ -170,8 +175,10 @@ public class Section2Q4 extends Fragment {
                    imgpath = getRealPathFromURI(selectedImage);
                     destination = new File(imgpath.toString());
                     //Toast.makeText(getActivity(), "Path: "+imgPath, Toast.LENGTH_SHORT).show();
-
-                    DataSectionTwo.imgPath = imgpath;
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 50, baos);
+                    byte[] b = baos.toByteArray();
+                    DataSectionTwo.imgPath = Base64.encodeToString(b, Base64.DEFAULT);
 
                 }
             } catch (Exception e) {

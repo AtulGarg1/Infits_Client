@@ -74,6 +74,8 @@
             app:cornerRadius="10sp"
             android:visibility="gone"/>
 
+
+
         <Button
             android:id="@+id/startcycle"
             android:layout_width="150dp"

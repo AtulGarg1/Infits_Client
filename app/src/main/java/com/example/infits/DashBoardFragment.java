@@ -1,7 +1,9 @@
 package com.example.infits;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
@@ -51,6 +53,8 @@ public class DashBoardFragment extends Fragment {
     TextView name,date;
     ImageView profile;
 
+
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -85,6 +89,20 @@ public class DashBoardFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dash_board, container, false);
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("DateForSteps", Context.MODE_PRIVATE);
+
+        Date dateForSteps = new Date();
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d-M-yyyy");
+
+        System.out.println(simpleDateFormat.format(dateForSteps));
+
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+
+        myEdit.putString("date", simpleDateFormat.format(dateForSteps));
+        myEdit.putBoolean("verified",false);
+        myEdit.commit();
 
         name = view.findViewById(R.id.nameInDash);
         date = view.findViewById(R.id.date);
@@ -232,20 +250,22 @@ public class DashBoardFragment extends Fragment {
             if (!response.equals("failure")){
                 Log.d("ClientMetrics","success");
                 Log.d("response",response);
-
                 try {
                     JSONArray jsonArray = new JSONArray(response);
                     JSONObject object = jsonArray.getJSONObject(0);
                     String stepsStr = object.getString("steps");
                     String stepsGoal = object.getString("stepsgoal");
-                    String waterStr = object.getString("water");
+                    String waterStr = object.getString("waterConsumed");
+                    DataFromDatabase.waterStr = waterStr;
                     String waterGoal = object.getString("watergoal");
+                    DataFromDatabase.waterGoal = waterGoal;
                     String sleephrsStr = object.getString("sleephrs");
                     String sleepminsStr = object.getString("sleepmins");
                     String sleepGoal = object.getString("sleepgoal");
                     String weightStr = object.getString("weight");
+                    DataFromDatabase.weightStr = weightStr;
                     String weightGoal = object.getString("weightgoal");
-
+                    DataFromDatabase.weightGoal = weightGoal;
                     stepstv.setText(Html.fromHtml(String.format("<strong>%s</strong> steps",stepsStr)));
                     glassestv.setText(Html.fromHtml(String.format("<strong>%s</strong> ml",waterStr)));
                     glassesGoaltv.setText(Html.fromHtml(String.format("<strong>%s ml</strong>",waterGoal)));

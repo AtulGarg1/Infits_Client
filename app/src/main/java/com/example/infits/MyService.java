@@ -26,7 +26,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,9 +53,8 @@ public class MyService extends Service implements SensorEventListener {
         stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
 
         if (stepSensor == null) {
-            Log.e("Ser","No sensor");
-        }
-        else {
+            Log.e("Ser", "No sensor");
+        } else {
             sensorManager.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI);
         }
 
@@ -74,10 +75,47 @@ public class MyService extends Service implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        Log.d("step","in");
         if (event.sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
+
+            SharedPreferences sh = getSharedPreferences("DateForSteps", Context.MODE_PRIVATE);
+
+            Date dateObj = new Date();
+
+            String date = sh.getString("date","");
+
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d-M-yyyy");
+
+            System.out.println(date);
+
+            System.out.println(simpleDateFormat.format(dateObj));
+
+            if (!date.equals(simpleDateFormat.format(dateObj))) {
+                FetchTrackerInfos.previousStep = FetchTrackerInfos.totalSteps;
+                System.out.println("Reset");
+                SharedPreferences sharedPreferences = getSharedPreferences("DateForSteps", Context.MODE_PRIVATE);
+                Date dateForSteps = new Date();
+
+                System.out.println(simpleDateFormat.format(dateForSteps));
+
+                SharedPreferences.Editor myEdit = sharedPreferences.edit();
+
+                myEdit.putString("date", simpleDateFormat.format(dateForSteps));
+                myEdit.putBoolean("verified",false);
+                myEdit.commit();
+            }
+
+            Calendar calendar = new GregorianCalendar();
+            String am_pm;
+            int hour = calendar.get(Calendar.HOUR);
+            int minute = calendar.get(Calendar.MINUTE);
+//            if (calendar.get(Calendar.AM_PM) == 0) {
+//                if (hour >= 0){
+//                    FetchTrackerInfos.previousStep = FetchTrackerInfos.totalSteps;
+//                    System.out.println("Reset");
+//                }
+//            }
             FetchTrackerInfos.totalSteps = (int) event.values[0];
-            FetchTrackerInfos.currentSteps = ((int) FetchTrackerInfos.totalSteps - (int)FetchTrackerInfos.previousStep);
+            FetchTrackerInfos.currentSteps = ((int) FetchTrackerInfos.totalSteps - (int) FetchTrackerInfos.previousStep);
 
             Log.d("step", String.valueOf(FetchTrackerInfos.totalSteps));
             Log.d("stepPre", String.valueOf(FetchTrackerInfos.previousStep));
@@ -102,18 +140,22 @@ public class MyService extends Service implements SensorEventListener {
                         .setCategory(Notification.CATEGORY_SERVICE)
                         .setChannelId("MyChannelId")
                         .build();
-                startForeground(1   , notification);
+                startForeground(1, notification);
                 intent.putExtra("steps", FetchTrackerInfos.currentSteps);
                 sendBroadcast(intent);
+                String time = "Current Time : " + hour + ":" + minute + " " ;
+                System.out.println(time);
 //                updateSteps();
             }
         }
     }
+
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
-    void updateSteps(){
+
+    void updateSteps() {
 //        String url="http://192.168.227.91/infits/steptracker.php";;
 //        StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
 //            if (response.equals("updated")){

@@ -59,22 +59,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link StepsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class StepsFragment extends Fragment {
 
-    RequestQueue queue;
-    String url = "http://192.168.9.1/infits/stepsFragment.php";
-    String url1 = "http://192.168.9.1/infits/stepsVolley1.php";
-    String url2 = "http://192.168.9.1/infits/stepsVolley2.php";
-    String url3 = "http://192.168.9.1/infits/stepsVolley3.php";
-    DataFromDatabase dataFromDatabase;
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -231,7 +217,7 @@ public class StepsFragment extends Fragment {
         month_radioButton.setOnClickListener(v->{
             NoOfEmp.removeAll(NoOfEmp);
             String url = String.format("%sstepsMonthGraph.php",DataFromDatabase.ipConfig);
-            StringRequest stringRequest = new StringRequest(Request.Method.GET,url,response -> {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST,url,response -> {
                 List<String> allNames = new ArrayList<>();
                 JSONObject jsonResponse = null;
                 try {
@@ -292,7 +278,7 @@ public class StepsFragment extends Fragment {
         year_radioButton.setOnClickListener(v->{
             NoOfEmp.removeAll(NoOfEmp);
             String url = String.format("%sstepsYearGraph.php",DataFromDatabase.ipConfig);
-            StringRequest stringRequest = new StringRequest(Request.Method.GET,url,response -> {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST,url,response -> {
                 List<String> allNames = new ArrayList<>();
                 JSONObject jsonResponse = null;
                 try {
@@ -326,7 +312,7 @@ public class StepsFragment extends Fragment {
 
                     Map<String,String> data = new HashMap<>();
 
-                    data.put("clientID",DataFromDatabase.clientuserID);
+                    data.put("userID",DataFromDatabase.clientuserID);
 
                     return data;
                 }
@@ -343,26 +329,58 @@ public class StepsFragment extends Fragment {
             final Calendar lastYear = Calendar.getInstance();
             lastYear.add(Calendar.YEAR, -10);
 
-//            DateRangeCalendarView cal = dialog.findViewById(R.id.cal_for_graph);
-
-//            com.archit.calendardaterangepicker.customviews.CalendarDateRangeManagerImpl
-
             CalendarPickerView calendarPickerView = dialog.findViewById(R.id.cal_for_graph);
             calendarPickerView.init(lastYear.getTime(), nextYear.getTime(), new SimpleDateFormat("MMMM", Locale.getDefault())).inMode(CalendarPickerView.SelectionMode.RANGE).withSelectedDate(new Date());
-
 
             Button done = dialog.findViewById(R.id.done);
             Button cancel = dialog.findViewById(R.id.cancel);
 
             done.setOnClickListener(vi->{
-//                List<Date> dates = calendarPickerView.getSelectedDates();
-//                SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
-//                String from = sf.format(dates.get(0));
-//                String to = sf.format(dates.get(dates.size()-1));
+                List<Date> dates = calendarPickerView.getSelectedDates();
+                SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
+                String from = sf.format(dates.get(0));
+                String to = sf.format(dates.get(dates.size()-1));
 
                 NoOfEmp.removeAll(NoOfEmp);
-                String url = String.format("%sstepsYearGraph.php",DataFromDatabase.ipConfig);
-                StringRequest stringRequest = new StringRequest(Request.Method.GET,url,response -> {
+                String url = String.format("%scustom.php",DataFromDatabase.ipConfig);
+                StringRequest stringRequest = new StringRequest(Request.Method.POST,url,response -> {
+//                    List<String> allNames = new ArrayList<>();
+//                    JSONObject jsonResponse = null;
+//                    try {
+//                        jsonResponse = new JSONObject(response);
+//                        JSONArray cast = jsonResponse.getJSONArray("steps");
+//                        for (int i=0; i<cast.length(); i++) {
+//                            JSONObject actor = cast.getJSONObject(i);
+//                            String name = actor.getString("av");
+//                            System.out.println(name);
+//                            allNames.add(name);
+//                            NoOfEmp.add(new Entry(i,Float.parseFloat(name)));
+//                            System.out.println("Points "+NoOfEmp.get(i));
+//                            dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
+//                            dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
+//
+//                            dataSet[0].setValues(NoOfEmp);
+//
+//                            dataSet[0].notifyDataSetChanged();
+//                            lineChart.getData().notifyDataChanged();
+//                            lineChart.notifyDataSetChanged();
+//                            lineChart.invalidate();
+//                        }
+//                    }catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                },error -> {
+//                    Log.d("Data",error.toString().trim());
+//                }){
+//                    @Nullable
+//                    @Override
+//                    protected Map<String, String> getParams() throws AuthFailureError {
+//                        Map<String,String> data = new HashMap<>();
+////                        data.put("from",from);
+////                        data.put("to",to);
+//                        data.put("clientID",DataFromDatabase.clientuserID);
+//                        return data;
+//                    }
                     List<String> allNames = new ArrayList<>();
                     JSONObject jsonResponse = null;
                     try {
@@ -370,21 +388,37 @@ public class StepsFragment extends Fragment {
                         JSONArray cast = jsonResponse.getJSONArray("steps");
                         for (int i=0; i<cast.length(); i++) {
                             JSONObject actor = cast.getJSONObject(i);
-                            String name = actor.getString("av");
-                            System.out.println(name);
+                            String name = actor.getString("steps");
+                            String date = actor.getString("date");
+                            System.out.println(name+"   "+date);
                             allNames.add(name);
                             NoOfEmp.add(new Entry(i,Float.parseFloat(name)));
                             System.out.println("Points "+NoOfEmp.get(i));
-                            dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
                             dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
 
                             dataSet[0].setValues(NoOfEmp);
 
                             dataSet[0].notifyDataSetChanged();
+
+                            ArrayList<String> mons = new ArrayList<>();
+
+                            for (int j = 0;j < 31;j++){
+                                mons.add(String.valueOf(i));
+                            }
+
+                            lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(mons));
+
                             lineChart.getData().notifyDataChanged();
                             lineChart.notifyDataSetChanged();
                             lineChart.invalidate();
                         }
+                        ArrayList<String> mons = new ArrayList<>();
+
+                        for (int i = 0;i < 31;i++){
+                            mons.add(String.valueOf(i));
+                        }
+
+                        lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(mons));
                     }catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -394,10 +428,12 @@ public class StepsFragment extends Fragment {
                     @Nullable
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
+
                         Map<String,String> data = new HashMap<>();
-//                        data.put("from",from);
-//                        data.put("to",to);
+
                         data.put("clientID",DataFromDatabase.clientuserID);
+                        data.put("from",from);
+                        data.put("to",to);
                         return data;
                     }
                 };

@@ -105,7 +105,12 @@ public class Login extends AppCompatActivity {
                             DataFromDatabase.location = object.getString("location");
                             DataFromDatabase.age = object.getString("age");
                             DataFromDatabase.gender  = object.getString("gender");
+                            DataFromDatabase.weight  = object.getString("weight");
+                            DataFromDatabase.height  = object.getString("height");
                             DataFromDatabase.profilePhotoBase = DataFromDatabase.profilePhoto;
+
+                            System.out.println(DataFromDatabase.weight);
+                            System.out.println(DataFromDatabase.height);
 
                             if (object.getString("verification").equals("0")){
                                 DataFromDatabase.proUser = false;

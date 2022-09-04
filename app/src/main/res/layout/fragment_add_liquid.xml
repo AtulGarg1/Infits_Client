@@ -49,8 +49,8 @@
                 android:layout_height="55dp"
                 android:layout_marginStart="20dp"
                 android:background="@drawable/soda"
-                android:textSize="0sp"
-                android:button="@null"/>
+                android:button="@null"
+                android:textSize="0sp" />
 
             <RadioButton
                 android:id="@+id/juice"
@@ -79,7 +79,7 @@
                 android:id="@+id/textView28"
                 android:layout_width="47dp"
                 android:layout_height="wrap_content"
-                android:text="Soda"
+                android:text="water"
                 android:textColor="#0621B1"
                 android:fontFamily="@font/nats_regular"
                 android:textSize="10sp"
@@ -89,7 +89,7 @@
                 android:id="@+id/textView27"
                 android:layout_width="47dp"
                 android:layout_height="wrap_content"
-                android:text="Water"
+                android:text="soda"
                 android:gravity="center"
                 android:textColor="#0621B1"
                 android:fontFamily="@font/nats_regular"

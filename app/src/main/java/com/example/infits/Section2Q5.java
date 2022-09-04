@@ -167,11 +167,6 @@ public class Section2Q5 extends Fragment {
             }
         });
 
-        String other = oth.getText().toString();
-
-        if(other!=null)
-            diagnosed.add(other);
-
         /*
 
         for(int i=0; i<diagnosed.size();i++) {
@@ -185,13 +180,22 @@ public class Section2Q5 extends Fragment {
             @Override
             public void onClick(View v) {
 
-                DataSectionTwo.diagnosed = diagnosed;
+                String other = oth.getText().toString();
+
                 DataSectionTwo.s2q5 = diagtv.getText().toString();
                 if ((!dia.isChecked()) && (!hyperten.isChecked()) && (!hyperthy.isChecked())
                 && (!hypothy.isChecked()) && (!pcod.isChecked()) && (!fattyl.isChecked()) &&
-                        (!lactose.isChecked()) && (other.equals("") ||other.equals(" ")))
+                        (!lactose.isChecked())){
                     Toast.makeText(getContext(), "Select atleast one of the given options", Toast.LENGTH_SHORT).show();
+                }
                 else {
+                    DataSectionTwo.diagnosed = diagnosed;
+                    ConsultationFragment.psection2 += 1;
+                    Navigation.findNavController(v).navigate(R.id.action_section2Q5_to_section2Q6);
+                }
+                if (!other.isEmpty()){
+                    diagnosed.add(other);
+                    DataSectionTwo.diagnosed = diagnosed;
                     ConsultationFragment.psection2 += 1;
                     Navigation.findNavController(v).navigate(R.id.action_section2Q5_to_section2Q6);
                 }

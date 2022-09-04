@@ -503,74 +503,71 @@ public class ConsultationFragment extends Fragment {
 
         pdfDocument.finishPage(page1);
 
-        /*
-
-        PdfDocument.PageInfo pageInfo2 = new PdfDocument.PageInfo.Builder(400, 700, 2 ).create();
-        PdfDocument.Page page2 = pdfDocument.startPage(pageInfo2);
-
-        for(String line: section2data.split("\n")) {
-            page2.getCanvas().drawText(line,x,y,paint);
-
-            y+=paint.descent()-paint.ascent();
-        }
-
-        pdfDocument.finishPage(page2);
-
-        PdfDocument.PageInfo pageInfo3 = new PdfDocument.PageInfo.Builder(400, 800, 3 ).create();
-        PdfDocument.Page page3 = pdfDocument.startPage(pageInfo3);
-
-        for(String line: section3data.split("\n")) {
-            page3.getCanvas().drawText(line,x,y,paint);
-
-            y+=paint.descent()-paint.ascent();
-        }
-
-        pdfDocument.finishPage(page3);
-
-        PdfDocument.PageInfo pageInfo4 = new PdfDocument.PageInfo.Builder(400, 800, 4 ).create();
-        PdfDocument.Page page4 = pdfDocument.startPage(pageInfo4);
-
-        for(String line: section4data.split("\n")) {
-            page4.getCanvas().drawText(line,x,y,paint);
-
-            y+=paint.descent()-paint.ascent();
-        }
-
-        pdfDocument.finishPage(page4);
-
-        PdfDocument.PageInfo pageInfo5 = new PdfDocument.PageInfo.Builder(400, 900, 5 ).create();
-        PdfDocument.Page page5 = pdfDocument.startPage(pageInfo5);
-
-        for(String line: section5data.split("\n")) {
-            page5.getCanvas().drawText(line,x,y,paint);
-
-            y+=paint.descent()-paint.ascent();
-        }
-
-        pdfDocument.finishPage(page5);
-
-        PdfDocument.PageInfo pageInfo6 = new PdfDocument.PageInfo.Builder(400, 900, 6 ).create();
-        PdfDocument.Page page6 = pdfDocument.startPage(pageInfo6);
-
-        for(String line: section6data.split("\n")) {
-            page6.getCanvas().drawText(line,x,y,paint);
-
-            y+=paint.descent()-paint.ascent();
-        }
-
-        pdfDocument.finishPage(page6);
-
-         */
-
-        try {
-            pdfDocument.writeTo(new FileOutputStream(file));
-            Toast.makeText(getContext(), "PDF created", Toast.LENGTH_SHORT).show();
-
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-            Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
-        }
+//        PdfDocument.PageInfo pageInfo2 = new PdfDocument.PageInfo.Builder(400, 700, 2 ).create();
+//        PdfDocument.Page page2 = pdfDocument.startPage(pageInfo2);
+//
+//        for(String line: section2data.split("\n")) {
+//            page2.getCanvas().drawText(line,x,y,paint);
+//
+//            y+=paint.descent()-paint.ascent();
+//        }
+//
+//        pdfDocument.finishPage(page2);
+//
+//        PdfDocument.PageInfo pageInfo3 = new PdfDocument.PageInfo.Builder(400, 800, 3 ).create();
+//        PdfDocument.Page page3 = pdfDocument.startPage(pageInfo3);
+//
+//        for(String line: section3data.split("\n")) {
+//            page3.getCanvas().drawText(line,x,y,paint);
+//
+//            y+=paint.descent()-paint.ascent();
+//        }
+//
+//        pdfDocument.finishPage(page3);
+//
+//        PdfDocument.PageInfo pageInfo4 = new PdfDocument.PageInfo.Builder(400, 800, 4 ).create();
+//        PdfDocument.Page page4 = pdfDocument.startPage(pageInfo4);
+//
+//        for(String line: section4data.split("\n")) {
+//            page4.getCanvas().drawText(line,x,y,paint);
+//
+//            y+=paint.descent()-paint.ascent();
+//        }
+//
+//        pdfDocument.finishPage(page4);
+//
+//        PdfDocument.PageInfo pageInfo5 = new PdfDocument.PageInfo.Builder(400, 900, 5 ).create();
+//        PdfDocument.Page page5 = pdfDocument.startPage(pageInfo5);
+//
+//        for(String line: section5data.split("\n")) {
+//            page5.getCanvas().drawText(line,x,y,paint);
+//
+//            y+=paint.descent()-paint.ascent();
+//        }
+//
+//        pdfDocument.finishPage(page5);
+//
+//        PdfDocument.PageInfo pageInfo6 = new PdfDocument.PageInfo.Builder(400, 900, 6 ).create();
+//        PdfDocument.Page page6 = pdfDocument.startPage(pageInfo6);
+//
+//        for(String line: section6data.split("\n")) {
+//            page6.getCanvas().drawText(line,x,y,paint);
+//
+//            y+=paint.descent()-paint.ascent();
+//        }
+//
+//        pdfDocument.finishPage(page6);
+//
+//        try {
+//
+//            pdfDocument.writeTo(new FileOutputStream(file));
+//            Toast.makeText(getContext(), "PDF created", Toast.LENGTH_SHORT).show();
+//
+//        }
+//        catch(Exception e) {
+//            e.printStackTrace();
+//            Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+//        }
 
 
         pdfDocument.close();
@@ -580,7 +577,7 @@ public class ConsultationFragment extends Fragment {
 
     public void SubmitQuesAns(String ques, String ans) {
 
-        String url="http://192.168.1.14/infits/clientconsultation.php";
+        String url=String.format("%sclientconsultation.php",DataFromDatabase.ipConfig);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -602,6 +599,7 @@ public class ConsultationFragment extends Fragment {
 
                 params.put("question", ques);
                 params.put("answer", ans);
+                params.put("clientID",DataFromDatabase.clientuserID);
 
                 return params;
             }

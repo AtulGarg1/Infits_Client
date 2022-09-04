@@ -43,7 +43,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -52,11 +54,11 @@ public class StepTrackerFragment extends Fragment {
 
     Button setgoal;
     ImageButton imgback;
-    TextView steps_label,goal_step_count;
+    TextView steps_label,goal_step_count,distance,calories,speed;
 
 GaugeSeekBar  progressBar;
 
-    float goalVal = 0;
+    float goalVal = 5000;
 
     float goalPercent = 0;
 
@@ -100,11 +102,42 @@ GaugeSeekBar  progressBar;
         RecyclerView pastActivity = view.findViewById(R.id.past_activity);
 
         progressBar = view.findViewById(R.id.progressBar);
+        speed = view.findViewById(R.id.speed);
+        distance = view.findViewById(R.id.distance);
+        calories = view.findViewById(R.id.calories);
 
         progressBar.setProgress(0);
 
         ArrayList<String> dates = new ArrayList<>();
         ArrayList<String> datas = new ArrayList<>();
+
+//        if (DataFromDatabase.stepsGoal.equals(null)){
+//            goal_step_count.setText("5000");
+//        }
+//        else{
+//            goal_step_count.setText(DataFromDatabase.stepsGoal+" ml");
+//            try {
+//                 = Integer.parseInt(DataFromDatabase.waterGoal);
+//            }catch (NumberFormatException ex){
+//                goal = 1800;
+//                waterGoal.setText(1800+" ml");
+//                System.out.println(ex);
+//            }
+//        }
+//
+//        if (DataFromDatabase.stepsStr.equals(null)|| DataFromDatabase.stepsStr.equals("null")){
+//            steps_label.setText("0");
+//        }
+//        else{
+//            steps_label.setText(DataFromDatabase.waterStr+" ml");
+//            try {
+//                 = Integer.parseInt(DataFromDatabase.waterStr);
+//                waterGoalPercent.setText(String.valueOf(calculateGoal()));
+//            }catch (NumberFormatException ex){
+//                consumedInDay = 0;
+//                waterGoalPercent.setText(String.valueOf(calculateGoal()));
+//            }
+//        }
 
         String url = String.format("%spastActivity.php",DataFromDatabase.ipConfig);
 
@@ -157,16 +190,12 @@ GaugeSeekBar  progressBar;
                 dialog.setCancelable(true);
                 dialog.setContentView(R.layout.setgoaldialog);
                 dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                Intent serviceIntent = new Intent(getActivity(), MyService.class);
-                if (!foregroundServiceRunning()){
-                    ContextCompat.startForegroundService(getActivity(), serviceIntent);
-                }
                 EditText goal = dialog.findViewById(R.id.goal);
                 Button save = dialog.findViewById(R.id.save_btn_steps);
-                progressBar.setProgress(0);
-                steps_label.setText(String.valueOf(0));
+//                progressBar.setProgress(0);
+//                steps_label.setText(String.valueOf(0));
                 save.setOnClickListener(v->{
-                    FetchTrackerInfos.previousStep = FetchTrackerInfos.totalSteps;
+//                    FetchTrackerInfos.previousStep = FetchTrackerInfos.totalSteps;
                     goal_step_count.setText(goal.getText().toString());
                     goalVal = Integer.parseInt(goal.getText().toString());
                     dialog.dismiss();
@@ -174,6 +203,11 @@ GaugeSeekBar  progressBar;
                 dialog.show();
             }
         });
+
+        Intent serviceIntent = new Intent(getActivity(), MyService.class);
+        if (!foregroundServiceRunning()){
+            ContextCompat.startForegroundService(getActivity(), serviceIntent);
+        }
 
         imgback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -227,6 +261,21 @@ GaugeSeekBar  progressBar;
                     System.out.println(goalPercent);
                     progressBar.setProgress(goalPercent);
                     steps_label.setText(String.valueOf((int) steps));
+                    distance.setText(String.format("%.2f",(steps/1312.33595801f)));
+                    calories.setText(String.format("%.2f",(0.04f*steps)));
+                    Date date = new Date();
+
+                    SimpleDateFormat hour = new SimpleDateFormat("HH");
+                    SimpleDateFormat mins = new SimpleDateFormat("mm");
+
+                    int h = Integer.parseInt(hour.format(date));
+                    int m = Integer.parseInt(mins.format(date));
+
+                    int time = h+(m/60);
+
+                    speed.setText(String.format("%.2f",(steps/1312.33595801f)/time));
+                    System.out.println(0.04f*steps);
+                    System.out.println((steps/1312.33595801f)/time);
                 }
             },20000);
 //            SharedPreferences sharedPreferences = getActivity().getSharedPreferences(getActivity().getPackageName(), Context.MODE_PRIVATE);

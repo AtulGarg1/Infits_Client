@@ -214,21 +214,19 @@ public class Statistics extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-                data.put("userID", "Azarudeen");
+                data.put("userID", DataFromDatabase.clientuserID);
                 return data;
             }
         };
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
     }
-
     private void weightCount() {
         String url = String.format("%sweightFragment.php",DataFromDatabase.ipConfig);
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
             if (!response.equals("failure")){
                 Log.d("Fragment","success");
                 Log.d("Fragment response",response);
-
                 try {
                     JSONArray jsonArray = new JSONArray(response);
                     JSONObject object0 = jsonArray.getJSONObject(0);
@@ -255,11 +253,9 @@ public class Statistics extends AppCompatActivity {
                         stepsTotal ="0";
                     }
                     total.setText(stepsTotal);
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
             else if (response.equals("failure")){
                 Log.d("Fragment","failure");
@@ -272,7 +268,7 @@ public class Statistics extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-                data.put("userID", "Azarudeen");
+                data.put("userID", DataFromDatabase.clientuserID);
                 return data;
             }
         };
@@ -317,7 +313,6 @@ public class Statistics extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
             else if (response.equals("failure")){
                 Log.d("Fragment","failure");
@@ -331,7 +326,7 @@ public class Statistics extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
 //                Log.d("Fragment","clientuserID = "+dataFromDatabase.clientuserID);
-                data.put("userID", "Azarudeen");
+                data.put("userID", DataFromDatabase.clientuserID);
                 return data;
             }
         };
@@ -344,9 +339,6 @@ public class Statistics extends AppCompatActivity {
         String url = String.format("%sstepsFragment.php",DataFromDatabase.ipConfig);
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
             if (!response.equals("failure")){
-                Log.d("HeartFragment","success");
-                Log.d("heartFragment response",response);
-
                 try {
                     JSONArray jsonArray = new JSONArray(response);
                     JSONObject object0 = jsonArray.getJSONObject(0);
@@ -383,7 +375,7 @@ public class Statistics extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "heartFragment failed", Toast.LENGTH_SHORT).show();
             }
         },error -> {
-            //    Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();
+
         })
         {
             @Nullable

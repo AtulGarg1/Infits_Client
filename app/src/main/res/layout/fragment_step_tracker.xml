@@ -124,7 +124,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="-10dp"
                     android:fontFamily="@font/nats_regular"
-                    android:text="0"
+                    android:text="5000"
                     android:textColor="@color/white"
                     android:textSize="22dp" />
             </LinearLayout>
@@ -152,7 +152,7 @@
                     android:gravity="center"
                     android:textSize="16sp" />
                 <TextView
-                    android:id="@+id/textView21"
+                    android:id="@+id/calories"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nunito"
@@ -196,7 +196,7 @@
                     android:textColor="#D8D4D4"
                     android:layout_weight="1"/>
                 <TextView
-                    android:id="@+id/textView15"
+                    android:id="@+id/speed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nunito"
@@ -240,7 +240,7 @@
                     android:textColor="#D8D4D4"
                     android:layout_weight="1"/>
                 <TextView
-                    android:id="@+id/textView25"
+                    android:id="@+id/distance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nunito"

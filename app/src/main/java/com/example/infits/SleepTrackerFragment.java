@@ -206,6 +206,13 @@ public class SleepTrackerFragment extends Fragment {
                 Date date = new Date();
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(date);
+                SimpleDateFormat sleepTime = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MySharedPref",Context.MODE_PRIVATE);
+
+                SharedPreferences.Editor myEdit = sharedPreferences.edit();
+
+                myEdit.putString("sleepTime", sleepTime.format(date));
+                myEdit.commit();
                 calendar.add(Calendar.HOUR_OF_DAY, 8);
                 tvDuration.setVisibility(View.VISIBLE);
                 SimpleDateFormat sim = new SimpleDateFormat("HH:mm");
@@ -236,7 +243,7 @@ public class SleepTrackerFragment extends Fragment {
                 }
                 getActivity().unregisterReceiver(broadcastReceiver);
                 tvDuration.setText("You slept for " +sleep);
-                String url="http://192.168.162.91/infits/sleeptracker.php";
+                String url=String.format("%ssleeptracker.php",DataFromDatabase.ipConfig);
                 StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
                     if (response.equals("updated")){
                         Toast.makeText(getActivity(), "Good Morning", Toast.LENGTH_SHORT).show();
@@ -252,20 +259,17 @@ public class SleepTrackerFragment extends Fragment {
                     @Nullable
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
-                        Calendar cal = Calendar.getInstance();
+                        SharedPreferences sh = getActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
+
+                        String sleepTime = sh.getString("sleepTime", "");
+
+                        Date date = new Date();
                         String pat = "dd-MM-yyyy hh:mm:ss";
-
                         SimpleDateFormat sdf = new SimpleDateFormat(pat);
-
-                        cal.set(Calendar.DAY_OF_WEEK, 7);
                         Map<String,String> data = new HashMap<>();
-                        data.put("userID","Azarudeen");
-                        cal.set(Calendar.DAY_OF_WEEK, cal.getFirstDayOfWeek());
-                        data.put("sleeptime", sdf.format(cal.getTime()));
-                        System.out.println(sdf.format(cal.getTime()));
-                        cal.set(Calendar.DAY_OF_WEEK, 7);
-                        data.put("waketime", sdf.format(cal.getTime()));
-                        System.out.println(sdf.format(cal.getTime()));
+                        data.put("userID",DataFromDatabase.clientuserID);
+                        data.put("sleeptime",sleepTime);
+                        data.put("waketime", sdf.format(date));
                         data.put("timeslept",time);
                         System.out.println("hi"+time);
                         data.put("goal", "8");
