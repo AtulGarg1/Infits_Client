@@ -42,6 +42,8 @@ import java.util.Map;
 
 public class DashBoardFragment extends Fragment {
 
+    String urlRefer = String.format("%sverify.php",DataFromDatabase.ipConfig);
+
     String url = String.format("%sDashboard.php",DataFromDatabase.ipConfig);
     DataFromDatabase dataFromDatabase;
     TextView stepstv,glassestv,glassesGoaltv,sleeptv,sleepGoaltv,weighttv,weightGoaltv,calorietv,
@@ -246,6 +248,33 @@ public class DashBoardFragment extends Fragment {
 
         queue = Volley.newRequestQueue(getContext());
         Log.d("ClientMetrics","before");
+
+        StringRequest stringRequestHeart = new StringRequest(Request.Method.POST,String.format("%sheartrate.php",DataFromDatabase.ipConfig),response -> {
+
+            try {
+                JSONObject jsonResponse = new JSONObject(response);
+                JSONArray jsonArray = jsonResponse.getJSONArray("heart");
+                JSONObject jsonObject = jsonArray.getJSONObject(0);
+                bpmtv.setText(jsonObject.getString("avg"));
+                bpmDowntv.setText(jsonObject.getString("min"));
+                bpmUptv.setText(jsonObject.getString("max"));
+            }catch (JSONException jsonException){
+                System.out.println(jsonException);
+            }
+        },error -> {
+
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> data = new HashMap<>();
+                data.put("userID",DataFromDatabase.clientuserID);
+                return data;
+            }
+        };
+
+        Volley.newRequestQueue(getContext()).add(stringRequestHeart);
+
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
             if (!response.equals("failure")){
                 Log.d("ClientMetrics","success");
@@ -323,8 +352,29 @@ public class DashBoardFragment extends Fragment {
         final EditText referralCode = dialog.findViewById(R.id.referralcode);
         ImageView checkReferral = dialog.findViewById(R.id.checkReferral);
         checkReferral.setOnClickListener(vi->{
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST,urlRefer,response->{
+
+            },error->{
+
+            }){
+                @Nullable
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+
+                    Map<String,String> data = new HashMap();
+
+                    data.put("clientID",DataFromDatabase.clientuserID);
+                    data.put("referal_code",referralCode.getText().toString());
+
+
+                    return data;
+                }
+            };
+             Volley.newRequestQueue(getContext()).add(stringRequest);
             dialog.dismiss();
         });
         dialog.show();
     }
+
 }

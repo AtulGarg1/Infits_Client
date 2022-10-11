@@ -23,8 +23,7 @@
             android:layout_alignTop="@+id/title"
             android:layout_alignBottom="@+id/title"
             android:layout_gravity="center"
-            android:layout_marginStart="30dp"
-            android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
+            android:layout_marginStart="30dp" />
 
         <TextView
             android:id="@+id/title"
@@ -104,14 +103,16 @@
 
 
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp">
+            android:layout_marginHorizontal="10dp"
+            android:layout_gravity="center">
 
             <ImageView
                 android:id="@+id/column_line_one"
                 android:layout_width="wrap_content"
-                android:layout_height="500dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
@@ -121,7 +122,7 @@
             <ImageView
                 android:id="@+id/column_line_two"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
@@ -181,11 +182,11 @@
                 android:id="@+id/energy_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Energy"
+                android:layout_below="@+id/nutrient_title"
                 android:fontFamily="@font/nats_regular"
+                android:text="Calories"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:layout_below="@+id/nutrient_title"/>
+                android:textSize="20sp" />
 
             <ImageView
                 android:layout_width="90dp"
@@ -234,7 +235,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/energy_title"
                 android:fontFamily="@font/nats_regular"
-                android:text="Total Fat"
+                android:text="Fat"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
@@ -260,89 +261,23 @@
                 android:textColor="@color/black"
                 android:layout_below="@+id/per_100g_title_energy"/>
 
-            <TextView
-                android:id="@+id/sat_fat_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/fat_title"
-                android:fontFamily="@font/nats_regular"
-                android:text="Saturated Fat"
-                android:textColor="#6A6A6A"
-                android:textSize="18sp" />
-
-
-            <TextView
-                android:id="@+id/per_100g_title__sat_fat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/nats_regular"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:gravity="end"
-                android:layout_below="@id/per_100g_title_fat"
-                android:layout_toEndOf="@+id/column_line_one"/>
-
-            <TextView
-                android:id="@+id/per_serving_sat_fat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/column_line_two"
-                android:fontFamily="@font/nats_regular"
-                android:gravity="end"
-                android:textSize="18sp"
-                android:textColor="@color/black"
-                android:layout_below="@+id/per_100g_title_fat"/>
-
-            <TextView
-                android:id="@+id/trans_fat_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/sat_fat_title"
-                android:fontFamily="@font/nats_regular"
-                android:text="Trans Fat"
-                android:textColor="#6A6A6A"
-                android:textSize="18sp" />
-
-
-            <TextView
-                android:id="@+id/per_100g_title__trans_fat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/nats_regular"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:gravity="end"
-                android:layout_below="@id/per_100g_title__sat_fat"
-                android:layout_toEndOf="@+id/column_line_one"/>
-
-            <TextView
-                android:id="@+id/per_serving_trans_fat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/column_line_two"
-                android:fontFamily="@font/nats_regular"
-                android:gravity="end"
-                android:textSize="18sp"
-                android:textColor="@color/black"
-                android:layout_below="@+id/per_100g_title__sat_fat"/>
-
             <ImageView
                 android:layout_width="90dp"
                 android:layout_height="3dp"
                 android:src="@drawable/scanner_line"
-                android:layout_below="@+id/trans_fat_title"/>
+                android:layout_below="@+id/fat_title"/>
 
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="3dp"
                 android:src="@drawable/scanner_line"
-                android:layout_below="@+id/per_100g_title__trans_fat"
+                android:layout_below="@+id/fat_title"
                 android:layout_toEndOf="@id/column_line_one" />
 
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="2dp"
-                android:layout_below="@+id/per_100g_title__trans_fat"
+                android:layout_below="@+id/fat_title"
                 android:layout_toEndOf="@id/column_line_two"
                 android:src="@drawable/scanner_line" />
 
@@ -350,7 +285,7 @@
                 android:id="@+id/carb_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/trans_fat_title"
+                android:layout_below="@+id/per_serving_fat"
                 android:fontFamily="@font/nats_regular"
                 android:text="Carbohydrate"
                 android:textColor="@color/black"
@@ -369,7 +304,7 @@
                 android:textColor="@color/black"
                 android:textSize="18dp"
                 android:gravity="end"
-                android:layout_below="@id/per_100g_title__trans_fat"
+                android:layout_below="@id/fat_title"
                 android:layout_toEndOf="@+id/column_line_one"/>
 
             <ImageView
@@ -388,7 +323,7 @@
                 android:gravity="end"
                 android:textSize="18dp"
                 android:textColor="@color/black"
-                android:layout_below="@+id/per_serving_trans_fat"/>
+                android:layout_below="@+id/fat_title"/>
 
             <ImageView
                 android:layout_width="100dp"
@@ -398,71 +333,15 @@
                 android:src="@drawable/scanner_line" />
 
             <TextView
-                android:id="@+id/sodium_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/carb_title"
-                android:fontFamily="@font/nats_regular"
-                android:text="Sodium"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
-
-            <ImageView
-                android:layout_width="90dp"
-                android:layout_height="3dp"
-                android:src="@drawable/scanner_line"
-                android:layout_below="@+id/sodium_title"/>
-            <TextView
-                android:id="@+id/per_100g_title_sodium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/nats_regular"
-                android:textColor="@color/black"
-                android:textSize="18dp"
-                android:gravity="end"
-                android:layout_below="@id/per_100g_title_carb"
-                android:layout_toEndOf="@+id/column_line_one"/>
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="3dp"
-                android:src="@drawable/scanner_line"
-                android:layout_below="@+id/sodium_title"
-                android:layout_toEndOf="@id/column_line_one" />
-
-            <TextView
-                android:id="@+id/per_serving_sodium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/column_line_two"
-                android:fontFamily="@font/nats_regular"
-                android:gravity="end"
-                android:textSize="18dp"
-                android:textColor="@color/black"
-                android:layout_below="@+id/per_serving_carb"/>
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="2dp"
-                android:layout_below="@+id/per_serving_sodium"
-                android:layout_toEndOf="@id/column_line_two"
-                android:src="@drawable/scanner_line" />
-
-            <TextView
                 android:id="@+id/protein_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/sodium_title"
+                android:layout_below="@+id/carb_title"
                 android:fontFamily="@font/nats_regular"
                 android:text="Protein"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
-            <ImageView
-                android:layout_width="90dp"
-                android:layout_height="3dp"
-                android:src="@drawable/scanner_line"
-                android:layout_below="@+id/protein_title"/>
             <TextView
                 android:id="@+id/per_100g_title_protein"
                 android:layout_width="wrap_content"
@@ -471,15 +350,9 @@
                 android:textColor="@color/black"
                 android:textSize="18dp"
                 android:gravity="end"
-                android:layout_below="@id/per_100g_title_sodium"
+                android:layout_below="@id/carb_title"
                 android:layout_toEndOf="@+id/column_line_one"/>
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="3dp"
-                android:src="@drawable/scanner_line"
-                android:layout_below="@+id/protein_title"
-                android:layout_toEndOf="@id/column_line_one" />
 
             <TextView
                 android:id="@+id/per_serving_protein"
@@ -490,78 +363,30 @@
                 android:gravity="end"
                 android:textSize="18dp"
                 android:textColor="@color/black"
-                android:layout_below="@+id/per_serving_sodium"/>
+                android:layout_below="@+id/carb_title"/>
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="2dp"
-                android:layout_below="@+id/per_serving_protein"
-                android:layout_toEndOf="@id/column_line_two"
-                android:src="@drawable/scanner_line" />
-
-
-           <TextView
-            android:id="@+id/sugar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/protein_title"
-            android:fontFamily="@font/nats_regular"
-            android:text="Sugar"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
-            <ImageView
-                android:layout_width="90dp"
-                android:layout_height="3dp"
-                android:src="@drawable/scanner_line"
-                android:layout_below="@+id/sugar_title"/>
-            <TextView
-                android:id="@+id/per_100g_title_sugar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/nats_regular"
-                android:textColor="@color/black"
-                android:textSize="18dp"
-                android:gravity="end"
-                android:layout_below="@id/per_100g_title_protein"
-                android:layout_toEndOf="@+id/column_line_one"/>
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="3dp"
-                android:src="@drawable/scanner_line"
-                android:layout_below="@+id/sugar_title"
-                android:layout_toEndOf="@id/column_line_one" />
-
-            <TextView
-                android:id="@+id/per_serving_sugar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/column_line_two"
-                android:fontFamily="@font/nats_regular"
-                android:gravity="end"
-                android:textSize="18dp"
-                android:textColor="@color/black"
-                android:layout_below="@+id/per_serving_protein"/>
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="2dp"
-                android:layout_below="@+id/per_serving_sugar"
-                android:layout_toEndOf="@id/column_line_two"
-                android:src="@drawable/scanner_line" />
 
         </RelativeLayout>
-
-        <Button
-            android:id="@+id/nextbtn"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/brand_color_for_device"
-            android:text="Next"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="26sp"/>
+            android:src="@drawable/scanner_line"
+            android:layout_marginHorizontal="25dp"
+            android:layout_gravity="center"/>
+<!--        <androidx.appcompat.widget.AppCompatButton-->
+<!--            android:id="@+id/nextbtn"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:background="@drawable/brand_color_for_device"-->
+<!--            android:text="Next"-->
+<!--            app:cornerRadius="10dp"-->
+<!--            android:layout_gravity="end"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginEnd="20dp"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:fontFamily="@font/nats_regular"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="18sp"/>-->
     </LinearLayout>
     </ScrollView>
 </LinearLayout>

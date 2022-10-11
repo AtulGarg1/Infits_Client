@@ -70,7 +70,7 @@ public class HeartRate extends Fragment {
     private Observable<RxBleConnection> connectionObservable;
     private Observable<byte[]> notificationObservable;
 
-    TextView result_from,measuring,deviceName;
+    TextView result_from,measuring,deviceName,min,avg,max;
 
     LinearLayout after_measured,after_measured_title;
 
@@ -132,15 +132,23 @@ public class HeartRate extends Fragment {
         ArrayList<String> dates = new ArrayList<>();
         ArrayList<String> datas = new ArrayList<>();
 
-        String url = String.format("%spastActivity.php",DataFromDatabase.ipConfig);
+        String url = String.format("%spastActivityHeartrate.php",DataFromDatabase.ipConfig);
+
+        max = view.findViewById(R.id.max);
+        avg = view.findViewById(R.id.avg);
+        min = view.findViewById(R.id.min);
+
+        min.setText(DataFromDatabase.bpmDown);
+        avg.setText(DataFromDatabase.bpm);
+        max.setText(DataFromDatabase.bpmUp);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
             try {
                 JSONObject jsonObject = new JSONObject(response);
-                JSONArray jsonArray = jsonObject.getJSONArray("steps");
+                JSONArray jsonArray = jsonObject.getJSONArray("heart");
                 for (int i = 0;i<jsonArray.length();i++){
                     JSONObject object = jsonArray.getJSONObject(i);
-                    String data = object.getString("steps");
+                    String data = object.getString("avg");
                     String date = object.getString("date");
                     dates.add(date);
                     datas.add(data);
@@ -161,7 +169,7 @@ public class HeartRate extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> data = new HashMap<>();
-                data.put("","");
+                data.put("clientID",DataFromDatabase.clientuserID);
                 return data;
             }
         };

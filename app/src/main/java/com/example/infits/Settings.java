@@ -19,10 +19,5 @@ public class Settings extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(getApplicationContext(),DashBoardMain.class));
-        finish();
-    }
+
 }

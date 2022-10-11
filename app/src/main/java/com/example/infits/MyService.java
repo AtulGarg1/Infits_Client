@@ -105,17 +105,13 @@ public class MyService extends Service implements SensorEventListener {
             }
 
             Calendar calendar = new GregorianCalendar();
-            String am_pm;
             int hour = calendar.get(Calendar.HOUR);
             int minute = calendar.get(Calendar.MINUTE);
-//            if (calendar.get(Calendar.AM_PM) == 0) {
-//                if (hour >= 0){
-//                    FetchTrackerInfos.previousStep = FetchTrackerInfos.totalSteps;
-//                    System.out.println("Reset");
-//                }
-//            }
+
             FetchTrackerInfos.totalSteps = (int) event.values[0];
             FetchTrackerInfos.currentSteps = ((int) FetchTrackerInfos.totalSteps - (int) FetchTrackerInfos.previousStep);
+
+            updateSteps();
 
             Log.d("step", String.valueOf(FetchTrackerInfos.totalSteps));
             Log.d("stepPre", String.valueOf(FetchTrackerInfos.previousStep));
@@ -134,7 +130,7 @@ public class MyService extends Service implements SensorEventListener {
                 NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(
                         this, "MyChannelId");
                 Notification notification = notificationBuilder.setOngoing(true)
-                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setSmallIcon(R.mipmap.logo)
                         .setContentTitle(String.valueOf(FetchTrackerInfos.currentSteps))
                         .setPriority(NotificationManager.IMPORTANCE_LOW)
                         .setCategory(Notification.CATEGORY_SERVICE)
@@ -145,7 +141,6 @@ public class MyService extends Service implements SensorEventListener {
                 sendBroadcast(intent);
                 String time = "Current Time : " + hour + ":" + minute + " " ;
                 System.out.println(time);
-//                updateSteps();
             }
         }
     }
@@ -156,37 +151,54 @@ public class MyService extends Service implements SensorEventListener {
     }
 
     void updateSteps() {
-//        String url="http://192.168.227.91/infits/steptracker.php";;
-//        StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
-//            if (response.equals("updated")){
-//                Toast.makeText(getApplicationContext(), "Updated bro", Toast.LENGTH_SHORT).show();
-//                Log.d("Response",response);
-//            }
-//            else{
-//                Toast.makeText(getApplicationContext(), "Not working", Toast.LENGTH_SHORT).show();
-//                Log.d("Response",response);
-//            }
-//        },error -> {
-//            Toast.makeText(getApplicationContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
-//        }){
-//            @Nullable
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                Date date = new Date();
-//                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//                sdf.format(date);
-//                Map<String,String> data = new HashMap<>();
-//                data.put("userID","Azarudeen");
-//                data.put("dateandtime", String.valueOf(date));
-//                data.put("distance", "14");
-//                data.put("avgspeed", "14");
-//                data.put("calories","34");
-//                data.put("steps", String.valueOf(FetchTrackerInfos.currentSteps));
-//                data.put("goal", "5000");
-//                return data;
-//            }
-//        };
-//        Volley.newRequestQueue(getApplicationContext()).add(request);
+        String url= String.format("%ssteptracker.php",DataFromDatabase.ipConfig);
+        StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
+            if (response.equals("updated")){
+//                Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
+                Log.d("Response",response);
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "Not working", Toast.LENGTH_SHORT).show();
+                Log.d("Response",response);
+            }
+        },error -> {
+            Toast.makeText(getApplicationContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                String distance = String.format("%.2f",(FetchTrackerInfos.currentSteps/1312.33595801f));
+                String calories = (String.format("%.2f",(0.04f*FetchTrackerInfos.currentSteps)));
+                Date dateSpeed = new Date();
+
+                SimpleDateFormat hour = new SimpleDateFormat("HH");
+                SimpleDateFormat mins = new SimpleDateFormat("mm");
+
+                int h = Integer.parseInt(hour.format(dateSpeed));
+                int m = Integer.parseInt(mins.format(dateSpeed));
+
+                int time = h+(m/60);
+
+                String speed = (String.format("%.2f",(FetchTrackerInfos.currentSteps/1312.33595801f)/time));
+
+                System.out.println(calories + " "+distance+" "+speed);
+
+                Date date = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                sdf.format(date);
+                Map<String,String> data = new HashMap<>();
+                data.put("userID",DataFromDatabase.clientuserID);
+                data.put("dateandtime", String.valueOf(date));
+                data.put("distance", distance);
+                data.put("avgspeed", speed);
+                data.put("calories",calories);
+                data.put("steps", String.valueOf(FetchTrackerInfos.currentSteps));
+                data.put("goal", "5000");
+                return data;
+            }
+        };
+        Volley.newRequestQueue(getApplicationContext()).add(request);
     }
 
 }

@@ -185,6 +185,7 @@ public class CameraForMealTracker extends AppCompatActivity {
                     foodEaten.setImageBitmap(foodEatenPhoto);
 
                     camera_layout.setVisibility(View.GONE);
+
                     result.setVisibility(View.VISIBLE);
 
                 }

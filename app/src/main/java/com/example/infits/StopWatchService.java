@@ -84,7 +84,7 @@ public class StopWatchService extends Service {
 
                             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext(), "MyChannelId");
                             Notification notification = notificationBuilder.setOngoing(true)
-                                    .setSmallIcon(R.mipmap.ic_launcher)
+                                    .setSmallIcon(R.mipmap.logo)
                                     .setContentTitle(timerTime)
                                     .setContentIntent(pendingIntent)
                                     .setChannelId("MyChannelId")

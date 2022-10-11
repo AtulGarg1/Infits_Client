@@ -162,55 +162,68 @@ public class WeightFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 NoOfEmp.removeAll(NoOfEmp);
-                String.format("%sweightGraph.php",DataFromDatabase.ipConfig);
-                StringRequest stringRequest = new StringRequest(Request.Method.GET,url,response -> {
+                String url = String.format("%sweightGraph.php",DataFromDatabase.ipConfig);
+                StringRequest stringRequest = new StringRequest(Request.Method.POST,url,response -> {
+                    System.out.println(DataFromDatabase.clientuserID);
+                    System.out.println(response);
                     List<String> allNames = new ArrayList<>();
                     JSONObject jsonResponse = null;
+                    ArrayList<String> mons = new ArrayList<>();
                     try {
                         jsonResponse = new JSONObject(response);
-                        JSONArray cast = jsonResponse.getJSONArray("water");
+                        JSONArray cast = jsonResponse.getJSONArray("weight");
                         for (int i=0; i<cast.length(); i++) {
                             JSONObject actor = cast.getJSONObject(i);
-                            String name = actor.getString("drink");
+                            String name = actor.getString("weight");
                             String date = actor.getString("date");
                             System.out.println(name+"   "+date);
                             allNames.add(name);
+                            mons.add(date);
                             NoOfEmp.add(new Entry(i,Float.parseFloat(name)));
                             System.out.println("Points "+NoOfEmp.get(i));
                             dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
 
                             dataSet[0].setValues(NoOfEmp);
 
-                            String[] xAxisLables = new String[]{"SUN","MON","TUE","WED","THU","FRI","SAT"};
 
-                            lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xAxisLables));
                             dataSet[0].notifyDataSetChanged();
-                            lineChart.getData().notifyDataChanged();
-                            lineChart.notifyDataSetChanged();
-                            lineChart.invalidate();
                         }
+                        lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(mons));
+
+                        lineChart.getData().notifyDataChanged();
+                        lineChart.notifyDataSetChanged();
+                        lineChart.invalidate();
                     }catch (JSONException e) {
                         e.printStackTrace();
                     }
                 },error -> {
                     Log.d("Data",error.toString().trim());
-                });
+                }) {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+
+                        Map<String, String> dataVol = new HashMap<>();
+                        dataVol.put("userID", DataFromDatabase.clientuserID);
+                        return dataVol;
+                    }
+                };
                 Volley.newRequestQueue(getActivity()).add(stringRequest);
             }
         });
 
         month_radioButton.setOnClickListener(v->{
             NoOfEmp.removeAll(NoOfEmp);
-            String.format("%sweightMonthGraph.php",DataFromDatabase.ipConfig);
-            StringRequest stringRequest = new StringRequest(Request.Method.GET,url,response -> {
+            String url = String.format("%sweightMonthGraph.php",DataFromDatabase.ipConfig);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST,url,response -> {
                 List<String> allNames = new ArrayList<>();
                 JSONObject jsonResponse = null;
                 try {
                     jsonResponse = new JSONObject(response);
-                    JSONArray cast = jsonResponse.getJSONArray("water");
+                    JSONArray cast = jsonResponse.getJSONArray("weight");
                     for (int i=0; i<cast.length(); i++) {
                         JSONObject actor = cast.getJSONObject(i);
-                        String name = actor.getString("drink");
+                        String name = actor.getString("weight");
                         String date = actor.getString("date");
                         System.out.println(name+"   "+date);
                         allNames.add(name);
@@ -246,85 +259,37 @@ public class WeightFragment extends Fragment {
                 }
             },error -> {
                 Log.d("Data",error.toString().trim());
-            });
+            }){
+                @Nullable
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+
+                    Map<String,String> data = new HashMap<>();
+
+                    data.put("userID",DataFromDatabase.clientuserID);
+
+                    return data;
+                }
+            };
             Volley.newRequestQueue(getActivity()).add(stringRequest);
         });
         year_radioButton.setOnClickListener(v->{
             NoOfEmp.removeAll(NoOfEmp);
-            String url = "http://192.168.17.91/infits/weightYearGraph.php";
-            StringRequest stringRequest = new StringRequest(Request.Method.GET,url,response -> {
-                List<String> allNames = new ArrayList<>();
-                JSONObject jsonResponse = null;
-                try {
-                    jsonResponse = new JSONObject(response);
-                    JSONArray cast = jsonResponse.getJSONArray("water");
-                    for (int i=0; i<cast.length(); i++) {
-                        JSONObject actor = cast.getJSONObject(i);
-                        String name = actor.getString("av");
-                        System.out.println(name);
-                        allNames.add(name);
-                        NoOfEmp.add(new Entry(i,Float.parseFloat(name)));
-                        System.out.println("Points "+NoOfEmp.get(i));
-                        dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
-
-                        dataSet[0].setValues(NoOfEmp);
-
-                        dataSet[0].notifyDataSetChanged();
-                        lineChart.getData().notifyDataChanged();
-                        lineChart.notifyDataSetChanged();
-                        lineChart.invalidate();
-                    }
-                }catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            },error -> {
-                Log.d("Data",error.toString().trim());
-            });
-            Volley.newRequestQueue(getActivity()).add(stringRequest);
-        });
-        custom_radioButton.setOnClickListener(v->{
-            final Dialog dialog = new Dialog(getActivity());
-            dialog.setCancelable(true);
-            dialog.setContentView(R.layout.calender_dialog);
-            final Calendar nextYear = Calendar.getInstance();
-            nextYear.add(Calendar.YEAR,10);
-
-            final Calendar lastYear = Calendar.getInstance();
-            lastYear.add(Calendar.YEAR, -10);
-
-//            DateRangeCalendarView cal = dialog.findViewById(R.id.cal_for_graph);
-
-//            com.archit.calendardaterangepicker.customviews.CalendarDateRangeManagerImpl
-
-            CalendarPickerView calendarPickerView = dialog.findViewById(R.id.cal_for_graph);
-            calendarPickerView.init(lastYear.getTime(), nextYear.getTime(), new SimpleDateFormat("MMMM", Locale.getDefault())).inMode(CalendarPickerView.SelectionMode.RANGE).withSelectedDate(new Date());
-
-
-            Button done = dialog.findViewById(R.id.done);
-            Button cancel = dialog.findViewById(R.id.cancel);
-
-            done.setOnClickListener(vi->{
-//                List<Date> dates = calendarPickerView.getSelectedDates();
-//                SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
-//                String from = sf.format(dates.get(0));
-//                String to = sf.format(dates.get(dates.size()-1));
-
-                NoOfEmp.removeAll(NoOfEmp);
-                String url = String.format("%sstepsYearGraph.php",DataFromDatabase.ipConfig);
-                StringRequest stringRequest = new StringRequest(Request.Method.GET,url,response -> {
+            String url = String.format("%sweightYearGraph.php",DataFromDatabase.ipConfig);
+                StringRequest stringRequestWater = new StringRequest(Request.Method.POST, url, response -> {
+                    System.out.println("In request");
                     List<String> allNames = new ArrayList<>();
                     JSONObject jsonResponse = null;
                     try {
                         jsonResponse = new JSONObject(response);
-                        JSONArray cast = jsonResponse.getJSONArray("steps");
-                        for (int i=0; i<cast.length(); i++) {
+                        JSONArray cast = jsonResponse.getJSONArray("weight");
+                        for (int i = 0; i < cast.length(); i++) {
                             JSONObject actor = cast.getJSONObject(i);
                             String name = actor.getString("av");
                             System.out.println(name);
                             allNames.add(name);
-                            NoOfEmp.add(new Entry(i,Float.parseFloat(name)));
-                            System.out.println("Points "+NoOfEmp.get(i));
-                            dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
+                            NoOfEmp.add(new Entry(i, Float.parseFloat(name)));
+                            System.out.println("Points " + NoOfEmp.get(i));
                             dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
 
                             dataSet[0].setValues(NoOfEmp);
@@ -334,92 +299,103 @@ public class WeightFragment extends Fragment {
                             lineChart.notifyDataSetChanged();
                             lineChart.invalidate();
                         }
-                    }catch (JSONException e) {
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                },error -> {
-                    Log.d("Data",error.toString().trim());
-                }){
+                }, error -> {
+                    Log.d("Data", error.toString().trim());
+                }) {
                     @Nullable
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String,String> data = new HashMap<>();
-//                        data.put("from",from);
-//                        data.put("to",to);
-                        data.put("clientID",DataFromDatabase.clientuserID);
+
+                        Map<String, String> data = new HashMap<>();
+
+                        data.put("userID", DataFromDatabase.clientuserID);
+
                         return data;
+                    }
+                };
+                Volley.newRequestQueue(getActivity()).add(stringRequestWater);
+        });
+        custom_radioButton.setOnClickListener(v -> {
+            NoOfEmp.removeAll(NoOfEmp);
+            final Dialog dialog = new Dialog(getActivity());
+            dialog.setCancelable(true);
+            dialog.setContentView(R.layout.calender_dialog);
+            final Calendar nextYear = Calendar.getInstance();
+            nextYear.add(Calendar.YEAR, 10);
+
+            final Calendar lastYear = Calendar.getInstance();
+            lastYear.add(Calendar.YEAR, -10);
+
+            CalendarPickerView calendarPickerView = dialog.findViewById(R.id.cal_for_graph);
+            calendarPickerView.init(lastYear.getTime(), nextYear.getTime(), new SimpleDateFormat("MMMM", Locale.getDefault())).inMode(CalendarPickerView.SelectionMode.RANGE).withSelectedDate(new Date());
+
+            Button done = dialog.findViewById(R.id.done);
+            Button cancel = dialog.findViewById(R.id.cancel);
+
+            done.setOnClickListener(vi -> {
+                List<Date> dates = calendarPickerView.getSelectedDates();
+                SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
+                String from = sf.format(dates.get(0));
+                String to = sf.format(dates.get(dates.size() - 1));
+                String url = String.format("%scustomweight.php", DataFromDatabase.ipConfig);
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
+                    System.out.println(DataFromDatabase.clientuserID);
+                    System.out.println(response);
+                    List<String> allNames = new ArrayList<>();
+                    JSONObject jsonResponse = null;
+                    ArrayList<String> mons = new ArrayList<>();
+                    try {
+                        jsonResponse = new JSONObject(response);
+                        JSONArray cast = jsonResponse.getJSONArray("weight");
+                        for (int i = 0; i < cast.length(); i++) {
+                            JSONObject actor = cast.getJSONObject(i);
+                            String name = actor.getString("weight");
+                            String date = actor.getString("date");
+                            System.out.println(name + "   " + date);
+                            allNames.add(name);
+                            mons.add(date);
+                            NoOfEmp.add(new Entry(i, Float.parseFloat(name)));
+                            System.out.println("Points " + NoOfEmp.get(i));
+                            dataSet[0] = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
+
+                            dataSet[0].setValues(NoOfEmp);
+
+                            dataSet[0].notifyDataSetChanged();
+                        }
+                        lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(mons));
+
+                        lineChart.getData().notifyDataChanged();
+                        lineChart.notifyDataSetChanged();
+                        lineChart.invalidate();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }, error -> {
+                    Log.d("Data", error.toString().trim());
+                }) {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+
+                        Map<String, String> dataVol = new HashMap<>();
+                        dataVol.put("clientID", DataFromDatabase.clientuserID);
+                        dataVol.put("from", from);
+                        dataVol.put("to", to);
+                        return dataVol;
                     }
                 };
                 Volley.newRequestQueue(getActivity()).add(stringRequest);
                 dialog.dismiss();
             });
 
-            cancel.setOnClickListener(vi->{
+            cancel.setOnClickListener(view1 -> {
                 dialog.dismiss();
             });
             dialog.show();
         });
-
-
-//        queue = Volley.newRequestQueue(getContext());
-//        Log.d("Fragment","before");
-//        StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
-//            if (!response.equals("failure")){
-//                Log.d("Fragment","success");
-//                Log.d("Fragment response",response);
-//
-//                try {
-//                    JSONArray jsonArray = new JSONArray(response);
-//                    JSONObject object0 = jsonArray.getJSONObject(0);
-//                    JSONObject object1 = jsonArray.getJSONObject(1);
-//                    JSONObject object2 = jsonArray.getJSONObject(2);
-//                    JSONObject object3 = jsonArray.getJSONObject(3);
-//                    String stepsWeek = object0.getString("SumWeek");
-//                    if (stepsWeek.equals("null")){
-//                        stepsWeek ="0";
-//                    }
-//                    weekly.setText(stepsWeek);
-//                    String stepsMonth = object1.getString("SumMonth");
-//                    if (stepsMonth.equals("null")){
-//                        stepsMonth ="0";
-//                    }
-//                    monthly.setText(stepsMonth);
-//                    String stepsDaily = object2.getString("SumDaily");
-//                    if (stepsDaily.equals("null")){
-//                        stepsDaily ="0";
-//                    }
-//                    daily.setText(stepsDaily);
-//                    String stepsTotal = object3.getString("SumTotal");
-//                    if (stepsTotal.equals("null")){
-//                        stepsTotal ="0";
-//                    }
-//                    total.setText(stepsTotal);
-//
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//            else if (response.equals("failure")){
-//                Log.d("Fragment","failure");
-//                Toast.makeText(getContext(), "Fragment failed", Toast.LENGTH_SHORT).show();
-//            }
-//        },error -> {
-//            Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();})
-//        {
-//            @Nullable
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                Map<String, String> data = new HashMap<>();
-//                Log.d("Fragment","clientuserID = "+dataFromDatabase.clientuserID);
-//                data.put("userID", dataFromDatabase.clientuserID);
-//                return data;
-//            }
-//        };
-//        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-//        requestQueue.add(stringRequest);
-//        Log.d("Fragment","at end");
-//
         return view;
     }
 }

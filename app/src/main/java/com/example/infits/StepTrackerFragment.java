@@ -198,6 +198,7 @@ GaugeSeekBar  progressBar;
 //                    FetchTrackerInfos.previousStep = FetchTrackerInfos.totalSteps;
                     goal_step_count.setText(goal.getText().toString());
                     goalVal = Integer.parseInt(goal.getText().toString());
+
                     dialog.dismiss();
                 });
                 dialog.show();
@@ -205,6 +206,7 @@ GaugeSeekBar  progressBar;
         });
 
         Intent serviceIntent = new Intent(getActivity(), MyService.class);
+        serviceIntent.putExtra("goal",goalVal);
         if (!foregroundServiceRunning()){
             ContextCompat.startForegroundService(getActivity(), serviceIntent);
         }

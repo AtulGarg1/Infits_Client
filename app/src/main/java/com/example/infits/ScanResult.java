@@ -27,7 +27,7 @@ import java.net.URL;
 
 public class ScanResult extends AppCompatActivity {
 
-    TextView productName,quantity;
+    TextView productName,quantity,fat,calories,carb,protein;
 
     ImageView image,notFound;
 
@@ -48,6 +48,12 @@ public class ScanResult extends AppCompatActivity {
 
         productName = findViewById(R.id.product_name);
 
+//        fat = findViewById(R.id.fa);
+
+        calories = findViewById(R.id.per_100g_title_energy);
+
+//energy-kcal_serving
+
         notFound = findViewById(R.id.not_found);
 
         String url = String.format("https://world.openfoodfacts.org/api/v0/product/%s.json",barcode);
@@ -63,7 +69,9 @@ public class ScanResult extends AppCompatActivity {
                     Toast.makeText(this, jsonResponse.getString("code"), Toast.LENGTH_SHORT).show();
                     Glide.with(getApplicationContext()).load(product.getString("image_url")).into(image);
                     productName.append(" "+product.getString("product_name"));
-                    quantity.setText(product.getString("quantity"));
+                    quantity.setText(product.getString("serving_size"));
+                    JSONObject nutrients = product.getJSONObject("nutriments");
+                    calories.setText(nutrients.getString("energy-kcal_100g"));
                 }
                 if (jsonResponse.getString("status").equals("0")){
                             notFound.setVisibility(View.VISIBLE);
@@ -77,12 +85,12 @@ public class ScanResult extends AppCompatActivity {
                 });
         Volley.newRequestQueue(getApplicationContext()).add(scanResult);
 
-        next = findViewById(R.id.nextbtn);
+//        next = findViewById(R.id.nextbtn);
 
-        next.setOnClickListener(v->{
-            Intent intentToQuestion = new Intent(getApplicationContext(),QuestionsAfterScan.class);
-            startActivity(intentToQuestion);
-        });
+//        next.setOnClickListener(v->{
+//            Intent intentToQuestion = new Intent(getApplicationContext(),QuestionsAfterScan.class);
+//            startActivity(intentToQuestion);
+//        });
 
     }
 }
