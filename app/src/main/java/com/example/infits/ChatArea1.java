@@ -66,7 +66,7 @@ public class ChatArea1 extends AppCompatActivity {
     private Socket mSocket;
     {
         try {
-            mSocket = IO.socket("http://192.168.9.91:8080");
+            mSocket = IO.socket("http://192.168.1.6:8080");
         } catch (URISyntaxException e) {}
     }
 

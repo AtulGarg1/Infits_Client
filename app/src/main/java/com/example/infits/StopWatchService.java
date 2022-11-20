@@ -5,6 +5,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -62,7 +63,7 @@ public class StopWatchService extends Service {
                         minutes = (seconds % 3600) / 60;
                         secs = seconds % 60;
 
-                        timerTime = String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, secs);
+                        timerTime = String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, secs);
 
                         Log.d("TimerBro",timerTime);
 
@@ -78,9 +79,13 @@ public class StopWatchService extends Service {
                             assert manager != null;
                             manager.createNotificationChannel(chan);
 
-                            Intent notificationIntent = new Intent(getApplicationContext(), MainActivity.class);
-                            PendingIntent pendingIntent =
-                                    PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent,0);
+//                            Intent notificationIntent = new Intent(getApplicationContext(), SplashScreen.class);
+//                            PendingIntent pendingIntent =
+//                                    PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent,0);
+                            Intent intent = new Intent(getApplicationContext(), SplashScreen.class);
+                            intent.putExtra("notification", "sleep");
+
+                            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
                             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext(), "MyChannelId");
                             Notification notification = notificationBuilder.setOngoing(true)

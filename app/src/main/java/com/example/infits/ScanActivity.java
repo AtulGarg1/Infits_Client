@@ -1,5 +1,6 @@
 package com.example.infits;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -41,6 +42,15 @@ public class ScanActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan);
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+                startActivity(new Intent(getApplicationContext(),DashBoardMain.class));
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, callback);
 
         surfaceView = findViewById(R.id.camera_screen);
 

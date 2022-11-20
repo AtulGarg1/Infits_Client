@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -75,7 +76,7 @@ public class ChatArea extends AppCompatActivity {
     private Socket mSocket;
     {
         try {
-            mSocket = IO.socket("http://192.168.5.91:8080");
+            mSocket = IO.socket("http://192.168.1.6:8080");
         } catch (URISyntaxException e) {}
     }
 
@@ -173,6 +174,16 @@ public class ChatArea extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_area);
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+                startActivity(new Intent(getApplicationContext(),DashBoardMain.class));
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, callback);
+
         LinearLayoutManager manager = new LinearLayoutManager(getApplicationContext());
         manager.setOrientation(RecyclerView.VERTICAL);
         manager.setStackFromEnd(true);
@@ -188,7 +199,9 @@ public class ChatArea extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendMessage();
+                if(!message.getText().toString().trim().isEmpty()) {
+                    sendMessage();
+                }
             }
         });
         ImageView i12 = findViewById(R.id.attach_file);
@@ -257,6 +270,7 @@ public class ChatArea extends AppCompatActivity {
 
     private void sendMessage() {
         String typed_message = message.getEditableText().toString().trim();
+        message.setText("");
         type = "text";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url3, response -> {
             System.out.println(response);

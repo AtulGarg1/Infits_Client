@@ -2,31 +2,27 @@ package com.example.infits;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,16 +32,17 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class Meal_main extends AppCompatActivity {
 
@@ -251,6 +248,8 @@ public class Meal_main extends AppCompatActivity {
                             dinner_list.setAdapter(new AddDinnerList(dinnerListExpand, getApplicationContext(), addButtonListenerChart, foodDetailsListener));
                             dinner_list.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                         }
+
+                        addToDatabase(name, description, meal, position, Base64.encodeToString(photoArr, Base64.DEFAULT));
 //                        if (sun.isChecked()) {
 //                            if (meal.equals("breakfast")) {
 //                                breakfastList.get(Integer.parseInt(position)).setName(name);
@@ -792,6 +791,41 @@ public class Meal_main extends AppCompatActivity {
                     }
                 }
             });
+
+    private void addToDatabase(String name, String description, String meal, String position, String imageEncode) {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("d MMM yyyy");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("h.mm.ss a");
+
+        String date = dateFormat.format(calendar.getTime());
+        String time = timeFormat.format(calendar.getTime());
+
+        String addMealUrl = String.format("%sgetMeal.php",DataFromDatabase.ipConfig);
+
+        StringRequest addMealToDbRequest = new StringRequest(Request.Method.POST, addMealUrl,
+                response -> Log.d("meal_main", response),
+                error -> Log.e("meal_main", error.toString())
+        ) {
+            @NotNull
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+
+                data.put("name", name);
+                data.put("description", description);
+                data.put("image", imageEncode);
+                data.put("date", date);
+                data.put("time", time);
+                data.put("meal", meal);
+                data.put("clientID", DataFromDatabase.clientuserID);
+                data.put("position", position);
+
+                return data;
+            }
+        };
+        Volley.newRequestQueue(getApplicationContext()).add(addMealToDbRequest);
+    }
+
     private String url = String.format("%sgetMeal.php",DataFromDatabase.ipConfig);
 
     @SuppressLint("UseSupportActionBar")
@@ -799,6 +833,15 @@ public class Meal_main extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.meal_tracker_main);
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+                startActivity(new Intent(getApplicationContext(),DashBoardMain.class));
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, callback);
 
         breakfastList = new ArrayList<>();
         breakfastListExpand = new ArrayList<>();
@@ -945,13 +988,13 @@ public class Meal_main extends AppCompatActivity {
         add_dinner = findViewById(R.id.add_dinner);
         add_snack = findViewById(R.id.add_snack);
 
-        sun = findViewById(R.id.sun);
-        mon = findViewById(R.id.mon);
-        tue = findViewById(R.id.tue);
-        wed = findViewById(R.id.wed);
-        thur = findViewById(R.id.thur);
-        fri = findViewById(R.id.fri);
-        sat = findViewById(R.id.sat);
+//        sun = findViewById(R.id.sun);
+//        mon = findViewById(R.id.mon);
+//        tue = findViewById(R.id.tue);
+//        wed = findViewById(R.id.wed);
+//        thur = findViewById(R.id.thur);
+//        fri = findViewById(R.id.fri);
+//        sat = findViewById(R.id.sat);
 
         Bitmap add = BitmapFactory.decodeResource(getResources(), R.drawable.add_food);
 
@@ -1248,7 +1291,10 @@ public class Meal_main extends AppCompatActivity {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                return super.getParams();
+                Map<String,String> data = new HashMap<>();
+                data.put("clientID",DataFromDatabase.clientuserID);
+                data.put("date", "12 Aug 2022");
+                return data;
             }
         };
 

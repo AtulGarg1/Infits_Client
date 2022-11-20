@@ -29,4 +29,51 @@
         <item name="android:width">10dp</item>
         <item name="android:height">10dp</item>
     </style>
+
+    <style name="day_style">
+        <item name="android:textColor">#748D95</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="fontFamily">@font/baloo2</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="date_style">
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="fontFamily">@font/baloo2</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.PickerWater" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <item name="colorControlNormal">#76A5FF</item>
+    </style>
+
+    <style name="AppTheme.PickerCalorie" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <item name="colorControlNormal">#FFCE57</item>
+    </style>
+
+    <style name="TimePickerWeight" parent="ThemeOverlay.MaterialComponents.TimePicker">
+        <item name="colorPrimary">#11998E</item>
+    </style>
+
+    <style name="TimePickerCalorie" parent="ThemeOverlay.MaterialComponents.TimePicker">
+        <item name="colorPrimary">#FFCE57</item>
+    </style>
+
+    <style name="TimePickerSleep" parent="ThemeOverlay.MaterialComponents.TimePicker">
+        <item name="colorPrimary">#7B29FF</item>
+    </style>
+
+    <style name="TimePickerWater" parent="ThemeOverlay.MaterialComponents.TimePicker">
+        <item name="colorPrimary">#76A5FF</item>
+    </style>
+
+    <style name="TimePickerStep" parent="ThemeOverlay.MaterialComponents.TimePicker">
+        <item name="colorPrimary">#FF6416</item>
+    </style>
 </resources>

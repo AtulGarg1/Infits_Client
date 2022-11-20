@@ -19,8 +19,11 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class Signup extends AppCompatActivity {
 
@@ -30,7 +33,7 @@ public class Signup extends AppCompatActivity {
 
     String url = String.format("%sregister_client.php",DataFromDatabase.ipConfig);
 
-    EditText fullName,userName,emailID,password,phoneNo;
+    EditText fullName,userName,emailID,password,phoneNo, age, height, weight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,9 @@ public class Signup extends AppCompatActivity {
         emailID = findViewById(R.id.new_email);
         password = findViewById(R.id.new_password);
         phoneNo = findViewById(R.id.new_phone_number);
+        age = findViewById(R.id.age_background);
+        height = findViewById(R.id.new_height);
+        weight = findViewById(R.id.new_weight);
 
         term.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +79,9 @@ public class Signup extends AppCompatActivity {
             String emailStr = emailID.getText().toString();
             String phoneStr = phoneNo.getText().toString();
             String fullNameStr = fullName.getText().toString();
+            String ageStr = age.getText().toString();
+            String heightStr = height.getText().toString();
+            String weightStr = weight.getText().toString();
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
                 System.out.println(response);
@@ -95,12 +104,53 @@ public class Signup extends AppCompatActivity {
                     data.put("email",emailStr);
                     data.put("name",fullNameStr);
                     data.put("phone",phoneStr);
+                    data.put("age",ageStr);
+                    data.put("weight",heightStr);
+                    data.put("height",weightStr);
+                    data.put("verification","0");
                     return data;
                 }
             };
             RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
             requestQueue.add(stringRequest);
 
+            generateReferral();
+
         });
+    }
+
+    private void generateReferral() {
+        Random random = new Random();
+        StringBuilder referralCode = new StringBuilder(userName.getText().toString().substring(0, 3));
+
+        for(int i = 0; i < 5; i++) {
+            int num = random.nextInt(10);
+            referralCode.append(num);
+        }
+
+        addToReferralTable(String.valueOf(referralCode));
+    }
+
+    private void addToReferralTable(String referralCode) {
+        String referralUrl = String.format("%supdateReferralTable.php",DataFromDatabase.ipConfig);
+
+        StringRequest referralRequest = new StringRequest(
+                Request.Method.POST, referralUrl,
+                response -> Log.d("Signup", "addToReferralTable: " + response),
+                error -> Log.e("Signup", "addToReferralTable: " + error.toString())
+        ) {
+            @NotNull
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+
+                data.put("clientID", userName.getText().toString());
+                data.put("referralCode", referralCode);
+                data.put("activeUsers", "none");
+
+                return data;
+            }
+        };
+        Volley.newRequestQueue(this).add(referralRequest);
     }
 }

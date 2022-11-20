@@ -1,7 +1,9 @@
 package com.example.infits;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -61,6 +63,16 @@ public class FAQFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+//        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+//            @Override
+//            public void handleOnBackPressed() {
+//                startActivity(new Intent(getActivity(),DashBoardMain.class));
+//                Navigation.findNavController(requireActivity(), R.id.imgback).navigate(R.id.action_FAQFragment_to_helpFragment);
+//            }
+//        };
+//        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+
     }
 
     @Override

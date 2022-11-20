@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import android.widget.Toast;
  */
 public class Section6Q1 extends Fragment {
 
+    ImageButton imgBack;
     Button nextbtn;
     TextView backbtn, textView77;
     RadioButton daily,never,oneWeek,twWeek,thrWeek,fifteen,monthly;
@@ -72,6 +74,7 @@ public class Section6Q1 extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_section6_q1, container, false);
 
+        imgBack = view.findViewById(R.id.imgback);
         nextbtn = view.findViewById(R.id.nextbtn);
         backbtn = view.findViewById(R.id.backbtn);
         daily = view.findViewById(R.id.daily);
@@ -274,6 +277,8 @@ public class Section6Q1 extends Fragment {
                 Navigation.findNavController(v).navigate(R.id.action_section6Q1_to_consultationFragment);
             }
         });
+
+        imgBack.setOnClickListener(v -> requireActivity().onBackPressed());
 
         return view;
     }

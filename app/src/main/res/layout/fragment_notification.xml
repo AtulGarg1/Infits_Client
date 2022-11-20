@@ -53,7 +53,8 @@
             android:fontFamily="@font/nats_regular"
             android:textColor="@color/black"
             android:layout_marginStart="15dp"/>
-        <Switch
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/step_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -77,7 +78,8 @@
             android:fontFamily="@font/nats_regular"
             android:textColor="@color/black"
             android:layout_marginStart="15dp"/>
-        <Switch
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/water_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -101,7 +103,8 @@
             android:fontFamily="@font/nats_regular"
             android:textColor="@color/black"
             android:layout_marginStart="15dp"/>
-        <Switch
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/sleep_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -125,7 +128,8 @@
             android:fontFamily="@font/nats_regular"
             android:textColor="@color/black"
             android:layout_marginStart="15dp"/>
-        <Switch
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/calorie_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>

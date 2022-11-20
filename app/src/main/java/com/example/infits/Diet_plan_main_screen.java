@@ -7,16 +7,20 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -24,6 +28,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,7 +41,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,6 +56,8 @@ public class Diet_plan_main_screen extends AppCompatActivity {
     RadioGroup days;
 
     RadioButton sun, mon, tue, wed, thur, fri, sat;
+
+    ImageView btnBack;
 
     public static List<ModelForFood> breakfastList;
     public static List<ModelForFood> breakfastListExpand;
@@ -148,6 +157,21 @@ public class Diet_plan_main_screen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diet_plan_main_screen);
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+                startActivity(new Intent(getApplicationContext(),DashBoardMain.class));
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, callback);
+
+        btnBack = findViewById(R.id.btnBack);
+
+        btnBack.setOnClickListener(v -> {
+            onBackPressed();
+        });
 
         breakfastList = new ArrayList<>();
         breakfastListExpand = new ArrayList<>();
@@ -291,13 +315,47 @@ public class Diet_plan_main_screen extends AppCompatActivity {
         add_dinner = findViewById(R.id.add_dinner);
         add_snack = findViewById(R.id.add_snack);
 
-        sun = findViewById(R.id.sun);
-        mon = findViewById(R.id.mon);
-        tue = findViewById(R.id.tue);
-        wed = findViewById(R.id.wed);
-        thur = findViewById(R.id.thur);
-        fri = findViewById(R.id.fri);
-        sat = findViewById(R.id.sat);
+        LinearLayout sun = findViewById(R.id.sunday);
+        TextView sunText = findViewById(R.id.sunday_date);
+        LinearLayout mon = findViewById(R.id.monday);
+        TextView monText = findViewById(R.id.monday_date);
+        LinearLayout tues = findViewById(R.id.tuesday);
+        TextView tuesText = findViewById(R.id.tuesday_date);
+        LinearLayout wed = findViewById(R.id.wednesday);
+        TextView wedText = findViewById(R.id.wednesday_date);
+        LinearLayout thurs = findViewById(R.id.thursday);
+        TextView thursText = findViewById(R.id.thursday_date);
+        LinearLayout fri = findViewById(R.id.friday);
+        TextView friText = findViewById(R.id.friday_date);
+        LinearLayout saturday = findViewById(R.id.saturday);
+        TextView saturdayText = findViewById(R.id.saturday_date);
+
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat format = new SimpleDateFormat("dd");
+        calendar.setFirstDayOfWeek(Calendar.SUNDAY);
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+
+        String[] dates = new String[7];
+        for(int i = 0; i < 7; i++){
+            dates[i] = format.format(calendar.getTime());
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        }
+
+        sunText.setText(dates[0]);
+        monText.setText(dates[1]);
+        tuesText.setText(dates[2]);
+        wedText.setText(dates[3]);
+        thursText.setText(dates[4]);
+        friText.setText(dates[5]);
+        saturdayText.setText(dates[6]);
+
+//        sun = findViewById(R.id.sun);
+//        mon = findViewById(R.id.mon);
+//        tue = findViewById(R.id.tue);
+//        wed = findViewById(R.id.wed);
+//        thur = findViewById(R.id.thur);
+//        fri = findViewById(R.id.fri);
+//        sat = findViewById(R.id.sat);
 
         Bitmap add = BitmapFactory.decodeResource(getResources(), R.drawable.add_food);
 
@@ -331,149 +389,369 @@ public class Diet_plan_main_screen extends AppCompatActivity {
         item_overview_snack = findViewById(R.id.item_overview_snacks);
         item_overview_dinner = findViewById(R.id.item_overview_dinner);
 
-        days = findViewById(R.id.days);
+//        days = findViewById(R.id.days);
 
-        getDietChart("sunday");
+        int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
 
-        days.setOnCheckedChangeListener((group, checkedId) -> {
-            if (checkedId == R.id.sun) {
-
-                setNullAdapter();
+        switch (currentDay) {
+            case Calendar.SUNDAY:
                 getDietChart("sunday");
-                        
-                sun.setBackgroundColor(Color.parseColor("#1D8BF1"));
-                sun.setTextColor(getResources().getColor(R.color.white));
-                mon.setBackgroundColor(getResources().getColor(R.color.white));
-                mon.setTextColor(getResources().getColor(R.color.blue));
-                tue.setBackgroundColor(Color.WHITE);
-                tue.setTextColor(Color.parseColor("#1D8BF1"));
-                wed.setBackgroundColor(Color.WHITE);
-                wed.setTextColor(Color.parseColor("#1D8BF1"));
-                thur.setBackgroundColor(Color.WHITE);
-                thur.setTextColor(Color.parseColor("#1D8BF1"));
-                fri.setBackgroundColor(Color.WHITE);
-                fri.setTextColor(Color.parseColor("#1D8BF1"));
-                sat.setBackgroundColor(Color.WHITE);
-                sat.setTextColor(Color.parseColor("#1D8BF1"));
-            }
-            if (checkedId == R.id.mon) {
-
-                setNullAdapter();
+                sunText.setTextColor(Color.parseColor("#ffffff"));
+                sunText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.date_bg));
+                break;
+            case Calendar.MONDAY:
                 getDietChart("monday");
-                
-                sun.setBackgroundColor(Color.WHITE);
-                sun.setTextColor(Color.parseColor("#1D8BF1"));
-                mon.setBackgroundColor(Color.parseColor("#1D8BF1"));
-                mon.setTextColor(Color.WHITE);
-                tue.setBackgroundColor(Color.WHITE);
-                tue.setTextColor(Color.parseColor("#1D8BF1"));
-                wed.setBackgroundColor(Color.WHITE);
-                wed.setTextColor(Color.parseColor("#1D8BF1"));
-                thur.setBackgroundColor(Color.WHITE);
-                thur.setTextColor(Color.parseColor("#1D8BF1"));
-                fri.setBackgroundColor(Color.WHITE);
-                fri.setTextColor(Color.parseColor("#1D8BF1"));
-                sat.setBackgroundColor(Color.WHITE);
-                sat.setTextColor(Color.parseColor("#1D8BF1"));
-            }
-            if (checkedId == R.id.tue) {
-
-                setNullAdapter();
+                monText.setTextColor(Color.parseColor("#ffffff"));
+                monText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.date_bg));
+                break;
+            case Calendar.TUESDAY:
                 getDietChart("tuesday");
-
-                sun.setBackgroundColor(Color.WHITE);
-                sun.setTextColor(Color.parseColor("#1D8BF1"));
-                mon.setBackgroundColor(Color.WHITE);
-                mon.setTextColor(getResources().getColor(R.color.blue));
-                tue.setBackgroundColor(Color.parseColor("#1D8BF1"));
-                tue.setTextColor(Color.WHITE);
-                wed.setBackgroundColor(Color.WHITE);
-                wed.setTextColor(Color.parseColor("#1D8BF1"));
-                thur.setBackgroundColor(Color.WHITE);
-                thur.setTextColor(Color.parseColor("#1D8BF1"));
-                fri.setBackgroundColor(Color.WHITE);
-                fri.setTextColor(Color.parseColor("#1D8BF1"));
-                sat.setBackgroundColor(Color.WHITE);
-                sat.setTextColor(Color.parseColor("#1D8BF1"));
-            }
-            if (checkedId == R.id.wed) {
-                setNullAdapter();
+                tuesText.setTextColor(Color.parseColor("#ffffff"));
+                tuesText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.date_bg));
+                break;
+            case Calendar.WEDNESDAY:
                 getDietChart("wednesday");
-                sun.setBackgroundColor(Color.WHITE);
-                sun.setTextColor(Color.parseColor("#1D8BF1"));
-                mon.setBackgroundColor(Color.WHITE);
-                mon.setTextColor(getResources().getColor(R.color.blue));
-                tue.setBackgroundColor(Color.WHITE);
-                tue.setTextColor(Color.parseColor("#1D8BF1"));
-                wed.setBackgroundColor(Color.parseColor("#1D8BF1"));
-                wed.setTextColor(Color.WHITE);
-                thur.setBackgroundColor(Color.WHITE);
-                thur.setTextColor(Color.parseColor("#1D8BF1"));
-                fri.setBackgroundColor(Color.WHITE);
-                fri.setTextColor(Color.parseColor("#1D8BF1"));
-                sat.setBackgroundColor(Color.WHITE);
-                sat.setTextColor(Color.parseColor("#1D8BF1"));
-
-            }
-            if (checkedId == R.id.thur) {
-
-                setNullAdapter();
+                wedText.setTextColor(Color.parseColor("#ffffff"));
+                wedText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.date_bg));
+                break;
+            case Calendar.THURSDAY:
                 getDietChart("thursday");
-
-                sun.setBackgroundColor(Color.WHITE);
-                sun.setTextColor(Color.parseColor("#1D8BF1"));
-                mon.setBackgroundColor(Color.WHITE);
-                mon.setTextColor(getResources().getColor(R.color.blue));
-                tue.setBackgroundColor(Color.WHITE);
-                tue.setTextColor(Color.parseColor("#1D8BF1"));
-                wed.setBackgroundColor(Color.WHITE);
-                wed.setTextColor(Color.parseColor("#1D8BF1"));
-                thur.setBackgroundColor(Color.parseColor("#1D8BF1"));
-                thur.setTextColor(Color.WHITE);
-                fri.setBackgroundColor(Color.WHITE);
-                fri.setTextColor(Color.parseColor("#1D8BF1"));
-                sat.setBackgroundColor(Color.WHITE);
-                sat.setTextColor(Color.parseColor("#1D8BF1"));
-
-            }
-            if (checkedId == R.id.fri) {
-                sun.setBackgroundColor(Color.WHITE);
-                sun.setTextColor(Color.parseColor("#1D8BF1"));
-                mon.setBackgroundColor(Color.WHITE);
-                mon.setTextColor(getResources().getColor(R.color.blue));
-                tue.setBackgroundColor(Color.WHITE);
-                tue.setTextColor(Color.parseColor("#1D8BF1"));
-                wed.setBackgroundColor(Color.WHITE);
-                wed.setTextColor(Color.parseColor("#1D8BF1"));
-                thur.setBackgroundColor(Color.WHITE);
-                thur.setTextColor(Color.parseColor("#1D8BF1"));
-                fri.setBackgroundColor(Color.parseColor("#1D8BF1"));
-                fri.setTextColor(Color.WHITE);
-                sat.setBackgroundColor(Color.WHITE);
-                sat.setTextColor(Color.parseColor("#1D8BF1"));
-
-                setNullAdapter();
+                thursText.setTextColor(Color.parseColor("#ffffff"));
+                thursText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.date_bg));
+                break;
+            case Calendar.FRIDAY:
                 getDietChart("friday");
-            }
-            if (checkedId == R.id.sat) {
-                sun.setBackgroundColor(Color.WHITE);
-                sun.setTextColor(Color.parseColor("#1D8BF1"));
-                mon.setBackgroundColor(Color.WHITE);
-                mon.setTextColor(getResources().getColor(R.color.blue));
-                tue.setBackgroundColor(Color.WHITE);
-                tue.setTextColor(Color.parseColor("#1D8BF1"));
-                wed.setBackgroundColor(Color.WHITE);
-                wed.setTextColor(Color.parseColor("#1D8BF1"));
-                thur.setBackgroundColor(Color.WHITE);
-                thur.setTextColor(Color.parseColor("#1D8BF1"));
-                fri.setBackgroundColor(Color.WHITE);
-                fri.setTextColor(Color.parseColor("#1D8BF1"));
-                sat.setBackgroundColor(Color.parseColor("#1D8BF1"));
-                sat.setTextColor(Color.WHITE);
-                setNullAdapter();
+                friText.setTextColor(Color.parseColor("#ffffff"));
+                friText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.date_bg));
+                break;
+            case Calendar.SATURDAY:
                 getDietChart("saturday");
-            }
+                saturdayText.setTextColor(Color.parseColor("#ffffff"));
+                saturdayText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.date_bg));
+                break;
+        }
+
+        sun.setOnClickListener(v -> {
+            setNullAdapter();
+            getDietChart("sunday");
+
+            sunText.setTextColor(Color.parseColor("#ffffff"));
+            sunText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.date_bg));
+
+            monText.setTextColor(Color.parseColor("#000000"));
+            monText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            tuesText.setTextColor(Color.parseColor("#000000"));
+            tuesText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            wedText.setTextColor(Color.parseColor("#000000"));
+            wedText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            thursText.setTextColor(Color.parseColor("#000000"));
+            thursText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            friText.setTextColor(Color.parseColor("#000000"));
+            friText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            saturdayText.setTextColor(Color.parseColor("#000000"));
+            saturdayText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
         });
+
+        mon.setOnClickListener(v -> {
+            setNullAdapter();
+            getDietChart("monday");
+
+            sunText.setTextColor(Color.parseColor("#000000"));
+            sunText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            monText.setTextColor(Color.parseColor("#ffffff"));
+            monText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.date_bg));
+
+            tuesText.setTextColor(Color.parseColor("#000000"));
+            tuesText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            wedText.setTextColor(Color.parseColor("#000000"));
+            wedText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            thursText.setTextColor(Color.parseColor("#000000"));
+            thursText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            friText.setTextColor(Color.parseColor("#000000"));
+            friText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            saturdayText.setTextColor(Color.parseColor("#000000"));
+            saturdayText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+        });
+
+        tues.setOnClickListener(v -> {
+            setNullAdapter();
+            getDietChart("tuesday");
+
+            sunText.setTextColor(Color.parseColor("#000000"));
+            sunText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            monText.setTextColor(Color.parseColor("#000000"));
+            monText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            tuesText.setTextColor(Color.parseColor("#ffffff"));
+            tuesText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.date_bg));
+
+            wedText.setTextColor(Color.parseColor("#000000"));
+            wedText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            thursText.setTextColor(Color.parseColor("#000000"));
+            thursText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            friText.setTextColor(Color.parseColor("#000000"));
+            friText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            saturdayText.setTextColor(Color.parseColor("#000000"));
+            saturdayText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+        });
+
+        wed.setOnClickListener(v -> {
+            setNullAdapter();
+            getDietChart("wednesday");
+
+            sunText.setTextColor(Color.parseColor("#000000"));
+            sunText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            monText.setTextColor(Color.parseColor("#000000"));
+            monText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            tuesText.setTextColor(Color.parseColor("#000000"));
+            tuesText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            wedText.setTextColor(Color.parseColor("#ffffff"));
+            wedText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.date_bg));
+
+            thursText.setTextColor(Color.parseColor("#000000"));
+            thursText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            friText.setTextColor(Color.parseColor("#000000"));
+            friText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            saturdayText.setTextColor(Color.parseColor("#000000"));
+            saturdayText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+        });
+
+        thurs.setOnClickListener(v -> {
+            setNullAdapter();
+            getDietChart("thursday");
+
+            sunText.setTextColor(Color.parseColor("#000000"));
+            sunText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            monText.setTextColor(Color.parseColor("#000000"));
+            monText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            tuesText.setTextColor(Color.parseColor("#000000"));
+            tuesText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            wedText.setTextColor(Color.parseColor("#000000"));
+            wedText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            thursText.setTextColor(Color.parseColor("#ffffff"));
+            thursText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.date_bg));
+
+            friText.setTextColor(Color.parseColor("#000000"));
+            friText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            saturdayText.setTextColor(Color.parseColor("#000000"));
+            saturdayText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+        });
+
+        fri.setOnClickListener(v -> {
+            setNullAdapter();
+            getDietChart("friday");
+
+            sunText.setTextColor(Color.parseColor("#000000"));
+            sunText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            monText.setTextColor(Color.parseColor("#000000"));
+            monText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            tuesText.setTextColor(Color.parseColor("#000000"));
+            tuesText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            wedText.setTextColor(Color.parseColor("#000000"));
+            wedText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            thursText.setTextColor(Color.parseColor("#000000"));
+            thursText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            friText.setTextColor(Color.parseColor("#ffffff"));
+            friText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.date_bg));
+
+            saturdayText.setTextColor(Color.parseColor("#000000"));
+            saturdayText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+        });
+
+        saturday.setOnClickListener(v -> {
+            setNullAdapter();
+            getDietChart("saturday");
+
+            sunText.setTextColor(Color.parseColor("#000000"));
+            sunText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            monText.setTextColor(Color.parseColor("#000000"));
+            monText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            tuesText.setTextColor(Color.parseColor("#000000"));
+            tuesText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            wedText.setTextColor(Color.parseColor("#000000"));
+            wedText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            thursText.setTextColor(Color.parseColor("#000000"));
+            thursText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            friText.setTextColor(Color.parseColor("#000000"));
+            friText.setBackground(new ColorDrawable(Color.parseColor("#ffffff")));
+
+            saturdayText.setTextColor(Color.parseColor("#ffffff"));
+            saturdayText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.date_bg));
+        });
+
+//        days.setOnCheckedChangeListener((group, checkedId) -> {
+//            if (checkedId == R.id.sun) {
+//
+//                setNullAdapter();
+//                getDietChart("sunday");
+//
+//                sun.setBackgroundColor(Color.parseColor("#1D8BF1"));
+//                sun.setTextColor(getResources().getColor(R.color.white));
+//                mon.setBackgroundColor(getResources().getColor(R.color.white));
+//                mon.setTextColor(getResources().getColor(R.color.blue));
+//                tue.setBackgroundColor(Color.WHITE);
+//                tue.setTextColor(Color.parseColor("#1D8BF1"));
+//                wed.setBackgroundColor(Color.WHITE);
+//                wed.setTextColor(Color.parseColor("#1D8BF1"));
+//                thur.setBackgroundColor(Color.WHITE);
+//                thur.setTextColor(Color.parseColor("#1D8BF1"));
+//                fri.setBackgroundColor(Color.WHITE);
+//                fri.setTextColor(Color.parseColor("#1D8BF1"));
+//                sat.setBackgroundColor(Color.WHITE);
+//                sat.setTextColor(Color.parseColor("#1D8BF1"));
+//            }
+//            if (checkedId == R.id.mon) {
+//
+//                setNullAdapter();
+//                getDietChart("monday");
+//
+//                sun.setBackgroundColor(Color.WHITE);
+//                sun.setTextColor(Color.parseColor("#1D8BF1"));
+//                mon.setBackgroundColor(Color.parseColor("#1D8BF1"));
+//                mon.setTextColor(Color.WHITE);
+//                tue.setBackgroundColor(Color.WHITE);
+//                tue.setTextColor(Color.parseColor("#1D8BF1"));
+//                wed.setBackgroundColor(Color.WHITE);
+//                wed.setTextColor(Color.parseColor("#1D8BF1"));
+//                thur.setBackgroundColor(Color.WHITE);
+//                thur.setTextColor(Color.parseColor("#1D8BF1"));
+//                fri.setBackgroundColor(Color.WHITE);
+//                fri.setTextColor(Color.parseColor("#1D8BF1"));
+//                sat.setBackgroundColor(Color.WHITE);
+//                sat.setTextColor(Color.parseColor("#1D8BF1"));
+//            }
+//            if (checkedId == R.id.tue) {
+//
+//                setNullAdapter();
+//                getDietChart("tuesday");
+//
+//                sun.setBackgroundColor(Color.WHITE);
+//                sun.setTextColor(Color.parseColor("#1D8BF1"));
+//                mon.setBackgroundColor(Color.WHITE);
+//                mon.setTextColor(getResources().getColor(R.color.blue));
+//                tue.setBackgroundColor(Color.parseColor("#1D8BF1"));
+//                tue.setTextColor(Color.WHITE);
+//                wed.setBackgroundColor(Color.WHITE);
+//                wed.setTextColor(Color.parseColor("#1D8BF1"));
+//                thur.setBackgroundColor(Color.WHITE);
+//                thur.setTextColor(Color.parseColor("#1D8BF1"));
+//                fri.setBackgroundColor(Color.WHITE);
+//                fri.setTextColor(Color.parseColor("#1D8BF1"));
+//                sat.setBackgroundColor(Color.WHITE);
+//                sat.setTextColor(Color.parseColor("#1D8BF1"));
+//            }
+//            if (checkedId == R.id.wed) {
+//                setNullAdapter();
+//                getDietChart("wednesday");
+//                sun.setBackgroundColor(Color.WHITE);
+//                sun.setTextColor(Color.parseColor("#1D8BF1"));
+//                mon.setBackgroundColor(Color.WHITE);
+//                mon.setTextColor(getResources().getColor(R.color.blue));
+//                tue.setBackgroundColor(Color.WHITE);
+//                tue.setTextColor(Color.parseColor("#1D8BF1"));
+//                wed.setBackgroundColor(Color.parseColor("#1D8BF1"));
+//                wed.setTextColor(Color.WHITE);
+//                thur.setBackgroundColor(Color.WHITE);
+//                thur.setTextColor(Color.parseColor("#1D8BF1"));
+//                fri.setBackgroundColor(Color.WHITE);
+//                fri.setTextColor(Color.parseColor("#1D8BF1"));
+//                sat.setBackgroundColor(Color.WHITE);
+//                sat.setTextColor(Color.parseColor("#1D8BF1"));
+//
+//            }
+//            if (checkedId == R.id.thur) {
+//
+//                setNullAdapter();
+//                getDietChart("thursday");
+//
+//                sun.setBackgroundColor(Color.WHITE);
+//                sun.setTextColor(Color.parseColor("#1D8BF1"));
+//                mon.setBackgroundColor(Color.WHITE);
+//                mon.setTextColor(getResources().getColor(R.color.blue));
+//                tue.setBackgroundColor(Color.WHITE);
+//                tue.setTextColor(Color.parseColor("#1D8BF1"));
+//                wed.setBackgroundColor(Color.WHITE);
+//                wed.setTextColor(Color.parseColor("#1D8BF1"));
+//                thur.setBackgroundColor(Color.parseColor("#1D8BF1"));
+//                thur.setTextColor(Color.WHITE);
+//                fri.setBackgroundColor(Color.WHITE);
+//                fri.setTextColor(Color.parseColor("#1D8BF1"));
+//                sat.setBackgroundColor(Color.WHITE);
+//                sat.setTextColor(Color.parseColor("#1D8BF1"));
+//
+//            }
+//            if (checkedId == R.id.fri) {
+//                sun.setBackgroundColor(Color.WHITE);
+//                sun.setTextColor(Color.parseColor("#1D8BF1"));
+//                mon.setBackgroundColor(Color.WHITE);
+//                mon.setTextColor(getResources().getColor(R.color.blue));
+//                tue.setBackgroundColor(Color.WHITE);
+//                tue.setTextColor(Color.parseColor("#1D8BF1"));
+//                wed.setBackgroundColor(Color.WHITE);
+//                wed.setTextColor(Color.parseColor("#1D8BF1"));
+//                thur.setBackgroundColor(Color.WHITE);
+//                thur.setTextColor(Color.parseColor("#1D8BF1"));
+//                fri.setBackgroundColor(Color.parseColor("#1D8BF1"));
+//                fri.setTextColor(Color.WHITE);
+//                sat.setBackgroundColor(Color.WHITE);
+//                sat.setTextColor(Color.parseColor("#1D8BF1"));
+//
+//                setNullAdapter();
+//                getDietChart("friday");
+//            }
+//            if (checkedId == R.id.sat) {
+//                sun.setBackgroundColor(Color.WHITE);
+//                sun.setTextColor(Color.parseColor("#1D8BF1"));
+//                mon.setBackgroundColor(Color.WHITE);
+//                mon.setTextColor(getResources().getColor(R.color.blue));
+//                tue.setBackgroundColor(Color.WHITE);
+//                tue.setTextColor(Color.parseColor("#1D8BF1"));
+//                wed.setBackgroundColor(Color.WHITE);
+//                wed.setTextColor(Color.parseColor("#1D8BF1"));
+//                thur.setBackgroundColor(Color.WHITE);
+//                thur.setTextColor(Color.parseColor("#1D8BF1"));
+//                fri.setBackgroundColor(Color.WHITE);
+//                fri.setTextColor(Color.parseColor("#1D8BF1"));
+//                sat.setBackgroundColor(Color.parseColor("#1D8BF1"));
+//                sat.setTextColor(Color.WHITE);
+//                setNullAdapter();
+//                getDietChart("saturday");
+//            }
+//        });
 
 
         breakfast.setOnClickListener(v -> {

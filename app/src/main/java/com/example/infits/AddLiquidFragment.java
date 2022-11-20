@@ -1,7 +1,9 @@
 package com.example.infits;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -33,7 +35,7 @@ import java.util.Map;
  */
 public class AddLiquidFragment extends Fragment {
 
-    String url = "http://192.168.9.1/infits/watertracker.php";
+    String url = "http://192.168.1.6/infits/watertracker.php";
 
     RadioButton water, soda, juice, coffee, radioButton;
     Slider slider;
@@ -80,6 +82,15 @@ public class AddLiquidFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                startActivity(new Intent(getActivity(),DashBoardMain.class));
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+
     }
 
     @Override

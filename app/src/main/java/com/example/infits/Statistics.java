@@ -1,8 +1,12 @@
 package com.example.infits;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -28,6 +32,7 @@ import java.util.Map;
 public class Statistics extends AppCompatActivity {
 
     ImageButton steps_btn, heart_btn, water_btn, sleep_btn, weight_btn;
+    CardView moreBtn;
 
     TextView daily,weekly,monthly,total,dailytv,weeklytv,monthlytv,totaltv;
 
@@ -37,6 +42,15 @@ public class Statistics extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
+
+//        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+//            @Override
+//            public void handleOnBackPressed() {
+//                finish();
+//                startActivity(new Intent(getApplicationContext(),DashBoardMain.class));
+//            }
+//        };
+//        getOnBackPressedDispatcher().addCallback(this, callback);
 
         steps_btn = findViewById(R.id.steps_btn);
         heart_btn = findViewById(R.id.heart_btn);
@@ -54,6 +68,8 @@ public class Statistics extends AppCompatActivity {
         weeklytv = findViewById(R.id.weeklytv);
         monthlytv = findViewById(R.id.monthlytv);
         totaltv = findViewById(R.id.totaltv);
+
+        moreBtn = findViewById(R.id.moreBtn);
 
         plus = findViewById(R.id.plus);
 
@@ -76,7 +92,7 @@ public class Statistics extends AppCompatActivity {
             monthlytv.setText("Steps");
             totaltv.setText("Steps");
 
-
+            moreBtn.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.steps));
 
             stepsCount();
             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView2,new StepsFragment()).commit();
@@ -98,6 +114,9 @@ public class Statistics extends AppCompatActivity {
             weeklytv.setText("BPM");
             monthlytv.setText("BPM");
             totaltv.setText("BPM");
+
+            moreBtn.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.heartpink));
+
             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView2,new HeartFragment()).commit();
         });
 
@@ -119,6 +138,9 @@ public class Statistics extends AppCompatActivity {
             monthly.setBackground(getDrawable(R.drawable.graph_button_water));
             total.setBackground(getDrawable(R.drawable.graph_button_water));
             plus.setImageDrawable(getDrawable(R.drawable.plus_water));
+
+            moreBtn.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.waterblue));
+
             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView2,new WaterFragment()).commit();
         });
 
@@ -134,6 +156,9 @@ public class Statistics extends AppCompatActivity {
             weekly.setBackground(getDrawable(R.drawable.graph_button_sleep));
             monthly.setBackground(getDrawable(R.drawable.graph_button_sleep));
             total.setBackground(getDrawable(R.drawable.graph_button_sleep));
+
+            moreBtn.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.sleeppurple));
+
             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView2,new SleepFragment()).commit();
 
             dailytv.setText("Hours");
@@ -156,6 +181,9 @@ public class Statistics extends AppCompatActivity {
             total.setBackground(getDrawable(R.drawable.graph_button_weight));
             weightCount();
             plus.setImageDrawable(getDrawable(R.drawable.plus_weight));
+
+            moreBtn.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.weightgreen));
+
             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView2,new WeightFragment()).commit();
             dailytv.setText("KG");
             weeklytv.setText("KG");

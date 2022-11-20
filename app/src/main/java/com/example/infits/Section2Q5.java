@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ import java.util.ArrayList;
  */
 public class Section2Q5 extends Fragment {
 
+    ImageButton imgBack;
     Button nextbtn;
     TextView backbtn, diagtv;
     CheckBox dia,hyperthy,hypothy,hyperten,pcod,fattyl,lactose;
@@ -82,6 +84,7 @@ public class Section2Q5 extends Fragment {
 
         //dia,hyperthy,hypothy,hyperten,pcod,fattyl,lactose
 
+        imgBack = view.findViewById(R.id.imgback);
         nextbtn = view.findViewById(R.id.nextbtn);
         backbtn = view.findViewById(R.id.backbtn);
         dia = view.findViewById(R.id.dia);
@@ -207,9 +210,11 @@ public class Section2Q5 extends Fragment {
             public void onClick(View v) {
                 if(ConsultationFragment.psection2>0)
                     ConsultationFragment.psection2-=1;
-                Navigation.findNavController(v).navigate(R.id.action_section2Q5_to_section2Q4);
+                requireActivity().onBackPressed();
             }
         });
+
+        imgBack.setOnClickListener(v -> requireActivity().onBackPressed());
 
         return view;
 

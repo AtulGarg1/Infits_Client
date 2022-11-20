@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ import android.widget.Toast;
  */
 public class SectionOneQEight extends Fragment {
 
+    ImageButton imgBack;
     Button nextbtn;
     TextView backbtn, shifttv;
     RadioButton sGeneral,sMorning, sEvening, sChange, sNA;
@@ -75,6 +77,7 @@ public class SectionOneQEight extends Fragment {
 
         //sGeneral,sMorning, sEvening, sChange, sNA;
 
+        imgBack = view.findViewById(R.id.imgback);
         nextbtn = view.findViewById(R.id.nextbtn);
         backbtn = view.findViewById(R.id.backbtn);
         sGeneral = view.findViewById(R.id.sGeneral);
@@ -203,9 +206,11 @@ public class SectionOneQEight extends Fragment {
             public void onClick(View v) {
                 if(ConsultationFragment.psection1>0)
                     ConsultationFragment.psection1-=1;
-                Navigation.findNavController(v).navigate(R.id.action_sectionOneQEight_to_sectionOneQSeven);
+                requireActivity().onBackPressed();
             }
         });
+
+        imgBack.setOnClickListener(v -> requireActivity().onBackPressed());
 
         return view;
     }

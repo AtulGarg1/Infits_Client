@@ -1,7 +1,14 @@
 package com.example.infits;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +18,10 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -38,6 +47,7 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,9 +64,10 @@ import java.util.Map;
 public class SleepTrackerFragment extends Fragment {
 
     String sleep;
+    String hours, minutes, secs;
 
     Button setalarm, startcycle, endcycle;
-    ImageView imgback;
+    ImageView imgback, reminder;
     TextView texttime, tvDuration;
     Calendar calendar;
     SimpleDateFormat simpleDateFormat;
@@ -92,6 +103,20 @@ public class SleepTrackerFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                if(getArguments() != null && getArguments().getBoolean("notification") /* coming from notification */) {
+                    startActivity(new Intent(getActivity(),DashBoardMain.class));
+                    requireActivity().finish();
+                } else {
+                    Navigation.findNavController(requireActivity(), R.id.trackernav).navigate(R.id.action_sleepTrackerFragment_to_dashBoardFragment);
+                }
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+
 
     }
 
@@ -155,8 +180,15 @@ public class SleepTrackerFragment extends Fragment {
         endcycle = view.findViewById(R.id.endcycle);
         texttime = view.findViewById(R.id.texttime);
         tvDuration = view.findViewById(R.id.tvDuration);
+        reminder = view.findViewById(R.id.reminder);
 
         tvDuration.setVisibility(View.INVISIBLE);
+
+        if(getArguments() != null && getArguments().getBoolean("notification")) {
+            texttime.setText(getArguments().getString("sleepTime"));
+            tvDuration.setVisibility(View.VISIBLE);
+            tvDuration.setText("You slept for " + getArguments().getString("sleepTime"));
+        }
 
         if (foregroundServiceRunning()){
             endcycle.setVisibility(View.VISIBLE);
@@ -186,9 +218,16 @@ public class SleepTrackerFragment extends Fragment {
         imgback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_sleepTrackerFragment_to_dashBoardFragment);
+                if(getArguments() != null && getArguments().getBoolean("notification") /* coming from notification */) {
+                    startActivity(new Intent(getActivity(),DashBoardMain.class));
+                    requireActivity().finish();
+                } else {
+                    Navigation.findNavController(v).navigate(R.id.action_sleepTrackerFragment_to_dashBoardFragment);
+                }
             }
         });
+
+        reminder.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_sleepTrackerFragment_to_sleepReminderFragment));
 
         setalarm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -243,7 +282,52 @@ public class SleepTrackerFragment extends Fragment {
                 }
                 getActivity().unregisterReceiver(broadcastReceiver);
                 tvDuration.setText("You slept for " +sleep);
-                String url=String.format("%ssleeptracker.php",DataFromDatabase.ipConfig);
+
+                updateInAppNotifications(hours, minutes, secs);
+
+                SharedPreferences notificationPrefs = requireActivity().getSharedPreferences("notificationDetails",MODE_PRIVATE);
+                boolean sleepNotificationPermission = notificationPrefs.getBoolean("sleepSwitch", false);
+
+                if(sleepNotificationPermission) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        Log.d("sleep", "permitted");
+                        NotificationChannel channel = new NotificationChannel(
+                                "SleepChannelId",
+                                "Sleep Tracker",
+                                NotificationManager.IMPORTANCE_HIGH
+                        );
+                        channel.setLightColor(Color.BLUE);
+                        channel.setLockscreenVisibility(Notification.VISIBILITY_SECRET);
+
+                        NotificationManager manager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+                        manager.createNotificationChannel(channel);
+
+                        String sleptFor = "You slept for " + hours + " hours, " + minutes + " minutes, " + secs + " seconds.";
+
+
+                        Intent intent = new Intent(requireContext(), SplashScreen.class);
+                        intent.putExtra("notification", "sleep");
+                        intent.putExtra("hours", hours);
+                        intent.putExtra("minutes", minutes);
+                        intent.putExtra("secs", secs);
+
+                        PendingIntent pendingIntent = PendingIntent.getActivity(requireContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
+
+                        NotificationCompat.Builder builder = new NotificationCompat.Builder(requireContext(), "SleepChannelId");
+                        Notification goalReachedNotification = builder.setOngoing(false)
+                                .setSmallIcon(R.mipmap.logo)
+                                .setContentTitle("Sleep Tracker")
+                                .setContentText(sleptFor)
+                                .setChannelId("SleepChannelId")
+                                .setContentIntent(pendingIntent)
+                                .setAutoCancel(true)
+                                .build();
+
+                        manager.notify(2, goalReachedNotification);
+                    }
+                }
+
+                String url=String.format("%ssleepTracker.php",DataFromDatabase.ipConfig);
                 StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
                     if (response.equals("updated")){
                         Toast.makeText(getActivity(), "Good Morning", Toast.LENGTH_SHORT).show();
@@ -253,13 +337,13 @@ public class SleepTrackerFragment extends Fragment {
                         Toast.makeText(getActivity(), "Not working", Toast.LENGTH_SHORT).show();
                     }
                 },error -> {
-                    Toast.makeText(getActivity(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
                 })
                 {
                     @Nullable
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
-                        SharedPreferences sh = getActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
+                        SharedPreferences sh = getActivity().getSharedPreferences("MySharedPref", MODE_PRIVATE);
 
                         String sleepTime = sh.getString("sleepTime", "");
 
@@ -273,14 +357,71 @@ public class SleepTrackerFragment extends Fragment {
                         data.put("timeslept",time);
                         System.out.println("hi"+time);
                         data.put("goal", "8");
+                        data.put("hrsslept", hours);
+                        data.put("minsslept", minutes);
+                        Log.d("sleep", "userId: " + DataFromDatabase.clientuserID);
+                        Log.d("sleep", "sleepTime: " + sleepTime);
+                        Log.d("sleep", "wakeTime: " + sdf.format(date));
+                        Log.d("sleep", "timeSlept: " + time);
+                        Log.d("sleep", "goal: " + 8);
+                        Log.d("sleep", "hrsSlept: " + hours);
+                        Log.d("sleep", "minSlept: " + minutes);
                         return data;
                     }
                 };
                 Volley.newRequestQueue(getActivity().getApplicationContext()).add(request);
                 sleep = "";
+
+                SharedPreferences sleepPrefs = requireActivity().getSharedPreferences("sleepPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sleepPrefs.edit();
+
+                editor.putString("hours", hours);
+                editor.putString("minutes", minutes);
+
+                editor.apply();
             }
         });
         return view;
+    }
+
+    private void updateInAppNotifications(String hours, String minutes, String secs) {
+        SharedPreferences inAppPrefs = requireActivity().getSharedPreferences("inAppNotification", MODE_PRIVATE);
+        SharedPreferences.Editor inAppEditor = inAppPrefs.edit();
+        inAppEditor.putBoolean("newNotification", true);
+        inAppEditor.apply();
+
+        String inAppUrl = String.format("%sinAppNotifications.php", DataFromDatabase.ipConfig);
+
+        String type = "sleep";
+        String text = "You slept for " + hours + " hours, " + minutes + " minutes, " + secs + " seconds.";
+
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        sdf.format(date);
+
+        StringRequest inAppRequest = new StringRequest(
+                Request.Method.POST,
+                inAppUrl,
+                response -> {
+                    if (response.equals("inserted")) Log.d("SleepTrackerFragment", "success");
+                    else Log.d("SleepTrackerFragment", "failure");
+                },
+                error -> Log.e("SleepTrackerFragment",error.toString())
+        ) {
+            @NotNull
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+
+                data.put("clientID", DataFromDatabase.clientuserID);
+                data.put("type", type);
+                data.put("text", text);
+                data.put("date", String.valueOf(date));
+
+                return data;
+            }
+        };
+        Volley.newRequestQueue(requireContext()).add(inAppRequest);
     }
 
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
@@ -293,6 +434,9 @@ public class SleepTrackerFragment extends Fragment {
     private void updateGUI(Intent intent) {
         if (intent.getExtras() != null) {
             sleep = intent.getStringExtra("sleep");
+            hours = sleep.substring(0, 2);
+            minutes = sleep.substring(3, 5);
+            secs = sleep.substring(6);
             Log.i("StepTracker","Countdown seconds remaining:" + sleep);
             texttime.setText(sleep);
         }

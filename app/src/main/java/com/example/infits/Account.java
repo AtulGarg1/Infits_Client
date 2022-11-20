@@ -1,11 +1,12 @@
 package com.example.infits;
 
-import static com.example.infits.DataFromDatabase.mobile;
+import static android.content.Context.MODE_PRIVATE;
 
 import android.Manifest;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -13,13 +14,9 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
 import android.text.InputType;
@@ -38,16 +35,15 @@ import android.widget.Toast;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -58,13 +54,14 @@ import java.util.Map;
 public class Account extends Fragment {
 
     DataFromDatabase dataFromDatabase;
-    ImageView male, female,profile_pic;
+    ImageView male, female,profile_pic, backBtn;
 
     RequestQueue queue;
     Button logout,save;
+    ImageButton yesLogout, noLogout;
     String client_gender, cleint_name, client_age, client_email,client_phoneno,client_userID;
 
-    private Bitmap bitmap;
+    private Bitmap bitmap = DataFromDatabase.profile;
     private File destination = null;
     private InputStream inputStreamImg;
     private String imgPath = null;
@@ -142,14 +139,21 @@ public class Account extends Fragment {
         ImageView select_pic= view.findViewById(R.id.select_dp);
         save=view.findViewById(R.id.button_save);
         logout=view.findViewById(R.id.button_logout);
-        male.setImageResource(R.drawable.gender_male);
-        female.setImageResource(R.drawable.gender_female);
         profile_pic.setImageBitmap(DataFromDatabase.profile);
+        backBtn = view.findViewById(R.id.imgBack);
 
         ImageView name_btn=view.findViewById(R.id.name_edt_button);
         ImageView age_btn=view.findViewById(R.id.age_edt_button);
         ImageView email_btn=view.findViewById(R.id.email_edt_button);
         ImageView phone_btn=view.findViewById(R.id.phone_edt_button);
+
+        if(DataFromDatabase.gender.equals("M")) {
+            male.setImageResource(R.drawable.gender_male_selected);
+            female.setImageResource(R.drawable.gender_female);
+        } else {
+            male.setImageResource(R.drawable.gender_male);
+            female.setImageResource(R.drawable.gender_female_selected);
+        }
 
 
         name_btn.setOnClickListener(new View.OnClickListener() {
@@ -221,16 +225,40 @@ public class Account extends Fragment {
                 client_gender="F";
             }
         });
+
+        backBtn.setOnClickListener(v -> requireActivity().onBackPressed());
+
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i= new Intent(getActivity(),Login.class);
-                startActivity(i);
-                getActivity().finish();
+                Dialog dialog = new Dialog(requireContext());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(true);
+                dialog.setContentView(R.layout.logoutdialog);
+
+                yesLogout = dialog.findViewById(R.id.yes_log_out);
+                noLogout = dialog.findViewById(R.id.no_log_out);
+
+                yesLogout.setOnClickListener(it -> {
+                    dialog.dismiss();
+
+                    SharedPreferences loginDetails = requireActivity().getSharedPreferences("loginDetails",MODE_PRIVATE);
+                    SharedPreferences.Editor editor = loginDetails.edit();
+                    editor.clear();
+                    editor.apply();
+
+                    Intent i= new Intent(getActivity(),Login.class);
+                    startActivity(i);
+                    requireActivity().finish();
+                });
+
+                noLogout.setOnClickListener(it -> dialog.dismiss());
+
+                dialog.show();
             }
         });
 
-        queue = Volley.newRequestQueue(getContext());
+        queue = Volley.newRequestQueue(requireContext());
         save.setOnClickListener(v-> {
 
             String nameStr = name.getText().toString().trim();
@@ -242,29 +270,34 @@ public class Account extends Fragment {
 
             Log.d("account","before");
             StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
-                if (!response.equals("failure")){
+                if (response.equals("updated")){
                     Log.d("account","success");
                     Log.d("response account",response);
 
 
                     Toast.makeText(getContext(), "save success", Toast.LENGTH_SHORT).show();
+
+                    updateDataLocally(nameStr, ageStr, emailStr, mobile);
                 }
-                else if (response.equals("failure")){
+                else {
                     Log.d("account","failure");
+                    Log.d("response account",response);
                     Toast.makeText(getContext(), "Login failed", Toast.LENGTH_SHORT).show();
                 }
-            },error -> {
-                Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();}){
-                @Nullable
+            },error -> Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show()
+            ){
+                @NotNull
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String,String> data = new HashMap<>();
-//                    data.put("userID",DataFromDatabase.clientuserID);
+                    data.put("userID",DataFromDatabase.clientuserID);
                     data.put("email",emailStr);
-                    data.put("gender",gen);
+                    data.put("gender",client_gender);
                     data.put("age",ageStr);
                     data.put("mobile",mobile);
                     data.put("name",nameStr);
+                    data.put("img", getEncodedImg(bitmap));
+                    data.put("nameImg", DataFromDatabase.clientuserID);
 
                     return data;
 
@@ -403,6 +436,37 @@ public class Account extends Fragment {
 
          */
     }
+
+    private String getEncodedImg(Bitmap bitmap) {
+        ByteArrayOutputStream bo = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, bo);
+        byte[] imgByte = bo.toByteArray();
+
+        return Base64.encodeToString(imgByte, Base64.DEFAULT);
+    }
+
+    private void updateDataLocally(String nameStr, String ageStr, String emailStr, String mobile) {
+        DataFromDatabase.profile = bitmap;
+        DataFromDatabase.name = nameStr;
+        DataFromDatabase.age = ageStr;
+        DataFromDatabase.email = emailStr;
+        DataFromDatabase.mobile = mobile;
+        DataFromDatabase.gender = client_gender;
+
+        SharedPreferences prefs = requireActivity().getSharedPreferences("loginDetails",MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        editor.putString("name",nameStr);
+        editor.putString("email",emailStr);
+        editor.putString("mobile",mobile);
+        editor.putString("age",ageStr);
+        editor.putString("gender",client_gender);
+        editor.putString("profilePhotoBase",getEncodedImg(bitmap));
+        editor.putString("profilePhoto",getEncodedImg(bitmap));
+
+        editor.apply();
+    }
+
     public String getStringOfImage(Bitmap bm){
         ByteArrayOutputStream bo = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.JPEG,100,bo);
@@ -413,12 +477,12 @@ public class Account extends Fragment {
 
     private void selectImage() {
         try {
-            PackageManager pm = getContext().getPackageManager();
-            int hasPerm = pm.checkPermission(Manifest.permission.CAMERA, getContext().getPackageName());
+            PackageManager pm = requireActivity().getPackageManager();
+            int hasPerm = pm.checkPermission(Manifest.permission.CAMERA, requireActivity().getPackageName());
             if (hasPerm == PackageManager.PERMISSION_GRANTED) {
                 //final CharSequence[] options = {"Take Photo", "Choose From Gallery","Remove picture","Cancel"};
                 final CharSequence[] options = { "Choose From Gallery","Remove picture","Cancel"};
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
                 builder.setTitle("Select Option");
                 builder.setItems(options, new DialogInterface.OnClickListener() {
                     @Override
@@ -437,8 +501,8 @@ public class Account extends Fragment {
                         }
                         else if(options[item].equals("Remove picture")){
                             dialog.dismiss();
-                            //profile_pic.setImageResource(R.drawable.blankdp);
                             profile_pic.setImageResource(R.drawable.profilepic);
+                            bitmap = BitmapFactory.decodeResource(requireActivity().getResources(), R.drawable.profilepic);
                         }
                         else
                             dialog.cancel();

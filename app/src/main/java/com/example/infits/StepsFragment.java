@@ -1,10 +1,12 @@
 package com.example.infits;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.res.ResourcesCompat;
@@ -100,6 +102,16 @@ public class StepsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                requireActivity().finish();
+                startActivity(new Intent(getActivity(),DashBoardMain.class));
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+
     }
 
     @Override
@@ -218,6 +230,8 @@ public class StepsFragment extends Fragment {
             }
         });
 
+        week_radioButton.performClick();
+
         month_radioButton.setOnClickListener(v -> {
             NoOfEmp.removeAll(NoOfEmp);
             String url = String.format("%sstepsMonthGraph.php", DataFromDatabase.ipConfig);
@@ -330,6 +344,8 @@ public class StepsFragment extends Fragment {
 
             Button done = dialog.findViewById(R.id.done);
             Button cancel = dialog.findViewById(R.id.cancel);
+
+            done.setBackgroundColor(Color.parseColor("#FFA381"));
 
             done.setOnClickListener(vi -> {
                 List<Date> dates = calendarPickerView.getSelectedDates();

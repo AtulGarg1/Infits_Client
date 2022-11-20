@@ -1,10 +1,12 @@
 package com.example.infits;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.res.ResourcesCompat;
@@ -88,6 +90,15 @@ public class WaterFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                requireActivity().finish();
+                startActivity(new Intent(getActivity(),DashBoardMain.class));
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+
     }
 
     @Override
@@ -207,6 +218,7 @@ public class WaterFragment extends Fragment {
                 Volley.newRequestQueue(getActivity()).add(stringRequest);
             }
         });
+        week_radioButton.performClick();
 
         month_radioButton.setOnClickListener(v -> {
             NoOfEmp.removeAll(NoOfEmp);
@@ -327,6 +339,8 @@ public class WaterFragment extends Fragment {
         Button done = dialog.findViewById(R.id.done);
         Button cancel = dialog.findViewById(R.id.cancel);
 
+        done.setBackgroundColor(Color.parseColor("#76A5FF"));
+
         done.setOnClickListener(vi -> {
             List<Date> dates = calendarPickerView.getSelectedDates();
             SimpleDateFormat sf = new SimpleDateFormat("MMM dd,yyyy");
@@ -376,6 +390,8 @@ public class WaterFragment extends Fragment {
                     dataVol.put("clientID", DataFromDatabase.clientuserID);
                     dataVol.put("from", from);
                     dataVol.put("to", to);
+                    Log.d("water", "from:" + from);
+                    Log.d("water", "to:" + to);
                     return dataVol;
                 }
             };

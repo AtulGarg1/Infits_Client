@@ -3,8 +3,11 @@ package com.example.infits;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
+import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-
                 Intent intent = new Intent(MainActivity.this, Landing1.class);
                 startActivity(intent);
                 finish();

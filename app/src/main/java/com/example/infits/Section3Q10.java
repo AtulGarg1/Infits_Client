@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import android.widget.Toast;
  */
 public class Section3Q10 extends Fragment {
 
+    ImageButton imgBack;
     Button nextbtn;
     TextView backbtn, textView77;
     RadioButton yes,some,occ,no,afterFood,beforeFood;
@@ -72,6 +74,7 @@ public class Section3Q10 extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_section3_q10, container, false);
 
+        imgBack = view.findViewById(R.id.imgback);
         nextbtn = view.findViewById(R.id.nextbtn);
         backbtn = view.findViewById(R.id.backbtn);
         yes = view.findViewById(R.id.yes);
@@ -233,9 +236,11 @@ public class Section3Q10 extends Fragment {
             public void onClick(View v) {
                 if(ConsultationFragment.psection3>0)
                     ConsultationFragment.psection3-=1;
-                Navigation.findNavController(v).navigate(R.id.action_section3Q10_to_section3Q9);
+                requireActivity().onBackPressed();
             }
         });
+
+        imgBack.setOnClickListener(v -> requireActivity().onBackPressed());
 
         return view;
     }

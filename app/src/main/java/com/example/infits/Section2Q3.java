@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import android.widget.Toast;
  */
 public class Section2Q3 extends Fragment {
 
+    ImageButton imgBack;
     Button nextbtn;
     TextView backbtn, uweighttv;
     EditText eTextuWeight;
@@ -70,6 +72,7 @@ public class Section2Q3 extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_section2_q3, container, false);
 
+        imgBack = view.findViewById(R.id.imgback);
         nextbtn = view.findViewById(R.id.nextbtn);
         backbtn = view.findViewById(R.id.backbtn);
         eTextuWeight = view.findViewById(R.id.eTextuWeight);
@@ -100,9 +103,11 @@ public class Section2Q3 extends Fragment {
             public void onClick(View v) {
                 if(ConsultationFragment.psection2>0)
                     ConsultationFragment.psection2-=1;
-                Navigation.findNavController(v).navigate(R.id.action_section2Q3_to_section2Q2);
+                requireActivity().onBackPressed();
             }
         });
+
+        imgBack.setOnClickListener(v -> requireActivity().onBackPressed());
 
         return view;
     }

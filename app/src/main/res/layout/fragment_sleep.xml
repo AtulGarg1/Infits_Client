@@ -22,7 +22,7 @@
         <RadioButton
             android:id="@+id/customdates_btn_sleep"
             android:layout_width="95dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="1dp"
             android:layout_weight="1"
             android:background="@drawable/switch_sleep_left"

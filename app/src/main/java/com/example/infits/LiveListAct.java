@@ -1,5 +1,6 @@
 package com.example.infits;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -47,6 +48,16 @@ public class LiveListAct extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live_list);
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+                startActivity(new Intent(getApplicationContext(),DashBoardMain.class));
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, callback);
+
         act = this;
         RecyclerView upcomingList = findViewById(R.id.upcoming_live);
         upcomingList.setAdapter(new UpcomingListAdapter(getApplicationContext(), upTitle, upDate, upTime, upNote));

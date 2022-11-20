@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import android.widget.Toast;
  */
 public class Section5Q1 extends Fragment {
 
+    ImageButton imgBack;
     Button nextbtn;
     TextView backbtn, textView77;
     RadioButton veg,nonveg,ovo,vegan,gluten;
@@ -76,6 +78,7 @@ public class Section5Q1 extends Fragment {
 
         //veg,nonveg,ovo,vegan,gluten
 
+        imgBack = view.findViewById(R.id.imgback);
         nextbtn = view.findViewById(R.id.nextbtn);
         backbtn = view.findViewById(R.id.backbtn);
         veg = view.findViewById(R.id.veg);
@@ -237,9 +240,11 @@ public class Section5Q1 extends Fragment {
             public void onClick(View v) {
                 if(ConsultationFragment.psection5>0)
                     ConsultationFragment.psection5-=1;
-                Navigation.findNavController(v).navigate(R.id.action_section5Q1_to_consultationFragment);
+                requireActivity().onBackPressed();
             }
         });
+
+        imgBack.setOnClickListener(v -> requireActivity().onBackPressed());
 
         return view;
     }

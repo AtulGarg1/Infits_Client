@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -13,6 +14,9 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"/>
 
     <uses-feature android:name="android.hardware.camera.flash" />
     <uses-feature android:name="android.hardware.camera" />
@@ -33,10 +37,11 @@
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.BODY_SENSORS" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
-        tools:ignore="ScopedStorage"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
 
     <meta-data
         android:name="com.google.android.gms.vision.DEPENDENCIES"
@@ -51,6 +56,24 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Infits">
+        <activity
+            android:name=".InAppNotification"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".SplashScreen"
+            android:exported="true"
+            android:noHistory="true"
+            android:theme="@style/SplashTheme.Infits">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".MealTracker"
             android:exported="false" />
@@ -137,19 +160,26 @@
             android:exported="true" />
         <activity
             android:name=".Landing3"
-            android:exported="true" />
+            android:exported="true"
+            android:noHistory="true"
+            android:theme="@style/SplashTheme.Infits" />
         <activity
             android:name=".Landing2"
-            android:exported="true" />
+            android:exported="true"
+            android:noHistory="true"
+            android:theme="@style/SplashTheme.Infits" />
         <activity
             android:name=".Landing1"
-            android:exported="true" />
+            android:exported="true"
+            android:noHistory="true"
+            android:theme="@style/SplashTheme.Infits" />
         <activity
             android:name=".ChatArea"
             android:exported="true" />
         <activity
             android:name=".DashBoardMain"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="false" />
         <activity
             android:name=".Diet_plan_main_screen"
             android:exported="false" />
@@ -159,17 +189,14 @@
         <activity
             android:name=".Login"
             android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
 
         <service android:name=".MyService" />
+        <service android:name=".StepTrackerService" />
 
         <receiver android:name=".UpdateStepTracker" />
+        <receiver android:name=".WaterNotificationReceiver" />
+        <receiver android:name=".NotificationReceiver"/>
     </application>
 
 </manifest>

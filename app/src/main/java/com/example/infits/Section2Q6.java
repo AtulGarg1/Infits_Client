@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import android.widget.Toast;
  */
 public class Section2Q6 extends Fragment {
 
+    ImageButton imgBack;
     Button yes, no;
     String yesno=null;
 
@@ -75,6 +77,7 @@ public class Section2Q6 extends Fragment {
         yes = view.findViewById(R.id.yes);
         no = view.findViewById(R.id.no);
 
+        imgBack = view.findViewById(R.id.imgback);
         nextbtn = view.findViewById(R.id.nextbtn);
         backbtn = view.findViewById(R.id.backbtn);
 
@@ -120,9 +123,11 @@ public class Section2Q6 extends Fragment {
             public void onClick(View v) {
                 if(ConsultationFragment.psection2>0)
                     ConsultationFragment.psection2-=1;
-                Navigation.findNavController(v).navigate(R.id.action_section2Q6_to_section2Q5);
+                requireActivity().onBackPressed();
             }
         });
+
+        imgBack.setOnClickListener(v -> requireActivity().onBackPressed());
 
         return view;
 

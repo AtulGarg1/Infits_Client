@@ -1,10 +1,12 @@
 package com.example.infits;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
@@ -95,6 +97,15 @@ public class HeartFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                requireActivity().finish();
+                startActivity(new Intent(getActivity(),DashBoardMain.class));
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
     }
 
     @Override
@@ -164,7 +175,7 @@ public class HeartFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 NoOfEmp.removeAll(NoOfEmp);
-                String url = String.format("%sheartGraph.php", DataFromDatabase.ipConfig);
+                String url = String.format("%sheartrate.php", DataFromDatabase.ipConfig);
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
                     System.out.println(DataFromDatabase.clientuserID);
                     System.out.println(response);
@@ -206,13 +217,14 @@ public class HeartFragment extends Fragment {
                     protected Map<String, String> getParams() throws AuthFailureError {
 
                         Map<String, String> dataVol = new HashMap<>();
-                        dataVol.put("clientuserID", DataFromDatabase.clientuserID);
+                        dataVol.put("clientID", DataFromDatabase.clientuserID);
                         return dataVol;
                     }
                 };
                 Volley.newRequestQueue(getActivity()).add(stringRequest);
             }
         });
+        week_radioButton.performClick();
 
         month_radioButton.setOnClickListener(v -> {
             NoOfEmp.removeAll(NoOfEmp);
@@ -273,6 +285,7 @@ public class HeartFragment extends Fragment {
                 List<String> allNames = new ArrayList<>();
                 JSONObject jsonResponse = null;
                 try {
+                    System.out.println(response);
                     jsonResponse = new JSONObject(response);
                     JSONArray cast = jsonResponse.getJSONArray("heart");
                     for (int i = 0; i < cast.length(); i++) {
@@ -326,6 +339,8 @@ public class HeartFragment extends Fragment {
 
             Button done = dialog.findViewById(R.id.done);
             Button cancel = dialog.findViewById(R.id.cancel);
+
+            done.setBackgroundColor(Color.parseColor("#E375B3"));
 
             done.setOnClickListener(vi -> {
                 List<Date> dates = calendarPickerView.getSelectedDates();

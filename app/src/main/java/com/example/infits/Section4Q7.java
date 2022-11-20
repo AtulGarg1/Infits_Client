@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import android.widget.Toast;
  */
 public class Section4Q7 extends Fragment {
 
+    ImageButton imgBack;
     Button nextbtn;
     TextView backbtn, textView80;
     EditText eTextHeight;
@@ -70,6 +72,7 @@ public class Section4Q7 extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_section4_q7, container, false);
 
+        imgBack = view.findViewById(R.id.imgback);
         nextbtn = view.findViewById(R.id.nextbtn);
         backbtn = view.findViewById(R.id.backbtn);
         eTextHeight = view.findViewById(R.id.eTextHeight);
@@ -102,9 +105,11 @@ public class Section4Q7 extends Fragment {
             public void onClick(View v) {
                 if(ConsultationFragment.psection4>0)
                     ConsultationFragment.psection4-=1;
-                Navigation.findNavController(v).navigate(R.id.action_section4Q7_to_section4Q6);
+                requireActivity().onBackPressed();
             }
         });
+
+        imgBack.setOnClickListener(v -> requireActivity().onBackPressed());
 
         return view;
     }

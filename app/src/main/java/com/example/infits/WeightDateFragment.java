@@ -6,6 +6,7 @@ import static android.content.Context.MODE_PRIVATE;
 import org.threeten.bp.LocalDate;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 import android.graphics.drawable.Drawable;
@@ -13,6 +14,7 @@ import android.icu.text.CaseMap;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -118,6 +120,15 @@ public class WeightDateFragment extends DialogFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                startActivity(new Intent(getActivity(),DashBoardMain.class));
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+
     }
 
     @Override

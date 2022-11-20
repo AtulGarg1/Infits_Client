@@ -1,11 +1,23 @@
 package com.example.infits;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.Navigation;
@@ -31,6 +43,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.slider.Slider;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,20 +51,25 @@ import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class WaterTrackerFragment extends Fragment {
 
-    ImageView imgback, addliq;
+    ImageView imgback, addliq, reminder;
     TextView waterGoalPercent, wgoal3, textViewsleep, consumed;
     TextView waterGoal;
     String liqType = "water", liqAmt;
     Button setgoal;
     float goalWater;
-    int goal = 1800;
+    static int goal = 1800;
     int consumedInDay;
+
+    AlarmManager alarmManager;
+    PendingIntent waterReceiverPendingIntent;
+    Calendar calendar;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -79,8 +97,23 @@ public class WaterTrackerFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                if(getArguments() != null && getArguments().getBoolean("notification") /* coming from notification */) {
+                    startActivity(new Intent(getActivity(),DashBoardMain.class));
+                    requireActivity().finish();
+                } else {
+                    Navigation.findNavController(requireActivity(), R.id.trackernav).navigate(R.id.action_waterTrackerFragment_to_dashBoardFragment);
+                }
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -92,9 +125,9 @@ public class WaterTrackerFragment extends Fragment {
         waterGoalPercent = view.findViewById(R.id.water_goal_percent);
         wgoal3 = view.findViewById(R.id.wgoal3);
         setgoal = view.findViewById(R.id.setgoal_watertracker);
-        textViewsleep = view.findViewById(R.id.textviewsleep);
         consumed = view.findViewById(R.id.water_consumed);
         waterGoal = view.findViewById(R.id.water_goal);
+        reminder = view.findViewById(R.id.reminder);
 
         if (DataFromDatabase.waterGoal.equals(null)) {
             waterGoal.setText("0 ml");
@@ -122,14 +155,21 @@ public class WaterTrackerFragment extends Fragment {
             }
         }
 
-        waterGoalPercent.setText(String.valueOf(calculateGoal()));
+        getLatestWaterData();
+
+        calendar = Calendar.getInstance();
+        Log.d("water", "currHour: " + calendar.get(Calendar.HOUR_OF_DAY));
+
+        createNotificationChannel();
+
+//        waterGoalPercent.setText(String.valueOf(calculateGoal()));
 
         RecyclerView rc = view.findViewById(R.id.past_activity);
 
         ArrayList<String> dates = new ArrayList<>();
         ArrayList<String> datas = new ArrayList<>();
 
-        String url = String.format("%spastActivityWater.php", DataFromDatabase.ipConfig);
+        String url = String.format("%spastActivityWaterdt.php", DataFromDatabase.ipConfig);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
             try {
@@ -180,36 +220,40 @@ public class WaterTrackerFragment extends Fragment {
                         goal = Integer.parseInt(goaltxt.getText().toString());
                         waterGoal.setText(goaltxt.getText().toString() + " ml");
                         waterGoalPercent.setText(String.valueOf(calculateGoal()));
-//                            String url = String.format("%swatertracker.php",DataFromDatabase.ipConfig);
-//                            StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
-//                                if (response.equals("updated")){
-//                                    consumed.setText(String.valueOf(consumedInDay)+" ml");
-//                                    waterGoalPercent.setText(String.valueOf(calculateGoal()));
-//                                }
-//                                else{
-//                                    Toast.makeText(getActivity(), "Not working", Toast.LENGTH_SHORT).show();
-//                                }
-//                            },error -> {
-//                                Toast.makeText(getActivity(), error.toString().trim(), Toast.LENGTH_SHORT).show();
-//                            }){
-//                                @Nullable
-//                                @Override
-//                                protected Map<String, String> getParams() throws AuthFailureError {
-//                                    Date date = new Date();
-//                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//                                    SimpleDateFormat stf = new SimpleDateFormat("HH:mm");
-//                                    sdf.format(date);
-//                                    Map<String,String> data = new HashMap<>();
-//                                    data.put("userID",DataFromDatabase.clientuserID);
-//                                    data.put("date", String.valueOf(date));
-//                                    data.put("consumed", String.valueOf(consumedInDay));
-//                                    data.put("goal", String.valueOf(goal));
-//                                    data.put("time",stf.format(date));
-//                                    data.put("type",liqType);
-//                                    return data;
-//                                }
-//                            };
-//                            Volley.newRequestQueue(getActivity().getApplicationContext()).add(request);
+                        consumedInDay = 0;
+                            String url = String.format("%swatertrackerdt.php",DataFromDatabase.ipConfig);
+                            StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
+                                consumed.setText(consumedInDay +" ml");
+                                waterGoalPercent.setText(String.valueOf(calculateGoal()));
+                            },error -> {
+                                Toast.makeText(getActivity(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+                            }){
+                                @Nullable
+                                @Override
+                                protected Map<String, String> getParams() throws AuthFailureError {
+                                    Date date = new Date();
+                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                                    sdf.format(date);
+                                    Map<String, String> data = new HashMap<>();
+                                    data.put("userID", DataFromDatabase.clientuserID);
+                                    data.put("dateandtime", String.valueOf(date));
+                                    data.put("consumed", String.valueOf(consumedInDay));
+                                    data.put("goal", String.valueOf(goal));
+                                    data.put("type", liqType);
+                                    data.put("amount", "0");
+                                    return data;
+                                }
+                            };
+                            Volley.newRequestQueue(getActivity().getApplicationContext()).add(request);
+
+                        SharedPreferences notificationPrefs = requireActivity().getSharedPreferences("notificationDetails",MODE_PRIVATE);
+                        boolean waterNotificationPermission = notificationPrefs.getBoolean("waterSwitch", false);
+
+                        if(false /*waterNotificationPermission*/) {
+                            setNotificationAlarm();
+                            cancelNotificationAlarmAtEndOfDay();
+                        }
+
                         dialog.dismiss();
                     } else {
                         Toast.makeText(getContext(), "Enter Goal", Toast.LENGTH_SHORT).show();
@@ -239,35 +283,36 @@ public class WaterTrackerFragment extends Fragment {
 
                 RadioGroup typeOfLiquid = dialog.findViewById(R.id.radioGroup);
                 typeOfLiquid.setOnCheckedChangeListener((group, checkedId) -> {
-                    if (checkedId == R.id.soda) {
-                        dialog.findViewById(checkedId).setForeground(getActivity().getDrawable(R.drawable.outline_liq));
-                        dialog.findViewById(R.id.coffee).setForeground(null);
-                        dialog.findViewById(R.id.water).setForeground(null);
-                        dialog.findViewById(R.id.juice).setForeground(null);
-                        liqType = "soda";
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (checkedId == R.id.soda) {
+                            dialog.findViewById(checkedId).setForeground(getActivity().getDrawable(R.drawable.outline_liq));
+                            dialog.findViewById(R.id.coffee).setForeground(null);
+                            dialog.findViewById(R.id.water).setForeground(null);
+                            dialog.findViewById(R.id.juice).setForeground(null);
+                            liqType = "soda";
+                        }
+                        if (checkedId == R.id.water) {
+                            dialog.findViewById(checkedId).setForeground(getActivity().getDrawable(R.drawable.outline_liq));
+                            dialog.findViewById(R.id.coffee).setForeground(null);
+                            dialog.findViewById(R.id.soda).setForeground(null);
+                            dialog.findViewById(R.id.juice).setForeground(null);
+                            liqType = "water";
+                        }
+                        if (checkedId == R.id.juice) {
+                            dialog.findViewById(checkedId).setForeground(getActivity().getDrawable(R.drawable.outline_liq));
+                            dialog.findViewById(R.id.coffee).setForeground(null);
+                            dialog.findViewById(R.id.water).setForeground(null);
+                            dialog.findViewById(R.id.soda).setForeground(null);
+                            liqType = "juice";
+                        }
+                        if(checkedId == R.id.coffee) {
+                            dialog.findViewById(checkedId).setForeground(getActivity().getDrawable(R.drawable.outline_liq));
+                            dialog.findViewById(R.id.soda).setForeground(null);
+                            dialog.findViewById(R.id.water).setForeground(null);
+                            dialog.findViewById(R.id.juice).setForeground(null);
+                            liqType = "coffee";
+                        }
                     }
-                    if (checkedId == R.id.water) {
-                        dialog.findViewById(checkedId).setForeground(getActivity().getDrawable(R.drawable.outline_liq));
-                        dialog.findViewById(R.id.coffee).setForeground(null);
-                        dialog.findViewById(R.id.soda).setForeground(null);
-                        dialog.findViewById(R.id.juice).setForeground(null);
-                        liqType = "water";
-                    }
-                    if (checkedId == R.id.juice) {
-                        dialog.findViewById(checkedId).setForeground(getActivity().getDrawable(R.drawable.outline_liq));
-                        dialog.findViewById(R.id.coffee).setForeground(null);
-                        dialog.findViewById(R.id.water).setForeground(null);
-                        dialog.findViewById(R.id.soda).setForeground(null);
-                        liqType = "juice";
-                    }
-                    if (checkedId == R.id.coffee) {
-                        dialog.findViewById(checkedId).setForeground(getActivity().getDrawable(R.drawable.outline_liq));
-                        dialog.findViewById(R.id.soda).setForeground(null);
-                        dialog.findViewById(R.id.water).setForeground(null);
-                        dialog.findViewById(R.id.juice).setForeground(null);
-                        liqType = "coffee";
-                    }
-
                 });
 
                 slider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
@@ -291,15 +336,55 @@ public class WaterTrackerFragment extends Fragment {
                 addDrank.setOnClickListener(v1 -> {
                     consumedInDay += (int) Float.parseFloat(choosed.getText().toString());
 //                    consumed.setText(String.valueOf(consumedInDay));
+
+                    if(consumedInDay >= goal) {
+                        cancelNotificationAlarm();
+                        updateInAppNotifications(goal);
+                    }
+
                     dialog.dismiss();
-                    String url = String.format("%swatertracker.php", DataFromDatabase.ipConfig);
+//                    String url = String.format("%swatertracker.php", DataFromDatabase.ipConfig);
+//                    StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
+//                        if (response.equals("updated")) {
+//                            consumed.setText(consumedInDay + " ml");
+//                            waterGoalPercent.setText(String.valueOf(calculateGoal()));
+//                        } else {
+//                            Toast.makeText(getActivity(), "Not working", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }, error -> {
+//                        Toast.makeText(getActivity(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+//                    }) {
+//                        @Nullable
+//                        @Override
+//                        protected Map<String, String> getParams() throws AuthFailureError {
+//                            Date date = new Date();
+//                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//                            sdf.format(date);
+//                            Map<String, String> data = new HashMap<>();
+//                            SimpleDateFormat stf = new SimpleDateFormat("HH:mm:ss");
+//                            data.put("userID", DataFromDatabase.clientuserID);
+//                            data.put("date", String.valueOf(date));
+//                            data.put("consumed", String.valueOf(consumedInDay));
+//                            data.put("goal", String.valueOf(goal));
+//                            data.put("time", stf.format(date));
+//                            data.put("type", liqType);
+//                            data.put("amount", String.valueOf(value[0]));
+//                            return data;
+//                        }
+//                    };
+//                    Date date = new Date();
+//                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//                    Log.d("date", sdf.format(date));
+//                    Volley.newRequestQueue(getActivity().getApplicationContext()).add(request);
+
+//                    updateLastRecord();
+
+                    String url = String.format("%supdateWatertrackerdt.php", DataFromDatabase.ipConfig);
                     StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
-                        if (response.equals("updated")) {
-                            consumed.setText(String.valueOf(consumedInDay) + " ml");
-                            waterGoalPercent.setText(String.valueOf(calculateGoal()));
-                        } else {
-                            Toast.makeText(getActivity(), "Not working", Toast.LENGTH_SHORT).show();
-                        }
+                        Log.d("water", "response: " + response);
+                        Log.d("water", "consumed: " + consumedInDay);
+                        consumed.setText(consumedInDay + " ml");
+                        waterGoalPercent.setText(String.valueOf(calculateGoal()));
                     }, error -> {
                         Toast.makeText(getActivity(), error.toString().trim(), Toast.LENGTH_SHORT).show();
                     }) {
@@ -307,24 +392,26 @@ public class WaterTrackerFragment extends Fragment {
                         @Override
                         protected Map<String, String> getParams() throws AuthFailureError {
                             Date date = new Date();
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                             sdf.format(date);
+                            int amt = (int) Float.parseFloat(choosed.getText().toString());
                             Map<String, String> data = new HashMap<>();
-                            SimpleDateFormat stf = new SimpleDateFormat("HH:mm:ss");
                             data.put("userID", DataFromDatabase.clientuserID);
-                            data.put("date", String.valueOf(date));
+                            data.put("dateandtime", String.valueOf(date));
                             data.put("consumed", String.valueOf(consumedInDay));
                             data.put("goal", String.valueOf(goal));
-                            data.put("time", stf.format(date));
                             data.put("type", liqType);
-                            data.put("amount", String.valueOf(value[0]));
+                            data.put("amount", String.valueOf(amt));
+
+                            Log.d("update", "consumed: " + consumedInDay);
+                            Log.d("update", "amount: " + amt);
                             return data;
                         }
                     };
-                    Date date = new Date();
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                    Log.d("date", sdf.format(date));
                     Volley.newRequestQueue(getActivity().getApplicationContext()).add(request);
+
+                    // waterGoalPercent
+                    waterGoalPercent.setText((consumedInDay * 100) / goal + " %");
                 });
 
                 dialog.show();
@@ -335,10 +422,16 @@ public class WaterTrackerFragment extends Fragment {
         imgback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_waterTrackerFragment_to_dashBoardFragment);
+                if(getArguments() != null && getArguments().getBoolean("notification") /* coming from notification */) {
+                    startActivity(new Intent(getActivity(),DashBoardMain.class));
+                    requireActivity().finish();
+                } else {
+                    Navigation.findNavController(v).navigate(R.id.action_waterTrackerFragment_to_dashBoardFragment);
+                }
             }
         });
 
+        reminder.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_waterTrackerFragment_to_waterReminderFragment));
 
         getParentFragmentManager().setFragmentResultListener("liquidData", this, new FragmentResultListener() {
             @Override
@@ -406,11 +499,206 @@ public class WaterTrackerFragment extends Fragment {
         return view;
     }
 
+    private void updateInAppNotifications(int goal) {
+        SharedPreferences inAppPrefs = requireActivity().getSharedPreferences("inAppNotification", MODE_PRIVATE);
+        SharedPreferences.Editor inAppEditor = inAppPrefs.edit();
+        inAppEditor.putBoolean("newNotification", true);
+        inAppEditor.apply();
+
+        String inAppUrl = String.format("%sinAppNotifications.php", DataFromDatabase.ipConfig);
+
+        String type = "water";
+        String text = "You have reached your goal of " + goal + " ml.";
+
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        sdf.format(date);
+
+        StringRequest inAppRequest = new StringRequest(
+                Request.Method.POST,
+                inAppUrl,
+                response -> {
+                    if (response.equals("inserted")) Log.d("WaterTrackerFragment", "success");
+                    else Log.d("WaterTrackerFragment", "failure");
+                },
+                error -> Log.e("WaterTrackerFragment",error.toString())
+        ) {
+            @NotNull
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+
+                data.put("clientID", DataFromDatabase.clientuserID);
+                data.put("type", type);
+                data.put("text", text);
+                data.put("date", String.valueOf(date));
+
+                return data;
+            }
+        };
+        Volley.newRequestQueue(requireContext()).add(inAppRequest);
+    }
+
+    private void getLatestWaterData() {
+        String url = String.format("%sgetLatestWaterdt.php", DataFromDatabase.ipConfig);
+        StringRequest request = new StringRequest(Request.Method.POST, url,
+                response -> {
+                    Log.d("dashboardFrag", response);
+
+                    try {
+                        JSONObject object = new JSONObject(response);
+                        JSONArray array = object.getJSONArray("water");
+
+                        if(array.length() != 0) {
+                            String waterGoalStr = array.getJSONObject(0).getString("goal");
+                            String waterConsumedStr = array.getJSONObject(0).getString("drinkConsumed");
+                            goal = Integer.parseInt(waterGoalStr);
+                            consumedInDay = Integer.parseInt(waterConsumedStr);
+
+                            waterGoal.setText(goal + " ml");
+                            waterGoalPercent.setText((consumedInDay * 100) / goal + " %");
+                            consumed.setText(consumedInDay + " ml");
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }, error -> Log.e("dashboardFrag", error.toString())) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+
+                data.put("clientID", DataFromDatabase.clientuserID);
+
+                return data;
+            }
+        };
+        Volley.newRequestQueue(requireContext()).add(request);
+    }
+
+    private void updateLastRecord() {
+        String url = String.format("%sgetLatestWaterdt.php", DataFromDatabase.ipConfig);
+        StringRequest request = new StringRequest(Request.Method.POST, url,
+                response -> {
+                    Log.d("dashboardFrag", response);
+
+                    try {
+                        JSONObject object = new JSONObject(response);
+                        JSONArray array = object.getJSONArray("water");
+
+                        if(array.length() != 0) {
+                            int waterConsumedStr = Integer.parseInt(array.getJSONObject(0).getString("drinkConsumed"));
+                        } else {
+                            createNewEntry();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }, error -> Log.e("dashboardFrag", error.toString())) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+
+                data.put("clientID", DataFromDatabase.clientuserID);
+
+                return data;
+            }
+        };
+        Volley.newRequestQueue(requireContext()).add(request);
+    }
+
+    private void createNewEntry() {
+        String url = String.format("%swatertrackerdt.php",DataFromDatabase.ipConfig);
+        StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
+            consumed.setText(consumedInDay +" ml");
+            waterGoalPercent.setText(String.valueOf(calculateGoal()));
+        },error -> {
+            Toast.makeText(getActivity(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Date date = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                sdf.format(date);
+                Map<String, String> data = new HashMap<>();
+                data.put("userID", DataFromDatabase.clientuserID);
+                data.put("dateandtime", String.valueOf(date));
+                data.put("consumed", String.valueOf(consumedInDay));
+                data.put("goal", "0");
+                data.put("type", liqType);
+                data.put("amount", "0");
+                return data;
+            }
+        };
+        Volley.newRequestQueue(getActivity().getApplicationContext()).add(request);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void setNotificationAlarm() {
+        Log.d("water", "createAlarm");
+        alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
+
+        Intent waterReceiverIntent = new Intent(requireContext(), WaterNotificationReceiver.class);
+        PendingIntent waterReceiverPendingIntent = PendingIntent.getBroadcast(requireContext(), 0, waterReceiverIntent, PendingIntent.FLAG_IMMUTABLE);
+
+        long time = calendar.getTimeInMillis() + 60*60*1000; // current time + 1 hour
+        long interval = 4*60*60*1000; // 4 hours
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time, interval, waterReceiverPendingIntent);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void cancelNotificationAlarm() {
+        Intent waterReceiverIntent = new Intent(requireContext(), WaterNotificationReceiver.class);
+        waterReceiverPendingIntent = PendingIntent.getBroadcast(requireContext(), 0, waterReceiverIntent, PendingIntent.FLAG_IMMUTABLE);
+
+        if(alarmManager == null) {
+            alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
+        }
+
+        alarmManager.cancel(waterReceiverPendingIntent);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void cancelNotificationAlarmAtEndOfDay() {
+        Intent waterCancelReceiverIntent = new Intent(requireContext(), WaterNotificationCancelReceiver.class);
+        waterCancelReceiverIntent.putExtra("AlarmToCancel", waterReceiverPendingIntent);
+
+        PendingIntent waterCancelReceiverPendingIntent = PendingIntent.getBroadcast(requireContext(), 0, waterCancelReceiverIntent, PendingIntent.FLAG_IMMUTABLE);
+
+        if(alarmManager == null) {
+            alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
+        }
+
+        long endOfDay = 86400 * 1000; // 24:00:00
+
+        alarmManager.set(AlarmManager.RTC_WAKEUP, endOfDay, waterCancelReceiverPendingIntent);
+    }
+
+    private void createNotificationChannel() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("WaterChannelId", "Water Tracker", NotificationManager.IMPORTANCE_HIGH);
+            NotificationManager manager = requireActivity().getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+    }
+
     String calculateGoal() {
-        int per = consumedInDay * 100 / goal;
+        int per = 0;
+        try {
+            per = consumedInDay * 100 / goal;
+        } catch (ArithmeticException e) {
+            Log.d("WaterTrackFrag", "Arithmetic Ex, consumedInDay, goal: " + consumedInDay + ", " + goal);
+        }
         System.out.println(per);
         System.out.println(consumedInDay);
         System.out.println(goal);
-        return String.valueOf(per) + " %";
+        return per + " %";
     }
 }

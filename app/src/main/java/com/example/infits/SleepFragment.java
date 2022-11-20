@@ -1,10 +1,12 @@
 package com.example.infits;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.res.ResourcesCompat;
@@ -86,6 +88,16 @@ public class SleepFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                requireActivity().finish();
+                startActivity(new Intent(getActivity(),DashBoardMain.class));
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+
     }
 
     @Override
@@ -193,13 +205,14 @@ public class SleepFragment extends Fragment {
                     protected Map<String, String> getParams() throws AuthFailureError {
 
                         Map<String,String> dataVol  = new HashMap<>();
-                        dataVol.put("userID" , DataFromDatabase.clientuserID);
+                        dataVol.put("clientID" , DataFromDatabase.clientuserID);
                         return dataVol;
                     }
                 };
                 Volley.newRequestQueue(getActivity()).add(stringRequest);
             }
         });
+        week_radioButton.performClick();
 
         month_radioButton.setOnClickListener(v->{
             NoOfEmp.removeAll(NoOfEmp);
@@ -291,7 +304,7 @@ public class SleepFragment extends Fragment {
 
                     Map<String, String> data = new HashMap<>();
 
-                    data.put("userID", DataFromDatabase.clientuserID);
+                    data.put("clientID", DataFromDatabase.clientuserID);
 
                     return data;
                 }
@@ -314,6 +327,8 @@ public class SleepFragment extends Fragment {
 
             Button done = dialog.findViewById(R.id.done);
             Button cancel = dialog.findViewById(R.id.cancel);
+
+            done.setBackgroundColor(Color.parseColor("#9C74F5"));
 
             done.setOnClickListener(vi -> {
                 List<Date> dates = calendarPickerView.getSelectedDates();

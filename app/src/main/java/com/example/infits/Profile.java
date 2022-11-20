@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,6 +27,7 @@ public class Profile extends Fragment {
     DataFromDatabase dataFromDatabase;
     RecyclerView recyclerView1;
     ImageView pic;
+    ImageButton btnBack;
     String reviewer_name[]={"Martha Finch", "Martha Finch","Martha Finch","Martha Finch"};
     String reviwer_ratings[]={"4.8","4.8","4.8","4.8"};
     String reviwer_review[]={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temporLorem ipsum dolor sit amet... ",
@@ -84,6 +87,7 @@ public class Profile extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v= inflater.inflate(R.layout.fragment_profile, container, false);
+        btnBack = v.findViewById(R.id.imgback);
         name = v.findViewById(R.id.dietician_profile_name);
         qualification = v.findViewById(R.id.qualificationProfile);
         pic=v.findViewById(R.id.dietician_profile_image);
@@ -104,6 +108,11 @@ public class Profile extends Fragment {
         Dietician_review_adapter adap=new Dietician_review_adapter(getContext(),obj);
         r1.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
         r1.setAdapter(adap);
+
+        btnBack.setOnClickListener(it -> {
+            Navigation.findNavController(it).navigate(R.id.action_profile2_to_settingsFragment);
+        });
+
         return v;
 
 

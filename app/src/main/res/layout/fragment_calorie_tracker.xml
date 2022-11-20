@@ -1,264 +1,433 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/foodyellow"
     tools:context=".CalorieTrackerFragment">
 
-    <ImageButton
-        android:id="@+id/imgback"
-        android:layout_width="60dp"
-        android:layout_height="55dp"
-        android:backgroundTint="@color/foodyellow"
-        app:tint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.071"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.041"
-        app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24" />
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-        <TextView
-            android:id="@+id/textviewsleep"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CALORIE TRACKER"
-            android:textColor="@color/white"
-            android:textSize="28dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.023" />
-
-        <TextView
-            android:id="@+id/textView33"
-            android:layout_width="143dp"
-            android:layout_height="157dp"
-            android:text="1500 Calories"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="34sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.255" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/bottom_sheet1"
+        android:id="@+id/topHalf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:layout_behavior="@string/bottom_sheet_behavior"
-        app:behavior_hideable="false"
-        app:behavior_peekHeight="500dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/calorie_bg">
 
         <LinearLayout
+            android:id="@+id/toolbarCalories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            app:layout_behavior="@string/bottom_sheet_behavior"
-            app:behavior_hideable="true"
-            app:behavior_peekHeight="200dp"
-            android:orientation="vertical" >
+            android:layout_margin="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgback"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:padding="8dp"
+                android:src="@drawable/ic_baseline_arrow_back_ios_24"
+                app:tint="@color/white" />
 
             <TextView
-                android:id="@+id/textviewd"
-                android:layout_width="wrap_content"
+                android:id="@+id/textviewsleep"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Daily Meals"
-                android:textColor="#5D5D5D"
+                android:layout_weight="9"
                 android:fontFamily="@font/baloo2"
-                android:textSize="18sp"
+                android:text="CALORIE TRACKER"
+                android:textColor="@color/white"
+                android:textSize="22dp"
                 android:textStyle="bold"
-                android:paddingLeft="20sp"
-                android:paddingTop="20sp"
+                android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.209"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.248" />
+                app:layout_constraintVertical_bias="0.023" />
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:padding="10dp">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/white"
-                    app:cardCornerRadius="10dp">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-
-                        <ImageView
-                            android:id="@+id/imageView7"
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
-                            android:src="@drawable/fimg1"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.947"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.533" />
-
-
-                        <TextView
-                            android:id="@+id/section2t"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Hotdog"
-                            android:fontFamily="@font/baloo2"
-                            android:textColor="@color/black"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.259"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.671" />
-
-                        <TextView
-                            android:id="@+id/textViewbr"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Breakfast"
-                            android:fontFamily="@font/baloo2"
-                            android:textColor="@color/foodyellow"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.056"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.219" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:padding="10dp">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/white"
-                    app:cardCornerRadius="10dp">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <ImageView
-                            android:id="@+id/imageViewpp"
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
-                            android:src="@drawable/fimg2"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.947"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.533" />
-
-
-                        <TextView
-                            android:id="@+id/textViewpp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Pizza"
-                            android:fontFamily="@font/baloo2"
-                            android:textColor="@color/black"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.259"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.671" />
-
-                        <TextView
-                            android:id="@+id/textViewbrk"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Breakfast"
-                            android:fontFamily="@font/baloo2"
-                            android:textColor="@color/foodyellow"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.056"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.219" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/textviewLog"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="LOG"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:paddingLeft="170sp"
-                android:clickable="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.209"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.248" />
-
+            <ImageView
+                android:id="@+id/reminder"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/reminder_vector"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="24dp"/>
 
         </LinearLayout>
 
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linear"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbarCalories">
+            <!--        seekbar-->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+                <!--            knife kcal-->
 
-    </androidx.core.widget.NestedScrollView>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="22dp"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="26dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/knife" />
+
+                    <TextView
+                        android:id="@+id/kcalEaten"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/baloo2"
+                        android:text="500"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/baloo2"
+                        android:text="kcal eaten"
+                        android:textColor="#5D4037"
+                        android:textSize="12sp"
+                        tools:ignore="TextContrastCheck" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <RelativeLayout
+                    android:layout_width="190dp"
+                    android:layout_height="190dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="20dp">
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/calorie_progress_bar"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_centerInParent="true"
+                        android:progress="75"
+                        app:indicatorColor="#FF8617"
+                        app:indicatorDirectionCircular="clockwise"
+                        app:indicatorSize="180dp"
+                        app:trackThickness="20dp" />
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="147dp"
+                        android:layout_height="147dp"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/seekback"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="26dp"
+                            android:layout_height="28dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="20dp"
+                            android:src="@drawable/sign"
+                            tools:ignore="ImageContrastCheck" />
+
+                        <TextView
+                            android:id="@+id/kcalLeft"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/baloo2"
+                            android:text="1500"
+                            android:textSize="34sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="-10dp"
+                            android:fontFamily="@font/baloo2"
+                            android:text="kcal left"
+                            android:textSize="14sp" />
 
 
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </RelativeLayout>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|end"
+                    android:layout_marginEnd="20dp"
+
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="26dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/flame" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/baloo2"
+                        android:text="500"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/baloo2"
+                        android:text="kcal burned"
+                        android:textSize="12sp"
+                        tools:ignore="TextContrastCheck" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <!--        progress-->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
+
+                <!--            carb-->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ProgressBar
+                        android:id="@+id/carbPB"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"
+                        android:layout_gravity="center"
+                        android:progress="25"
+                        android:progressDrawable="@drawable/carbback" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/baloo2"
+                        android:text="carb"
+                        android:textColor="#5D5D5D"
+                        android:textSize="12sp"
+                        tools:ignore="TextContrastCheck" />
+
+                    <TextView
+                        android:id="@+id/carbLeft"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/baloo2"
+                        android:text="150g left"
+                        android:textColor="#5D5D5D"
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp,TextContrastCheck" />
+
+                </LinearLayout>
+
+                <!--            fiber-->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ProgressBar
+                        android:id="@+id/fibrePB"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"
+                        android:layout_gravity="center"
+                        android:progress="25"
+                        android:progressDrawable="@drawable/fiberback" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/baloo2"
+                        android:text="fiber"
+                        android:textColor="#5D5D5D"
+                        android:textSize="12sp"
+                        tools:ignore="TextContrastCheck" />
+
+                    <TextView
+                        android:id="@+id/fibreLeft"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/baloo2"
+                        android:text="150g left"
+                        android:textColor="#5D5D5D"
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp,TextContrastCheck" />
+
+                </LinearLayout>
+
+                <!--            protein-->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ProgressBar
+                        android:id="@+id/proteinPB"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"
+                        android:layout_gravity="center"
+                        android:progress="25"
+                        android:progressDrawable="@drawable/proteinback" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/baloo2"
+                        android:text="protein"
+                        android:textColor="#5D5D5D"
+                        android:textSize="12sp"
+                        tools:ignore="TextContrastCheck" />
+
+                    <TextView
+                        android:id="@+id/proteinLeft"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/baloo2"
+                        android:text="150g left"
+                        android:textColor="#5D5D5D"
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp,TextContrastCheck" />
+
+                </LinearLayout>
+
+                <!--            fat-->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ProgressBar
+                        android:id="@+id/fatPB"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"
+                        android:layout_gravity="center"
+                        android:progress="25"
+                        android:progressDrawable="@drawable/fatback" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/baloo2"
+                        android:text="fat"
+                        android:textColor="#5D5D5D"
+                        android:textSize="12sp"
+                        tools:ignore="TextContrastCheck" />
+
+                    <TextView
+                        android:id="@+id/fatLeft"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/baloo2"
+                        android:text="150g left"
+                        android:textColor="#5D5D5D"
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp,TextContrastCheck" />
+
+                </LinearLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/dailyMeals"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/baloo2"
+        android:text="daily meals"
+        android:textColor="#5D5D5D"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topHalf" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/dailyMealsRecycle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginVertical="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dailyMeals" />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/log"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="20dp"
+            android:padding="10dp"
+            android:src="@drawable/log" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

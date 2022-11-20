@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:background="@color/white"
+        tools:context=".View.LogActivity">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/white"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical|start"
+                android:src="@drawable/back"
+                tools:ignore="ContentDescription,ImageContrastCheck,ImageContrastCheck"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="18dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/nats_regular"
+                android:text="Heart Monitor"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                tools:ignore="TextContrastCheck"
+                tools:layout_editor_absoluteX="54dp" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/dateLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="45dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:src="@drawable/calendar_vector" />
+
+            <com.harrywhewell.scrolldatepicker.DayScrollDatePicker
+                android:id="@+id/datePicker"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="95dp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:id="@+id/bpm"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dateLayout">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="122"
+
+                android:textColor="@color/black"
+                android:fontFamily="@font/nats_regular"
+                android:textSize="40sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="bpm"
+                android:layout_marginStart="5dp"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:fontFamily="@font/nats_regular"
+                android:textSize="25sp"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lineChart"
+            android:layout_width="354dp"
+            android:layout_height="300dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bpm"/>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="149dp"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/heart_rate_bottom_bg"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lineChart">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+                <!--                *********************-->
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="25dp"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="122"
+
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/nats_regular"
+                            android:textSize="30sp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="bpm"
+                            android:layout_marginStart="5dp"
+                            android:layout_gravity="center"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/nats_regular"
+                            android:textSize="17sp"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Avg"
+                        android:layout_marginTop="-35dp"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/nats_regular"
+                        android:textSize="30sp"/>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <!--                *************************-->
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_margin="25dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="122"
+
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/nats_regular"
+                            android:textSize="30sp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="bpm"
+                            android:layout_marginStart="5dp"
+                            android:layout_gravity="center"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/nats_regular"
+                            android:textSize="17sp"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Max"
+                        android:layout_marginTop="-35dp"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/nats_regular"
+                        android:textSize="30sp"/>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="25dp"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="122"
+
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/nats_regular"
+                            android:textSize="30sp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="bpm"
+                            android:layout_marginStart="5dp"
+                            android:layout_gravity="center"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/nats_regular"
+                            android:textSize="17sp"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Low"
+                        android:layout_marginTop="-35dp"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/nats_regular"
+                        android:textSize="30sp"/>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="142dp"
+                android:layout_height="7dp"
+                android:layout_gravity="center"
+                android:src="@drawable/heart_rate_decor"
+                android:layout_marginBottom="10dp"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

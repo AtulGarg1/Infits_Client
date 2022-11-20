@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -11,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -55,6 +58,16 @@ public class SettingsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                requireActivity().finish();
+                startActivity(new Intent(getActivity(),DashBoardMain.class));
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+
     }
 
     @Override
@@ -81,14 +94,38 @@ public class SettingsFragment extends Fragment {
         imgbtnRef.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Dialog dialog = new Dialog(getContext());
+                /*final Dialog dialog = new Dialog(getContext());
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setCancelable(true);
                 dialog.setContentView(R.layout.referralcodedialog);
 
                 final EditText goal = view.findViewById(R.id.goal);
+                final EditText referralCode = dialog.findViewById(R.id.referralcode);
+                final ImageView checkBtn = dialog.findViewById(R.id.checkReferral);
 
-                dialog.show();
+                checkBtn.setOnClickListener(v -> {
+                    dialog.dismiss();
+
+                    String code = getReferralCode();
+                    String enteredCode = referralCode.getText().toString();
+
+                    if(enteredCode.equals(code)) {
+                        // correct code
+                    } else {
+                        Dialog wrongRefDialog = new Dialog(requireContext());
+                        wrongRefDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        wrongRefDialog.setCancelable(true);
+                        wrongRefDialog.setContentView(R.layout.wrong_referral_dialog);
+
+                        Button tryAgain = wrongRefDialog.findViewById(R.id.try_again);
+                        tryAgain.setOnClickListener(it -> wrongRefDialog.dismiss());
+
+                        wrongRefDialog.show();
+                    }
+                });
+
+                dialog.show();*/
+                Navigation.findNavController(view).navigate(R.id.action_settingsFragment_to_referralFragment);
             }
         });
 
@@ -129,5 +166,9 @@ public class SettingsFragment extends Fragment {
 
 
         return view;
+    }
+
+    private String getReferralCode() {
+        return "test123";
     }
 }

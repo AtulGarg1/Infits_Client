@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -34,6 +35,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Login extends AppCompatActivity {
+    public static final String LOGIN_PREFS = "LoginPrefs";
+
+    SharedPreferences sharedPreferences;
+
     TextView reg, fpass;
     Button loginbtn;
     String passwordStr,usernameStr;
@@ -95,9 +100,7 @@ public class Login extends AppCompatActivity {
                             Log.d("name login",DataFromDatabase.name);
                             SharedPreferences loginDetails = getSharedPreferences("loginDetails",MODE_PRIVATE);
                             SharedPreferences.Editor editor = loginDetails.edit();
-                            editor.putString("name",object.getString("name"));
-                            editor.putString("clientuserID",object.getString("clientuserID"));
-                            editor.apply();
+
                             DataFromDatabase.password = object.getString("password");
                             DataFromDatabase.email = object.getString("email");
                             DataFromDatabase.mobile = object.getString("mobile");
@@ -122,10 +125,30 @@ public class Login extends AppCompatActivity {
                             byte[] qrimage = Base64.decode(DataFromDatabase.profilePhoto,0);
                             DataFromDatabase.profile = BitmapFactory.decodeByteArray(qrimage,0,qrimage.length);
                             Log.d("Login Screen","client user id = "+ DataFromDatabase.clientuserID);
+
+                            editor.putBoolean("hasLoggedIn", true);
+                            editor.putBoolean("flag", true);
+                            editor.putString("clientuserID",object.getString("clientuserID"));
+                            editor.putString("dietitianuserID",object.getString("dietitianuserID"));
+                            editor.putString("name",object.getString("name"));
+                            editor.putString("password",object.getString("password"));
+                            editor.putString("email",object.getString("email"));
+                            editor.putString("mobile",object.getString("mobile"));
+                            editor.putString("profilePhoto",object.getString("profilePhoto"));
+                            editor.putString("location",object.getString("location"));
+                            editor.putString("age",object.getString("age"));
+                            editor.putString("gender",object.getString("gender"));
+                            editor.putString("weight",object.getString("weight"));
+                            editor.putString("height",object.getString("height"));
+                            editor.putString("profilePhotoBase",object.getString("profilePhoto"));
+                            editor.putBoolean("proUser",DataFromDatabase.proUser);
+                            editor.apply();
+
                             finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+
                         startActivity(id);
                     }
                 }, error -> {
@@ -136,7 +159,6 @@ public class Login extends AppCompatActivity {
                     protected Map<String,String> getParams() throws AuthFailureError{
                         LinkedHashMap<String,String> data = new LinkedHashMap<>();
                         data.put("userID",usernameStr);
-                        Log.d("userID",usernameStr);
                         data.put("password",passwordStr);
                         return data;
                     }
@@ -145,5 +167,10 @@ public class Login extends AppCompatActivity {
                 requestQueue.add(stringRequest);
             }
         });
+    }
+
+    private void putDataInPreferences(SharedPreferences.Editor editor) {
+        editor.putBoolean("hasLoggedIn", true);
+
     }
 }

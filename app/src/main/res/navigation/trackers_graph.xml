@@ -14,6 +14,9 @@
             android:id="@+id/action_stepTrackerFragment_to_dashBoardFragment"
             app:destination="@id/dashBoardFragment"
             app:popUpTo="@id/trackers_graph"/>
+        <action
+            android:id="@+id/action_stepTrackerFragment_to_stepReminderFragment"
+            app:destination="@id/stepReminderFragment" />
     </fragment>
     <fragment
         android:id="@+id/weightTrackerFragment"
@@ -32,6 +35,9 @@
             android:id="@+id/action_weightTrackerFragment_to_weightDateFragment"
             app:destination="@id/weightDateFragment"
             app:popUpTo="@id/weightTrackerFragment" />
+        <action
+            android:id="@+id/action_weightTrackerFragment_to_weightReminderFragment"
+            app:destination="@id/weightReminderFragment" />
     </fragment>
     <fragment
         android:id="@+id/calorieTrackerFragment"
@@ -44,6 +50,9 @@
         <action
             android:id="@+id/action_calorieTrackerFragment_to_dashBoardFragment"
             app:destination="@id/dashBoardFragment" />
+        <action
+            android:id="@+id/action_calorieTrackerFragment_to_calorieReminderFragment"
+            app:destination="@id/calorieReminderFragment" />
     </fragment>
     <fragment
         android:id="@+id/foodDetailsFragment"
@@ -66,6 +75,9 @@
         <action
             android:id="@+id/action_waterTrackerFragment_to_addLiquidFragment"
             app:destination="@id/addLiquidFragment" />
+        <action
+            android:id="@+id/action_waterTrackerFragment_to_waterReminderFragment"
+            app:destination="@id/waterReminderFragment" />
     </fragment>
     <fragment
         android:id="@+id/sleepTrackerFragment"
@@ -76,6 +88,9 @@
             android:id="@+id/action_sleepTrackerFragment_to_dashBoardFragment"
             app:destination="@id/dashBoardFragment"
             app:popUpTo="@id/trackers_graph" />
+        <action
+            android:id="@+id/action_sleepTrackerFragment_to_sleepReminderFragment"
+            app:destination="@id/sleepReminderFragment" />
     </fragment>
     <fragment
         android:id="@+id/bmiFragment"
@@ -139,5 +154,50 @@
             android:id="@+id/action_heartRate_to_dashBoardFragment"
             app:destination="@id/dashBoardFragment"
             app:popUpTo="@id/trackers_graph" />
+    </fragment>
+    <fragment
+        android:id="@+id/sleepReminderFragment"
+        android:name="com.example.infits.SleepReminderFragment"
+        android:label="fragment_sleep_reminder"
+        tools:layout="@layout/fragment_sleep_reminder" >
+        <action
+            android:id="@+id/action_sleepReminderFragment_to_sleepTrackerFragment"
+            app:destination="@id/sleepTrackerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/stepReminderFragment"
+        android:name="com.example.infits.StepReminderFragment"
+        android:label="fragment_step_reminder"
+        tools:layout="@layout/fragment_step_reminder" >
+        <action
+            android:id="@+id/action_stepReminderFragment_to_stepTrackerFragment"
+            app:destination="@id/stepTrackerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/waterReminderFragment"
+        android:name="com.example.infits.WaterReminderFragment"
+        android:label="fragment_water_reminder"
+        tools:layout="@layout/fragment_water_reminder" >
+        <action
+            android:id="@+id/action_waterReminderFragment_to_waterTrackerFragment"
+            app:destination="@id/waterTrackerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/calorieReminderFragment"
+        android:name="com.example.infits.CalorieReminderFragment"
+        android:label="fragment_calorie_reminder"
+        tools:layout="@layout/fragment_calorie_reminder" >
+        <action
+            android:id="@+id/action_calorieReminderFragment_to_calorieTrackerFragment"
+            app:destination="@id/calorieTrackerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/weightReminderFragment"
+        android:name="com.example.infits.WeightReminderFragment"
+        android:label="fragment_weight_reminder"
+        tools:layout="@layout/fragment_weight_reminder" >
+        <action
+            android:id="@+id/action_weightReminderFragment_to_weightTrackerFragment"
+            app:destination="@id/weightTrackerFragment" />
     </fragment>
 </navigation>

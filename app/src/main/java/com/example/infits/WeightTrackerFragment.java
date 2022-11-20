@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -28,6 +29,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +44,7 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,6 +59,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -77,6 +81,7 @@ public class WeightTrackerFragment extends Fragment {
     MaterialCalendarView mcv;
 
     RecyclerView rv;
+    RecyclerView pastActivity;
     PickerAdapter adapter;
 
     final String DATE_FORMAT = "yyyy-MM-dd";
@@ -87,7 +92,7 @@ public class WeightTrackerFragment extends Fragment {
     CardView date_click;
 
     ImageButton adddet;
-    ImageView imgback;
+    ImageView imgback, resetBmi, reminder;
     TextView textbmi, curWeight,date_view;
 
     Map<String,String> weightList = new HashMap<>();
@@ -118,6 +123,15 @@ public class WeightTrackerFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+//        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+//            @Override
+//            public void handleOnBackPressed() {
+//                startActivity(new Intent(getActivity(),DashBoardMain.class));
+//            }
+//        };
+//        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+
     }
 
     @Override
@@ -135,6 +149,8 @@ public class WeightTrackerFragment extends Fragment {
         curWeight = view.findViewById(R.id.curWeight);
         date_view = view.findViewById(R.id.date);
         date_click = view.findViewById(R.id.date_click);
+        resetBmi = view.findViewById(R.id.reset_bmi);
+        reminder = view.findViewById(R.id.reminder);
 
         curWeight.setText(sh.getString("weight","0"));
 
@@ -172,18 +188,26 @@ public class WeightTrackerFragment extends Fragment {
             }
 
             mcv.setWeekDayLabels(new String[]{"S","M","T","W","T","F","S"});
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM");
+            SimpleDateFormat singleMon = new SimpleDateFormat("M");
 
             mcv.setOnMonthChangedListener(new OnMonthChangedListener() {
                 @Override
                 public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
                     mcv.removeDecorators();
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM");
-                    SimpleDateFormat singleMon = new SimpleDateFormat("M");
                     markGreen(simpleDateFormat.format(date.getDate()));
                     markRed(singleMon.format(date.getDate()));
-                    Toast.makeText(getContext(), simpleDateFormat.format(date.getDate()), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), simpleDateFormat.format(date.getDate()), Toast.LENGTH_SHORT).show();
+                    Log.d("calDate", date.getDate().toString());
                 }
             });
+
+            Date currMonth = new Date();
+
+            Log.d("calDate", simpleDateFormat.format(currMonth));
+            mcv.removeDecorators();
+            markGreen(simpleDateFormat.format(currMonth));
+            markRed(singleMon.format(currMonth));
 
             btnadd = dialog.findViewById(R.id.btnadd);
             tv_weight = dialog.findViewById(R.id.tv_weight);
@@ -198,7 +222,6 @@ public class WeightTrackerFragment extends Fragment {
                     }else{
                         tv_weight.setText(weightList.get(simpleDateFormat.format(date.getDate())));
                     }
-                    Toast.makeText(getContext(),"Selected date "+simpleDateFormat.format(date.getDate()),Toast.LENGTH_LONG).show();
                 }
             });
 
@@ -223,10 +246,11 @@ public class WeightTrackerFragment extends Fragment {
                     textbmi.setText(String.format("%.2f",bmi));
                     System.out.println(String.valueOf(bmi));
                     StringRequest request = new StringRequest(Request.Method.POST,url, response -> {
-                        System.out.println(response);
+                        System.out.println("weight " + response);
                         if (response.equals("updated")){
 //                            Navigation.findNavController(v).navigate(R.id.action_bmiFragment_to_weightTrackerFragment);
                             dialog.dismiss();
+                            updatePastActivity();
                         }
                         else{
                             Toast.makeText(getActivity(), "Not working", Toast.LENGTH_SHORT).show();
@@ -247,6 +271,12 @@ public class WeightTrackerFragment extends Fragment {
                             data.put("height",String.valueOf(DataFromDatabase.height));
                             data.put("goal","70");
                             data.put("bmi",String.format("%.2f",bmi));
+//                            Log.d("weight", DataFromDatabase.clientuserID);
+//                            Log.d("weight", sdf.format(mcv.getSelectedDate().getDate()));
+//                            Log.d("weight", String.valueOf(cur_weight));
+//                            Log.d("weight", String.valueOf(DataFromDatabase.height));
+//                            Log.d("weight", "70");
+//                            Log.d("weight", String.format("%.2f",bmi));
                             return data;
                         }
                     };
@@ -288,7 +318,13 @@ public class WeightTrackerFragment extends Fragment {
 //            Navigation.findNavController(v).navigate(R.id.action_weightTrackerFragment_to_weightDateFragment);
         });
 
-        RecyclerView pastActivity = view.findViewById(R.id.past_activity);
+        resetBmi.setOnClickListener(v -> {
+            textbmi.setText(String.valueOf(0));
+            congrats.setText("Keep it Up!");
+            congrats.setTextColor(Color.parseColor("#00C170"));
+        });
+
+        pastActivity = view.findViewById(R.id.past_activity);
 
         ArrayList<String> dates = new ArrayList<>();
         ArrayList<String> datas = new ArrayList<>();
@@ -354,6 +390,9 @@ public class WeightTrackerFragment extends Fragment {
                     female.setImageDrawable(getContext().getDrawable(R.drawable.female_selected));
                 });
 
+                if(DataFromDatabase.gender.equals("M")) male.performClick();
+                else female.performClick();
+
                 btnadd.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -378,6 +417,7 @@ public class WeightTrackerFragment extends Fragment {
                             System.out.println(response);
                             if (response.equals("updated")){
                                 dialog.dismiss();
+                                updatePastActivity();
                             }
                             else{
                                 Toast.makeText(getActivity(), "Not working", Toast.LENGTH_SHORT).show();
@@ -397,10 +437,18 @@ public class WeightTrackerFragment extends Fragment {
                                 data.put("height", String.valueOf(height));
                                 data.put("goal","70");
                                 data.put("bmi",String.format("%.2f",bmi));
+                                Log.d("height",String.valueOf(height));
+                                Log.d("weight",String.valueOf(cur_weight));
+                                Log.d("bmi",String.format("%.2f",bmi));
                                 return data;
                             }
                         };
                         Volley.newRequestQueue(getActivity().getApplicationContext()).add(request);
+
+                        updateInAppNotifications(cur_weight);
+
+                        SharedPreferences weightPrefs = requireContext().getSharedPreferences("weightPrefs", MODE_PRIVATE);
+                        weightPrefs.edit().putInt("weight", cur_weight).apply();
                     }
                 });
 
@@ -445,6 +493,8 @@ public class WeightTrackerFragment extends Fragment {
                         height = Integer.parseInt(tv_heightbmi.getText().toString());
                     }
                 });
+                pickerLayoutManagerh.scrollToPosition(Integer.parseInt(DataFromDatabase.height));
+                pickerLayoutManager.scrollToPosition(Integer.parseInt(DataFromDatabase.weight));
 
                 tv_heightbmi.setText(DataFromDatabase.height);
                 tv_weightbmi.setText(DataFromDatabase.weight);
@@ -487,12 +537,12 @@ public class WeightTrackerFragment extends Fragment {
 
          */
 
-        textbmi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_weightTrackerFragment_to_bmiFragment);
-            }
-        });
+//        textbmi.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Navigation.findNavController(v).navigate(R.id.action_weightTrackerFragment_to_bmiFragment);
+//            }
+//        });
 
         imgback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -500,7 +550,92 @@ public class WeightTrackerFragment extends Fragment {
                 Navigation.findNavController(v).navigate(R.id.action_weightTrackerFragment_to_dashBoardFragment);
             }
         });
+
+        reminder.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_weightTrackerFragment_to_weightReminderFragment));
+
         return view;
+    }
+
+    private void updateInAppNotifications(int cur_weight) {
+        SharedPreferences inAppPrefs = requireActivity().getSharedPreferences("inAppNotification", MODE_PRIVATE);
+        SharedPreferences.Editor inAppEditor = inAppPrefs.edit();
+        inAppEditor.putBoolean("newNotification", true);
+        inAppEditor.apply();
+
+        String inAppUrl = String.format("%sinAppNotifications.php", DataFromDatabase.ipConfig);
+
+        String type = "weight";
+        String text = "You last measured weight was " + cur_weight + " kg.";
+
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        sdf.format(date);
+
+        StringRequest inAppRequest = new StringRequest(
+                Request.Method.POST,
+                inAppUrl,
+                response -> {
+                    if (response.equals("inserted")) Log.d("WeightTrackerFragment", "success");
+                    else Log.d("WeightTrackerFragment", "failure");
+                },
+                error -> Log.e("WeightTrackerFragment",error.toString())
+        ) {
+            @NotNull
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+
+                data.put("clientID", DataFromDatabase.clientuserID);
+                data.put("type", type);
+                data.put("text", text);
+                data.put("date", String.valueOf(date));
+
+                return data;
+            }
+        };
+        Volley.newRequestQueue(requireContext()).add(inAppRequest);
+    }
+
+    private void updatePastActivity() {
+        Log.d("updatePA", "entered");
+        ArrayList<String> dates = new ArrayList<>();
+        ArrayList<String> datas = new ArrayList<>();
+
+        String urlPast = String.format("%spastActivityWeight.php",DataFromDatabase.ipConfig);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,urlPast, response -> {
+            Log.d("updatePA", response);
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                JSONArray jsonArray = jsonObject.getJSONArray("weight");
+                for (int i = 0;i<jsonArray.length();i++){
+                    JSONObject object = jsonArray.getJSONObject(i);
+                    String data = object.getString("weight");
+                    String date = object.getString("date");
+                    dates.add(date);
+                    datas.add(data);
+                    System.out.println(datas.get(i));
+                    System.out.println(dates.get(i));
+                }
+                AdapterForPastActivity ad = new AdapterForPastActivity(getContext(),dates,datas, Color.parseColor("#1FB688"));
+                pastActivity.setLayoutManager(new LinearLayoutManager(getContext()));
+                pastActivity.setAdapter(ad);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        },error -> {
+//            Toast.makeText(getActivity().getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+            Log.d("Error",error.toString());
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> data = new HashMap<>();
+                data.put("clientID",DataFromDatabase.clientuserID);
+                return data;
+            }
+        };
+        Volley.newRequestQueue(getActivity()).add(stringRequest);
     }
 
     void setEvent(ArrayList<String> dateList, int color) {
@@ -590,7 +725,7 @@ public class WeightTrackerFragment extends Fragment {
 
             StringRequest stringRequestCalUn = new StringRequest(Request.Method.POST,urlUnMark,response -> {
                 try {
-                    System.out.println(response);
+                    System.out.println("markRed " + response);
                     JSONObject object = new JSONObject(response);
                     JSONArray weight = object.getJSONArray("dates");
                     ArrayList<String> dates = new ArrayList<>();
@@ -623,10 +758,10 @@ public class WeightTrackerFragment extends Fragment {
     }
 
     void markGreen(String month){
-        String urlMark = String.format("%sweightDate.php",DataFromDatabase.ipConfig);
+        String urlMark = String.format("%sweightdate.php",DataFromDatabase.ipConfig);
         StringRequest stringRequestCal = new StringRequest(Request.Method.POST,urlMark,response -> {
             try {
-                System.out.println(response);
+                System.out.println("markGreen " + response);
                 JSONObject object = new JSONObject(response);
                 JSONArray weight = object.getJSONArray("weight");
                 ArrayList<String> dates = new ArrayList<>();
