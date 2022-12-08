@@ -1,16 +1,29 @@
 package com.example.infits;
 
+import static java.lang.System.out;
+
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,6 +39,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,15 +50,18 @@ public class Statistics extends AppCompatActivity {
 
     ImageButton steps_btn, heart_btn, water_btn, sleep_btn, weight_btn;
     CardView moreBtn;
-
     TextView daily,weekly,monthly,total,dailytv,weeklytv,monthlytv,totaltv;
-
     ImageView plus;
+    private ImageView instagramShare,fbShare,twitterShare,moreShare;
+    private static final int REQUEST_EXTERNAL_STORAGe = 1;
+    private static String[] permissionstorage = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
+        verifystoragepermissions(this);
 
 //        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
 //            @Override
@@ -57,6 +77,11 @@ public class Statistics extends AppCompatActivity {
         water_btn = findViewById(R.id.water_btn);
         sleep_btn = findViewById(R.id.sleep_btn);
         weight_btn = findViewById(R.id.weight_btn);
+
+        instagramShare = findViewById(R.id.imageView41);
+        fbShare = findViewById(R.id.imageView43);
+        twitterShare = findViewById(R.id.imageView44);
+        moreShare = findViewById(R.id.moreShare2);
 
 
         daily = findViewById(R.id.daily_count);
@@ -118,6 +143,80 @@ public class Statistics extends AppCompatActivity {
             moreBtn.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.heartpink));
 
             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView2,new HeartFragment()).commit();
+        });
+
+        instagramShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                takeScreenshot("com.instagram.android");
+
+            }
+        });
+
+        fbShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                takeScreenshot("com.facebook.katana");
+
+            }
+        });
+
+        twitterShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                 takeScreenshot("com.twitter.android");
+            }
+        });
+
+        moreShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                try {
+
+                    Date date = new Date();
+                    CharSequence format = DateFormat.format("MM-dd-yyyy_hh:mm:ss", date);
+
+                    //
+                    File mainDir = new File(Statistics.this.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "FilShare");
+                    if (!mainDir.exists()) {
+                        boolean mkdir = mainDir.mkdir();
+                    }
+                    String path = mainDir + "/" + "Health Stats" + "-" + format + ".jpeg";
+
+                    View vv = getWindow().getDecorView().getRootView();
+                    vv.setDrawingCacheEnabled(true);
+                    vv.buildDrawingCache(true);
+                    Bitmap b = Bitmap.createBitmap(vv.getDrawingCache());
+                    vv.setDrawingCacheEnabled(false);
+
+                    File imageFile = new File(path);
+                    FileOutputStream fileOutputStream = new FileOutputStream(imageFile);
+                    b.compress(Bitmap.CompressFormat.PNG, 90, fileOutputStream);
+                    fileOutputStream.flush();
+                    fileOutputStream.close();
+
+
+                    Uri uri = FileProvider.getUriForFile(Statistics.this,
+                            BuildConfig.APPLICATION_ID + "." + getLocalClassName() + ".provider",
+                            imageFile);
+
+                    Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+                    intent.putExtra(Intent.EXTRA_STREAM, uri);
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    intent.setType("image/png");
+                    startActivity(intent);
+
+                } catch (Throwable e) {
+                    // Several error may come out with file handling or DOM
+                    e.printStackTrace();
+                }
+
+
+            }
         });
 
         water_btn.setOnClickListener(v ->{
@@ -416,5 +515,70 @@ public class Statistics extends AppCompatActivity {
         };
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
+    }
+    private void takeScreenshot(String pac) {
+
+
+        try {
+
+            Date date = new Date();
+            CharSequence format = DateFormat.format("MM-dd-yyyy_hh:mm:ss", date);
+
+
+            //
+            File mainDir = new File(
+                    this.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "FilShare");
+            if (!mainDir.exists()) {
+                boolean mkdir = mainDir.mkdir();
+            }
+            String path = mainDir + "/" + "Health Stats" + "-" + format + ".jpeg";
+
+            View v = getWindow().getDecorView().getRootView();
+            v.setDrawingCacheEnabled(true);
+            v.buildDrawingCache(true);
+            Bitmap b = Bitmap.createBitmap(v.getDrawingCache());
+            v.setDrawingCacheEnabled(false);
+
+            File imageFile = new File(path);
+            FileOutputStream fileOutputStream = new FileOutputStream(imageFile);
+            b.compress(Bitmap.CompressFormat.PNG, 90, fileOutputStream);
+            fileOutputStream.flush();
+            fileOutputStream.close();
+
+
+            Uri uri = FileProvider.getUriForFile(this,
+                    BuildConfig.APPLICATION_ID + "." + getLocalClassName() + ".provider",
+                    imageFile);
+
+            shareImageUri(uri,pac);
+
+        } catch (Throwable e) {
+            // Several error may come out with file handling or DOM
+            e.printStackTrace();
+        }
+    }
+    private void openScreenshot(File imageFile) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        Uri uri = Uri.fromFile(imageFile);
+        intent.setDataAndType(uri, "image/*");
+        startActivity(intent);
+    }
+    public static void verifystoragepermissions(Activity activity) {
+
+        int permissions = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        // If storage permission is not given then request for External Storage Permission
+        if (permissions != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity, permissionstorage, REQUEST_EXTERNAL_STORAGe);
+        }
+    }
+    private void shareImageUri(Uri uri,String pac){
+        Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        intent.setPackage(pac);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.setType("image/png");
+        startActivity(intent);
     }
 }
