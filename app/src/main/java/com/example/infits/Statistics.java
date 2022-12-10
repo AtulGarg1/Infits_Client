@@ -26,6 +26,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.github.mikephil.charting.charts.LineChart;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,6 +54,8 @@ public class Statistics extends AppCompatActivity {
     CardView moreBtn;
     TextView daily,weekly,monthly,total,dailytv,weeklytv,monthlytv,totaltv;
     ImageView plus;
+    private LineChart lineChart;
+    private ScrollView scrollView;
     private ImageView instagramShare,fbShare,twitterShare,moreShare;
     private static final int REQUEST_EXTERNAL_STORAGe = 1;
     private static String[] permissionstorage = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
@@ -72,11 +76,23 @@ public class Statistics extends AppCompatActivity {
 //        };
 //        getOnBackPressedDispatcher().addCallback(this, callback);
 
+        scrollView = findViewById(R.id.scroll_view_health_stats);
         steps_btn = findViewById(R.id.steps_btn);
         heart_btn = findViewById(R.id.heart_btn);
         water_btn = findViewById(R.id.water_btn);
         sleep_btn = findViewById(R.id.sleep_btn);
         weight_btn = findViewById(R.id.weight_btn);
+
+        //
+        lineChart = findViewById(R.id.graph);
+//        try{
+//            if(lineChart.isEmpty()){
+//                out.println("working");
+//                lineChart.setBackgroundResource(R.drawable.blank_graph);
+//            }
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
 
         instagramShare = findViewById(R.id.imageView41);
         fbShare = findViewById(R.id.imageView43);
@@ -149,7 +165,7 @@ public class Statistics extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                takeScreenshot("com.instagram.android");
+                takeScreenshot("com.instagram.android",scrollView);
 
             }
         });
@@ -158,7 +174,7 @@ public class Statistics extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                takeScreenshot("com.facebook.katana");
+                takeScreenshot("com.facebook.katana",scrollView);
 
             }
         });
@@ -167,7 +183,7 @@ public class Statistics extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                 takeScreenshot("com.twitter.android");
+                 takeScreenshot("com.twitter.android",scrollView);
             }
         });
 
@@ -188,10 +204,10 @@ public class Statistics extends AppCompatActivity {
                     String path = mainDir + "/" + "Health Stats" + "-" + format + ".jpeg";
 
                     View vv = getWindow().getDecorView().getRootView();
-                    vv.setDrawingCacheEnabled(true);
-                    vv.buildDrawingCache(true);
-                    Bitmap b = Bitmap.createBitmap(vv.getDrawingCache());
-                    vv.setDrawingCacheEnabled(false);
+                    scrollView.setDrawingCacheEnabled(true);
+                    scrollView.buildDrawingCache(true);
+                    Bitmap b = Bitmap.createBitmap(scrollView.getDrawingCache());
+                    scrollView.setDrawingCacheEnabled(false);
 
                     File imageFile = new File(path);
                     FileOutputStream fileOutputStream = new FileOutputStream(imageFile);
@@ -516,7 +532,7 @@ public class Statistics extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
     }
-    private void takeScreenshot(String pac) {
+    private void takeScreenshot(String pac,View vw) {
 
 
         try {
@@ -525,7 +541,7 @@ public class Statistics extends AppCompatActivity {
             CharSequence format = DateFormat.format("MM-dd-yyyy_hh:mm:ss", date);
 
 
-            //
+            //....
             File mainDir = new File(
                     this.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "FilShare");
             if (!mainDir.exists()) {
@@ -533,11 +549,11 @@ public class Statistics extends AppCompatActivity {
             }
             String path = mainDir + "/" + "Health Stats" + "-" + format + ".jpeg";
 
-            View v = getWindow().getDecorView().getRootView();
-            v.setDrawingCacheEnabled(true);
-            v.buildDrawingCache(true);
-            Bitmap b = Bitmap.createBitmap(v.getDrawingCache());
-            v.setDrawingCacheEnabled(false);
+//            View v = getWindow().getDecorView().getRootView();
+            vw.setDrawingCacheEnabled(true);
+            vw.buildDrawingCache(true);
+            Bitmap b = Bitmap.createBitmap(vw.getDrawingCache());
+            vw.setDrawingCacheEnabled(false);
 
             File imageFile = new File(path);
             FileOutputStream fileOutputStream = new FileOutputStream(imageFile);
@@ -555,6 +571,7 @@ public class Statistics extends AppCompatActivity {
         } catch (Throwable e) {
             // Several error may come out with file handling or DOM
             e.printStackTrace();
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
     private void openScreenshot(File imageFile) {
