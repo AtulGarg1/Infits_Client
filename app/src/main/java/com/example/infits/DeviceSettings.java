@@ -57,9 +57,9 @@ public class DeviceSettings extends AppCompatActivity {
         setContentView(R.layout.activity_device_settings);
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
-            Toast.makeText(this, "yes", Toast.LENGTH_LONG).show();
+//            Toast.makeText(this, "yes", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(this, "no", Toast.LENGTH_LONG).show();
+//            Toast.makeText(this, "no", Toast.LENGTH_LONG).show();
         }
 
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();

@@ -84,8 +84,9 @@
                         <ImageView
                             android:layout_width="15dp"
                             android:layout_height="17dp"
+                            android:layout_gravity="top"
                             android:src="@drawable/ic_baseline_person_24"
-                            android:layout_marginTop="12dp"/>
+                            android:layout_marginTop="5dp"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -102,18 +103,23 @@
                                 android:id="@+id/name_edt"
                                 style="@style/account_edt_views"
                                 android:layout_width="250dp"
-                                android:textSize="11sp"
+                                android:textSize="13sp"
                                 android:cursorVisible="false"
                                 android:focusableInTouchMode="false"
                                 android:inputType="none"/>
+
                         </LinearLayout>
+
                         <ImageView
                             android:layout_width="15dp"
                             android:layout_height="15dp"
                             android:src="@drawable/ic_baseline_edit_24"
                             android:layout_marginTop="20dp"
                             android:id="@+id/name_edt_button"/>
+
                     </LinearLayout>
+
+
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -165,8 +171,9 @@
                         <ImageView
                             android:layout_width="15dp"
                             android:layout_height="17dp"
+                            android:layout_gravity="top"
                             android:src="@drawable/ic_baseline_autorenew_24"
-                            android:layout_marginTop="12dp"/>
+                            android:layout_marginTop="5dp"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -183,7 +190,7 @@
                                 android:id="@+id/age_edt"
                                 style="@style/account_edt_views"
                                 android:layout_width="250dp"
-                                android:textSize="11sp"
+                                android:textSize="13sp"
                                 android:cursorVisible="false"
                                 android:focusableInTouchMode="false"
                                 android:inputType="none"/>
@@ -192,7 +199,7 @@
                             android:layout_width="15dp"
                             android:layout_height="15dp"
                             android:src="@drawable/ic_baseline_edit_24"
-                            android:layout_marginTop="20dp"
+                            android:layout_marginTop="5dp"
                             android:id="@+id/age_edt_button"/>
                     </LinearLayout>
 
@@ -204,8 +211,9 @@
                         <ImageView
                             android:layout_width="15dp"
                             android:layout_height="17dp"
+                            android:layout_gravity="top"
                             android:src="@drawable/ic_baseline_email_24"
-                            android:layout_marginTop="12dp"/>
+                            android:layout_marginTop="5dp"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -222,7 +230,7 @@
                                 android:id="@+id/email_edt"
                                 style="@style/account_edt_views"
                                 android:layout_width="250dp"
-                                android:textSize="11sp"
+                                android:textSize="13sp"
                                 android:cursorVisible="false"
                                 android:focusableInTouchMode="false"
                                 android:inputType="none"/>
@@ -243,8 +251,9 @@
                         <ImageView
                             android:layout_width="15dp"
                             android:layout_height="17dp"
+                            android:layout_gravity="top"
                             android:src="@drawable/ic_baseline_local_phone_24"
-                            android:layout_marginTop="12dp"/>
+                            android:layout_marginTop="5dp"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -261,7 +270,7 @@
                                 android:id="@+id/phone_edt"
                                 style="@style/account_edt_views"
                                 android:layout_width="250dp"
-                                android:textSize="11sp"
+                                android:textSize="13sp"
                                 android:cursorVisible="false"
                                 android:focusableInTouchMode="false"
                                 android:inputType="none"/>

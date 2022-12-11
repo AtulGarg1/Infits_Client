@@ -56,7 +56,7 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
 //        setSupportActionBar(toolbar);
 
         nav = (NavigationView) findViewById(R.id.navmenu);
-        drawerLayout = (DrawerLayout)findViewById(R.id.drawer);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
 
         /*toggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.navigation_open,R.string.navigation_close);
         drawerLayout.addDrawerListener(toggle);
@@ -76,7 +76,7 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
             }
         });
 
-        if (!DataFromDatabase.proUser){
+        if (!DataFromDatabase.proUser) {
             Menu nav_Menu = nav.getMenu();
 //            nav_Menu.findItem(R.id.consul).setVisible(false);
 //            nav_Menu.findItem(R.id.message).setVisible(false);
@@ -86,8 +86,8 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
 
         cardClicked = getIntent().getStringExtra("notification");
 
-        if(cardClicked != null) {
-            if(cardClicked.equals("sleep")) {
+        if (cardClicked != null) {
+            if (cardClicked.equals("sleep")) {
                 hours = getIntent().getStringExtra("hours");
                 minutes = getIntent().getStringExtra("minutes");
                 secs = getIntent().getStringExtra("secs");
@@ -97,12 +97,12 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
         nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch(menuItem.getItemId()) {
+                switch (menuItem.getItemId()) {
                     case R.id.dboard:
                         Intent idb = new Intent(DashBoardMain.this, DashBoardMain.class);
                         startActivity(idb);
                         drawerLayout.closeDrawer(GravityCompat.START);
-                        finish();
+                        finishAffinity();
                         break;
 
                     case R.id.charts:
@@ -149,8 +149,8 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
     }
 
     private void permissionsCheck() {
-        if(!hasPermissions(DashBoardMain.this,allPermissions)){
-            ActivityCompat.requestPermissions(DashBoardMain.this,allPermissions,1234);
+        if (!hasPermissions(DashBoardMain.this, allPermissions)) {
+            ActivityCompat.requestPermissions(DashBoardMain.this, allPermissions, 1234);
         }
     }
 
@@ -171,27 +171,26 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode==1234){
-            boolean x=false;
-            for(int i=0;i<allPermissions.length;i++)
-            {
-                if(grantResults[i]==PackageManager.PERMISSION_GRANTED){
+        if (requestCode == 1234) {
+            boolean x = false;
+            for (int i = 0; i < allPermissions.length; i++) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
 //                    Toast.makeText(this, "All Permissions are required", Toast.LENGTH_SHORT).show();
-                }else{
-                    x=true;
+                } else {
+                    x = true;
                 }
             }
-            if(x){
+            if (x) {
                 Toast.makeText(this, "All permissions are required", Toast.LENGTH_SHORT).show();
             }
 
         }
     }
 
-    private boolean hasPermissions(Context context, String...  allPermissions){
-        if(context!=null && allPermissions !=null){
-            for(String allPermit :allPermissions){
-                if(ActivityCompat.checkSelfPermission(context,allPermit)!= PackageManager.PERMISSION_GRANTED){
+    private boolean hasPermissions(Context context, String... allPermissions) {
+        if (context != null && allPermissions != null) {
+            for (String allPermit : allPermissions) {
+                if (ActivityCompat.checkSelfPermission(context, allPermit) != PackageManager.PERMISSION_GRANTED) {
                     return false;
                 }
             }
@@ -204,7 +203,7 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SharedPreferences sharedPreferences = getSharedPreferences("Weight",MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("Weight", MODE_PRIVATE);
 
         SharedPreferences.Editor myEdit = sharedPreferences.edit();
 
@@ -216,7 +215,7 @@ public class DashBoardMain extends AppCompatActivity implements DashBoardFragmen
 
     @Override
     public void menuClicked() {
-        if(!drawerState) {
+        if (!drawerState) {
             drawerLayout.openDrawer(GravityCompat.START);
         } else {
             drawerLayout.closeDrawer(GravityCompat.START);

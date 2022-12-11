@@ -26,6 +26,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.github.mikephil.charting.charts.LineChart;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,9 +52,11 @@ public class Statistics extends AppCompatActivity {
 
     ImageButton steps_btn, heart_btn, water_btn, sleep_btn, weight_btn;
     CardView moreBtn;
-    TextView daily,weekly,monthly,total,dailytv,weeklytv,monthlytv,totaltv;
+    TextView daily, weekly, monthly, total, dailytv, weeklytv, monthlytv, totaltv;
     ImageView plus;
-    private ImageView instagramShare,fbShare,twitterShare,moreShare;
+    private LineChart lineChart;
+    private ScrollView scrollView;
+    private ImageView instagramShare, fbShare, twitterShare, moreShare;
     private static final int REQUEST_EXTERNAL_STORAGe = 1;
     private static String[] permissionstorage = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
 
@@ -72,11 +76,23 @@ public class Statistics extends AppCompatActivity {
 //        };
 //        getOnBackPressedDispatcher().addCallback(this, callback);
 
+        scrollView = findViewById(R.id.scroll_view_health_stats);
         steps_btn = findViewById(R.id.steps_btn);
         heart_btn = findViewById(R.id.heart_btn);
         water_btn = findViewById(R.id.water_btn);
         sleep_btn = findViewById(R.id.sleep_btn);
         weight_btn = findViewById(R.id.weight_btn);
+
+        //
+        lineChart = findViewById(R.id.graph);
+//        try{
+//            if(lineChart.isEmpty()){
+//                out.println("working");
+//                lineChart.setBackgroundResource(R.drawable.blank_graph);
+//            }
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
 
         instagramShare = findViewById(R.id.imageView41);
         fbShare = findViewById(R.id.imageView43);
@@ -100,7 +116,7 @@ public class Statistics extends AppCompatActivity {
 
         stepsCount();
 
-        steps_btn.setOnClickListener(v ->{
+        steps_btn.setOnClickListener(v -> {
             steps_btn.setBackgroundResource(R.drawable.step_stat_selected);
             heart_btn.setBackgroundResource(R.drawable.heart_stat_unselected);
             water_btn.setBackgroundResource(R.drawable.water_stat_unselected);
@@ -120,10 +136,10 @@ public class Statistics extends AppCompatActivity {
             moreBtn.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.steps));
 
             stepsCount();
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView2,new StepsFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView2, new StepsFragment()).commit();
         });
 
-        heart_btn.setOnClickListener(v ->{
+        heart_btn.setOnClickListener(v -> {
             steps_btn.setBackgroundResource(R.drawable.step_stat_unselected);
             heart_btn.setBackgroundResource(R.drawable.heart_selected);
             water_btn.setBackgroundResource(R.drawable.water_stat_unselected);
@@ -142,14 +158,14 @@ public class Statistics extends AppCompatActivity {
 
             moreBtn.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.heartpink));
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView2,new HeartFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView2, new HeartFragment()).commit();
         });
 
         instagramShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                takeScreenshot("com.instagram.android");
+                takeScreenshot("com.instagram.android", scrollView);
 
             }
         });
@@ -158,7 +174,7 @@ public class Statistics extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                takeScreenshot("com.facebook.katana");
+                takeScreenshot("com.facebook.katana", scrollView);
 
             }
         });
@@ -167,7 +183,7 @@ public class Statistics extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                 takeScreenshot("com.twitter.android");
+                takeScreenshot("com.twitter.android", scrollView);
             }
         });
 
@@ -188,10 +204,10 @@ public class Statistics extends AppCompatActivity {
                     String path = mainDir + "/" + "Health Stats" + "-" + format + ".jpeg";
 
                     View vv = getWindow().getDecorView().getRootView();
-                    vv.setDrawingCacheEnabled(true);
-                    vv.buildDrawingCache(true);
-                    Bitmap b = Bitmap.createBitmap(vv.getDrawingCache());
-                    vv.setDrawingCacheEnabled(false);
+                    scrollView.setDrawingCacheEnabled(true);
+                    scrollView.buildDrawingCache(true);
+                    Bitmap b = Bitmap.createBitmap(scrollView.getDrawingCache());
+                    scrollView.setDrawingCacheEnabled(false);
 
                     File imageFile = new File(path);
                     FileOutputStream fileOutputStream = new FileOutputStream(imageFile);
@@ -219,7 +235,7 @@ public class Statistics extends AppCompatActivity {
             }
         });
 
-        water_btn.setOnClickListener(v ->{
+        water_btn.setOnClickListener(v -> {
             steps_btn.setBackgroundResource(R.drawable.step_stat_unselected);
             heart_btn.setBackgroundResource(R.drawable.heart_stat_unselected);
             water_btn.setBackgroundResource(R.drawable.water_selected);
@@ -240,10 +256,10 @@ public class Statistics extends AppCompatActivity {
 
             moreBtn.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.waterblue));
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView2,new WaterFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView2, new WaterFragment()).commit();
         });
 
-        sleep_btn.setOnClickListener(v ->{
+        sleep_btn.setOnClickListener(v -> {
             steps_btn.setBackgroundResource(R.drawable.step_stat_unselected);
             heart_btn.setBackgroundResource(R.drawable.heart_stat_unselected);
             water_btn.setBackgroundResource(R.drawable.water_stat_unselected);
@@ -258,7 +274,7 @@ public class Statistics extends AppCompatActivity {
 
             moreBtn.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.sleeppurple));
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView2,new SleepFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView2, new SleepFragment()).commit();
 
             dailytv.setText("Hours");
             weeklytv.setText("Hours");
@@ -268,7 +284,7 @@ public class Statistics extends AppCompatActivity {
 
         });
 
-        weight_btn.setOnClickListener(v ->{
+        weight_btn.setOnClickListener(v -> {
             steps_btn.setBackgroundResource(R.drawable.step_stat_unselected);
             heart_btn.setBackgroundResource(R.drawable.heart_stat_unselected);
             water_btn.setBackgroundResource(R.drawable.water_stat_unselected);
@@ -283,7 +299,7 @@ public class Statistics extends AppCompatActivity {
 
             moreBtn.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.weightgreen));
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView2,new WeightFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView2, new WeightFragment()).commit();
             dailytv.setText("KG");
             weeklytv.setText("KG");
             monthlytv.setText("KG");
@@ -293,11 +309,11 @@ public class Statistics extends AppCompatActivity {
     }
 
     private void sleepCount() {
-        String url = String.format("%ssleepFragment.php",DataFromDatabase.ipConfig);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
-            if (!response.equals("failure")){
-                Log.d("Fragment","success");
-                Log.d("Fragment response",response);
+        String url = String.format("%ssleepFragment.php", DataFromDatabase.ipConfig);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
+            if (!response.equals("failure")) {
+                Log.d("Fragment", "success");
+                Log.d("Fragment response", response);
 
                 try {
                     JSONArray jsonArray = new JSONArray(response);
@@ -306,37 +322,36 @@ public class Statistics extends AppCompatActivity {
                     JSONObject object2 = jsonArray.getJSONObject(2);
                     JSONObject object3 = jsonArray.getJSONObject(3);
                     String stepsWeek = object0.getString("SumWeek");
-                    if (stepsWeek.equals("null")){
-                        stepsWeek ="0";
+                    if (stepsWeek.equals("null")) {
+                        stepsWeek = "0";
                     }
                     weekly.setText(stepsWeek);
                     String stepsMonth = object1.getString("SumMonth");
-                    if (stepsMonth.equals("null")){
-                        stepsMonth ="0";
+                    if (stepsMonth.equals("null")) {
+                        stepsMonth = "0";
                     }
                     monthly.setText(stepsMonth);
                     String stepsDaily = object2.getString("SumDaily");
-                    if (stepsDaily.equals("null")){
-                        stepsDaily ="0";
+                    if (stepsDaily.equals("null")) {
+                        stepsDaily = "0";
                     }
                     daily.setText(stepsDaily);
                     String stepsTotal = object3.getString("SumTotal");
-                    if (stepsTotal.equals("null")){
-                        stepsTotal ="0";
+                    if (stepsTotal.equals("null")) {
+                        stepsTotal = "0";
                     }
                     total.setText(stepsTotal);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }
-            else if (response.equals("failure")){
-                Log.d("Fragment","failure");
+            } else if (response.equals("failure")) {
+                Log.d("Fragment", "failure");
                 Toast.makeText(getApplicationContext(), "Fragment failed", Toast.LENGTH_SHORT).show();
             }
-        },error -> {
-            Toast.makeText(getApplicationContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();})
-        {
+        }, error -> {
+            Toast.makeText(getApplicationContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+        }) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -348,12 +363,13 @@ public class Statistics extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
     }
+
     private void weightCount() {
-        String url = String.format("%sweightFragment.php",DataFromDatabase.ipConfig);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
-            if (!response.equals("failure")){
-                Log.d("Fragment","success");
-                Log.d("Fragment response",response);
+        String url = String.format("%sweightFragment.php", DataFromDatabase.ipConfig);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
+            if (!response.equals("failure")) {
+                Log.d("Fragment", "success");
+                Log.d("Fragment response", response);
                 try {
                     JSONArray jsonArray = new JSONArray(response);
                     JSONObject object0 = jsonArray.getJSONObject(0);
@@ -361,36 +377,35 @@ public class Statistics extends AppCompatActivity {
                     JSONObject object2 = jsonArray.getJSONObject(2);
                     JSONObject object3 = jsonArray.getJSONObject(3);
                     String stepsWeek = object0.getString("SumWeek");
-                    if (stepsWeek.equals("null")){
-                        stepsWeek ="0";
+                    if (stepsWeek.equals("null")) {
+                        stepsWeek = "0";
                     }
                     weekly.setText(stepsWeek);
                     String stepsMonth = object1.getString("SumMonth");
-                    if (stepsMonth.equals("null")){
-                        stepsMonth ="0";
+                    if (stepsMonth.equals("null")) {
+                        stepsMonth = "0";
                     }
                     monthly.setText(stepsMonth);
                     String stepsDaily = object2.getString("SumDaily");
-                    if (stepsDaily.equals("null")){
-                        stepsDaily ="0";
+                    if (stepsDaily.equals("null")) {
+                        stepsDaily = "0";
                     }
                     daily.setText(stepsDaily);
                     String stepsTotal = object3.getString("SumTotal");
-                    if (stepsTotal.equals("null")){
-                        stepsTotal ="0";
+                    if (stepsTotal.equals("null")) {
+                        stepsTotal = "0";
                     }
                     total.setText(stepsTotal);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }
-            else if (response.equals("failure")){
-                Log.d("Fragment","failure");
+            } else if (response.equals("failure")) {
+                Log.d("Fragment", "failure");
                 Toast.makeText(getApplicationContext(), "Fragment failed", Toast.LENGTH_SHORT).show();
             }
-        },error -> {
-            Toast.makeText(getApplicationContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();})
-        {
+        }, error -> {
+            Toast.makeText(getApplicationContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+        }) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -404,11 +419,11 @@ public class Statistics extends AppCompatActivity {
     }
 
     private void waterCount() {
-        String url = String.format("%swaterFragment.php",DataFromDatabase.ipConfig);
-                StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
-            if (!response.equals("failure")){
-                Log.d("Fragment","success");
-                Log.d("Fragment response",response);
+        String url = String.format("%swaterFragment.php", DataFromDatabase.ipConfig);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
+            if (!response.equals("failure")) {
+                Log.d("Fragment", "success");
+                Log.d("Fragment response", response);
 
                 try {
                     JSONArray jsonArray = new JSONArray(response);
@@ -417,37 +432,36 @@ public class Statistics extends AppCompatActivity {
                     JSONObject object2 = jsonArray.getJSONObject(2);
                     JSONObject object3 = jsonArray.getJSONObject(3);
                     String stepsWeek = object0.getString("SumWeek");
-                    if (stepsWeek.equals("null")){
-                        stepsWeek ="0";
+                    if (stepsWeek.equals("null")) {
+                        stepsWeek = "0";
                     }
                     weekly.setText(stepsWeek);
                     String stepsMonth = object1.getString("SumMonth");
-                    if (stepsMonth.equals("null")){
-                        stepsMonth ="0";
+                    if (stepsMonth.equals("null")) {
+                        stepsMonth = "0";
                     }
                     monthly.setText(stepsMonth);
                     String stepsDaily = object2.getString("SumDaily");
-                    if (stepsDaily.equals("null")){
-                        stepsDaily ="0";
+                    if (stepsDaily.equals("null")) {
+                        stepsDaily = "0";
                     }
                     daily.setText(stepsDaily);
                     String stepsTotal = object3.getString("SumTotal");
-                    if (stepsTotal.equals("null")){
-                        stepsTotal ="0";
+                    if (stepsTotal.equals("null")) {
+                        stepsTotal = "0";
                     }
                     total.setText(stepsTotal);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }
-            else if (response.equals("failure")){
-                Log.d("Fragment","failure");
+            } else if (response.equals("failure")) {
+                Log.d("Fragment", "failure");
                 Toast.makeText(getApplicationContext(), "Fragment failed", Toast.LENGTH_SHORT).show();
             }
-        },error -> {
-            Toast.makeText(getApplicationContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();})
-        {
+        }, error -> {
+            Toast.makeText(getApplicationContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+        }) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -463,9 +477,9 @@ public class Statistics extends AppCompatActivity {
 
 
     private void stepsCount() {
-        String url = String.format("%sstepsFragment.php",DataFromDatabase.ipConfig);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,url, response -> {
-            if (!response.equals("failure")){
+        String url = String.format("%sstepsFragment.php", DataFromDatabase.ipConfig);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
+            if (!response.equals("failure")) {
                 try {
                     JSONArray jsonArray = new JSONArray(response);
                     JSONObject object0 = jsonArray.getJSONObject(0);
@@ -473,38 +487,36 @@ public class Statistics extends AppCompatActivity {
                     JSONObject object2 = jsonArray.getJSONObject(2);
                     JSONObject object3 = jsonArray.getJSONObject(3);
                     String stepsWeek = object0.getString("stepsSumWeek");
-                    if (stepsWeek.equals("null")){
-                        stepsWeek ="0";
+                    if (stepsWeek.equals("null")) {
+                        stepsWeek = "0";
                     }
                     weekly.setText(stepsWeek);
                     String stepsMonth = object1.getString("stepsSumMonth");
-                    if (stepsMonth.equals("null")){
-                        stepsMonth ="0";
+                    if (stepsMonth.equals("null")) {
+                        stepsMonth = "0";
                     }
                     monthly.setText(stepsMonth);
                     String stepsDaily = object2.getString("stepsSumDaily");
-                    if (stepsDaily.equals("null")){
-                        stepsDaily ="0";
+                    if (stepsDaily.equals("null")) {
+                        stepsDaily = "0";
                     }
                     daily.setText(stepsDaily);
                     String stepsTotal = object3.getString("stepsSumTotal");
-                    if (stepsTotal.equals("null")){
-                        stepsTotal ="0";
+                    if (stepsTotal.equals("null")) {
+                        stepsTotal = "0";
                     }
                     total.setText(stepsTotal);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }
-            else if (response.equals("failure")){
-                Log.d("HeartFragment","failure");
+            } else if (response.equals("failure")) {
+                Log.d("HeartFragment", "failure");
                 Toast.makeText(getApplicationContext(), "heartFragment failed", Toast.LENGTH_SHORT).show();
             }
-        },error -> {
+        }, error -> {
 
-        })
-        {
+        }) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -516,7 +528,8 @@ public class Statistics extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
     }
-    private void takeScreenshot(String pac) {
+
+    private void takeScreenshot(String pac, View vw) {
 
 
         try {
@@ -525,7 +538,7 @@ public class Statistics extends AppCompatActivity {
             CharSequence format = DateFormat.format("MM-dd-yyyy_hh:mm:ss", date);
 
 
-            //
+            //....
             File mainDir = new File(
                     this.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "FilShare");
             if (!mainDir.exists()) {
@@ -533,11 +546,11 @@ public class Statistics extends AppCompatActivity {
             }
             String path = mainDir + "/" + "Health Stats" + "-" + format + ".jpeg";
 
-            View v = getWindow().getDecorView().getRootView();
-            v.setDrawingCacheEnabled(true);
-            v.buildDrawingCache(true);
-            Bitmap b = Bitmap.createBitmap(v.getDrawingCache());
-            v.setDrawingCacheEnabled(false);
+//            View v = getWindow().getDecorView().getRootView();
+            vw.setDrawingCacheEnabled(true);
+            vw.buildDrawingCache(true);
+            Bitmap b = Bitmap.createBitmap(vw.getDrawingCache());
+            vw.setDrawingCacheEnabled(false);
 
             File imageFile = new File(path);
             FileOutputStream fileOutputStream = new FileOutputStream(imageFile);
@@ -550,13 +563,15 @@ public class Statistics extends AppCompatActivity {
                     BuildConfig.APPLICATION_ID + "." + getLocalClassName() + ".provider",
                     imageFile);
 
-            shareImageUri(uri,pac);
+            shareImageUri(uri, pac);
 
         } catch (Throwable e) {
             // Several error may come out with file handling or DOM
             e.printStackTrace();
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
+
     private void openScreenshot(File imageFile) {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
@@ -564,6 +579,7 @@ public class Statistics extends AppCompatActivity {
         intent.setDataAndType(uri, "image/*");
         startActivity(intent);
     }
+
     public static void verifystoragepermissions(Activity activity) {
 
         int permissions = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -573,7 +589,8 @@ public class Statistics extends AppCompatActivity {
             ActivityCompat.requestPermissions(activity, permissionstorage, REQUEST_EXTERNAL_STORAGe);
         }
     }
-    private void shareImageUri(Uri uri,String pac){
+
+    private void shareImageUri(Uri uri, String pac) {
         Intent intent = new Intent(android.content.Intent.ACTION_SEND);
         intent.putExtra(Intent.EXTRA_STREAM, uri);
         intent.setPackage(pac);
