@@ -66,6 +66,7 @@
         </activity>
         <activity
             android:name=".SplashScreen"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:noHistory="true"
             android:theme="@style/SplashTheme.Infits">
@@ -76,119 +77,154 @@
             </intent-filter>
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".MealTracker"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".QuestionsAfterScan"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ScanResult"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ScanActivity"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".EnterFoodDetails"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".CameraForMealTracker"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".LiveListAct"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".LiveAct"
             android:exported="false" />
         <activity
             android:name=".DeviceSettings"
+            android:screenOrientation="portrait"
             android:exported="false" />
 
         <service android:name=".StopWatchService" />
 
         <activity
+            android:screenOrientation="portrait"
             android:name=".MainActivity2"
             android:exported="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".MainActivity"
             android:exported="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".FAQ"
             android:exported="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ClientConsultation"
             android:exported="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".Consultation"
             android:exported="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".AccountPage"
             android:exported="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".Notifications"
             android:exported="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".Help"
             android:exported="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".Settings"
             android:exported="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".Statistics"
             android:exported="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".Subscription3"
             android:exported="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".Subscription2"
             android:exported="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".Subscription1"
             android:exported="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".DietChart"
             android:exported="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".TermsAndConditions"
             android:exported="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ResetPassword"
             android:exported="true" />
         <activity
             android:name=".Signup"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".Testing"
             android:exported="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".Landing3"
             android:exported="true"
             android:noHistory="true"
             android:theme="@style/SplashTheme.Infits" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".Landing2"
             android:exported="true"
             android:noHistory="true"
             android:theme="@style/SplashTheme.Infits" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".Landing1"
             android:exported="true"
             android:noHistory="true"
             android:theme="@style/SplashTheme.Infits" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ChatArea"
             android:exported="true" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".DashBoardMain"
             android:exported="false"
             android:noHistory="false" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".Diet_plan_main_screen"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".Meal_main"
             android:exported="false" />
         <activity
             android:name=".Login"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
 
