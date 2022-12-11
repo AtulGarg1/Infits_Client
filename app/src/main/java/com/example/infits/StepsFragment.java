@@ -153,6 +153,7 @@ public class StepsFragment extends Fragment {
 
         try {
             if(lineChart.isEmpty()){
+                ///
                 lineChart.setBackgroundResource(R.drawable.single_line_char_ori);
             }
         }catch (Exception e){
