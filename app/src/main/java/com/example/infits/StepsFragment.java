@@ -151,6 +151,14 @@ public class StepsFragment extends Fragment {
 
         data.setValueTypeface(tf);
 
+        try {
+            if(lineChart.isEmpty()){
+                lineChart.setBackgroundResource(R.drawable.single_line_char_ori);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
@@ -170,6 +178,18 @@ public class StepsFragment extends Fragment {
         lineChart.getDescription().setEnabled(false);
         lineChart.getLegend().setEnabled(false);
 
+
+        //
+        ArrayList<Integer> cL = new ArrayList<>();
+        cL.add(Color.BLACK);
+        cL.add(Color.RED);
+        cL.add(Color.BLUE);
+        cL.add(Color.GRAY);
+        cL.add(Color.GREEN);
+
+        dataSet[0].setCircleColors(new int[]{Color.BLUE,Color.RED,Color.GREEN,Color.BLUE,Color.RED,Color.GREEN});
+//        data.setValueTextColors(cL);
+//        dataSet.setCircleColors();
         lineChart.setData(data);
 
         RadioButton week_radioButton = view.findViewById(R.id.week_btn_steps);

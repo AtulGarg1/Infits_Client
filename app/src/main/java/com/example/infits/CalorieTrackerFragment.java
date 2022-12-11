@@ -203,9 +203,7 @@ public class CalorieTrackerFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();
-
                 data.put("clientID", DataFromDatabase.clientuserID);
-
                 return data;
             }
         };

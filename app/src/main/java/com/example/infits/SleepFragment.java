@@ -137,6 +137,15 @@ public class SleepFragment extends Fragment {
 
         data.setValueTypeface(tf);
 
+        //
+        try{
+            if(lineChart.isEmpty()){
+                lineChart.setBackgroundResource(R.drawable.single_line_char_ori);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
