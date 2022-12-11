@@ -131,9 +131,7 @@ public class Signup extends AppCompatActivity {
 
             }
         });
-
         //
-
 
 //        if (agreeToCondition.isSelected()){
 //            signbtn.setClickable(true);
