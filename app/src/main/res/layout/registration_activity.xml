@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:id="@+id/llregistration"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/registrationpng"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Let's get started"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/new_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/registrationbackground"
+            android:fontFamily="@font/roboto_regular"
+            android:hint="Username"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:inputType="text"
+            android:autofillHints="username"
+
+            />
+
+        <EditText
+            android:id="@+id/new_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/registrationbackground"
+            android:fontFamily="@font/roboto_regular"
+            android:hint="Your mail"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:inputType="textEmailAddress"
+            android:autofillHints="emailAddress"
+            />
+
+        <EditText
+            android:id="@+id/new_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/registrationbackground"
+            android:fontFamily="@font/roboto_regular"
+            android:hint="Phone number"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:inputType="number"
+            android:maxLength="10"
+            android:autofillHints="phone"
+                />
+
+        <EditText
+            android:id="@+id/new_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/registrationbackground"
+            android:fontFamily="@font/roboto_regular"
+            android:hint="Password"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:inputType="textPassword"
+            />
+
+        <EditText
+            android:id="@+id/confirm_new_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/registrationbackground"
+            android:fontFamily="@font/roboto_regular"
+            android:hint="Confirm Password"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:inputType="textPassword"
+
+            />
+
+        <EditText
+            android:id="@+id/new_referralcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/registrationbackground"
+            android:fontFamily="@font/roboto_regular"
+            android:hint="Referral code(Optional)"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:inputType="number"
+
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/signupbtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:text="Sign Up"
+            android:fontFamily="@font/roboto_regular"
+            android:background="@drawable/btn_background"
+            />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Already have an account?"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/roboto_regular"
+                android:layout_weight="1"
+                android:gravity="end"
+                />
+            <TextView
+                android:id="@+id/memlog"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" Log in"
+                android:fontFamily="@font/nats_regular"
+                android:textSize="20sp"
+                android:textColor="@color/blue"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:src="@drawable/leftlinepng"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="Sign up with"
+                android:textSize="14sp"
+                android:textColor="@color/colorGray"
+                android:textAlignment="center"
+                android:layout_height="wrap_content"
+                />
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:src="@drawable/leftlinepng"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/fbsignup"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/registerbtnback"
+                android:drawableStart="@drawable/fbpng"
+                android:paddingStart="20dp"
+                android:text="Facebook"
+                android:fontFamily="@font/roboto_medium"
+                android:textAlignment="center"
+                >
+            </androidx.appcompat.widget.AppCompatButton>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/googlesignup"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/registerbtnback"
+                android:drawableStart="@drawable/googlepng"
+                android:paddingStart="20dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Google"
+                android:textAlignment="center"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

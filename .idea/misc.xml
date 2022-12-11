@@ -201,6 +201,60 @@
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/setgoaldialog.xml" value="0.19166666666666668" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/layout/watergoaldialog.xml" value="0.2" />
         <entry key="..\:/Backup projects/Infits_15May/Infits/app/src/main/res/menu/sidemenu.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/drawable/btn_background.xml" value="0.3105" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/drawable/ic_cal.xml" value="0.304" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/drawable/ic_loginicon.xml" value="0.3105" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/drawable/login_bg.xml" value="0.3105" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/drawable/registerbtnback.xml" value="0.3105" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/drawable/registrationbackground.xml" value="0.3095" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/drawable/signupbtnback.xml" value="0.3095" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout-large/activity_registration.xml" value="0.24882428388200087" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout-small/login_activity.xml" value="0.470873786407767" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout-small/registration_activity.xml" value="0.5774058577405857" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout-xlarge/activity_registration.xml" value="0.10104166666666667" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout-xlarge/login_activity.xml" value="0.18" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout-xlarge/registration_activity.xml" value="0.15" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/activity_account_page.xml" value="0.30833333333333335" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/activity_camera_for_meal_tracker.xml" value="0.30833333333333335" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/activity_chat_area.xml" value="0.30833333333333335" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/activity_client_consultation.xml" value="0.30833333333333335" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/activity_consultation.xml" value="0.30833333333333335" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/activity_dash_board_main.xml" value="0.16" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/activity_diet_plan_main_screen.xml" value="0.13467293715262932" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/activity_faq.xml" value="0.10560068405301411" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/activity_landing1.xml" value="0.10560068405301411" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/activity_landing2.xml" value="0.24871794871794872" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/activity_landing3.xml" value="0.24871794871794872" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/activity_login.xml" value="0.25" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/activity_main.xml" value="0.30833333333333335" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/activity_main2.xml" value="0.30833333333333335" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/activity_meal_tracker.xml" value="0.30833333333333335" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/activity_questions_after_scan.xml" value="0.30833333333333335" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/activity_registration.xml" value="0.24882428388200087" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/activity_settings.xml" value="0.67" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/activity_signup.xml" value="0.25" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/activity_splash_screen.xml" value="0.10560068405301411" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/activity_statistics.xml" value="0.2" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/activity_step_tracker.xml" value="0.30833333333333335" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/activity_user_data.xml" value="0.25" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/dialog_for_referalcode.xml" value="0.5" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/fragment_calorie_tracker.xml" value="0.33" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/fragment_dash_board.xml" value="0.2" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/fragment_login.xml" value="0.24882428388200087" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/fragment_referral.xml" value="0.18" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/fragment_referral_active_users.xml" value="0.30833333333333335" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/fragment_settings.xml" value="0.33" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/fragment_step_tracker.xml" value="0.1671875" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/fragment_water_reminder.xml" value="0.24882428388200087" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/fragment_weight_tracker.xml" value="0.33" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/landing1.xml" value="0.24871794871794872" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/landing2.xml" value="0.19" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/landing3.xml" value="0.24786324786324787" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/login_activity.xml" value="0.22" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/referral_congratulation.xml" value="0.2526720820863617" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/referral_dialog.xml" value="0.33" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/referral_try_again.xml" value="0.2526720820863617" />
+        <entry key="..\:/Users/PRATIK PATIL/AndroidStudioProjects/Infits_Client-master/app/src/main/res/layout/registration_activity.xml" value="0.33" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/infits-client/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.133" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/infits-client/app/src/main/res/layout/activity_account_page.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/infits-client/app/src/main/res/layout/activity_client_consultation.xml" value="0.27447916666666666" />
@@ -305,10 +359,17 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.16" />
+      </ProjectState>
+    </option>
   </component>
 </project>

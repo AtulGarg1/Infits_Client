@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".UserDataActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/llregistration"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/registrationpng"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Let's get started"
+                android:textColor="@color/black"
+                android:layout_marginTop="20dp"
+                android:textSize="25sp" />
+
+            <EditText
+                android:id="@+id/fullname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/registrationbackground"
+                android:fontFamily="@font/roboto_regular"
+                android:hint="Full Name"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:inputType="text"
+                />
+
+            <TextView
+                android:id="@+id/DOB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/registrationbackground"
+                android:fontFamily="@font/roboto_regular"
+                android:hint="DOB"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:drawableEnd="@drawable/ic_cal"
+                />
+
+            <EditText
+                android:id="@+id/age"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/registrationbackground"
+                android:fontFamily="@font/roboto_regular"
+                android:hint="Age"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:inputType="number"
+                />
+
+            <EditText
+                android:id="@+id/userheight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/registrationbackground"
+                android:fontFamily="@font/roboto_regular"
+                android:hint="Height"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:inputType="number"
+                />
+
+            <EditText
+                android:id="@+id/userweight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/registrationbackground"
+                android:fontFamily="@font/roboto_regular"
+                android:hint="Weight"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:inputType="number"
+                />
+
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/createaccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginTop="30dp"
+                android:padding="10dp"
+                android:text="Create an Account"
+                android:fontFamily="@font/roboto_regular"
+                android:background="@drawable/btn_background"
+                />
+
+
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
