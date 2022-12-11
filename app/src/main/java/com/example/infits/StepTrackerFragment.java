@@ -64,12 +64,12 @@ public class StepTrackerFragment extends Fragment {
 
     Button setgoal;
     ImageButton imgback;
-    TextView steps_label,goal_step_count,distance,calories,speed;
+    TextView steps_label, goal_step_count, distance, calories, speed;
     ImageView reminder;
 
     SharedPreferences stepPrefs;
 
-    GaugeSeekBar  progressBar;
+    GaugeSeekBar progressBar;
 
     static float goalVal = 5000;
 
@@ -112,8 +112,8 @@ public class StepTrackerFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
             public void handleOnBackPressed() {
-                if(getArguments() != null && getArguments().getBoolean("notification") /* coming from notification */) {
-                    startActivity(new Intent(getActivity(),DashBoardMain.class));
+                if (getArguments() != null && getArguments().getBoolean("notification") /* coming from notification */) {
+                    startActivity(new Intent(getActivity(), DashBoardMain.class));
                     requireActivity().finish();
                 } else {
                     Navigation.findNavController(requireActivity(), R.id.imgback).navigate(R.id.action_stepTrackerFragment_to_dashBoardFragment);
@@ -147,7 +147,7 @@ public class StepTrackerFragment extends Fragment {
 
         stepPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
         float goal = stepPrefs.getFloat("goal", 0f);
-        int steps = (int) Math.min(stepPrefs.getInt("steps", 0), goal);
+        int steps = (int) Math.min(stepPrefs.getFloat("steps", 0), goal);
         float goalPercent = stepPrefs.getFloat("goalPercent", 0f);
 
         progressBar.setProgress(goalPercent);
@@ -186,14 +186,14 @@ public class StepTrackerFragment extends Fragment {
 //        }
 
 
-
         String url = String.format("%spastActivity.php",DataFromDatabase.ipConfig);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,url,response -> {
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
             try {
                 JSONObject jsonObject = new JSONObject(response);
                 JSONArray jsonArray = jsonObject.getJSONArray("steps");
-                for (int i = 0;i<jsonArray.length();i++){
+                for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject object = jsonArray.getJSONObject(i);
                     String data = object.getString("steps");
                     String date = object.getString("date");
@@ -202,21 +202,21 @@ public class StepTrackerFragment extends Fragment {
                     System.out.println(datas.get(i));
                     System.out.println(dates.get(i));
                 }
-                AdapterForPastActivity ad = new AdapterForPastActivity(getContext(),dates,datas, Color.parseColor("#FF9872"));
+                AdapterForPastActivity ad = new AdapterForPastActivity(getContext(), dates, datas, Color.parseColor("#FF9872"));
                 pastActivity.setLayoutManager(new LinearLayoutManager(getContext()));
                 pastActivity.setAdapter(ad);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        },error -> {
+        }, error -> {
             Toast.makeText(getActivity().getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
-            Log.d("Error",error.toString());
-        }){
+            Log.d("Error", error.toString());
+        }) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> data = new HashMap<>();
-                data.put("clientID",DataFromDatabase.clientuserID);
+                Map<String, String> data = new HashMap<>();
+                data.put("clientID", DataFromDatabase.clientuserID);
                 return data;
             }
         };
@@ -242,7 +242,7 @@ public class StepTrackerFragment extends Fragment {
                 Button save = dialog.findViewById(R.id.save_btn_steps);
 //                progressBar.setProgress(0);
 //                steps_label.setText(String.valueOf(0));
-                save.setOnClickListener(v->{
+                save.setOnClickListener(v -> {
 //                    FetchTrackerInfos.previousStep = FetchTrackerInfos.totalSteps;
                     goal_step_count.setText(goal.getText().toString());
                     progressBar.setProgress(0f);
@@ -256,14 +256,14 @@ public class StepTrackerFragment extends Fragment {
                     editor.putFloat("goalPercent", 0);
                     editor.apply();
 
-                    SharedPreferences preferences = requireActivity().getSharedPreferences("notificationDetails",MODE_PRIVATE);
+                    SharedPreferences preferences = requireActivity().getSharedPreferences("notificationDetails", MODE_PRIVATE);
                     boolean stepNotificationPermission = preferences.getBoolean("stepSwitch", false);
 
                     Intent serviceIntent = new Intent(getActivity(), MyService.class);
-                    serviceIntent.putExtra("goal",goalVal);
+                    serviceIntent.putExtra("goal", goalVal);
                     serviceIntent.putExtra("notificationPermission", stepNotificationPermission);
 
-                    if (!foregroundServiceRunning()){
+                    if (!foregroundServiceRunning()) {
                         ContextCompat.startForegroundService(requireContext(), serviceIntent);
                     }
 
@@ -293,8 +293,8 @@ public class StepTrackerFragment extends Fragment {
         imgback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(getArguments() != null && getArguments().getBoolean("notification") /* coming from notification */) {
-                    startActivity(new Intent(getActivity(),DashBoardMain.class));
+                if (getArguments() != null && getArguments().getBoolean("notification") /* coming from notification */) {
+                    startActivity(new Intent(getActivity(), DashBoardMain.class));
                     requireActivity().finish();
                 } else {
                     Navigation.findNavController(v).navigate(R.id.action_stepTrackerFragment_to_dashBoardFragment);
@@ -320,6 +320,7 @@ public class StepTrackerFragment extends Fragment {
 //        }, delay);
         return view;
     }
+
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -327,33 +328,35 @@ public class StepTrackerFragment extends Fragment {
             updateStepCard.updateStepCardData(intent);
         }
     };
-    public boolean foregroundServiceRunning(){
+
+    public boolean foregroundServiceRunning() {
         ActivityManager activityManager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : activityManager.getRunningServices(Integer.MAX_VALUE)){
-         if (MyService.class.getName().equals(service.service.getClassName())){
-             return true;
-         }
-     }
+        for (ActivityManager.RunningServiceInfo service : activityManager.getRunningServices(Integer.MAX_VALUE)) {
+            if (MyService.class.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
         return false;
     }
+
     private void updateGUI(Intent intent) {
         Log.d("gui", "entered");
         if (intent.getExtras() != null) {
-            float steps = intent.getIntExtra("steps",0);
-            Log.i("StepTracker","Countdown seconds remaining:" + steps);
+            float steps = intent.getIntExtra("steps", 0);
+            Log.i("StepTracker", "Countdown seconds remaining:" + steps);
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    goalPercent = ((steps/goalVal)*100)/100;
+                    goalPercent = ((steps / goalVal) * 100) / 100;
                     System.out.println("steps: " + steps);
                     System.out.println("goalVal: " + goalVal);
                     System.out.println("goalPercent: " + goalPercent);
                     progressBar.setProgress(goalPercent);
                     int stepText = (int) Math.min(steps, goalVal);
                     steps_label.setText(String.valueOf((int) stepText));
-                    distance.setText(String.format("%.2f",(steps/1312.33595801f)));
-                    calories.setText(String.format("%.2f",(0.04f*steps)));
+                    distance.setText(String.format("%.2f", (steps / 1312.33595801f)));
+                    calories.setText(String.format("%.2f", (0.04f * steps)));
                     Date date = new Date();
 
                     SimpleDateFormat hour = new SimpleDateFormat("HH");
@@ -362,22 +365,23 @@ public class StepTrackerFragment extends Fragment {
                     int h = Integer.parseInt(hour.format(date));
                     int m = Integer.parseInt(mins.format(date));
 
-                    int time = h+(m/60);
+                    int time = h + (m / 60);
 
-                    speed.setText(String.format("%.2f",(steps/1312.33595801f)/time));
-                    System.out.println("steps: " + 0.04f*steps);
-                    System.out.println("steps/time: " + (steps/1312.33595801f)/time);
+                    speed.setText(String.format("%.2f", (steps / 1312.33595801f) / time));
+                    System.out.println("steps: " + 0.04f * steps);
+                    System.out.println("steps/time: " + (steps / 1312.33595801f) / time);
                 }
-            },2000);
+            }, 2000);
 
 //            SharedPreferences sharedPreferences = getActivity().getSharedPreferences(getActivity().getPackageName(), Context.MODE_PRIVATE);
 //            sharedPreferences.edit().putInt("steps",steps).apply();
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();
-        getActivity().registerReceiver(broadcastReceiver,new IntentFilter("com.example.infits"));
-        Log.i("Steps","Registered broadcast receiver");
+        getActivity().registerReceiver(broadcastReceiver, new IntentFilter("com.example.infits"));
+        Log.i("Steps", "Registered broadcast receiver");
     }
 }

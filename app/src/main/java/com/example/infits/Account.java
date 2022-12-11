@@ -147,12 +147,16 @@ public class Account extends Fragment {
         ImageView email_btn=view.findViewById(R.id.email_edt_button);
         ImageView phone_btn=view.findViewById(R.id.phone_edt_button);
 
-        if(DataFromDatabase.gender.equals("M")) {
-            male.setImageResource(R.drawable.gender_male_selected);
-            female.setImageResource(R.drawable.gender_female);
-        } else {
-            male.setImageResource(R.drawable.gender_male);
-            female.setImageResource(R.drawable.gender_female_selected);
+        try{
+            if(DataFromDatabase.gender.equals("M")) {
+                male.setImageResource(R.drawable.gender_male_selected);
+                female.setImageResource(R.drawable.gender_female);
+            } else {
+                male.setImageResource(R.drawable.gender_male);
+                female.setImageResource(R.drawable.gender_female_selected);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
 
