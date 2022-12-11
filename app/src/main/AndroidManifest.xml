@@ -79,6 +79,9 @@
             android:name=".MealTracker"
             android:exported="false" />
         <activity
+            android:name=".UserDataActivity"
+            android:exported="false" />
+        <activity
             android:name=".QuestionsAfterScan"
             android:exported="false" />
         <activity

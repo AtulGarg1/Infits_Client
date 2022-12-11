@@ -44,14 +44,15 @@ public class Login extends AppCompatActivity {
     String passwordStr,usernameStr;
     String url = String.format("%slogin_client.php",DataFromDatabase.ipConfig);
     RequestQueue queue;
+    public static String referalc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.login_activity);
 
-        reg = (TextView) findViewById(R.id.reg);
-        fpass = (TextView) findViewById(R.id.fpass);
+        reg = (TextView) findViewById(R.id.signupbtn);
+        fpass = (TextView) findViewById(R.id.forgetpass);
         loginbtn = (Button) findViewById(R.id.logbtn);
 
         queue = Volley.newRequestQueue(this);
@@ -76,7 +77,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText username= findViewById(R.id.username);
-                EditText password= findViewById(R.id.password);
+                EditText password= findViewById(R.id.loginpass);
                 usernameStr = username.getText().toString();
                 passwordStr = password.getText().toString();
 
@@ -88,6 +89,7 @@ public class Login extends AppCompatActivity {
                         loginbtn.setClickable(true);
                     }else{
                         Toast.makeText(Login.this,"Login Successful",Toast.LENGTH_LONG).show();
+
                         Intent id = new Intent(Login.this, DashBoardMain.class);
                         Log.d("Response Login",response);
                         try {
@@ -110,8 +112,9 @@ public class Login extends AppCompatActivity {
                             DataFromDatabase.gender  = object.getString("gender");
                             DataFromDatabase.weight  = object.getString("weight");
                             DataFromDatabase.height  = object.getString("height");
+                            DataFromDatabase.referal  = object.getString("refer");
                             DataFromDatabase.profilePhotoBase = DataFromDatabase.profilePhoto;
-
+                            referalc=DataFromDatabase.referal;
                             System.out.println(DataFromDatabase.weight);
                             System.out.println(DataFromDatabase.height);
 
@@ -125,6 +128,7 @@ public class Login extends AppCompatActivity {
                             byte[] qrimage = Base64.decode(DataFromDatabase.profilePhoto,0);
                             DataFromDatabase.profile = BitmapFactory.decodeByteArray(qrimage,0,qrimage.length);
                             Log.d("Login Screen","client user id = "+ DataFromDatabase.clientuserID);
+                            Log.d("referal","referal id got = "+ DataFromDatabase.referal);
 
                             editor.putBoolean("hasLoggedIn", true);
                             editor.putBoolean("flag", true);
@@ -142,9 +146,11 @@ public class Login extends AppCompatActivity {
                             editor.putString("height",object.getString("height"));
                             editor.putString("profilePhotoBase",object.getString("profilePhoto"));
                             editor.putBoolean("proUser",DataFromDatabase.proUser);
+                            editor.putString("refer",object.getString("refer"));
                             editor.apply();
-
-                            finish();
+//                            Toast.makeText(Login.this,DataFromDatabase.referal,Toast.LENGTH_LONG).show();
+//                            System.out.println(DataFromDatabase.referal);
+//                            finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -171,6 +177,7 @@ public class Login extends AppCompatActivity {
 
     private void putDataInPreferences(SharedPreferences.Editor editor) {
         editor.putBoolean("hasLoggedIn", true);
+        editor.putString("refer",DataFromDatabase.referal);
 
     }
 }

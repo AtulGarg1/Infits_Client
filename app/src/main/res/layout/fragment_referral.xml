@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#76A5FF"
-    tools:context=".ReferralFragment">
+    tools:context=".ReferralFragment"
+    >
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -47,7 +48,7 @@
     <ImageView
         android:id="@+id/image"
         android:layout_width="345dp"
-        android:layout_height="325dp"
+        android:layout_height="300dp"
         android:layout_marginTop="25dp"
         android:src="@drawable/refer_bg_img"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,28 +58,29 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
         android:background="@drawable/reminder_bottom_sheet"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image">
+        app:layout_constraintTop_toBottomOf="@+id/image"
+        android:weightSum="5"
+        >
 
         <ImageView
             android:layout_width="41dp"
             android:layout_height="5dp"
-            android:layout_marginTop="10dp"
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:src="@drawable/referral_bottom_sheet_decor" />
 
         <TextView
+            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/nats_regular"
             android:lineHeight="20dp"
             android:text="@string/referral_text"
@@ -87,9 +89,10 @@
             android:textStyle="bold" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_weight="1"
             android:layout_width="310dp"
-            android:layout_height="50dp"
-            android:layout_margin="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:background="@drawable/btnrefer"
             android:backgroundTint="#B3CEEC"
             android:orientation="horizontal">
@@ -101,8 +104,8 @@
                 android:layout_gravity="center_vertical"
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/nats_regular"
-                android:text=""
                 android:paddingStart="20dp"
+                android:text=""
                 android:textColor="#0051AB"
                 android:textColorHint="#0051AB"
                 android:textSize="20sp" />
@@ -114,17 +117,17 @@
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginStart="-20dp"
                 android:layout_marginEnd="10dp"
-                android:src="@drawable/copy_vector"
+                android:background="@android:color/transparent"
                 android:scaleType="centerCrop"
-                android:background="@android:color/transparent"/>
+                android:src="@drawable/copy_vector" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:layout_weight="1"
             android:id="@+id/share"
             android:layout_width="310dp"
-            android:layout_height="38dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
             android:background="@drawable/btnrefer"
             android:backgroundTint="#0051AB"
             android:fontFamily="@font/nats_regular"
@@ -132,18 +135,19 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="20sp" />
+
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/got_referred"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:textSize="15sp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/nats_regular"
+            android:text="Got referred?"
+            android:textColor="#0051AB" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <Button
-        android:id="@+id/got_referred"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Got referred?"
-        android:fontFamily="@font/nats_regular"
-        android:textColor="#0051AB"
-        android:background="@android:color/transparent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="2dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

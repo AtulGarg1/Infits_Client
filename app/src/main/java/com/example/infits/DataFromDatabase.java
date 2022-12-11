@@ -22,13 +22,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DataFromDatabase {
-    public static String ipConfig = "http://192.168.251.10/infits/";
+    public static String ipConfig = "http://192.168.12.112/infits/";
     public static boolean flag= false;
     public static String profilePhoto="default.jpg";
     public static String dietitianuserID,clientuserID,password,name,email,mobile,location,age,gender,weight,height;
     public static Bitmap profile;
     public static Bitmap dtPhoto;
     public static String profilePhotoBase;
+    public static String referal;
     public static String macAddress;
     public static boolean proUser = false;
 

@@ -185,6 +185,8 @@ public class StepTrackerFragment extends Fragment {
 //            }
 //        }
 
+
+
         String url = String.format("%spastActivity.php",DataFromDatabase.ipConfig);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,url,response -> {
